@@ -1,0 +1,47 @@
+<div class="modal fade" id="modalAddGrupoDato" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-simple modal-edit-user">
+        <div class="modal-content p-3 p-md-5">
+            <div class="modal-body">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="text-center mb-4">
+                    <h3>Agregar Grupo Dato</h3>
+                </div>
+                <form id="AddGrupoDato" class="row g-3" method="post">
+                    <div class="col-12 col-md-4">
+                        <label class="form-label" for="DGDTLLE">Descripción <span class="text-danger">*</span></label>
+                        <input type="text" id="DGDTLLE" name="DGDTLLE" class="form-control max-length" data-maxlength="50" />
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <label class="form-label" for="GDTPO">Tipo <span class="text-danger">*</span></label>
+                        <select id="GDTPO" name="GDTPO" class="select2 form-select" data-allow-clear="true">
+                        </select>
+                    </div>
+                    
+                    <div class="col-12 col-md-4">
+                        <label class="form-label" for="DTLLE">Abrev. <span class="text-danger">*</span></label>
+                        <input type="text" id="DTLLE" name="DTLLE" class="form-control max-length" data-maxlength="200" />
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <label class="form-label" for="VLR1">Valor 1 <span class="text-danger">*</span></label>
+                        <input type="text" id="VLR1" name="VLR1" class="form-control max-length" data-maxlength="50" />
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <label class="form-label" for="VLR2">Valor 2 </label>
+                        <input type="text" id="VLR2" name="VLR2" class="form-control max-length" data-maxlength="50" />
+                    </div>
+
+                    <div class="col-12 text-center mt-4">
+                        <button id="btnAddGrupoDato" class="btn btn-primary me-sm-3 me-1">Agregar</button>
+                        <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                    </div>
+
+                    @await Html.PartialAsync("../../../_Partials/_Auditoria.cshtml")
+                     
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

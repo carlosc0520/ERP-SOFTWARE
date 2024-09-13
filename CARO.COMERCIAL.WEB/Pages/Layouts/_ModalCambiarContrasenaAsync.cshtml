@@ -1,0 +1,51 @@
+<div class="modal fade" id="ModalCambiarContrasenaAsync" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-simple modal-edit-user">
+        <div class="modal-content p-3 p-md-5">
+            <div class="modal-body">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="text-center mb-4">
+                    <h3>Cambiar Contraseña</h3>
+                </div>
+                <form id="CambiarContrasenaAsync" class="row g-3" autocomplete="off">
+                    <div class="col-12">
+                        <label class="form-label" for="USUARIO">Usuario</label>
+                        <input type="text" id="USUARIO" name="USUARIO" class="form-control" required disabled> 
+                    </div>
+
+                    <div class="col-12 form-password-toggle">
+                        <label class="form-label" for="CONTRASENA">Contraseña</label>
+                        <div class="input-group input-group-merge bord">
+                            <input type="password" id="CONTRASENA" name="CONTRASENA" class="form-control" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="CLVE1">
+                            <span class="input-group-text cursor-pointer" id="CLVE1"><i class="bx bx-hide"></i></span>
+                        </div>
+                    </div>
+
+                    <div class="col-12 form-password-toggle">
+                        <label class="form-label" for="NUEVACONTRASENA">Nueva Contraseña</label>
+                        <div class="input-group input-group-merge">
+                            <input type="password" id="NUEVACONTRASENA" name="NUEVACONTRASENA" class="form-control" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" 
+                            aria-describedby="CLVE2">
+                            <span class="input-group-text cursor-pointer" id="CLVE2"><i class="bx bx-hide
+                            "></i></span>
+                        </div>
+                    </div>
+
+                    <div class="col-12 form-password-toggle">
+                        <label class="form-label" for="CONFIRMARCONTRASENA">Confirmar Contraseña</label>
+                        <div class="input-group input-group-merge">
+                            <input type="password" id="CONFIRMARCONTRASENA" name="CONFIRMARCONTRASENA" class="form-control" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" 
+                            aria-describedby="CLVE3">
+                            <span class="input-group-text cursor-pointer" id="CLVE3"><i class="bx bx-hide"></i></span>
+                        </div>
+                    </div>
+
+                    
+                    <div class="col-12 text-center mt-4">
+                        <button type="button" id="BTNSAVE" class="btn btn-primary me-sm-3 me-1">Guardar</button>
+                        <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

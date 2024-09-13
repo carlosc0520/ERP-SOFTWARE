@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="Prueba\**" />
+		<EmbeddedResource Remove="Prueba\**" />
+		<None Remove="Prueba\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\CARO.DATOS.MODELO\CARO.DATOS.MODELO.csproj" />
+		<ProjectReference Include="..\CARO.DATABASE\CARO.DATABASE.csproj" />
+		<ProjectReference Include="..\CARO.CORE\CARO.CORE.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="MediatR" Version="9.0.0" />
+		<PackageReference Include="Dapper" Version="2.1.35" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="SEG\GRUPODATO\" />
+	  <Folder Include="SEG\MARCAS\" />
+	</ItemGroup>
+	
+</Project>

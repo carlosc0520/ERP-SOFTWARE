@@ -1,0 +1,17 @@
+C:\Users\User\Documents\CARO.ERP\CARO_DATABASE\bin\Debug\net8.0\CARO_DATABASE.deps.json
+C:\Users\User\Documents\CARO.ERP\CARO_DATABASE\bin\Debug\net8.0\CARO_DATABASE.dll
+C:\Users\User\Documents\CARO.ERP\CARO_DATABASE\bin\Debug\net8.0\CARO_DATABASE.pdb
+C:\Users\User\Documents\CARO.ERP\CARO_DATABASE\bin\Debug\net8.0\CARO.CONFIG.dll
+C:\Users\User\Documents\CARO.ERP\CARO_DATABASE\bin\Debug\net8.0\CARO.CORE.dll
+C:\Users\User\Documents\CARO.ERP\CARO_DATABASE\bin\Debug\net8.0\CARO.CORE.pdb
+C:\Users\User\Documents\CARO.ERP\CARO_DATABASE\bin\Debug\net8.0\CARO.CONFIG.pdb
+C:\Users\User\Documents\CARO.ERP\CARO_DATABASE\obj\Debug\net8.0\CARO_DATABASE.csproj.AssemblyReference.cache
+C:\Users\User\Documents\CARO.ERP\CARO_DATABASE\obj\Debug\net8.0\CARO_DATABASE.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Documents\CARO.ERP\CARO_DATABASE\obj\Debug\net8.0\CARO_DATABASE.AssemblyInfoInputs.cache
+C:\Users\User\Documents\CARO.ERP\CARO_DATABASE\obj\Debug\net8.0\CARO_DATABASE.AssemblyInfo.cs
+C:\Users\User\Documents\CARO.ERP\CARO_DATABASE\obj\Debug\net8.0\CARO_DATABASE.csproj.CoreCompileInputs.cache
+C:\Users\User\Documents\CARO.ERP\CARO_DATABASE\obj\Debug\net8.0\CARO_DAT.A7AD4CD0.Up2Date
+C:\Users\User\Documents\CARO.ERP\CARO_DATABASE\obj\Debug\net8.0\CARO_DATABASE.dll
+C:\Users\User\Documents\CARO.ERP\CARO_DATABASE\obj\Debug\net8.0\refint\CARO_DATABASE.dll
+C:\Users\User\Documents\CARO.ERP\CARO_DATABASE\obj\Debug\net8.0\CARO_DATABASE.pdb
+C:\Users\User\Documents\CARO.ERP\CARO_DATABASE\obj\Debug\net8.0\ref\CARO_DATABASE.dll

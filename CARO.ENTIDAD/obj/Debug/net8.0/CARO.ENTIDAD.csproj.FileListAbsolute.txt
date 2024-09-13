@@ -1,0 +1,11 @@
+C:\Users\User\Documents\CARO.ERP\CARO.ENTIDAD\bin\Debug\net8.0\CARO.ENTIDAD.deps.json
+C:\Users\User\Documents\CARO.ERP\CARO.ENTIDAD\bin\Debug\net8.0\CARO.ENTIDAD.dll
+C:\Users\User\Documents\CARO.ERP\CARO.ENTIDAD\bin\Debug\net8.0\CARO.ENTIDAD.pdb
+C:\Users\User\Documents\CARO.ERP\CARO.ENTIDAD\obj\Debug\net8.0\CARO.ENTIDAD.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Documents\CARO.ERP\CARO.ENTIDAD\obj\Debug\net8.0\CARO.ENTIDAD.AssemblyInfoInputs.cache
+C:\Users\User\Documents\CARO.ERP\CARO.ENTIDAD\obj\Debug\net8.0\CARO.ENTIDAD.AssemblyInfo.cs
+C:\Users\User\Documents\CARO.ERP\CARO.ENTIDAD\obj\Debug\net8.0\CARO.ENTIDAD.csproj.CoreCompileInputs.cache
+C:\Users\User\Documents\CARO.ERP\CARO.ENTIDAD\obj\Debug\net8.0\CARO.ENTIDAD.dll
+C:\Users\User\Documents\CARO.ERP\CARO.ENTIDAD\obj\Debug\net8.0\refint\CARO.ENTIDAD.dll
+C:\Users\User\Documents\CARO.ERP\CARO.ENTIDAD\obj\Debug\net8.0\CARO.ENTIDAD.pdb
+C:\Users\User\Documents\CARO.ERP\CARO.ENTIDAD\obj\Debug\net8.0\ref\CARO.ENTIDAD.dll

@@ -1,0 +1,96 @@
+@page
+@model CARO.AUTENTICACION.WEB.Pages.Mantenimientos.Vistas.IndexModel
+@{
+    ViewData["Title"] = "Vistas";
+}
+
+
+@section VendorStyles {
+    <link rel="stylesheet" href="~/vendor/libs/datatables-bs5/datatables.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/umd/styles/index.min.css" />
+    <link rel="stylesheet" href="~/vendor/libs/flatpickr/flatpickr.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/dropzone/dropzone.dist.css" />
+}
+
+@section VendorScripts {
+    <script src="~/vendor/libs/block-ui/block-ui.dist.js"></script>
+    <script src="~/vendor/libs/datatables-bs5/datatables-bootstrap5.dist.js"></script>
+    <script src="~/vendor/libs/cleavejs/cleave.dist.js"></script>
+    <script src="~/vendor/libs/cleavejs/cleave-phone.dist.js"></script>
+    <script src="~/vendor/libs/flatpickr/flatpickr.dist.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/bundle/popular.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-bootstrap5/index.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
+    <script src="~/vendor/libs/dropzone/dropzone.dist.js"></script>
+}
+
+@section PageScripts {
+    <script src="~/app/Mantenimientos/Modulos/index.js"></script>
+}
+
+
+@* ************** Content ************** *@
+<h4 class="py-3 breadcrumb-wrapper mb-4">
+    <span class="text-muted fw-light">Modulos /</span> Listado
+</h4>
+
+
+<div class="col-12">
+    <div class="nav-align-top mb-4">
+        <ul class="nav nav-tabs nav-fill" role="tablist">
+            <li class="nav-item">
+                <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
+                        data-bs-target="#navs-modulos" aria-controls="navs-modulos" aria-selected="false">
+                    <i class="tf-icons bx bx-user me-1"></i> Modulos
+                </button>
+            </li>
+            <li class="nav-item">
+                <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+                        data-bs-target="#navs-submodulos" disabled="true" aria-controls="navs-submodulos" aria-selected="false">
+                    <i class="tf-icons bx bx-plus me-1"></i> Sub Modulos
+                </button>
+            </li>
+            <li class="nav-item">
+                <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+                        data-bs-target="#navs-submodulodet" disabled="true" aria-controls="navs-submodulodet" aria-selected="false">
+                    <i class="tf-icons bx bx-plus me-1"></i> Sub Modulos - Detalle
+                </button>
+            </li>
+        </ul>
+        <div class="tab-content p-0">
+            <div class="tab-pane fade show active" id="navs-modulos" role="tabpanel">
+                <div class="table-responsive pb-0">
+                    <table id="modulosTable" class="mx-1 table border-top">
+                    </table>
+                </div>
+            </div>
+            <div class="p-2 tab-pane fade" id="navs-submodulos" role="tabpanel">
+                <div class="table-responsive pb-0">
+                    <div id="submodulosTable_title" class="card-header pb-2"></div>
+                    <table id="submodulosTable" class="mx-1 table border-top">
+                    </table>
+                </div>
+            </div>
+            <div class="p-2 tab-pane fade" id="navs-submodulodet" role="tabpanel">
+                <div class="table-responsive pb-0">
+                    <div id="detsubmodulosTable_title" class="card-header pb-2"></div>
+                    <table id="detsubmodulosTable" class="mx-1 table border-top">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@await Html.PartialAsync("./_Partials/_ModalAgregarDetSubModulo")
+@await Html.PartialAsync("./_Partials/_ModalAgregarModulo")
+@await Html.PartialAsync("./_Partials/_ModalAgregarSubModulo")
+@await Html.PartialAsync("./_Partials/_ModalEditarDetSubModulo")
+@await Html.PartialAsync("./_Partials/_ModalAgregarModulo")
+@await Html.PartialAsync("./_Partials/_ModalEditarModulo")
+@await Html.PartialAsync("./_Partials/_ModalEditarSubModulo")
+
+

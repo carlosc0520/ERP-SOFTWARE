@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\CARO.CORE\CARO.CORE.csproj" />
+		<ProjectReference Include="..\CARO.DATABASE\CARO.DATABASE.csproj" />
+		<ProjectReference Include="..\CARO.DATOS.MODELO\CARO.DATOS.MODELO.csproj" />
+	</ItemGroup>
+
+</Project>

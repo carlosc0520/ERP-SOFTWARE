@@ -1,0 +1,15 @@
+C:\Users\User\Documents\CARO.ERP\CARO.CORE\bin\Release\net8.0\CARO.CORE.deps.json
+C:\Users\User\Documents\CARO.ERP\CARO.CORE\bin\Release\net8.0\CARO.CORE.dll
+C:\Users\User\Documents\CARO.ERP\CARO.CORE\bin\Release\net8.0\CARO.CORE.pdb
+C:\Users\User\Documents\CARO.ERP\CARO.CORE\bin\Release\net8.0\CARO.CONFIG.dll
+C:\Users\User\Documents\CARO.ERP\CARO.CORE\bin\Release\net8.0\CARO.CONFIG.pdb
+C:\Users\User\Documents\CARO.ERP\CARO.CORE\obj\Release\net8.0\CARO.CORE.csproj.AssemblyReference.cache
+C:\Users\User\Documents\CARO.ERP\CARO.CORE\obj\Release\net8.0\CARO.CORE.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Documents\CARO.ERP\CARO.CORE\obj\Release\net8.0\CARO.CORE.AssemblyInfoInputs.cache
+C:\Users\User\Documents\CARO.ERP\CARO.CORE\obj\Release\net8.0\CARO.CORE.AssemblyInfo.cs
+C:\Users\User\Documents\CARO.ERP\CARO.CORE\obj\Release\net8.0\CARO.CORE.csproj.CoreCompileInputs.cache
+C:\Users\User\Documents\CARO.ERP\CARO.CORE\obj\Release\net8.0\CARO.CORE.csproj.Up2Date
+C:\Users\User\Documents\CARO.ERP\CARO.CORE\obj\Release\net8.0\CARO.CORE.dll
+C:\Users\User\Documents\CARO.ERP\CARO.CORE\obj\Release\net8.0\refint\CARO.CORE.dll
+C:\Users\User\Documents\CARO.ERP\CARO.CORE\obj\Release\net8.0\CARO.CORE.pdb
+C:\Users\User\Documents\CARO.ERP\CARO.CORE\obj\Release\net8.0\ref\CARO.CORE.dll

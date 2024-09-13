@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121.
+-->
+<Project>
+  <PropertyGroup>
+    <_PublishTargetUrl>C:\Users\User\Documents\CARO-ERP-RELEASE</_PublishTargetUrl>
+    <History>True|2024-09-11T19:24:27.4144307Z;True|2024-09-03T16:29:39.1211010-05:00;True|2024-09-03T16:17:11.3549317-05:00;True|2024-09-03T15:58:38.4963560-05:00;False|2024-09-03T15:58:18.7471401-05:00;True|2024-09-02T12:51:11.9984183-05:00;True|2024-09-02T12:10:08.7194245-05:00;</History>
+    <LastFailureDetails />
+  </PropertyGroup>
+</Project>

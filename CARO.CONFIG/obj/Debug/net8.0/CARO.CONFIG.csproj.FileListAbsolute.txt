@@ -1,0 +1,11 @@
+C:\Users\User\Documents\CARO.ERP\CARO.CONFIG\bin\Debug\net8.0\CARO.CONFIG.deps.json
+C:\Users\User\Documents\CARO.ERP\CARO.CONFIG\bin\Debug\net8.0\CARO.CONFIG.dll
+C:\Users\User\Documents\CARO.ERP\CARO.CONFIG\bin\Debug\net8.0\CARO.CONFIG.pdb
+C:\Users\User\Documents\CARO.ERP\CARO.CONFIG\obj\Debug\net8.0\CARO.CONFIG.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Documents\CARO.ERP\CARO.CONFIG\obj\Debug\net8.0\CARO.CONFIG.AssemblyInfoInputs.cache
+C:\Users\User\Documents\CARO.ERP\CARO.CONFIG\obj\Debug\net8.0\CARO.CONFIG.AssemblyInfo.cs
+C:\Users\User\Documents\CARO.ERP\CARO.CONFIG\obj\Debug\net8.0\CARO.CONFIG.csproj.CoreCompileInputs.cache
+C:\Users\User\Documents\CARO.ERP\CARO.CONFIG\obj\Debug\net8.0\CARO.CONFIG.dll
+C:\Users\User\Documents\CARO.ERP\CARO.CONFIG\obj\Debug\net8.0\refint\CARO.CONFIG.dll
+C:\Users\User\Documents\CARO.ERP\CARO.CONFIG\obj\Debug\net8.0\CARO.CONFIG.pdb
+C:\Users\User\Documents\CARO.ERP\CARO.CONFIG\obj\Debug\net8.0\ref\CARO.CONFIG.dll

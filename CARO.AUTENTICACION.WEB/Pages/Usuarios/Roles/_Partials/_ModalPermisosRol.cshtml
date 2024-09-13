@@ -1,0 +1,41 @@
+<div class="modal fade" id="modalAddPermisos" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-simple modal-edit-user">
+        <div class="modal-content p-1 p-md-5">
+            <div class="modal-body">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <ul class="nav nav-tabs nav-fill" role="tablist">
+                    <li class="nav-item"> 
+                        <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
+                                data-bs-target="#navs-permisos" aria-controls="navs-permisos" aria-selected="false">
+                            <i class="tf-icons bx bx-user me-1"></i> Vistas
+                        </button>
+                    </li>  
+                    <li class="nav-item">
+                        <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+                               disabled="true" data-bs-target="#navs-permisos-vista" aria-controls="navs-permisos-vista" aria-selected="false">
+                            <i class="tf-icons bx bx-plus me-1"></i> Permisos
+                        </button>
+                    </li>  
+                </ul>   
+                <div class="tab-content p-0"> 
+                    <div class="tab-pane fade show active" id="navs-permisos" role="tabpanel">
+                        <div class="table-responsive pb-0">
+                            <h3 id="title_permiso_rol"></h3>
+                            <table id="permisosRolTable" class="datatables-users table border-top">
+                            </table>
+                        </div>
+                    </div> 
+
+                    <div class="p-2 tab-pane fade" id="navs-permisos-vista" role="tabpanel">
+                        <div class="table-responsive pb-0">
+                            <h3 id="title_permisosItemsRol"></h3>
+                            <table id="permisosItemsRolTable" class="datatables-users table border-top">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                @await Html.PartialAsync("../../../_Partials/_Auditoria.cshtml")
+            </div>
+        </div>
+    </div>
+</div> 

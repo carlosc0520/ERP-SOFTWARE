@@ -1,0 +1,127 @@
+@page
+@model CARO.AUTENTICACION.WEB.Pages.Comercial.Plantillas.checklistPlantilla.IndexModel
+@{
+    ViewData["Title"] = "PLANTILLA CHECK LIST";
+}
+
+@section VendorStyles {
+    <link rel="stylesheet" href="~/vendor/libs/datatables-bs5/datatables.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/umd/styles/index.min.css" />
+    <link rel="stylesheet" href="~/vendor/libs/flatpickr/flatpickr.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/dropzone/dropzone.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/bs-stepper/bs-stepper.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/tagify/tagify.dist.css" />
+}
+
+@section VendorScripts {
+    <script src="~/vendor/libs/moment/moment.dist.js"></script>
+    <script src="~/vendor/libs/datatables-bs5/datatables-bootstrap5.dist.js"></script>
+    <script src="~/vendor/libs/cleavejs/cleave.dist.js"></script>
+    <script src="~/vendor/libs/cleavejs/cleave-phone.dist.js"></script>
+    <script src="~/vendor/libs/flatpickr/flatpickr.dist.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/bundle/popular.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-bootstrap5/index.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
+    <script src="~/vendor/libs/bs-stepper/bs-stepper.dist.js"></script>
+    <script src="~/vendor/libs/dropzone/dropzone.dist.js"></script>
+    <script src="~/vendor/libs/tagify/tagify.dist.js"></script>
+    <script src="~/vendor/libs/jquery-repeater/jquery-repeater.dist.js"></script>
+}
+
+@section PageScripts {
+    <script src="~/app/Comercial/Plantillas/checklistPlantilla/index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js" integrity="sha512-2/YdOMV+YNpanLCF5MdQwaoFRVbTmrJ4u4EpqS/USXAQNUDgI5uwYi6J98WVtJKcfe1AbgerygzDFToxAlOGEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+}
+
+
+<div class="row">
+    <div class="col-12">
+        <h5>Plantilla CheckList</h5>
+    </div>
+    <!-- Media -->
+    <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0 card-title">Logo PDF</h5>
+        </div>
+        <div class="card-body">
+            <form action="/upload" class="dropzone needsclick" id="dropzone-basic">
+                <div class="dz-message needsclick my-5">
+                    <p class="fs-4 note needsclick my-2">
+                        Arrastra y suelta los archivos aquí o haz clic para subir.
+                    </p>
+                    <small class="text-muted d-block fs-6 my-2">o</small>
+                    <span class="note needsclick btn bg-label-primary d-inline" id="btnBrowse">
+                        Seleccionar imágen
+                    </span>
+                </div>
+                <div class="fallback">
+                    <input name="file" type="file" />
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- /Media -->
+    
+    <!-- Variants -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <form class="form-repeater">
+                <div class="col-12 mb-3">
+                    <label class="form-label" for="NDOC">Nombre Doc. <span class="text-danger">*</span></label>
+                    <input type="text" id="NDOC" name="NDOC" class="form-control noMayus" placeholder="" />
+                </div>
+
+                <div class="col-12 mb-3">
+                    <label class="form-label" for="TITLE">Titulo <span class="text-danger">*</span></label>
+                    <input type="text" id="TITLE" name="TITLE" class="form-control noMayus" placeholder="" />
+                </div>
+
+                <div class="col-12 mb-3">
+                    <label class="form-label" for="LINK">Enlace Link <span class="text-danger">*</span></label>
+                    <input type="text" id="LINK" name="LINK" class="form-control noMayus" placeholder="" />
+                </div>
+
+
+                <div class="col-12 mb-3">
+                    <h5 class="card-title mb-0">Items</h5>
+                </div>
+
+                <div data-repeater-list="group-a">
+                    <div data-repeater-item>
+                        <div class="row">
+
+                            <div class="mb-3 col-9">
+                                <label class="form-label" for="form-repeater-1-2">Item</label>
+                                <input type="text" id="form-repeater-1-2" data="form-control-repeater" class="form-control noMayus" placeholder="Ingrese texto" />
+                            </div>
+
+                            <div class="mb-3 col-3">
+                                <label class="form-label d-none d-sm-block">&nbsp;</label>
+                                <button class="btn btn-danger" data-repeater-delete>
+                                    <i class="bi-trash"></i>
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button class="btn btn-primary" data-repeater-create>
+                        Agregar Item
+                    </button>
+                    <button class="btn btn-secondary" id="generate-pdf">
+                        Generar  PDF
+                    </button>
+                    <button class="btn btn-danger" id="clear">
+                        Limpiar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- /Variants -->
+
+</div>

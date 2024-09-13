@@ -1,0 +1,131 @@
+@{
+    TempData.Keep();
+    string? currentPage = Convert.ToString(ViewContext.RouteData.Values["Page"])!;
+}
+
+<!-- Menu -->
+@* ! Do this simple *@
+<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+
+    @* ! Hide app brand if navbar-full *@
+    <div class='app-brand demo @((@ViewData["navbarFull"] != null && Convert.ToBoolean(@ViewData["navbarFull"])) ? "d-xl-none" : "")'>
+        <a asp-page="/Inicio/Home" class="app-brand-link">
+            @* <span class="app-brand-logo demo">
+            @await Html.PartialAsync("../_Partials/_Macros")
+            </span> *@
+            <span class="app-brand-logo demo">
+            <img src="~/img/favicon/logo.png" width="30" />
+            </span>
+            @* <span class="app-brand-text demo h3 mb-0 fw-bold">   @TempData.Peek("appName")</span> *@
+            <span class="app-brand-text demo h3 mb-0 fw-bold">   CCFIRMA</span>
+
+        </a>
+
+        <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
+            <i class="bx menu-toggle-icon d-none d-xl-block fs-4 align-middle"></i>
+            <i class="bx bx-x d-block d-xl-none bx-sm align-middle"></i>
+        </a>
+    </div>
+
+    @* ! Hide menu divider if navbar-full *@
+    <div class='menu-divider mt-0 @((@ViewData["navbarFull"] != null && Convert.ToBoolean(@ViewData["navbarFull"])) ? "" : "")'>
+    </div>
+
+    <div class="menu-inner-shadow"></div>
+
+    @* ! Starter Kit menu-items *@
+    <ul class="menu-inner py-1">
+    
+    </ul>
+
+</aside>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const generarMenu = (usuario, menu) => {
+            const drow_user = document.getElementById("drow-usuario");
+            const drow_role = document.getElementById("drow-rol");
+
+            drow_user.innerHTML = usuario?.uedcn;
+            drow_role.innerHTML = usuario?.desc;
+            
+            const menuContainer = document.querySelector('.menu-inner')
+            const homeItem = document.createElement('li');
+            homeItem.classList.add('menu-item'); 
+            homeItem.innerHTML = `
+            <a href="/Inicio" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <div data-i18n="Home">Home</div>
+            </a>
+            `;
+            menuContainer.appendChild(homeItem);
+
+            const parentItems = {};
+
+            menu.forEach(item => {
+                    let submodulos = JSON.parse(item?.submodulo) || [];
+                    const parentItem = document.createElement('li');
+                    parentItem.classList.add('menu-item');
+                    parentItem.dataset.idobjto = item.id;
+                    parentItem.innerHTML = `
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                                <i class="menu-icon tf-icons ${item.icono}"></i>
+                                <div>${item.dscrpcn}</div>
+                            <div class="badge bg-primary rounded-pill ms-auto">
+                            ${submodulos.length}
+                            </div>
+                        </a>
+                        <ul class="menu-sub"></ul>
+                    `;
+                    
+                    menuContainer.appendChild(parentItem);
+                    parentItems[item.id] = parentItem.querySelector('.menu-sub');
+
+                    submodulos.forEach(submodulo => {
+                        const childItem = document.createElement('li');
+                        childItem.classList.add('menu-item');
+                        childItem.dataset.ID = submodulo.ID;
+                        childItem.innerHTML = `
+                            <a href="${submodulo.URL}" class="menu-link">
+                                <div>${submodulo.DSCRPCN}</div>
+                            </a>
+                        `;
+                        parentItems[item.id].appendChild(childItem);
+                    });
+            });
+        }
+
+        if (localStorage.getItem("menu")) {
+            const menu = JSON.parse(localStorage.getItem("menu"));
+            const usuario = JSON.parse(localStorage.getItem("usuario"));
+            generarMenu(usuario, menu);
+        } else {
+            let token = localStorage.getItem("accessToken");
+            fetch("/Layouts/Sections/Menu/Menu?handler=Obtener", {
+                method: "GET",
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Content-Type": "application/json"
+                }
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Ocurrio un error en la consulta:', response.status);
+                    }
+                    return response.json();
+                })
+                .then(res => {
+                    if (res.data) {
+                        localStorage.setItem("menu", JSON.stringify(res.data));
+                        localStorage.setItem("usuario", JSON.stringify(res.usuario));
+                        generarMenu(res.usuario, res.data);
+                    }
+                })
+                .catch(error => {
+                    throw new Error('Ocurrio un error en la consulta:', error);
+                });
+        }
+    });
+</script>
+<!-- / Menu -->

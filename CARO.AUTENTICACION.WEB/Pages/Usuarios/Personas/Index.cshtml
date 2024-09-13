@@ -1,0 +1,96 @@
+@page
+@model CARO.AUTENTICACION.WEB.Pages.Usuarios.Personas.IndexModel
+@{
+    ViewData["Title"] = "Personas";
+}
+
+@section VendorStyles {
+    <link rel="stylesheet" href="~/vendor/libs/datatables-bs5/datatables.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/umd/styles/index.min.css" />
+    <link rel="stylesheet" href="~/vendor/libs/dropzone/dropzone.dist.css">
+}
+ 
+@section VendorScripts {
+    <script src="~/vendor/libs/datatables-bs5/datatables-bootstrap5.dist.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/bundle/popular.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-bootstrap5/index.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
+    <script src="~/vendor/libs/dropzone/dropzone.dist.js"></script>
+} 
+
+@section PageScripts {
+    <script src="~/app/Usuarios/Personas/index.js"></script>
+}
+
+@* ************** Content ************** *@
+<h4 class="py-3 breadcrumb-wrapper mb-4">
+    <span class="text-muted fw-light">Personas /</span> Listado
+</h4>
+
+<!-- Role cards --> 
+<div class="row g-4">
+    <div class="col-xl-4 col-lg-6 col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="d-flex justify-content-between mb-2">
+                    <h6 id="total_usuarios" class="fw-normal">....</h6>
+                    <ul class="list-unstyled d-flex align-items-center avatar-group mb-0">
+                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="" class="avatar avatar-sm pull-up">
+                            <img class="rounded-circle" src="~/img/avatars/10.png" alt="Avatar">
+                        </li>
+                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="" class="avatar avatar-sm pull-up">
+                            <img class="rounded-circle" src="~/img/avatars/13.png" alt="Avatar">
+                        </li>
+                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="" class="avatar avatar-sm pull-up">
+                            <img class="rounded-circle" src="~/img/avatars/15.png" alt="Avatar">
+                        </li>
+                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="" class="avatar avatar-sm pull-up">
+                            <img class="rounded-circle" src="~/img/avatars/8.png" alt="Avatar">
+                        </li>
+                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="" class="avatar avatar-sm pull-up">
+                            <img class="rounded-circle" src="~/img/avatars/9.png" alt="Avatar">
+                        </li>
+                    </ul>
+                </div>
+                <div class="d-flex justify-content-between align-items-end">
+                    <div class="role-heading">
+                        <h4 class="mb-1">Usuarios Registrados</h4>
+                    </div>
+                    <a href="javascript:void(0);" class="text-muted"><i class="bx bx-copy"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-6 col-md-6">
+        <div class="card h-100">
+            <div class="row h-100">
+                <div class="col-sm-5">
+                    <div class="d-flex align-items-end h-100 justify-content-center mt-sm-0 mt-3">
+                        <img src="~/img/illustrations/lady-with-laptop-light.png" class="img-fluid" alt="Image" width="100" data-app-light-img="illustrations/lady-with-laptop-light.png" data-app-dark-img="illustrations/lady-with-laptop-dark.png">
+                    </div>
+                </div>
+                <div class="col-sm-7">
+                    <div class="card-body text-sm-end text-center ps-sm-0">
+                        <p class="mb-2">Al agregar una persona, estas generando un usuario</p>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+    <div class="col-12">
+        <!-- Role Table -->
+        <div class="card">
+            <div class="card-datatable table-responsive">
+                <table id="personasTable" class="datatables-users table border-top">
+                </table>
+            </div>
+        </div>
+        <!--/ Role Table -->
+    </div>
+</div>
+<!--/ Role cards -->
+
+
+@await Html.PartialAsync("./_Partials/_ModalAgregarPersona")
+@await Html.PartialAsync("./_Partials/_ModalEditarPersona") 

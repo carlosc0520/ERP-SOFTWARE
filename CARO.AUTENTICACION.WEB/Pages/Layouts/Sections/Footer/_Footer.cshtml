@@ -1,0 +1,21 @@
+@{
+  TempData.Keep();
+  ViewData["containerNav"] = (ViewData["containerNav"] ??= "container-fluid");
+}
+
+<footer class="content-footer footer bg-footer-theme">
+  <div class='@ViewData["containerNav"] d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column'>
+    <div class="mb-2 mb-md-0">
+            <img src="~/img/favicon/logo.png" width="100" data-app-light-img="favicon/logo.png" data-app-dark-img="favicon/logo.png">
+            
+            
+    </div>
+    <div>
+     @*  <a href='@TempData.Peek("documentation")' target="_blank" class="footer-link">Documentation</a> *@
+            <div>
+                © <script>document.write(new Date().getFullYear())</script>, Consultores <a href='@TempData.Peek("EmpresaUrl")' target="_blank" class="footer-link fw-medium">@TempData.Peek("Empresa")</a>
+                <img src="~/img/favicon/logo.png" width="25">
+            </div>
+    </div>
+  </div>
+</footer>

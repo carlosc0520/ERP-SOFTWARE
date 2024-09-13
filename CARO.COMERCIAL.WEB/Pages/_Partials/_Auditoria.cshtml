@@ -1,0 +1,45 @@
+<div class="col-12">
+    <div class="py-1 pl-4 text-xs font-normal d-inline-block rounded-pill rounded-md w-36 cursor-pointer">
+        <button id="container-auditoria"
+                type="button"
+                class="rounded-pill bg-success text-white px-2 py-1 border-0"
+                data-bs-toggle="collapse"
+                data-bs-target="#auditoria-collapse"
+                aria-expanded="false" aria-controls="auditoria-collapse">
+            + Mostrar Auditoria 
+        </button>
+    </div>
+</div>
+<div class="col-12">
+    <div id="auditoria-collapse" class="show collapse">
+        <div class="row">
+            <div class="col-12 col-md-4 mt-3">
+                <label class="form-label" for="CESTDO">Estado</label>
+                <select id="CESTDO" name="CESTDO" class="form-select no-reset" aria-label="Default select example">
+                    <option value="V">Vigente</option>
+                    <option value="A">Anulado</option>
+                </select>
+            </div>
+            <div class="col-12 col-md-4 mt-3">
+                <label class="form-label" for="UCRCN">U. Creación</label>
+                <input type="text" class="form-control no-reset" name="UCRCN" id="UCRCN" disabled>
+            </div>
+            <div class="col-12 col-md-4 mt-3">
+                <label class="form-label" for="UEDCN">U. Edición</label>
+                <input type="text" class="form-control no-reset" name="UEDCN" id="UEDCN" disabled>
+            </div>
+            <div class="col-12 col-md-4 mt-3">
+                <label class="form-label" for="FESTDO">F. ESTADO</label>
+                <input type="text" class="form-control no-reset" name="FESTDO" id="FESTDO" disabled>
+            </div>
+            <div class="col-12 col-md-4 mt-3">
+                <label class="form-label" for="FCRCN">F. CREACIÓN</label>
+                <input type="text" class="form-control no-reset" name="FCRCN" id="FCRCN" disabled>
+            </div>
+            <div class="col-12 col-md-4 mt-3">
+                <label class="form-label" for="FEDCN">F. EDICIÓN</label>
+                <input type="text" class="form-control no-reset" name="FEDCN" id="FEDCN" disabled>
+            </div>
+        </div>
+    </div>
+</div>

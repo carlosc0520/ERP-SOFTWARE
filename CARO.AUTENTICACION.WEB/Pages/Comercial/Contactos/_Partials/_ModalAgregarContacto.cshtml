@@ -1,0 +1,70 @@
+<div class="modal fade" id="modalAddContacto" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-simple modal-edit-user">
+        <div class="modal-content p-3 p-md-5">
+            <div class="modal-body">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="text-center mb-4">
+                    <h3>Agregar Contacto</h3>
+                </div>
+                <form id="AddContacto" class="row g-3" method="post">
+                    <div class="col-12 col-md-6">
+                        <label class="form-label" for="NMBRS">Nombres <span class="text-danger">*</span></label>
+                        <input type="text" id="NMBRS" name="NMBRS" class="form-control max-length" data-maxlength="200" />
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <label class="form-label" for="APLLDS">Apellidos <span class="text-danger">*</span></label>
+                        <input type="text" id="APLLDS" name="APLLDS" class="form-control max-length" data-maxlength="200" />
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <label class="form-label" for="EML">Email <span class="text-danger">*</span></label>
+                        <input type="text" id="EML" name="EML" class="form-control max-length" data-maxlength="300" />
+                    </div>
+                    
+                    <div class="col-12 col-md-6">
+                        <label class="form-label" for="TLFNO">Teléfono</label>
+                        <input type="text" id="TLFNO" name="TLFNO" class="form-control max-length" data-maxlength="15" />
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label" for="DRCCN">Dirección</label>
+                        <input type="text" id="DRCCN" name="DRCCN" class="form-control max-length" data-maxlength="300" />
+                    </div>
+
+
+                    <div class="col-12 col-md-6">
+                        <label class="form-label" for="CLENTE">Cliente</label>
+                        <input type="text" id="CLENTE" name="CLENTE" class="form-control noMayus max-length" data-maxlength="1000" />
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <label class="form-label" for="GDRBROC">Rubro</label>
+                        <select id="GDRBROC" name="GDRBROC" class="form-select">
+                        </select>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <label class="form-label" for="GDCRGOC">Cargo</label>
+                        <select id="GDCRGOC" name="GDCRGOC" class="form-select">
+                        </select>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <label class="form-label" for="IDMRCA">Marca Relacionada</label>
+                        <select id="IDMRCA" name="IDMRCA" class="form-select">
+                        </select>
+                    </div>
+                    
+                    <div class="col-12 text-center mt-4">
+                        <button id="btnAddContacto" class="btn btn-primary me-sm-3 me-1">Agregar</button>
+                        <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                    </div>
+
+                    @await Html.PartialAsync("../../../_Partials/_Auditoria.cshtml")
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

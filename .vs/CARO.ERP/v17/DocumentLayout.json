@@ -1,0 +1,95 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\User\\Documents\\CARO.ERP\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{AD60ED87-01A9-4D9F-9F4F-937ABA1CB6AC}|CARO.AUTENTICACION.WEB\\CARO.AUTENTICACION.WEB.csproj|c:\\users\\user\\documents\\caro.erp\\caro.autenticacion.web\\pages\\modulos\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AD60ED87-01A9-4D9F-9F4F-937ABA1CB6AC}|CARO.AUTENTICACION.WEB\\CARO.AUTENTICACION.WEB.csproj|solutionrelative:caro.autenticacion.web\\pages\\modulos\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AD60ED87-01A9-4D9F-9F4F-937ABA1CB6AC}|CARO.AUTENTICACION.WEB\\CARO.AUTENTICACION.WEB.csproj|c:\\users\\user\\documents\\caro.erp\\caro.autenticacion.web\\pages\\usuarios\\personas\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AD60ED87-01A9-4D9F-9F4F-937ABA1CB6AC}|CARO.AUTENTICACION.WEB\\CARO.AUTENTICACION.WEB.csproj|solutionrelative:caro.autenticacion.web\\pages\\usuarios\\personas\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F4E71803-BD02-443C-8562-E6BDFDE4B637}|CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj|c:\\users\\user\\documents\\caro.erp\\caro.datos.modelo\\seg\\modulos\\modulomodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F4E71803-BD02-443C-8562-E6BDFDE4B637}|CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj|solutionrelative:caro.datos.modelo\\seg\\modulos\\modulomodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 8,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{57d563b6-44a5-47df-85be-f4199ad6b651}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:3:0:{57d563b6-44a5-47df-85be-f4199ad6b651}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ModuloModel.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.DATOS.MODELO\\SEG\\MODULOS\\ModuloModel.cs",
+              "RelativeDocumentMoniker": "CARO.DATOS.MODELO\\SEG\\MODULOS\\ModuloModel.cs",
+              "ToolTip": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.DATOS.MODELO\\SEG\\MODULOS\\ModuloModel.cs",
+              "RelativeToolTip": "CARO.DATOS.MODELO\\SEG\\MODULOS\\ModuloModel.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-13T21:44:31.567Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.AUTENTICACION.WEB\\Pages\\Usuarios\\Personas\\Index.cshtml.cs",
+              "RelativeDocumentMoniker": "CARO.AUTENTICACION.WEB\\Pages\\Usuarios\\Personas\\Index.cshtml.cs",
+              "ToolTip": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.AUTENTICACION.WEB\\Pages\\Usuarios\\Personas\\Index.cshtml.cs",
+              "RelativeToolTip": "CARO.AUTENTICACION.WEB\\Pages\\Usuarios\\Personas\\Index.cshtml.cs",
+              "ViewState": "AQIAAIYAAAAAAAAAAAAIwJIAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-13T21:43:57.176Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.AUTENTICACION.WEB\\Pages\\Modulos\\Index.cshtml.cs",
+              "RelativeDocumentMoniker": "CARO.AUTENTICACION.WEB\\Pages\\Modulos\\Index.cshtml.cs",
+              "ToolTip": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.AUTENTICACION.WEB\\Pages\\Modulos\\Index.cshtml.cs",
+              "RelativeToolTip": "CARO.AUTENTICACION.WEB\\Pages\\Modulos\\Index.cshtml.cs",
+              "ViewState": "AQIAABgAAAAAAAAAAAAmwKUAAAAOAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-09-13T20:07:41.637Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

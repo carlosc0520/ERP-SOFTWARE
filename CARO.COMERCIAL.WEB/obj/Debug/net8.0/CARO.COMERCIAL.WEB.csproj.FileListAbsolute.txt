@@ -1,0 +1,9 @@
+C:\Users\User\Documents\CARO.ERP\CARO.COMERCIAL.WEB\obj\Debug\net8.0\CARO.COMERCIAL.WEB.csproj.AssemblyReference.cache
+C:\Users\User\Documents\CARO.ERP\CARO.COMERCIAL.WEB\obj\Debug\net8.0\CARO.COMERCIAL.WEB.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Documents\CARO.ERP\CARO.COMERCIAL.WEB\obj\Debug\net8.0\CARO.COMERCIAL.WEB.AssemblyInfoInputs.cache
+C:\Users\User\Documents\CARO.ERP\CARO.COMERCIAL.WEB\obj\Debug\net8.0\CARO.COMERCIAL.WEB.AssemblyInfo.cs
+C:\Users\User\Documents\CARO.ERP\CARO.COMERCIAL.WEB\obj\Debug\net8.0\CARO.COMERCIAL.WEB.csproj.CoreCompileInputs.cache
+C:\Users\User\Documents\CARO.ERP\CARO.COMERCIAL.WEB\obj\Debug\net8.0\CARO.COMERCIAL.WEB.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\User\Documents\CARO.ERP\CARO.COMERCIAL.WEB\obj\Debug\net8.0\CARO.COMERCIAL.WEB.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\User\Documents\CARO.ERP\CARO.COMERCIAL.WEB\obj\Debug\net8.0\CARO.COMERCIAL.WEB.RazorAssemblyInfo.cache
+C:\Users\User\Documents\CARO.ERP\CARO.COMERCIAL.WEB\obj\Debug\net8.0\CARO.COMERCIAL.WEB.RazorAssemblyInfo.cs

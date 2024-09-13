@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "CARO.CONFIG/1.0.0": {
+        "runtime": {
+          "CARO.CONFIG.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "CARO.CONFIG/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

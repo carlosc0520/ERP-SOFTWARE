@@ -1,0 +1,211 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = CARO.AUTENTICACION.WEB
+build_property.RootNamespace = CARO.AUTENTICACION.WEB
+build_property.ProjectDir = C:\Users\User\Documents\CARO.ERP\CARO.AUTENTICACION.WEB\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\User\Documents\CARO.ERP\CARO.AUTENTICACION.WEB
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Comercial/Contactos/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tZXJjaWFsXENvbnRhY3Rvc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Comercial/Contactos/_Partials/_EmailContactos.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tZXJjaWFsXENvbnRhY3Rvc1xfUGFydGlhbHNcX0VtYWlsQ29udGFjdG9zLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Comercial/Contactos/_Partials/_ModalAgregarContacto.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tZXJjaWFsXENvbnRhY3Rvc1xfUGFydGlhbHNcX01vZGFsQWdyZWdhckNvbnRhY3RvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Comercial/Contactos/_Partials/_ModalEditarContacto.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tZXJjaWFsXENvbnRhY3Rvc1xfUGFydGlhbHNcX01vZGFsRWRpdGFyQ29udGFjdG8uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Comercial/Cursos/CourseDetails/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tZXJjaWFsXEN1cnNvc1xDb3Vyc2VEZXRhaWxzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Comercial/Cursos/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tZXJjaWFsXEN1cnNvc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Comercial/Cursos/_Partials/_ModalAgregarCurso.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tZXJjaWFsXEN1cnNvc1xfUGFydGlhbHNcX01vZGFsQWdyZWdhckN1cnNvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Comercial/Cursos/_Partials/_ModalEditarCurso.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tZXJjaWFsXEN1cnNvc1xfUGFydGlhbHNcX01vZGFsRWRpdGFyQ3Vyc28uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Comercial/Mailchimp/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tZXJjaWFsXE1haWxjaGltcFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Comercial/Plantillas/checklistPlantilla/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tZXJjaWFsXFBsYW50aWxsYXNcY2hlY2tsaXN0UGxhbnRpbGxhXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Comercial/Plantillas/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tZXJjaWFsXFBsYW50aWxsYXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Comercial/Plantillas/proveedoresRGPD/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tZXJjaWFsXFBsYW50aWxsYXNccHJvdmVlZG9yZXNSR1BEXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Comercial/Plantillas/_Partials/_ModalAgregarPlantilla.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tZXJjaWFsXFBsYW50aWxsYXNcX1BhcnRpYWxzXF9Nb2RhbEFncmVnYXJQbGFudGlsbGEuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Comercial/Plantillas/_Partials/_ModalEditarPlantilla.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tZXJjaWFsXFBsYW50aWxsYXNcX1BhcnRpYWxzXF9Nb2RhbEVkaXRhclBsYW50aWxsYS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Inicio/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5pY2lvXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Layouts/Sections/Footer/_Footer.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGF5b3V0c1xTZWN0aW9uc1xGb290ZXJcX0Zvb3Rlci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Layouts/Sections/Menu/Menu.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGF5b3V0c1xTZWN0aW9uc1xNZW51XE1lbnUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Layouts/Sections/Menu/_HorizontalMenu.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGF5b3V0c1xTZWN0aW9uc1xNZW51XF9Ib3Jpem9udGFsTWVudS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Layouts/Sections/Menu/_VerticalMenu.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGF5b3V0c1xTZWN0aW9uc1xNZW51XF9WZXJ0aWNhbE1lbnUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Layouts/Sections/Navbar/_Navbar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGF5b3V0c1xTZWN0aW9uc1xOYXZiYXJcX05hdmJhci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Layouts/Sections/_Scripts.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGF5b3V0c1xTZWN0aW9uc1xfU2NyaXB0cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Layouts/Sections/_ScriptsFront.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGF5b3V0c1xTZWN0aW9uc1xfU2NyaXB0c0Zyb250LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Layouts/Sections/_ScriptsIncludes.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGF5b3V0c1xTZWN0aW9uc1xfU2NyaXB0c0luY2x1ZGVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Layouts/Sections/_ScriptsIncludesFront.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGF5b3V0c1xTZWN0aW9uc1xfU2NyaXB0c0luY2x1ZGVzRnJvbnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Layouts/Sections/_Styles.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGF5b3V0c1xTZWN0aW9uc1xfU3R5bGVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Layouts/Sections/_StylesFront.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGF5b3V0c1xTZWN0aW9uc1xfU3R5bGVzRnJvbnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Layouts/Sections/_Variables.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGF5b3V0c1xTZWN0aW9uc1xfVmFyaWFibGVzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Layouts/_BlankLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGF5b3V0c1xfQmxhbmtMYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Layouts/_CommonMasterLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGF5b3V0c1xfQ29tbW9uTWFzdGVyTGF5b3V0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Layouts/_ContentNavbarLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGF5b3V0c1xfQ29udGVudE5hdmJhckxheW91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Layouts/_FrontLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGF5b3V0c1xfRnJvbnRMYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Layouts/_HorizontalLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGF5b3V0c1xfSG9yaXpvbnRhbExheW91dC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Layouts/_ModalCambiarContrasenaAsync.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGF5b3V0c1xfTW9kYWxDYW1iaWFyQ29udHJhc2VuYUFzeW5jLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Layouts/_ModalCondominioAsync.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGF5b3V0c1xfTW9kYWxDb25kb21pbmlvQXN5bmMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Login/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW5cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Modulos/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTW9kdWxvc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Page2.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGFnZTIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Seguridad/GrupoDato/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2VndXJpZGFkXEdydXBvRGF0b1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Seguridad/Marcas/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2VndXJpZGFkXE1hcmNhc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/_Partials/_Auditoria.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1BhcnRpYWxzXF9BdWRpdG9yaWEuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/_Partials/_AuditoriaE.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1BhcnRpYWxzXF9BdWRpdG9yaWFFLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/_Partials/_Macros.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1BhcnRpYWxzXF9NYWNyb3MuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/User/Documents/CARO.ERP/CARO.AUTENTICACION.WEB/Pages/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
