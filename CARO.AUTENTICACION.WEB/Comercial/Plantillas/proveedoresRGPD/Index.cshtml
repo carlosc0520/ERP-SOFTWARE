@@ -1,0 +1,1222 @@
+@page
+@model CARO.AUTENTICACION.WEB.Pages.Comercial.Plantillas.proveedoresRGPD.IndexModel
+@{
+    ViewData["Title"] = "PROVEEDORES RGPD";
+}
+
+@section VendorStyles {
+    <link rel="stylesheet" href="~/vendor/libs/datatables-bs5/datatables.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/umd/styles/index.min.css" />
+    <link rel="stylesheet" href="~/vendor/libs/flatpickr/flatpickr.dist.css" />
+
+    <link rel="stylesheet" href="~/vendor/libs/bs-stepper/bs-stepper.dist.css" />
+}
+
+@section VendorScripts {
+    <script src="~/vendor/libs/moment/moment.dist.js"></script>
+    <script src="~/vendor/libs/datatables-bs5/datatables-bootstrap5.dist.js"></script>
+    <script src="~/vendor/libs/cleavejs/cleave.dist.js"></script>
+    <script src="~/vendor/libs/cleavejs/cleave-phone.dist.js"></script>
+    <script src="~/vendor/libs/flatpickr/flatpickr.dist.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/bundle/popular.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-bootstrap5/index.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
+    <script src="~/vendor/libs/bs-stepper/bs-stepper.dist.js"></script>
+}
+
+@section PageScripts {
+    <script src="~/app/Comercial/Plantillas/proveedoresRGPD/index.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js" integrity="sha512-2/YdOMV+YNpanLCF5MdQwaoFRVbTmrJ4u4EpqS/USXAQNUDgI5uwYi6J98WVtJKcfe1AbgerygzDFToxAlOGEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+}
+
+<style>
+    .rotate-180 {
+        writing-mode: vertical-lr;
+        transform: rotate(180deg) !important;
+    }
+
+    th.rotate-180 {
+        height: 140px;
+        white-space: nowrap;
+    }
+
+    #tableTratamientos thead th {
+        vertical-align: middle;
+    }
+
+    #tableTratamientos tbody td {
+        font-size: .9rem;
+    }
+
+    .tHead1 {
+        background-color: #005442!important;
+        color: white!important;
+    }
+
+    .tHead2 {
+        background-color: #BCD4D1!important;
+        color: black!important;
+    }
+
+    .tHead3 {
+        background-color: #F9B269!important;
+        color: black!important;
+    }
+</style>
+
+<div class="row">
+    <div class="col-12">
+        <h5>Plantilla Proveedores</h5>
+    </div>
+
+    <!-- Modern Wizard -->
+    <div class="col-12 mb-4">
+        <div class="bs-stepper wizard-modern wizard-modern-example mt-2">
+            <div class="bs-stepper-header">
+                <div class="step" data-target="#account-details-modern">
+                    <button type="button" class="step-trigger">
+                        <span class="bs-stepper-circle">1</span>
+                        <span class="bs-stepper-label">Identificación</span>
+                    </button>
+                </div>
+                <div class="line"></div>
+                <div class="step" data-target="#personal-info-modern">
+                    <button type="button" class="step-trigger">
+                        <span class="bs-stepper-circle">2</span>
+                        <span class="bs-stepper-label">Tratamientos</span>
+                    </button>
+                </div>
+                <div class="step" data-target="#personal-2-info-modern">
+                    <button type="button" class="step-trigger">
+                        <span class="bs-stepper-circle">3</span>
+                        <span class="bs-stepper-label">Interesados</span>
+                    </button>
+                </div>
+                <div class="line"></div>
+                <div class="step" data-target="#social-links-modern">
+                    <button type="button" class="step-trigger">
+                        <span class="bs-stepper-circle">4</span>
+                        <span class="bs-stepper-label">Tratamientos Internos</span>
+                    </button>
+                </div>
+                <div class="line"></div>
+                <div class="step" data-target="#sub-links-modern">
+                    <button type="button" class="step-trigger">
+                        <span class="bs-stepper-circle">5</span>
+                        <span class="bs-stepper-label">SubEncargados</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="bs-stepper-content">
+                <form id="formPlantillaProveedor" method="post">
+                    <!-- IDENTIFICACIÓN  -->
+                    <div id="account-details-modern" class="content">
+                        <div class="content-header mb-3">
+                            <h6 class="mb-0">Rellene las siguientes casillas con la información correspondiente a su organización</h6>
+                            <div class="d-flex flex-wrap justify-content-end mt-2 gap-2">
+                                <button id="generateDocument" class="btn btn-primary">Generar Documento</button>
+                                <button id="limpiar1" class="btn btn-danger">Limpiar</button>  
+                            </div>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <small>APODERADO</small>
+                                <hr class="m-0" />
+                            </div>
+
+                            <div class="col-md-3 col-12">
+                                <label class="form-label" for="IDENT">Ident.<span class="text-danger">*</span></label>
+                                <select id="IDENT" name="IDENT" class="form-select">
+                                    <option value="D." selected>D.</option>
+                                    <option value="Dña.">Dña.</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-6 col-12">
+                                <label class="form-label" for="USERNAME">Nombres y Apellidos <span class="text-danger">*</span></label>
+                                <input type="text" id="USERNAME" name="USERNAME" class="form-control noMayus" placeholder="" />
+                            </div>
+                            <div class="col-md-3 col-12">
+                                <label class="form-label" for="NIF">NIF <span class="text-danger">*</span></label>
+                                <input type="text" id="NIF" name="NIF" class="form-control noMayus solo-numero" placeholder="" />
+                            </div>
+
+                            <div class="col-12">
+                                <small>SOCIEDAD</small>
+                                <hr class="m-0" />
+                            </div>
+
+                            <div class="col-md-6 col-12">
+                                <label class="form-label" for="RZNSCL">Razón social <span class="text-danger">*</span></label>
+                                <input type="text" id="RZNSCL" name="RZNSCL" class="form-control noMayus" placeholder="" />
+                            </div>
+
+                            <div class="col-md-6 col-12">
+                                <label class="form-label" for="CIF">CIF <span class="text-danger">*</span></label>
+                                <input type="text" id="CIF" name="CIF" class="form-control noMayus solo-numero" placeholder="" />
+                            </div>
+
+                            <div class="col-12">
+                                <small>DOMICILIO SOCIAL</small>
+                                <hr class="m-0" />
+                            </div>
+
+                            <div class="col-md-6 col-12">
+                                <label class="form-label" for="CDAD">Ciudad <span class="text-danger">*</span></label>
+                                <input type="text" id="CDAD" name="CDAD" class="form-control noMayus" placeholder="" />
+                            </div>
+
+                            <div class="col-md-6 col-12">
+                                <label class="form-label" for="DRCCN">Dirección <span class="text-danger">*</span></label>
+                                <input type="text" id="DRCCN" name="DRCCN" class="form-control noMayus" placeholder="" />
+                            </div>
+
+                            <div class="col-md-6 col-12">
+                                <label class="form-label" for="NMRO">Número <span class="text-danger">*</span></label>
+                                <input type="text" id="NMRO" name="NMRO" class="form-control noMayus solo-numero" placeholder="" />
+                            </div>
+
+                            <div class="col-12">
+                                <small>RPD / DPO</small>
+                                <hr class="m-0" />
+                            </div>
+
+
+                            <div class="col-md-6 col-12">
+                                <label class="form-label" for="NOMBRES">Nombres y Apellidos <span class="text-danger">*</span></label>
+                                <input type="text" id="NOMBRES" name="NOMBRES" class="form-control noMayus" placeholder="" />
+                            </div>
+
+                            <div class="col-md-6 col-12">
+                                <label class="form-label" for="CRRO">Correo electrónico <span class="text-danger">*</span></label>
+                                <input type="text" id="CRRO" name="CRRO" class="form-control noMayus" placeholder="" />
+                            </div>
+
+                            <div class="col-md-6 col-12">
+                                <label class="form-label" for="TLFNO">Teléfono <span class="text-danger">*</span></label>
+                                <input type="text" id="TLFNO" name="TLFNO" class="form-control noMayus solo-numero" placeholder="" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TRATAMIENTOS -->
+                    <div id="personal-info-modern" class="content">
+                        <div class="content-header mb-3">
+                            <h6 class="mb-0">Marque con una X los tipos de tratamientos que realiza para cada categoría de datos y sujetos.</h6>
+                            <div class="d-flex flex-wrap justify-content-end mt-2 gap-2">
+                                <button id="generateDocument" class="btn btn-primary">Generar Documento</button>
+                                <button id="limpiar2" class="btn btn-danger">Limpiar</button>  
+                            </div>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <div class="card-datatable table-responsive">
+                                    <table id="tableTratamientos" class="mx-1 table border-top">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center tHead1" rowspan="3">CATEGORÍAS DE DATOS</th>
+                                                <th class="text-center tHead1" rowspan="3">SUJETOS</th>
+                                                <th class="text-center tHead1" rowspan="1" colspan="13">TIPOS DE TRATAMIENTO</th>
+                                            </tr>
+                                            <tr>
+                                                <th rowspan="2" class="rotate-180 tHead3">Comunicación</th>
+                                                <th rowspan="2" class="rotate-180 tHead3">Conservación</th>
+                                                <th rowspan="2" class="rotate-180 tHead3">Consulta</th>
+                                                <th rowspan="2" class="rotate-180 tHead3">Cotejo</th>
+                                                <th rowspan="2" class="rotate-180 tHead3">Destrucción</th>
+                                                <th rowspan="2" class="rotate-180 tHead3">Difusión</th>
+                                                <th rowspan="2" class="rotate-180 tHead3">Estructuración</th>
+                                                <th rowspan="2" class="rotate-180 tHead3">Extracción</th>
+                                                <th rowspan="2" class="rotate-180 tHead3">Interconnexión</th>
+                                                <th rowspan="2" class="rotate-180 tHead3">Modificación</th>
+                                                <th rowspan="2" class="rotate-180 tHead3">Recogida</th>
+                                                <th rowspan="2" class="rotate-180 tHead3">Registro</th>
+                                                <th rowspan="2" class="rotate-180 tHead3">Supresión</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <tr>
+                                                <td class="tHead2">Datos identificativos y de contacto</td>
+                                                <td class="tHead2">Nombre, apellidos, DNI, pasaporte, firma, imagen, correo electrónico, teléfono, dirección postal, etc.</td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="A1" type="checkbox" id="A1" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="B1" type="checkbox" id="B1" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="C1" type="checkbox" id="C1" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="D1" type="checkbox" id="D1" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="E1" type="checkbox" id="E1" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="F1" type="checkbox" id="F1" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="G1" type="checkbox" id="G1" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="H1" type="checkbox" id="H1" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="I1" type="checkbox" id="I1" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="J1" type="checkbox" id="J1" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="K1" type="checkbox" id="K1" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="L1" type="checkbox" id="L1" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="M1" type="checkbox" id="M1" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="tHead2">Datos de localización</td>
+                                                <td class="tHead2">Coordenadas GPS, geolocalización, dirección IP, etc.</td>
+                                                                                              <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="A2" type="checkbox" id="A2" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="B2" type="checkbox" id="B2" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="C2" type="checkbox" id="C2" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="D2" type="checkbox" id="D2" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="E2" type="checkbox" id="E2" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="F2" type="checkbox" id="F2" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="G2" type="checkbox" id="G2" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="H2" type="checkbox" id="H2" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="I2" type="checkbox" id="I2" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="J2" type="checkbox" id="J2" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="K2" type="checkbox" id="K2" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="L2" type="checkbox" id="L2" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="M2" type="checkbox" id="M2" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="tHead2">Datos de navegación</td>
+                                                <td class="tHead2">Dirección IP, cookies, ID sesión, etc.</td>
+                                                                                               <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="A3" type="checkbox" id="A3" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="B3" type="checkbox" id="B3" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="C3" type="checkbox" id="C3" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="D3" type="checkbox" id="D3" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="E3" type="checkbox" id="E3" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="F3" type="checkbox" id="F3" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="G3" type="checkbox" id="G3" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="H3" type="checkbox" id="H3" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="I3" type="checkbox" id="I3" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="J3" type="checkbox" id="J3" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="K3" type="checkbox" id="K3" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="L3" type="checkbox" id="L3" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="M3" type="checkbox" id="M3" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="tHead2">Datos financieros</td>
+                                                <td class="tHead2">Número de cuenta bancaria, número de tarjeta de crédito/débito, ingresos y rentas, préstamos y créditos, hipotecas, etc.</td>
+                                                                                               <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="A4" type="checkbox" id="A4" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="B4" type="checkbox" id="B4" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="C4" type="checkbox" id="C4" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="D4" type="checkbox" id="D4" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="E4" type="checkbox" id="E4" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="F4" type="checkbox" id="F4" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="G4" type="checkbox" id="G4" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="H4" type="checkbox" id="H4" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="I4" type="checkbox" id="I4" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="J4" type="checkbox" id="J4" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="K4" type="checkbox" id="K4" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="L4" type="checkbox" id="L4" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="M4" type="checkbox" id="M4" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="tHead2">Datos de características personales</td>
+                                                <td class="tHead2">Edad, fecha de nacimiento, sexo, estado civil, residencia, etc.</td>
+                                                                                               <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="A5" type="checkbox" id="A5" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="B5" type="checkbox" id="B5" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="C5" type="checkbox" id="C5" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="D5" type="checkbox" id="D5" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="E5" type="checkbox" id="E5" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="F5" type="checkbox" id="F5" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="G5" type="checkbox" id="G5" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="H5" type="checkbox" id="H5" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="I5" type="checkbox" id="I5" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="J5" type="checkbox" id="J5" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="K5" type="checkbox" id="K5" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="L5" type="checkbox" id="L5" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="M5" type="checkbox" id="M5" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="tHead2">Datos socioeconómicos</td>
+                                                <td class="tHead2">Aficiones, licencias y permisos, consumo de bienes o servicios, comportamiento, etc.</td>
+                                                                                               <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="A6" type="checkbox" id="A6" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="B6" type="checkbox" id="B6" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="C6" type="checkbox" id="C6" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="D6" type="checkbox" id="D6" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="E6" type="checkbox" id="E6" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="F6" type="checkbox" id="F6" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="G6" type="checkbox" id="G6" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="H6" type="checkbox" id="H6" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="I6" type="checkbox" id="I6" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="J6" type="checkbox" id="J6" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="K6" type="checkbox" id="K6" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="L6" type="checkbox" id="L6" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="M6" type="checkbox" id="M6" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="tHead2">Datos psicológicos</td>
+                                                <td class="tHead2">Opiniones de personalidad, opiniones de carácter, etc.</td>
+                                                                                               <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="A7" type="checkbox" id="A7" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="B7" type="checkbox" id="B7" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="C7" type="checkbox" id="C7" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="D7" type="checkbox" id="D7" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="E7" type="checkbox" id="E7" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="F7" type="checkbox" id="F7" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="G7" type="checkbox" id="G7" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="H7" type="checkbox" id="H7" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="I7" type="checkbox" id="I7" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="J7" type="checkbox" id="J7" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="K7" type="checkbox" id="K7" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="L7" type="checkbox" id="L7" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="M7" type="checkbox" id="M7" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="tHead2">Datos judiciales</td>
+                                                <td class="tHead2">Investigaciones, condenas e infracciones penales, sanciones administrativas, etc.</td>
+                                                                                               <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="A8" type="checkbox" id="A8" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="B8" type="checkbox" id="B8" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="C8" type="checkbox" id="C8" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="D8" type="checkbox" id="D8" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="E8" type="checkbox" id="E8" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="F8" type="checkbox" id="F8" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="G8" type="checkbox" id="G8" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="H8" type="checkbox" id="H8" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="I8" type="checkbox" id="I8" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="J8" type="checkbox" id="J8" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="K8" type="checkbox" id="K8" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="L8" type="checkbox" id="L8" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="M8" type="checkbox" id="M8" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="tHead2">Datos académicos y profesionales</td>
+                                                <td class="tHead2">Currículum vitae, expediente académico, cualificaciones profesionales, publicaciones, cargo, experiencia profesional, etc.</td>
+                                                                                               <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="A9" type="checkbox" id="A9" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="B9" type="checkbox" id="B9" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="C9" type="checkbox" id="C9" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="D9" type="checkbox" id="D9" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="E9" type="checkbox" id="E9" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="F9" type="checkbox" id="F9" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="G9" type="checkbox" id="G9" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="H9" type="checkbox" id="H9" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="I9" type="checkbox" id="I9" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="J9" type="checkbox" id="J9" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="K9" type="checkbox" id="K9" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="L9" type="checkbox" id="L9" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="M9" type="checkbox" id="M9" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td class="tHead2">Datos especialmente protegidos</td>
+                                                <td class="tHead2">Salud, vida sexual, orientación sexual, afiliación sindical, etnia o raza, convicciones religiosas o filosóficas, opinión política, biométricos, etc.</td>
+                                                                                               <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="A10" type="checkbox" id="A10" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="B10" type="checkbox" id="B10" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="C10" type="checkbox" id="C10" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="D10" type="checkbox" id="D10" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="E10" type="checkbox" id="E10" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="F10" type="checkbox" id="F10" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="G10" type="checkbox" id="G10" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="H10" type="checkbox" id="H10" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="I10" type="checkbox" id="I10" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="J10" type="checkbox" id="J10" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="K10" type="checkbox" id="K10" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="L10" type="checkbox" id="L10" />
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="M10" type="checkbox" id="M10" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TRATAMIENTOS 2 -->
+                    <div id="personal-2-info-modern" class="content">
+                        <div class="content-header mb-3">
+                            <h6 class="mb-0">Marque con una X los tipos de tratamientos que realiza para cada categoría de datos y sujetos.</h6>
+                            <div class="d-flex flex-wrap justify-content-end mt-2 gap-2">
+                                <button id="generateDocument" class="btn btn-primary">Generar Documento</button>
+                                <button id="limpiar3" class="btn btn-danger">Limpiar</button>  
+                            </div>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <div class="card-datatable table-responsive">
+                                    <table id="tableTratamientosInteresado" class="mx-1 table border-top">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center tHead1">TIPOS DE INTERESADO</th>
+                                                <th class="text-center tHead1"></th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-center tHead2">Clientes de</td>
+                                                <td class="text-center">
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="TA1" type="checkbox" id="TA1" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center tHead2">Empleados de</td>
+                                                <td class="text-center">
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="TA2" type="checkbox" id="TA2" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center tHead2">Visitantes de</td>
+                                                <td class="text-center">
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="TA3" type="checkbox" id="TA3" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center tHead2">Proveedores de</td>
+                                                <td class="text-center">
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="TA4" type="checkbox" id="TA4" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center tHead2">Empleados de proveedores de</td>
+                                                <td class="text-center">
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="TA5" type="checkbox" id="TA5" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center tHead2">Socios comerciales de</td>
+                                                <td class="text-center">
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="TA6" type="checkbox" id="TA6" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center tHead2">Empleados de socios comerciales de</td>
+                                                <td class="text-center">
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="TA7" type="checkbox" id="TA7" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-center tHead2">Clientes de los socios comerciales de</td>
+                                                <td class="text-center">
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" name="TA8" type="checkbox" id="TA8" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TRATAMIENTOS INTERNOS -->
+                    <div id="social-links-modern" class="content">
+                        <div class="content-header mb-3">
+                            <h6 class="mb-0">Identifique las transferencias internacionales de datos de carácter personal que realiza</h6>
+                            <div class="d-flex flex-wrap justify-content-end mt-2 gap-2">
+                                <button id="generateDocument" class="btn btn-primary">Generar Documento</button>
+                                <button id="limpiar4" class="btn btn-danger">Limpiar</button>  
+                            </div>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <div class="card-datatable table-responsive">
+                                    <table id="tableTratamientosInterno" class="mx-1 table border-top">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center tHead1">PAÍS</th>
+                                                <th class="text-center tHead1">TERCERO</th>
+                                                <th class="text-center tHead1">INFORMACIÓN AFECTADA</th>
+                                                <th class="text-center tHead1">FINALIDAD</th>
+                                                <th class="text-center tHead1">UBICACIÓN DEL TRATAMIENTO</th>
+                                                <th class="text-center tHead1">GARANTÍAS ADECUADAS</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-center">
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" type="checkbox" name="TIA1" id="TIA1" />
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" type="checkbox" name="TIA2" id="TIA2" />
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" type="checkbox" name="TIA3" id="TIA3" />
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" type="checkbox" name="TIA4" id="TIA4" />
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" type="checkbox" name="TIA5" id="TIA5" />
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" type="checkbox" name="TIA6" id="TIA6" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                                       <tr>
+                                                <td class="text-center">
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" type="checkbox" name="TIA7" id="TIA7" />
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" type="checkbox" name="TIA8" id="TIA8" />
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" type="checkbox" name="TIA9" id="TIA9" />
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" type="checkbox" name="TIA10" id="TIA10" />
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" type="checkbox" name="TIA11" id="TIA11" />
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" type="checkbox" name="TIA12" id="TIA12" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                                       <tr>
+                                                <td class="text-center">
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" type="checkbox" name="TIA13" id="TIA13" />
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" type="checkbox" name="TIA14" id="TIA14" />
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" type="checkbox" name="TIA15" id="TIA15" />
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" type="checkbox" name="TIA16" id="TIA16" />
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" type="checkbox" name="TIA17" id="TIA17" />
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">
+                                                    <div class="form-check form-check-info d-flex justify-content-center">
+                                                        <input class="form-check-input" type="checkbox" name="TIA18" id="TIA18" />
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SUB ENCARGADOS -->
+                    <div id="sub-links-modern" class="content">
+                        <div class="content-header mb-3">
+                            <h6 class="mb-0">Identifique a los terceros que actuan como Subencargados del tratamiento</h6>
+                            <div class="d-flex flex-wrap justify-content-end mt-2 gap-2">
+                                <button id="generateDocument" class="btn btn-primary">Generar Documento</button>
+                                <button id="limpiar5" class="btn btn-danger">Limpiar</button>  
+                            </div>
+                        </div>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <div class="card-datatable table-responsive">
+                                    <table id="tableSubEncargados" class="mx-1 table border-top">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center tHead1">Razón social</th>
+                                                <th class="text-center tHead1">Descripción del servicio</th>
+                                                <th class="text-center tHead1">Datos tratados</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <tr>
+                                                <td><input class="form-control noMayus w-100" type="text" name="TRA1" id="TRA1" /></td>
+                                                <td><input class="form-control noMayus w-100" type="text" name="TRA2" id="TRA2" /></td>
+                                                <td><input class="form-control noMayus w-100" type="text" name="TRA3" id="TRA3" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input class="form-control noMayus w-100" type="text" name="TRA4" id="TRA4" /></td>
+                                                <td><input class="form-control noMayus w-100" type="text" name="TRA5" id="TRA5" /></td>
+                                                <td><input class="form-control noMayus w-100" type="text" name="TRA6" id="TRA6" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input class="form-control noMayus w-100" type="text" name="TRA7" id="TRA7" /></td>
+                                                <td><input class="form-control noMayus w-100" type="text" name="TRA8" id="TRA8" /></td>
+                                                <td><input class="form-control noMayus w-100" type="text" name="TRA9" id="TRA9" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td><input class="form-control noMayus w-100" type="text" name="TRA10" id="TRA10" /></td>
+                                                <td><input class="form-control noMayus w-100" type="text" name="TRA11" id="TRA11" /></td>
+                                                <td><input class="form-control noMayus w-100" type="text" name="TRA12" id="TRA12" /></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /Modern Wizard -->
+</div>

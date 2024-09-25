@@ -1,0 +1,207 @@
+@* ************** Content ************** *@
+<div class="app-email card">
+  <div class="border-0">
+    <div class="row g-0">
+      <!-- Email Sidebar -->
+      <div class="col app-email-sidebar border-end flex-grow-0" id="app-email-sidebar">
+        <div class="btn-compost-wrapper d-grid">
+          <button class="btn btn-primary btn-compose" data-bs-toggle="modal" data-bs-target="#emailComposeSidebar" id="emailComposeSidebarLabel">Nuevo Correo</button>
+        </div>
+        <!-- Email Filters -->
+        <div class="email-filters py-2">
+          <!-- Email Filters: Folder --> 
+          <ul class="email-filter-folders list-unstyled mb-4">
+            <li class="active d-flex justify-content-between" data-target="inbox">
+              <a href="javascript:void(0);" class="d-flex flex-wrap align-items-center">
+                <i class="bx bx-envelope"></i>  
+                <span class="align-middle ms-2">Mensajes</span>
+              </a> 
+              <div class="badge bg-label-primary rounded-pill" id="cantidad_emails">0</div>
+            </li>
+          </ul>
+          <!-- Email Filters: Labels -->
+          <!--/ Email Filters -->
+        </div>
+      </div> 
+      <!--/ Email Sidebar -->
+       
+      <!-- Emails List -->
+      <div class="col app-emails-list">
+        <div class="card shadow-none border-0">
+          <div class="card-body emails-list-header p-3 py-lg-3 py-2">
+            <!-- Email List: Search -->
+            <div class="d-flex justify-content-between align-items-center"> 
+              <div class="d-flex align-items-center w-100">
+                <i class="bx bx-menu bx-sm cursor-pointer d-block d-lg-none me-3" data-bs-toggle="sidebar" data-target="#app-email-sidebar" data-overlay></i>
+                <div class="mb-0 mb-lg-2 w-100">
+                  <div class="input-group input-group-merge shadow-none">
+                    <span class="input-group-text border-0 ps-0" id="email-search">
+                      <i class="bx bx-search fs-4"></i>
+                    </span> 
+                    <input type="text" id="email-search-input" class="form-control email-search-input border-0" placeholder="Buscar email" aria-label="Search mail" aria-describedby="email-search">
+                  </div> 
+                </div>
+              </div>
+              <div class="d-flex align-items-center mb-0 mb-md-2">
+                <i id="email-refresh" class="bx bx-rotate-left scaleX-n1-rtl cursor-pointer email-refresh me-2 bx-sm"></i>
+              </div>
+            </div>  
+            <hr class="mx-n3 emails-list-header-hr">
+            <!-- Email List: Actions -->
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="d-flex align-items-center">
+      
+              </div>
+              <div class="email-pagination d-sm-flex d-none align-items-center flex-wrap justify-content-between justify-sm-content-end">
+                <span id="total_pagination" class="d-sm-block d-none mx-3 text-muted">....</span>
+                <i id="ant_next" class="email-prev bx bx-chevron-left scaleX-n1-rtl cursor-pointer text-muted me-2 fs-4"></i>
+                <i id="sig_next" class="email-next bx bx-chevron-right scaleX-n1-rtl cursor-pointer fs-4"></i>
+              </div>
+            </div>
+          </div>
+          <hr class="container-m-nx m-0">
+          <!-- Email List: Items -->
+          <div class="email-list pt-0">
+            <ul id="list-unstyled" class="list-unstyled m-0">
+            </ul>
+            <ul class="list-unstyled m-0">
+              <li class="email-list-empty text-center d-none">No items found.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="app-overlay"></div>
+      </div>
+      <!-- /Emails List -->
+
+      <!-- Email View -->
+      <div class="col app-email-view flex-grow-0 bg-body" id="app-email-view">
+          <!-- ---  aqui el contenido del email -->
+          <div class="d-flex align-items-center overflow-hidden mt-3 mx-3">
+              <i class="bx bx-chevron-left bx-sm cursor-pointer me-2" data-bs-toggle="sidebar" data-target="#app-email-view"></i>
+              <span id="asunto_detalle">.....</span> 
+          </div>
+          
+          <!-- // tabla para mostrar datos --> 
+          <div class="py-4 px-3">
+            <div class="py-4 table-responsive">
+                <table id="table-items" class="tmx-1 table border-top">
+                    <thead> 
+                        <tr>  
+                            <th class="text-center" style="width: 50px;">#</th>
+                            <th>Imagen</th>
+                            <th>URL</th>
+                            <th>Vistas</th> 
+                        </tr> 
+                    </thead>
+                    <tbody> 
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-2">
+              <p>Mensaje:</p>
+              <div id="inner-html" class="py-4">
+              </div>
+            </div>
+          </div>
+
+      
+      </div>
+      <!-- Email View -->
+    </div>
+  </div>
+
+  <!-- Compose Email -->
+  <div class="app-email-compose modal" id="emailComposeSidebar" tabindex="-1" aria-labelledby="emailComposeSidebarLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-simple modal-edit-use" style="position: static">
+      <div class="modal-content p-0">
+        <div class="modal-header py-3">
+          <h5 class="modal-title fs-5">
+            Nuevo Email
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          style="position: static; top: 0"
+          ></button>
+        </div>
+        <div class="modal-body flex-grow-1 pb-sm-0 p-4 py-2">
+          <div class="email-compose-form">
+            <div class="email-compose-to d-flex justify-content-between align-items-center">
+              <label class="form-label mb-0" for="emailContacts">Para:</label>
+              <div class="select2-primary border-0 shadow-none flex-grow-1 mx-2">
+                <select class="select2 select-email-contacts form-select" id="emailContacts" name="emailContacts" multiple>
+                </select>
+              </div>
+              <div class="email-compose-toggle-wrapper">
+              
+              </div>
+            </div>
+
+            <div class="email-compose-cc d-none">
+              <hr class="mx-n4 my-2">
+              <div class="d-flex align-items-center">
+                <label for="email-cc" class="form-label mb-0">Cc:</label>
+                <input type="text" class="form-control border-0 shadow-none flex-grow-1 mx-2" id="email-cc" placeholder="someone&#64;email.com">
+              </div>
+            </div>
+            <div class="email-compose-bcc d-none">
+              <hr class="mx-n4 my-2">
+              <div class="d-flex align-items-center">
+                <label for="email-bcc" class="form-label mb-0">Bcc:</label>
+                <input type="text" class="form-control border-0 shadow-none flex-grow-1 mx-2" id="email-bcc" placeholder="someone&#64;email.com">
+              </div>
+            </div>
+            <hr class="mx-n4 my-2">
+            <div class="email-compose-subject d-flex align-items-center mb-2">
+              <label for="email-subject" class="form-label mb-0">Asunto:</label>
+              <input type="text" class="form-control border-0 shadow-none flex-grow-1 mx-2" id="email-subject" placeholder="Digite el asunto">
+            </div>
+            <div id="email-editor" class="email-editor border-0 border-top">
+            </div>
+
+            <form class="form-repeater mb-4">
+               <h5>Adjuntos Imagenes</h5>
+               <div data-repeater-list="group-a">
+                    <div data-repeater-item>
+                        <div class="row">
+                            <div class="mb-3 col-12 col-md-5">
+                                <label class="form-label" for="form-repeater-1-1">Imagen URL</label>
+                                <input data-var="URL" type="text" id="form-repeater-1-1" data="form-control-repeater" class="form-control noMayus" placeholder="Ingrese texto" />
+                            </div>
+
+                            <div class="mb-3 col-12 col-md-5">
+                                <label class="form-label" for="form-repeater-1-2">Enlace de Redirección</label>
+                                <input data-var="REDIRECT" type="text" id="form-repeater-1-2" data="form-control-repeater" class="form-control noMayus" placeholder="Ingrese texto" />
+                            </div>
+
+                            <div class="mb-3 col-md-2 col-12">
+                                <label class="form-label d-none d-sm-block">&nbsp;</label>
+                                <button class="btn btn-danger" data-repeater-delete>
+                                    <i class="bi-trash"></i>
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <button class="btn btn-primary" data-repeater-create>
+                        Agregar Item
+                    </button>
+                </div>
+            </form>
+
+
+            <hr class="mx-n4 mt-0 mb-2">
+            <div class="email-compose-actions d-flex justify-content-between align-items-center mt-3 mb-3">
+              <div class="d-flex align-items-center">
+                <div class="btn-group">
+                  <button id="btnEnviarMail" class="btn btn-primary">Enviar</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /Compose Email -->
+</div>

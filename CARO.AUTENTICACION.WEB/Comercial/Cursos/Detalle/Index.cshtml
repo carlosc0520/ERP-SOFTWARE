@@ -1,0 +1,74 @@
+@page
+@model CARO.AUTENTICACION.WEB.Pages.Comercial.Cursos.Detalle.IndexModel
+@{
+    ViewData["Title"] = "Detalle Curso";
+}
+
+
+@section VendorStyles {
+    <link rel="stylesheet" href="~/vendor/libs/datatables-bs5/datatables.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/umd/styles/index.min.css" />
+    <link rel="stylesheet" href="~/vendor/libs/flatpickr/flatpickr.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/dropzone/dropzone.dist.css">
+}
+
+@section VendorScripts {
+    <script src="~/vendor/libs/block-ui/block-ui.dist.js"></script>
+    <script src="~/vendor/libs/datatables-bs5/datatables-bootstrap5.dist.js"></script>
+    <script src="~/vendor/libs/flatpickr/flatpickr.dist.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/bundle/popular.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-bootstrap5/index.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
+    <script src="~/vendor/libs/dropzone/dropzone.dist.js"></script>
+}
+
+@section PageScripts {
+    <script src="~/app/Comercial/Cursos/Detalle/index.js"></script>
+}
+
+
+@* ************** Content ************** *@
+<h4 class="py-3 breadcrumb-wrapper mb-4">
+    <span class="text-muted fw-light">Curso /</span> Detalle
+</h4>
+
+
+<div class="col-12">
+    <div class="nav-align-top mb-4">
+        <ul class="nav nav-tabs nav-fill" role="tablist">
+            <li class="nav-item">
+                <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
+                        data-bs-target="#navs-profesores" aria-controls="navs-profesores" aria-selected="false">
+                    <i class="tf-icons bx bx-group me-1"></i> Profesores
+                </button>
+            </li>
+            <li class="nav-item">
+                <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+                        data-bs-target="#navs-sponsors" aria-controls="navs-sponsors" aria-selected="false">
+                    <i class="tf-icons bx bx-group me-1"></i> Sponsors
+                </button>
+            </li>
+        </ul>
+        <div class="tab-content p-0">
+            <div class="tab-pane fade show active" id="navs-profesores" role="tabpanel">
+                <div class="table-responsive pb-0">
+                    <table id="profesoresTable" class="mx-1 table border-top">
+                    </table>
+                </div>
+            </div>
+            <div class="p-2 tab-pane fade" id="navs-sponsors" role="tabpanel">
+                <div class="table-responsive pb-0">
+                    <table id="sponsorsTable" class="mx-1 table border-top">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@await Html.PartialAsync("./_Partials/_ModalAgregarProfesor")
+@await Html.PartialAsync("./_Partials/_ModalEditarProfesor")
+@await Html.PartialAsync("./_Partials/_ModalAgregarSponsors")
+@await Html.PartialAsync("./_Partials/_ModalEditarSponsors")

@@ -1,0 +1,111 @@
+@page
+@model CARO.AUTENTICACION.WEB.Pages.Comercial.Cursos.IndexModel
+@{
+    ViewData["Title"] = "CURSOS | EVENTOS";
+}
+
+@section VendorStyles {
+    <link rel="stylesheet" href="~/vendor/libs/select2/select2.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/plyr/plyr.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/umd/styles/index.min.css" />
+    <link rel="stylesheet" href="~/vendor/libs/flatpickr/flatpickr.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/dropzone/dropzone.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/spinkit/spinkit.dist.css">
+}
+
+@section VendorScripts {
+    <script src="~/vendor/libs/select2/select2.dist.js"></script>
+    <script src="~/vendor/libs/plyr/plyr.dist.js"></script>
+    <script src="~/vendor/libs/moment/moment.dist.js"></script>
+    <script src="~/vendor/libs/flatpickr/flatpickr.dist.js"></script>
+    <script src="~/vendor/libs/dropzone/dropzone.dist.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/bundle/popular.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-bootstrap5/index.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
+}
+
+@section PageStyles {
+    <link rel="stylesheet" href="~/vendor/css/pages/app-academy.dist.css" />
+}
+
+@section PageScripts {
+    <!-- <script src="~/js/app-academy-course.dist.js"></script> -->
+    <script src="~/app/Comercial/Cursos/index.js"></script>
+}
+
+@* ************** Content ************** *@
+
+<h4 class="py-3 breadcrumb-wrapper mb-4"><span class="text-muted fw-light">Cursos /</span> Listado</h4>
+
+<div class="app-academy">
+    <div class="card p-0 mb-4">
+        <div class="card-body d-flex flex-column flex-md-row justify-content-between p-0 pt-4">
+            <div class="app-academy-md-25 card-body py-0">
+                <img src="~/img/illustrations/bulb-light.png" class="img-fluid app-academy-img-height scaleX-n1-rtl" alt="Bulb in hand" data-app-light-img="illustrations/bulb-light.png" data-app-dark-img="illustrations/bulb-dark.png" height="90" />
+            </div>
+            <div class="app-academy-md-50 card-body d-flex align-items-md-center flex-column text-md-center">
+                <h3 class="card-title mb-4 lh-sm px-md-5">
+                    Nuestros cursos, talleres y eventos
+                </h3>
+
+                <div class="d-flex align-items-center justify-content-between app-academy-md-80">
+                    <input type="search" 
+                        id="busqueda-search" 
+                        placeholder="Buscar cursos, talleres y eventos"
+                        class="form-control me-2" />
+                    <button
+                      id="btn-search"
+                      class="btn btn-primary btn-icon"><i class="bx bx-search"></i></button>
+                </div>
+            </div>
+            <div class="app-academy-md-25 d-flex align-items-end justify-content-end">
+                <img src="~/img/illustrations/pencil-rocket.png" alt="pencil rocket" height="188" class="scaleX-n1-rtl" />
+            </div>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header d-flex flex-wrap justify-content-between gap-3">
+            <div class="card-title mb-0 me-1">
+                <h5 class="mb-1">Cursos</h5>
+                <p class="text-muted mb-0">
+                    Total <span id="TOTALROWS"></span> cursos registrados
+                </p>
+            </div>
+            <div class="d-flex justify-content-md-end align-items-center gap-3 flex-wrap">
+                <!-- // input AGREGAR -->
+                <div>
+                    <button type="button" class="btn btn-primary" id="btnAddCursoModal">
+                        <i class="bx bx-plus me-1"></i> Agregar
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div>
+              <div class="row gy-4 mb-4" id="contenedor-cursos">
+              </div>
+             <div class="d-flex justify-content-center">
+              <div class="mb-5 mx-auto" id="spinky-wave">
+                <!-- Wave -->
+                <div class="sk-wave sk-primary">
+                  <div class="sk-wave-rect"></div>
+                  <div class="sk-wave-rect"></div>
+                  <div class="sk-wave-rect"></div>
+                  <div class="sk-wave-rect"></div>
+                  <div class="sk-wave-rect"></div>
+                </div>
+              </div>
+             </div>
+            </div>
+            <nav aria-label="Page navigation" class="d-flex align-items-center justify-content-center">
+                <ul class="pagination" id="pagination">
+
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div> 
+
+@await Html.PartialAsync("./_Partials/_ModalAgregarCurso")
+@await Html.PartialAsync("./_Partials/_ModalEditarCurso")

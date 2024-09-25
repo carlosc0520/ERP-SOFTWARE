@@ -1,0 +1,85 @@
+@page
+@model CARO.AUTENTICACION.WEB.Pages.Comercial.Contactos.IndexModel
+@{
+    ViewData["Title"] = "Contactos";
+}
+
+
+@section VendorStyles {
+    <link rel="stylesheet" href="~/vendor/libs/quill/katex.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/quill/editor.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/datatables-bs5/datatables.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/umd/styles/index.min.css" />
+    <link rel="stylesheet" href="~/vendor/libs/flatpickr/flatpickr.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/dropzone/dropzone.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/select2/select2.dist.css" /> 
+}
+
+@section VendorScripts {
+    <script src="~/vendor/libs/moment/moment.dist.js"></script>
+    <script src="~/vendor/libs/select2/select2.dist.js"></script>
+    <script src="~/vendor/libs/quill/katex.dist.js"></script>
+    <script src="~/vendor/libs/quill/quill.dist.js"></script>
+    <script src="~/vendor/libs/block-ui/block-ui.dist.js"></script>
+    <script src="~/vendor/libs/datatables-bs5/datatables-bootstrap5.dist.js"></script>
+    <script src="~/vendor/libs/cleavejs/cleave.dist.js"></script>
+    <script src="~/vendor/libs/cleavejs/cleave-phone.dist.js"></script>
+    <script src="~/vendor/libs/flatpickr/flatpickr.dist.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/bundle/popular.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-bootstrap5/index.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
+    <script src="~/vendor/libs/dropzone/dropzone.dist.js"></script>
+    <script src="~/vendor/libs/jquery-repeater/jquery-repeater.dist.js"></script>
+}
+
+@section PageScripts { 
+    <script src="~/app/Comercial/Contactos/index.js"></script>
+}
+
+@section PageStyles {
+    <link rel="stylesheet" href="~/vendor/css/pages/app-email.dist.css" />
+}
+
+
+@* ************** Content ************** *@
+<h4 class="py-3 breadcrumb-wrapper mb-4">
+  <span class="text-muted fw-light">Contactos /</span> Listado
+</h4>
+
+
+<div class="col-12">
+    <div class="nav-align-top mb-4"> 
+        <ul class="nav nav-tabs nav-fill" role="tablist">
+            <li class="nav-item"> 
+                <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
+                        data-bs-target="#navs-email" aria-controls="navs-email" aria-selected="false">
+                    <i class="tf-icons bx bx-user me-1"></i> Emails
+                </button>
+            </li>  
+            <li class="nav-item">
+                <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+                        data-bs-target="#navs-add-contacto" aria-controls="navs-add-contacto" aria-selected="false">
+                    <i class="tf-icons bx bx-plus me-1"></i> Contactos
+                </button>
+            </li>
+        </ul> 
+        <div class="tab-content p-0"> 
+            <div class="tab-pane fade show active" id="navs-email" role="tabpanel">
+                @await Html.PartialAsync("./_Partials/_EmailContactos")
+            </div> 
+            <div class="p-2 tab-pane fade" id="navs-add-contacto" role="tabpanel">
+                <div class="py-4" id="inner-html">
+                </div>
+                <div class="table-responsive pb-0">
+                    <table id="contactosTable" class="mx-1 table border-top">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+
+@await Html.PartialAsync("./_Partials/_ModalAgregarContacto")
+@await Html.PartialAsync("./_Partials/_ModalEditarContacto") 

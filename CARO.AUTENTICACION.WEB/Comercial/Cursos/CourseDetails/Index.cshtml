@@ -1,0 +1,186 @@
+@page
+@model CARO.AUTENTICACION.WEB.Pages.Comercial.Cursos.CourseDetails.IndexModel
+@{
+    ViewData["Title"] = "DETALLE DE CURSO - 1";
+} 
+
+
+@section VendorStyles {
+    <link rel="stylesheet" href="~/vendor/libs/plyr/plyr.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/dropzone/dropzone.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/spinkit/spinkit.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/quill/typography.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/quill/katex.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/quill/editor.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/tagify/tagify.dist.css" />
+} 
+ 
+@section VendorScripts { 
+    <script src="~/vendor/libs/plyr/plyr.dist.js"></script>
+    <script src="~/vendor/libs/dropzone/dropzone.dist.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/bundle/popular.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-bootstrap5/index.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
+    <script src="~/vendor/libs/quill/katex.dist.js"></script>
+    <script src="~/vendor/libs/quill/quill.dist.js"></script>
+    <script src="~/vendor/libs/tagify/tagify.dist.js"></script>
+    <script src="~/vendor/libs/jquery-repeater/jquery-repeater.dist.js"></script>
+}
+
+@section PageStyles {
+    <link rel="stylesheet" href="~/vendor/css/pages/app-academy-details.dist.css" />
+}
+
+@section PageScripts {
+    <script src="~/js/app-academy-course-details.dist.js"></script>
+    <script src="~/app/Comercial/Cursos/CourseDetails/index.js"></script>
+}
+
+@* ************** Content ************** *@
+
+<h4 class="pt-3 breadcrumb-wrapper">
+    <span class="text-muted fw-light">Curso /</span> Detalles
+</h4>
+
+<form id="formAddDetalle" class="card g-3 mt-5">
+    <div class="p-4 row g-3">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center flex-wrap mb-2 gap-1">
+                <div class="me-1">
+                    <h5 class="mb-1" id="NAME_COURSE"></h5>
+                </div>
+            </div> 
+            <div class="academy-content">
+                <div class="p-2"> 
+                    <div class="cursor-pointer">         
+                        <div action="/upload" class="dropzone needsclick
+                            d-flex justify-content-center align-items-center" id="dropzone-area">
+                            <div class="dz-message needsclick">
+                                Arrastra la imagen aquí o haz clic para subir.
+                                <span class="note needsclick">(Esta es sólo una visualización
+                                    <span class="fw-medium">de la</span> imagen.)</span>
+                            </div>
+                            <div class="fallback">
+                                <input name="file" name="ARCHVO" type="file" accept="image/*" />
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+                <div class="row">
+                    <div class="col-12 mb-3"> 
+                        <label class="form-label" for="DSCRPCN">Descripción <span class="text-danger">*</span></label>
+                        <textarea id="DSCRPCN" name="DSCRPCN" class="form-control max-length noMayus" 
+                        rows="5" ></textarea> 
+                    </div>
+
+                    <div class="col-12 col-md-6 mb-3">
+                        <label class="form-label" for="full-editor-objetivos">Objetivos </label>
+                        <div id="full-editor-objetivos">
+                            
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6 mb-3">
+                        <label class="form-label" for="full-editor-participantes">Participantes </label>
+                        <div id="full-editor-participantes">
+                            
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-4 mb-3">
+                        <label class="form-label" for="DRCCN">Duracción </label>
+                        <input type="text" id="DRCCN" name="DRCCN" class="form-control noMayus"  />
+                    </div>
+
+                    <div class="col-12 col-md-4 mb-3">
+                        <label class="form-label" for="INVRSN">Inversión </label>
+                        <input type="text" id="INVRSN" name="INVRSN" class="form-control noMayus"  />
+                    </div>
+
+                    <div class="col-12 col-md-4 mb-3">
+                        <label class="form-label" for="MDLDD">Modalidad </label>
+                        <select id="MDLDD" name="MDLDD" class="form-select noMayus">
+                            <option value="Presencial">Presencial</option>
+                            <option value="Virtual">Virtual</option>
+                            <option value="Hibrido">Hibrido</option>
+                        </select>
+                    </div>
+
+                    <div class="col-12 mb-3">
+                        <label class="form-label" for="LGAR">Lugar </label>
+                        <input type="text" id="LGAR" name="LGAR" class="form-control noMayus"  />
+                    </div>
+
+                    <div class="col-12 text-center mt-4">
+                        <button id="btnAddDetalle" class="btn btn-primary me-sm-3 me-1">Guardar</button>
+                        <button type="button" class="btn btn-label-secondary">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<!-- Form Repeater -->
+<div class="col-12">
+    <div class="card">
+        <h5 class="card-header">Modulos</h5>
+        <div class="card-body">
+            <form class="form-repeater">  
+                <div class="accordion accordion-bordered" id="courseContent" data-repeater-list="group-a">
+                    <div class="accordion-item shadow-none border border-bottom-0 active mb-0" data-repeater-item> 
+                        <div class="accordion-header d-flex justify-content-between align-items-center" 
+                        id="headingOne">
+                            <button type="button" class="accordion-button bg-lighter rounded-0" 
+                                data-bs-toggle="collapse" 
+                                data-bs-target="#chapterOne-1"  
+                                aria-expanded="true"  
+                                aria-controls="chapterOne-1"> 
+                                <span class="d-flex flex-column"> 
+                                        <span class="h5 mb-1 registro-chapterOne" id="registro-chapterOne-1">Registro 1</span>
+                                </span>   
+                            </button>     
+                            <button class="btn btn-label-danger" data-repeater-delete>
+                                <i class="bx bx-x me-1"></i>
+                            </button>
+                        </div>
+                        <div id="chapterOne-1" class="row div_chapterOne p-2">                                
+                            <div class="mb-3 col-12 col-md-6 mb-0">
+                                <label class="form-label" for="form-repeater-1-1">Titulo</label>
+                                <input type="text" data-var="titulo" id="form-repeater-titulo-1-1" class="form-control noMayus" />
+                            </div> 
+                            <div class="mb-3 col-12 col-md-6 mb-0">
+                                <label class="form-label" for="form-repeater-1-2">Orden</label>
+                                <input type="text" data-var="orden" id="form-repeater-orden-1-2" class="form-control solo-numero" />
+                            </div>
+                            <div class="mb-3 col-12 col-md-6 mb-0">
+                                <label class="form-label" for="form-repeater-1-3">Detalle</label>
+                                <input type="text" data-var="detalle" id="form-repeater-detalle-1-3" class="form-control noMayus" />
+                            </div>
+                            <div class="mb-3 col-12 col-md-6 mb-0">
+                                <label for="form-repeater-1-4" class="form-label">Profesores Asig.</label>
+                                <input  data-var="profesores" id="form-repeater-profesores-1-4" name="profesores-1-4" class="form-control"  />
+                            </div>
+                            <div class="mb-3 col-12 mb-0">
+                                <label class="form-label" for="full-editor-objetivos">Calendario </label>
+                                <div data-var="horarios" class="form-control form-repeater-horarios" id="form-repeater-horarios-1-5">
+                                    
+                                </div>
+                            </div>
+                            <!-- // ID OCULTO -->
+                            <input type="hidden" data-var="id" id="form-repeater-id-1-6" class="form-control" />
+                        </div>
+                        <hr> 
+                    </div>
+                </div>
+                <div class="mb-0">
+                    <button class="btn btn-primary" id="data-repeater-create" data-repeater-create>
+                        <i class="bx bx-plus me-1"></i>
+                        <span class="align-middle">Agregar</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- /Form Repeater -->
