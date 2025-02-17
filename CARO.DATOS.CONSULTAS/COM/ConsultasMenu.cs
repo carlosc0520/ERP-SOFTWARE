@@ -30,7 +30,7 @@ namespace CARO.DATOS.CONSULTAS.COM
                 CESTDO = custom.CESTDO,
                 INIT = custom.INIT ?? 0,
                 ROWS = custom.ROWS ?? 10000,
-                IDMDLO = custom.IDMDLO
+                IDPRSNA = custom.IDPRSNA
             }).ToUpper();
 
             parametros.Add("@p_cData", json);

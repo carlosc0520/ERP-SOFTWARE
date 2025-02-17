@@ -1,0 +1,41 @@
+<div class="modal fade" id="modalEditParticipante" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-simple modal-edit-user">
+        <div class="modal-content p-3 p-md-5">
+            <div class="modal-body">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="text-center mb-4">
+                    <h3>Editar Participante</h3>
+                </div>
+                <form id="EditParticipante" class="row g-3" method="post">
+                    <div class="col-12">
+                        <label class="form-label" for="NOMBRES">Nombres <span class="text-danger">*</span></label>
+                        <input type="text" id="NOMBRES" name="NOMBRES"  class="form-control max-length noMayus" data-maxlength="200" />
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <label class="form-label" for="APELLIDOS">Apellidos</label>
+                        <input type="text" id="APELLIDOS" name="APELLIDOS"  class="form-control max-length noMayus" data-maxlength="200" />
+                    </div>
+                    
+                    <div class="col-12 col-md-4">
+                        <label class="form-label" for="DNI">DNI</label>
+                        <input type="text" id="DNI" name="DNI" class="form-control max-length noMayus" data-maxlength="200" />
+                    </div>
+                    
+                    <div class="col-12 col-md-4">
+                        <label class="form-label" for="CORREO">Correo</label>
+                        <input type="text" id="CORREO" name="CORREO" class="form-control max-length noMayus" data-maxlength="1000" />
+                    </div>
+
+                    <div class="col-12 text-center mt-4">
+                        <button id="btnEditParticipante" class="btn btn-primary me-sm-3 me-1">Guardar</button>
+                        <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                    </div>
+
+                    @await Html.PartialAsync("../../../_Partials/_AuditoriaE.cshtml")
+
+                </form> 
+            </div>
+        </div>
+    </div>
+</div>

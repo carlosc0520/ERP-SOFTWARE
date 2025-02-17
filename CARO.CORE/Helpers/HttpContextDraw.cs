@@ -18,10 +18,8 @@ namespace CARO.CORE.Helpers
             var initProp = typeof(T).GetProperty("INIT");
             if (initProp != null) initProp.SetValue(miModelo, start);
 
-
             var rowsProp = typeof(T).GetProperty("ROWS");
             if (rowsProp != null) rowsProp.SetValue(miModelo, length == -1 ? 10000 : length);
-
 
             var descProp = typeof(T).GetProperty("DESC");
             if (descProp != null) descProp.SetValue(miModelo, searchTerm);

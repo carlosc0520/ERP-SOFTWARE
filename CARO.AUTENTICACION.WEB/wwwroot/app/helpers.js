@@ -223,9 +223,9 @@ const plugins = {
   bootstrap5:
     typeof FormValidation != 'undefined'
       ? new FormValidation.plugins.Bootstrap5({
-          eleValidClass: '',
-          rowSelector: '.col-12'
-        })
+        eleValidClass: '',
+        rowSelector: '.col-12'
+      })
       : null,
   submitButton: typeof FormValidation != 'undefined' ? new FormValidation.plugins.SubmitButton() : null,
   autoFocus: typeof FormValidation != 'undefined' ? new FormValidation.plugins.AutoFocus() : null
@@ -238,20 +238,49 @@ const configTable = (domHelp = null, mensaje = '', lengthMenu = [10, 15, 20], al
       domHelp != null
         ? domHelp
         : '<"mx-0 d-flex flex-wrap flex-column flex-sm-row gap-2 py-4 py-sm-0"' +
-          '<"d-flex align-items-center me-auto"l>' +
-          '<"dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex flex-sm-row align-items-center justify-content-md-end gap-2 ms-n2 ms-md-2 flex-wrap flex-sm-nowrap"fB>' +
-          '>t' +
-          '<"row mx-4"' +
-          '<"col-sm-12 col-md-6"i>' +
-          '<"col-sm-12 col-md-6 pb-3 ps-0"p>' +
-          '<"d-flex justify-content-center w-100"r>' +
-          '>',
-    // 10,15,20 y Todos
+        '<"d-flex align-items-center me-auto"l>' +
+        '<"dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex flex-sm-row align-items-center justify-content-md-end gap-2 ms-n2 ms-md-2 flex-wrap flex-sm-nowrap"fB>' +
+        '>t' +
+        '<"row mx-4"' +
+        '<"col-sm-12 col-md-6"i>' +
+        '<"col-sm-12 col-md-6 pb-3 ps-0"p>' +
+        '<"d-flex justify-content-center w-100"r>' +
+        '>',
     lengthMenu: lengthMenu,
     displayLength: all ? -1 : lengthMenu?.[0] || 10,
     processing: true,
     serverSide: true,
-    responsive: true,
+    responsive: {
+      details: {
+        display: $.fn.dataTable.Responsive.display.modal({
+          header: function (row) {
+            var data = row.data();
+            var $content = $(data[2]);
+            var userName = $content.find('[class^="user-name-full-"]').text();
+            return 'Detalles de ' + userName;
+          }
+        }),
+        type: 'column',
+        renderer: function (api, rowIdx, columns) {
+          var data = $.map(columns, function (col) {
+            return col.hidden // Solo mostrar las columnas ocultas
+              ? '<tr data-dt-row="' +
+              col.rowIndex +
+              '" data-dt-column="' +
+              col.columnIndex +
+              '">' +
+              '<td>' + col.title + ':</td> ' +
+              '<td>' + col.data + '</td>' +
+              '</tr>'
+              : '';
+          }).join('');
+
+          return data
+            ? $('<table class="table"/><tbody />').append(data)
+            : false;
+        }
+      }
+    },
     language: {
       processing:
         '<div class="sk-wave mx-auto"><div class="sk-rect sk-wave-rect"></div> <div class="sk-rect sk-wave-rect"></div> <div class="sk-rect sk-wave-rect"></div> <div class="sk-rect sk-wave-rect"></div> <div class="sk-rect sk-wave-rect"></div></div>',
@@ -270,49 +299,11 @@ const configTable = (domHelp = null, mensaje = '', lengthMenu = [10, 15, 20], al
         zeroRecords: 'No se encontraron registros'
       }
     },
-    responsive: {
-      details: {
-        display: $.fn.dataTable.Responsive.display.modal({
-          header: function (row) {
-            var data = row.data();
-            var $content = $(data[2]);
-            // Extract the value of data-user-name attribute (User Name)
-            var userName = $content.find('[class^="user-name-full-"]').text();
-            return 'Details of ' + userName;
-          }
-        }),
-        type: 'column',
-        renderer: function (api, rowIdx, columns) {
-          var data = $.map(columns, function (col, i) {
-            // Exclude the last column (Action)
-            if (i < columns.length - 1) {
-              return col.title !== ''
-                ? '<tr data-dt-row="' +
-                    col.rowIndex +
-                    '" data-dt-column="' +
-                    col.columnIndex +
-                    '">' +
-                    '<td>' +
-                    col.title +
-                    ':' +
-                    '</td> ' +
-                    '<td>' +
-                    col.data +
-                    '</td>' +
-                    '</tr>'
-                : '';
-            }
-            return '';
-          }).join('');
-
-          return data ? $('<table class="table"/><tbody />').append(data) : false;
-        }
-      }
-    },
     rowReorder: {
       selector: 'td:nth-child(2)'
     }
   };
+
 };
 
 const agregarValidaciones = (valid = {}) => {
@@ -411,7 +402,12 @@ const postForm = form => {
   return formData;
 };
 
-const configFormVal = (form, campos, thisEvent = () => {}) => {
+const configFormVal = (form, campos, thisEvent = () => { }) => {
+  func.selects2(form); 
+  
+  // limpiar todos los select2
+  $(`#${form} .select2`).val(null).trigger('change');
+  
   try {
     FormValidation.formValidation(document.getElementById(form)).destroy();
 
@@ -432,7 +428,7 @@ const configFormVal = (form, campos, thisEvent = () => {}) => {
       .on('core.form.valid', function (e) {
         thisEvent();
       })
-      .on('core.form.invalid', function (e) {})
+      .on('core.form.invalid', function (e) { })
       .on('core.field.invalid', function (e) {
         let input = $(`#${form} [name=${e}]`);
         if (input.length > 0) {
@@ -478,10 +474,27 @@ const convertirImageToWebp = file => {
 };
 
 const func = {
+  formatearFechaA: fecha => {
+    if ([null, undefined, '', "-"].includes(fecha)) return '';
+
+    let fechaArray = fecha.split(' ');
+    let fechaPartes = fechaArray[0].split('-');
+    let horaPartes = fechaArray[1].split(':');
+    let hora = parseInt(horaPartes[0]);
+    let minutos = parseInt(horaPartes[1]);
+    let ampm = hora >= 12 ? 'pm' : 'am';
+    let hora12 = hora % 12;
+    hora12 = hora12 ? hora12 : 12;
+    return `${fechaPartes[2]}-${fechaPartes[1]}-${fechaPartes[0]} ${hora12.toString().padStart(2, '0')}:${minutos.toString().padStart(2, '0')} ${ampm}`;
+
+  },
   getURLParameter: name => {
     return decodeURI((RegExp(name + '=' + '(.+?)(&|$)').exec(location.search) || [, null])[1]);
   },
-  formatFecha: (fecha, config) => (!fecha ? '' : moment(fecha).format(config)),
+  formatFecha: (fecha, config) => {
+    if (["", null, undefined, "-"].includes(fecha)) return "";
+    return (!fecha ? '' : moment(fecha).format(config));
+  },
   actualizarForm: (form, rowData) => {
     const fechasKeys = ['FEDCN', 'FCRCN', 'FESTDO'];
     Object.keys(rowData).forEach(key => {
@@ -510,12 +523,33 @@ const func = {
                 value: value
               });
             }
-          } catch (error) {}
+          } catch (error) { }
         } else {
           $(`#${form} [name="${uppercaseKey}"]`).val(['undefined', undefined, null].includes(value) ? '' : value);
         }
+       
         if ($(`#${form} [name="${uppercaseKey}"]`).hasClass('select2')) {
           $(`#${form} [name="${uppercaseKey}"]`).val(value).trigger('change');
+        }
+        
+        if ($(`#${form} [name="${uppercaseKey}"]`).hasClass('dob-picker-format')) {
+          $(`#${form} [name="${uppercaseKey}"]`).flatpickr({
+            value: value,
+          })
+        }
+
+        if ($(`#${form} [name="${uppercaseKey}"]`).hasClass('flatpickr-timeout')) {
+          $(`#${form} [name="${uppercaseKey}"]`).flatpickr({
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+            time_24hr: true,
+            defaultDate: value,
+          });
+        }
+
+        if ($(`#${form} #${uppercaseKey}`).find('.ql-editor').length > 0) {
+          $(`#${form} #${uppercaseKey}`).find('.ql-editor').html(value);
         }
       }
 
@@ -690,17 +724,11 @@ const func = {
       return null;
     }
   },
-  selects2: () => {
-    const select2 = $('.select2');
-    if (select2.length) {
-      select2.each(function () {
-        var $this = $(this);
-        $this.wrap('<div class="position-relative"></div>').select2({
-          placeholder: 'Seleccione',
-          dropdownParent: $this.parent(),          
-        });
-      });
-    }
+  selects2: (formId) => {
+    $(`#${formId} .select2`).select2({
+      placeholder: 'Seleccione',
+      dropdownParent: $(`#${formId}`)
+    });
   },
   limitarCaracteres: () => {
     // LONGITUD CARACTERES
@@ -726,17 +754,21 @@ const func = {
     });
 
     // LONGITUD DECIMALES
-    let soloDecimles = $('input[type="text"].solo-decimales, textarea.solo-decimales');
-    soloDecimles.each(function () {
+    // LONGITUD DECIMALES
+    let soloDecimales = $('input[type="text"].solo-decimales, textarea.solo-decimales');
+    soloDecimales.each(function () {
       let max = parseInt($(this).data('maxlength'));
       $(this).on('input', function () {
         let value = $(this).val();
-        if (value.includes('.')) {
-          let decimal = value.split('.')[1];
-          if (decimal.length > max) {
-            $(this).val(value.substring(0, value.length - 1));
-          }
+        value = value.replace(/[^0-9.]/g, '');
+        let decimal = value.split('.');
+        if (decimal.length > 2) {
+          value = decimal[0] + '.' + decimal[1];
+        } else if (decimal.length === 2 && decimal[1].length > max) {
+          value = decimal[0] + '.' + decimal[1].substring(0, max);
         }
+
+        $(this).val(value);
       });
     });
   },
@@ -758,6 +790,40 @@ const func = {
     } catch (error) {
       swalFire.error('Ocurrió un error al cargar los datos');
     }
+  },
+  renderCombos: (GRUPODATOS = null) => {
+    if (!GRUPODATOS) return;
+
+    $.ajax({
+      url: '/Seguridad/GrupoDato/Index?handler=ObtenerAll',
+      beforeSend: function (xhr) {
+        xhr.setRequestHeader('XSRF-TOKEN', localStorage.getItem('accessToken'));
+      },
+      type: 'GET',
+      data: {
+        GDTOS: GRUPODATOS
+      },
+      success: function (response) {
+        if (response?.data) {
+          // todos los selects dentro EditPlantilla AddPlantilla, que no sea CESTDO
+          let selects = document.querySelectorAll('select');
+          selects = Array.from(selects).filter(select => select.getAttribute('name') != 'CESTDO');
+
+          selects.forEach(select => {
+            const name = select.getAttribute('name');
+            const data = response.data.filter(d => d.gdpdre == name);
+            select.innerHTML = `<option value="">-- Seleccione</option>`;
+
+            if (data.length > 0) {
+              data.forEach(d => {
+                select.innerHTML += `<option value="${d.vlR1}">${d.dtlle}</option>`;
+              });
+            }
+          });
+        }
+      },
+      error: error => swalFire.error('Ocurrió un error al cargar los módulos')
+    });
   },
   actualizarAuditoria: (form, rowData) => {
     // selecconar input y select
@@ -865,6 +931,17 @@ const func = {
             instance.setDate(null);
           }
         }
+      });
+    });
+
+    const flatpickrTime = document.querySelectorAll('.flatpickr-timeout');
+    flatpickrTime.forEach(function (time) {
+      flatpickr(time, {
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: 'H:i',
+        time_24hr: true,
+        disableMobile: true
       });
     });
   },
@@ -976,5 +1053,151 @@ const redirect = (isView = false, selector = '', valor) => {
     } else {
       button.setAttribute('disabled', 'disabled');
     }
-  } catch (error) {}
+  } catch (error) { }
+};
+
+function agregarArchivoADropzone(rutaArchivo, dropzoneInstance) {
+  if (!rutaArchivo || !dropzoneInstance) {
+    console.error('Se requiere una ruta válida y una instancia de Dropzone.');
+    return;
+  }
+
+  let filename = 'archivo_' + new Date().getTime() + '.jpg';
+  let fileOfBlob = new File([], filename, { type: 'image/jpeg' });
+  dropzoneInstance.files.push(fileOfBlob);
+  dropzoneInstance.emit('addedfile', fileOfBlob);
+  dropzoneInstance.emit('thumbnail', fileOfBlob, '');
+  dropzoneInstance.emit('complete', fileOfBlob);
+
+  setTimeout(() => {
+    dropzoneInstance.emit('thumbnail', fileOfBlob, rutaArchivo);
+    fileOfBlob.dataURL = rutaArchivo;
+    fileOfBlob.isExist = true;
+  }, 500);
+}
+
+function agregarArchivoADropzoneFile(rutaArchivo, dropzoneInstance, formRef) {
+  if (!rutaArchivo || !dropzoneInstance) {
+    console.error('Se requiere una ruta válida y una instancia de Dropzone.');
+    return;
+  }
+
+  // agregar archivo es pdf, word, excel
+  let filename = rutaArchivo.split('/').pop();
+  let fileOfBlob = new File([], filename, { type: 'application/pdf' });
+
+  dropzoneInstance.files.push(fileOfBlob);
+  dropzoneInstance.emit('addedfile', fileOfBlob);
+  dropzoneInstance.emit('complete', fileOfBlob);
+
+  let preview = $(`#${formRef}`).find('.dz-preview');
+  if (preview.length > 0) {
+    let download = preview.find('.dz-download');
+    if (download.length <= 0) {
+      preview.append(`<div
+        style="display: flex; justify-content: center; align-items: center; margin: 10px"
+        ><a href="${rutaArchivo}" class="dz-download btn btn-primary btn-sm text-white"
+        target="_blank"
+        download="${filename}">Descargar</a></div>`);
+    }
+
+    download.attr('href', rutaArchivo);
+  }
+
+  setTimeout(() => {
+    fileOfBlob.isExist = true;
+  }, 500);
+}
+
+const tagsTagify = (referencia, datos) => {
+  function tagTemplate(tagData) {
+    return `
+    <tag title="${tagData.title || tagData.email}"
+      contenteditable='false'
+      spellcheck='false'
+      tabIndex="-1"
+      class="${this.settings.classNames.tag} ${tagData.class ? tagData.class : ''}"
+      ${this.getAttributes(tagData)}
+    >
+      <x title='' class='tagify__tag__removeBtn' role='button' aria-label='remove tag'></x>
+      <div>
+        <div class='tagify__tag__avatar-wrap'>
+          <img onerror="this.style.visibility='hidden'" src="${tagData.avatar}">
+        </div>
+        <span class='tagify__tag-text'>${tagData.name}</span>
+      </div>
+    </tag>
+  `;
+  }
+
+  function suggestionItemTemplate(tagData) {
+    return `
+    <div ${this.getAttributes(tagData)}
+      class='tagify__dropdown__item align-items-center ${tagData.class ? tagData.class : ''}'
+      tabindex="0"
+      role="option"
+    >
+      ${tagData.avatar
+        ? `<div class='tagify__dropdown__item__avatar-wrap'>
+          <img onerror="this.style.visibility='hidden'" src="${tagData.avatar}">
+        </div>`
+        : ''
+      }
+      <div class="fw-medium">${tagData.name}</div>
+    </div>
+  `;
+  }
+
+  function dropdownHeaderTemplate(suggestions) {
+    return `
+        <div class="${this.settings.classNames.dropdownItem} ${this.settings.classNames.dropdownItem}__addAll">
+            <strong>${this.value.length ? `Agregar ${suggestions.length} miembros` : 'Todos los miembros'}</strong>
+            <span>${suggestions.length} members</span>
+        </div>
+    `;
+  }
+
+  // initialize Tagify on the above input node reference
+  let TagifyUserList = new Tagify(referencia, {
+    tagTextProp: 'name', // very important since a custom template is used with this property as text. allows typing a "value" or a "name" to match input with whitelist
+    enforceWhitelist: true,
+    skipInvalid: true, // do not remporarily add invalid tags
+    dropdown: {
+      closeOnSelect: false,
+      enabled: 0,
+      classname: 'users-list',
+      searchKeys: ['name', 'email'] // very important to set by which keys to search for suggesttions when typing
+    },
+    templates: {
+      tag: tagTemplate,
+      dropdownItem: suggestionItemTemplate,
+      dropdownHeader: dropdownHeaderTemplate
+    },
+    whitelist: datos
+  });
+
+  // attach events listeners
+  TagifyUserList.on('dropdown:select', onSelectSuggestion) // allows selecting all the suggested (whitelist) items
+    .on('edit:start', onEditStart); // show custom text in the tag while in edit-mode
+
+  function onSelectSuggestion(e) {
+    // custom class from "dropdownHeaderTemplate"
+    if (e.detail.elm.classList.contains(`${TagifyUserList.settings.classNames.dropdownItem}__addAll`))
+      TagifyUserList.dropdown.selectAll();
+  }
+
+  function onEditStart({ detail: { tag, data } }) {
+    TagifyUserList.setTagTextNode(tag, `${data.name} <${data.email}>`);
+  }
+};
+
+let base64toBlob = async (base64, type) => {
+  let byteString = await atob(base64);
+  let arrayBuffer = await new ArrayBuffer(byteString.length);
+  let intArray = await new Uint8Array(arrayBuffer);
+  for (let i = 0; i < byteString.length; i++) {
+    intArray[i] = byteString.charCodeAt(i);
+  }
+  let blob = await new Blob([intArray], { type: type });
+  return blob;
 };

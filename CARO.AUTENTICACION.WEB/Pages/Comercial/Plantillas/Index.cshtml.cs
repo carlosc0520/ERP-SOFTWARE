@@ -1,4 +1,5 @@
 using CARO.CONFIG;
+using CARO.CORE;
 using CARO.CORE.Helpers;
 using CARO.DATOS.CONSULTAS.COM;
 using CARO.DATOS.EVENTOS.Comandos.COMERCIAL.PLANTILLA;
@@ -13,7 +14,7 @@ namespace CARO.AUTENTICACION.WEB.Pages.Comercial.Plantillas
   public class IndexModel : PageModel
   {
     private readonly IMediator _mediator;
-
+    private readonly FileUploads _fileUploads;
     private readonly IConsultasPlantilla _consultasPlantilla;
 
     public IndexModel(
@@ -22,6 +23,7 @@ namespace CARO.AUTENTICACION.WEB.Pages.Comercial.Plantillas
     )
     {
       _consultasPlantilla = consultasPlantilla;
+      _fileUploads = new FileUploads();
       _mediator = mediator;
     }
 
@@ -48,7 +50,15 @@ namespace CARO.AUTENTICACION.WEB.Pages.Comercial.Plantillas
       try
       {
         if (string.IsNullOrEmpty(comando.RTAPLNTLLA)) return BadRequest("La ruta del archivo no está especificada.");
-        if (!System.IO.File.Exists(comando.RTAPLNTLLA)) return NotFound("El archivo no fue encontrado.");
+
+        var memoryStream = await _fileUploads.ObtenerFile(comando.RTAPLNTLLA);
+
+        byte[] fileBytes;
+        using (var ms = new MemoryStream())
+        {
+          await memoryStream.CopyToAsync(ms);
+          fileBytes = ms.ToArray();
+        }
 
         string fileExtension = Path.GetExtension(comando.RTAPLNTLLA).ToLower();
         string fileName = Path.GetFileName(comando.RTAPLNTLLA);
@@ -65,12 +75,11 @@ namespace CARO.AUTENTICACION.WEB.Pages.Comercial.Plantillas
           ".xls" => "application/vnd.ms-excel",
           ".xlsx" => "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
           ".txt" => "text/plain",
-          _ => "application/octet-stream" // Tipo por defecto
+          _ => "application/octet-stream" 
         };
-        byte[] fileBytes = await System.IO.File.ReadAllBytesAsync(comando.RTAPLNTLLA);
+
         string base64String = Convert.ToBase64String(fileBytes);
         string dataUrl = $"data:{mimeType};base64,{base64String}";
-
 
         return new JsonResult(new { file = dataUrl, fileName = fileName });
       }
@@ -86,14 +95,16 @@ namespace CARO.AUTENTICACION.WEB.Pages.Comercial.Plantillas
       try
       {
         comando.IDMRCA = ObtenerIdMarca();
-        string filePath = await GuardarArchivoAsync(comando.ARCHVO);
-        comando.RTAPLNTLLA = filePath.Replace(ConfiguracionProyecto.DISK, "");
         comando.UEDCN = HttpContextDraw.User(HttpContext, 1);
 
-        var result = await _mediator.Send(comando);
+        if (comando.ARCHVO != null && comando.ARCHVO.Length > 0)
+        {
+          comando.RTAPLNTLLA = await _fileUploads.UploadFileAsync("CCFIRMA/PLANTILLAS", comando.ARCHVO); 
+        }
 
-        if (!result.EsSatisfactoria && System.IO.File.Exists(filePath))
-          System.IO.File.Delete(filePath);
+        var result = await _mediator.Send(comando);
+        if (!result.EsSatisfactoria)
+          await _fileUploads.DeleteDirectoryAsync(comando.RTAPLNTLLA);
 
         return new JsonResult(result);
       }
@@ -113,11 +124,10 @@ namespace CARO.AUTENTICACION.WEB.Pages.Comercial.Plantillas
 
         if (comando.ARCHVO != null && comando.ARCHVO.Length > 0)
         {
-          if (!string.IsNullOrEmpty(comando.RTAPLNTLLA) && System.IO.File.Exists(comando.RTAPLNTLLA))
-            System.IO.File.Delete(comando.RTAPLNTLLA);
-          
-          string filePath = await GuardarArchivoAsync(comando.ARCHVO);
-          comando.RTAPLNTLLA = filePath.Replace(ConfiguracionProyecto.DISK, "");
+          if (!string.IsNullOrEmpty(comando.RTAPLNTLLA))
+            await _fileUploads.DeleteDirectoryAsync(comando.RTAPLNTLLA);
+
+          comando.RTAPLNTLLA = await _fileUploads.UploadFileAsync("CCFIRMA/PLANTILLAS", comando.ARCHVO);
         }
 
         var result = await _mediator.Send(comando);
@@ -141,7 +151,8 @@ namespace CARO.AUTENTICACION.WEB.Pages.Comercial.Plantillas
     #region METODOS
     private async Task<string> GuardarArchivoAsync(IFormFile archivo)
     {
-      string folderPath = Path.Combine(ConfiguracionProyecto.DISK, "CCFIRMA", "COMERCIAL", "PLANTILLAS");
+      string folderPath = Path.Combine(ConfiguracionProyecto.DISK, "CCFIRMA", "COMERCIAL", "PLANTILLAS")
+                          .Replace("\\", "/");
       if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
 
       string fileName = Path.GetFileName(archivo.FileName);

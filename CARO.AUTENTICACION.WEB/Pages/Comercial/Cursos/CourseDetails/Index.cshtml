@@ -12,7 +12,8 @@
     <link rel="stylesheet" href="~/vendor/libs/quill/typography.dist.css" />
     <link rel="stylesheet" href="~/vendor/libs/quill/katex.dist.css" />
     <link rel="stylesheet" href="~/vendor/libs/quill/editor.dist.css" />
-}
+    <link rel="stylesheet" href="~/vendor/libs/tagify/tagify.dist.css" />
+} 
  
 @section VendorScripts { 
     <script src="~/vendor/libs/plyr/plyr.dist.js"></script>
@@ -22,6 +23,7 @@
     <script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
     <script src="~/vendor/libs/quill/katex.dist.js"></script>
     <script src="~/vendor/libs/quill/quill.dist.js"></script>
+    <script src="~/vendor/libs/tagify/tagify.dist.js"></script>
     <script src="~/vendor/libs/jquery-repeater/jquery-repeater.dist.js"></script>
 }
 
@@ -151,18 +153,22 @@
                                 <label class="form-label" for="form-repeater-1-2">Orden</label>
                                 <input type="text" data-var="orden" id="form-repeater-orden-1-2" class="form-control solo-numero" />
                             </div>
-                            <div class="mb-3 col-12 mb-0">
+                            <div class="mb-3 col-12 col-md-6 mb-0">
                                 <label class="form-label" for="form-repeater-1-3">Detalle</label>
                                 <input type="text" data-var="detalle" id="form-repeater-detalle-1-3" class="form-control noMayus" />
                             </div>
+                            <div class="mb-3 col-12 col-md-6 mb-0">
+                                <label for="form-repeater-1-4" class="form-label">Profesores Asig.</label>
+                                <input  data-var="profesores" id="form-repeater-profesores-1-4" name="profesores-1-4" class="form-control"  />
+                            </div>
                             <div class="mb-3 col-12 mb-0">
                                 <label class="form-label" for="full-editor-objetivos">Calendario </label>
-                                <div data-var="horarios" class="form-control form-repeater-horarios" id="form-repeater-horarios-1-4">
+                                <div data-var="horarios" class="form-control form-repeater-horarios" id="form-repeater-horarios-1-5">
                                     
                                 </div>
                             </div>
                             <!-- // ID OCULTO -->
-                            <input type="hidden" data-var="id" id="form-repeater-id-1-5" class="form-control" />
+                            <input type="hidden" data-var="id" id="form-repeater-id-1-6" class="form-control" />
                         </div>
                         <hr> 
                     </div>

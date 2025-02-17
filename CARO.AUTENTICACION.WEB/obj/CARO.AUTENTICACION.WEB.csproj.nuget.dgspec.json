@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.AUTENTICACION.WEB\\CARO.AUTENTICACION.WEB.csproj": {}
+    "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.AUTENTICACION.WEB\\CARO.AUTENTICACION.WEB.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.AUTENTICACION.WEB\\CARO.AUTENTICACION.WEB.csproj": {
+    "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.AUTENTICACION.WEB\\CARO.AUTENTICACION.WEB.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.AUTENTICACION.WEB\\CARO.AUTENTICACION.WEB.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.AUTENTICACION.WEB\\CARO.AUTENTICACION.WEB.csproj",
         "projectName": "CARO.AUTENTICACION.WEB",
-        "projectPath": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.AUTENTICACION.WEB\\CARO.AUTENTICACION.WEB.csproj",
+        "projectPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.AUTENTICACION.WEB\\CARO.AUTENTICACION.WEB.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.AUTENTICACION.WEB\\obj\\",
+        "outputPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.AUTENTICACION.WEB\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -28,14 +28,14 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.CORE\\CARO.CORE.csproj": {
-                "projectPath": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.CORE\\CARO.CORE.csproj"
+              "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CORE\\CARO.CORE.csproj": {
+                "projectPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CORE\\CARO.CORE.csproj"
               },
-              "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.DATOS.CONSULTAS\\CARO.DATOS.CONSULTAS.csproj": {
-                "projectPath": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.DATOS.CONSULTAS\\CARO.DATOS.CONSULTAS.csproj"
+              "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.DATOS.CONSULTAS\\CARO.DATOS.CONSULTAS.csproj": {
+                "projectPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.DATOS.CONSULTAS\\CARO.DATOS.CONSULTAS.csproj"
               },
-              "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.DATOS.EVENTOS\\CARO.DATOS.EVENTOS.csproj": {
-                "projectPath": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.DATOS.EVENTOS\\CARO.DATOS.EVENTOS.csproj"
+              "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.DATOS.EVENTOS\\CARO.DATOS.EVENTOS.csproj": {
+                "projectPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.DATOS.EVENTOS\\CARO.DATOS.EVENTOS.csproj"
               }
             }
           }
@@ -62,6 +62,10 @@
             "DocumentFormat.OpenXml": {
               "target": "Package",
               "version": "[2.16.0, )"
+            },
+            "FluentFTP": {
+              "target": "Package",
+              "version": "[51.1.0, )"
             },
             "FreeSpire.Doc": {
               "target": "Package",
@@ -118,6 +122,14 @@
             "System.Data.SQLite": {
               "target": "Package",
               "version": "[1.0.118, )"
+            },
+            "itext7": {
+              "target": "Package",
+              "version": "[7.2.0, )"
+            },
+            "itext7.bouncy-castle-adapter": {
+              "target": "Package",
+              "version": "[8.0.5, )"
             }
           },
           "imports": [
@@ -143,14 +155,14 @@
         }
       }
     },
-    "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.CONFIG\\CARO.CONFIG.csproj": {
+    "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CONFIG\\CARO.CONFIG.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.CONFIG\\CARO.CONFIG.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CONFIG\\CARO.CONFIG.csproj",
         "projectName": "CARO.CONFIG",
-        "projectPath": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.CONFIG\\CARO.CONFIG.csproj",
+        "projectPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CONFIG\\CARO.CONFIG.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.CONFIG\\obj\\",
+        "outputPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CONFIG\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -203,14 +215,14 @@
         }
       }
     },
-    "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.CORE\\CARO.CORE.csproj": {
+    "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CORE\\CARO.CORE.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.CORE\\CARO.CORE.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CORE\\CARO.CORE.csproj",
         "projectName": "CARO.CORE",
-        "projectPath": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.CORE\\CARO.CORE.csproj",
+        "projectPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CORE\\CARO.CORE.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.CORE\\obj\\",
+        "outputPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CORE\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -227,8 +239,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.CONFIG\\CARO.CONFIG.csproj": {
-                "projectPath": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.CONFIG\\CARO.CONFIG.csproj"
+              "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CONFIG\\CARO.CONFIG.csproj": {
+                "projectPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CONFIG\\CARO.CONFIG.csproj"
               }
             }
           }
@@ -248,6 +260,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "FluentFTP": {
+              "target": "Package",
+              "version": "[51.1.0, )"
+            },
             "Microsoft.AspNetCore.Authentication.Cookies": {
               "target": "Package",
               "version": "[2.2.0, )"
@@ -321,14 +337,14 @@
         }
       }
     },
-    "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.DATABASE\\CARO.DATABASE.csproj": {
+    "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.DATABASE\\CARO.DATABASE.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.DATABASE\\CARO.DATABASE.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.DATABASE\\CARO.DATABASE.csproj",
         "projectName": "CARO.DATABASE",
-        "projectPath": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.DATABASE\\CARO.DATABASE.csproj",
+        "projectPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.DATABASE\\CARO.DATABASE.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.DATABASE\\obj\\",
+        "outputPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.DATABASE\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -345,8 +361,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.CORE\\CARO.CORE.csproj": {
-                "projectPath": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.CORE\\CARO.CORE.csproj"
+              "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CORE\\CARO.CORE.csproj": {
+                "projectPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CORE\\CARO.CORE.csproj"
               }
             }
           }
@@ -431,14 +447,14 @@
         }
       }
     },
-    "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.DATOS.CONSULTAS\\CARO.DATOS.CONSULTAS.csproj": {
+    "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.DATOS.CONSULTAS\\CARO.DATOS.CONSULTAS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.DATOS.CONSULTAS\\CARO.DATOS.CONSULTAS.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.DATOS.CONSULTAS\\CARO.DATOS.CONSULTAS.csproj",
         "projectName": "CARO.DATOS.CONSULTAS",
-        "projectPath": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.DATOS.CONSULTAS\\CARO.DATOS.CONSULTAS.csproj",
+        "projectPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.DATOS.CONSULTAS\\CARO.DATOS.CONSULTAS.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.DATOS.CONSULTAS\\obj\\",
+        "outputPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.DATOS.CONSULTAS\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -455,14 +471,14 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.CORE\\CARO.CORE.csproj": {
-                "projectPath": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.CORE\\CARO.CORE.csproj"
+              "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CORE\\CARO.CORE.csproj": {
+                "projectPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CORE\\CARO.CORE.csproj"
               },
-              "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.DATABASE\\CARO.DATABASE.csproj": {
-                "projectPath": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.DATABASE\\CARO.DATABASE.csproj"
+              "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.DATABASE\\CARO.DATABASE.csproj": {
+                "projectPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.DATABASE\\CARO.DATABASE.csproj"
               },
-              "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj": {
-                "projectPath": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj"
+              "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj": {
+                "projectPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj"
               }
             }
           }
@@ -501,14 +517,14 @@
         }
       }
     },
-    "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.DATOS.EVENTOS\\CARO.DATOS.EVENTOS.csproj": {
+    "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.DATOS.EVENTOS\\CARO.DATOS.EVENTOS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.DATOS.EVENTOS\\CARO.DATOS.EVENTOS.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.DATOS.EVENTOS\\CARO.DATOS.EVENTOS.csproj",
         "projectName": "CARO.DATOS.EVENTOS",
-        "projectPath": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.DATOS.EVENTOS\\CARO.DATOS.EVENTOS.csproj",
+        "projectPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.DATOS.EVENTOS\\CARO.DATOS.EVENTOS.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.DATOS.EVENTOS\\obj\\",
+        "outputPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.DATOS.EVENTOS\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -525,14 +541,14 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.CORE\\CARO.CORE.csproj": {
-                "projectPath": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.CORE\\CARO.CORE.csproj"
+              "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CORE\\CARO.CORE.csproj": {
+                "projectPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CORE\\CARO.CORE.csproj"
               },
-              "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.DATABASE\\CARO.DATABASE.csproj": {
-                "projectPath": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.DATABASE\\CARO.DATABASE.csproj"
+              "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.DATABASE\\CARO.DATABASE.csproj": {
+                "projectPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.DATABASE\\CARO.DATABASE.csproj"
               },
-              "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj": {
-                "projectPath": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj"
+              "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj": {
+                "projectPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj"
               }
             }
           }
@@ -581,14 +597,14 @@
         }
       }
     },
-    "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj": {
+    "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj",
         "projectName": "CARO.DATOS.MODELO",
-        "projectPath": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj",
+        "projectPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.DATOS.MODELO\\obj\\",
+        "outputPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.DATOS.MODELO\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -605,11 +621,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.CORE\\CARO.CORE.csproj": {
-                "projectPath": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.CORE\\CARO.CORE.csproj"
+              "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CORE\\CARO.CORE.csproj": {
+                "projectPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CORE\\CARO.CORE.csproj"
               },
-              "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.ENTIDAD\\CARO.ENTIDAD.csproj": {
-                "projectPath": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.ENTIDAD\\CARO.ENTIDAD.csproj"
+              "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.ENTIDAD\\CARO.ENTIDAD.csproj": {
+                "projectPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.ENTIDAD\\CARO.ENTIDAD.csproj"
               }
             }
           }
@@ -648,14 +664,14 @@
         }
       }
     },
-    "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.ENTIDAD\\CARO.ENTIDAD.csproj": {
+    "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.ENTIDAD\\CARO.ENTIDAD.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.ENTIDAD\\CARO.ENTIDAD.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.ENTIDAD\\CARO.ENTIDAD.csproj",
         "projectName": "CARO.ENTIDAD",
-        "projectPath": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.ENTIDAD\\CARO.ENTIDAD.csproj",
+        "projectPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.ENTIDAD\\CARO.ENTIDAD.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.ENTIDAD\\obj\\",
+        "outputPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.ENTIDAD\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",

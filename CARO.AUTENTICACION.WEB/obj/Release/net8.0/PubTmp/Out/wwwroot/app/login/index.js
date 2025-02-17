@@ -20,8 +20,8 @@ const executeView = () => {
       AUTENTICAR: () => {
         swalFire.cargando(['Espere un momento', 'Estamos autenticando']);
         let formData = new FormData();
-        formData.append('USRIO', $('#USRIO').val());
-        formData.append('PSWORD', $('#PSWORD').val());
+        formData.append('CORREO', $('#USRIO').val());
+        formData.append('PASSWORD', $('#PSWORD').val());
 
         $.ajax({
           url: uisApis.LOG + '=Login',
@@ -34,11 +34,11 @@ const executeView = () => {
           processData: false,
           data: formData,
           success: function (data) {
-            if(data?.succeeded){
+            if (data?.succeeded) {
               swalFire.success('Éxito', 'Autenticación exitosa', {
                 1: () => {
                   localStorage.setItem('accessToken', data.accessToken);
-                  window.location.href = '/Modulos?accessToken=' + data.accessToken
+                  window.location.href = '/Modulos?accessToken=' + data.accessToken;
                 }
               });
               return;
@@ -46,10 +46,8 @@ const executeView = () => {
 
             swalFire.error('Error', 'Ocurrió un error al autenticar');
           },
-          error: data => swalFire.error('Error', 'Ocurrió un error al autenticar')
+          error: data => swalFire.error(data?.responseJSON?.message || 'Ocurrió un error al autenticar')
         });
-
-        // window.location.href = '/Modulos';
       }
     },
     formularios: {
@@ -63,7 +61,7 @@ const executeView = () => {
         }),
         PSWORD: agregarValidaciones({
           required: true,
-          minlength: 8
+          minlength: 6
         })
       }
     }
@@ -73,6 +71,7 @@ const executeView = () => {
     init: () => {
       loginCrud.init();
       loginCrud.globales();
+      $('#formAuthentication').trigger('reset');
     }
   };
 };

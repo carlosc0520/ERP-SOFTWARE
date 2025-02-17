@@ -26,7 +26,8 @@ namespace CARO.DATOS.CONSULTAS.SEG
             var parametros = new DynamicParameters();
             var json = JsonSerializer.Serialize(new
             {
-                GDTOS = custom.GDTOS
+                GDTOS = custom.GDTOS,
+                IND = custom.VLR1
             }).ToUpper();
 
             parametros.Add("@p_cData", json);

@@ -355,7 +355,7 @@ const executeView = () => {
       },
       GETMAILS: async () => {
         let desc = $("#email-search-input").val();
-        $(".app-overlay").addClass("show");
+        // $(".app-overlay").addClass("show");
         $.ajax({
           url: uisApis.API + `=BuscarEmails&ASNTO=${desc}&start=${contactosCrud.variables.pagination.DESDE}&length=10`,
           type: 'GET',

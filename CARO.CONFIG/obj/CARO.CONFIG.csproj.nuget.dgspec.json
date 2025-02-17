@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.CONFIG\\CARO.CONFIG.csproj": {}
+    "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CONFIG\\CARO.CONFIG.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.CONFIG\\CARO.CONFIG.csproj": {
+    "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CONFIG\\CARO.CONFIG.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.CONFIG\\CARO.CONFIG.csproj",
+        "projectUniqueName": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CONFIG\\CARO.CONFIG.csproj",
         "projectName": "CARO.CONFIG",
-        "projectPath": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.CONFIG\\CARO.CONFIG.csproj",
+        "projectPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CONFIG\\CARO.CONFIG.csproj",
         "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.CONFIG\\obj\\",
+        "outputPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CONFIG\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",

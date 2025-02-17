@@ -76,6 +76,19 @@
           }
         }
       },
+      "FluentFTP/51.1.0": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/FluentFTP.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/FluentFTP.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Microsoft.AspNetCore.Antiforgery/2.2.0": {
         "type": "package",
         "dependencies": {
@@ -3439,6 +3452,31 @@
         "lib/net46/DocumentFormat.OpenXml.xml",
         "lib/netstandard1.3/DocumentFormat.OpenXml.dll",
         "lib/netstandard1.3/DocumentFormat.OpenXml.xml"
+      ]
+    },
+    "FluentFTP/51.1.0": {
+      "sha512": "Vm3eGvHACns0zsKfCMCZdZSFKYu2ajV/GeRk4vfgy6d5AR+WqSUjaSWbbhkmS01A8OMjZHFLduPH7nxwGvlcpQ==",
+      "type": "package",
+      "path": "fluentftp/51.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "fluentftp.51.1.0.nupkg.sha512",
+        "fluentftp.nuspec",
+        "lib/net462/FluentFTP.dll",
+        "lib/net462/FluentFTP.xml",
+        "lib/net472/FluentFTP.dll",
+        "lib/net472/FluentFTP.xml",
+        "lib/net5.0/FluentFTP.dll",
+        "lib/net5.0/FluentFTP.xml",
+        "lib/net6.0/FluentFTP.dll",
+        "lib/net6.0/FluentFTP.xml",
+        "lib/netstandard2.0/FluentFTP.dll",
+        "lib/netstandard2.0/FluentFTP.xml",
+        "lib/netstandard2.1/FluentFTP.dll",
+        "lib/netstandard2.1/FluentFTP.xml",
+        "logo-nuget.png"
       ]
     },
     "Microsoft.AspNetCore.Antiforgery/2.2.0": {
@@ -9386,6 +9424,7 @@
   "projectFileDependencyGroups": {
     "net8.0": [
       "CARO.CONFIG >= 1.0.0",
+      "FluentFTP >= 51.1.0",
       "Microsoft.AspNetCore.Authentication.Cookies >= 2.2.0",
       "Microsoft.AspNetCore.Mvc.Core >= 2.2.5",
       "Microsoft.AspNetCore.Mvc.Formatters.Json >= 2.2.0",
@@ -9407,11 +9446,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.CORE\\CARO.CORE.csproj",
+      "projectUniqueName": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CORE\\CARO.CORE.csproj",
       "projectName": "CARO.CORE",
-      "projectPath": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.CORE\\CARO.CORE.csproj",
+      "projectPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CORE\\CARO.CORE.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.CORE\\obj\\",
+      "outputPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CORE\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -9428,8 +9467,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.CONFIG\\CARO.CONFIG.csproj": {
-              "projectPath": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.CONFIG\\CARO.CONFIG.csproj"
+            "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CONFIG\\CARO.CONFIG.csproj": {
+              "projectPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CONFIG\\CARO.CONFIG.csproj"
             }
           }
         }
@@ -9449,6 +9488,10 @@
       "net8.0": {
         "targetAlias": "net8.0",
         "dependencies": {
+          "FluentFTP": {
+            "target": "Package",
+            "version": "[51.1.0, )"
+          },
           "Microsoft.AspNetCore.Authentication.Cookies": {
             "target": "Package",
             "version": "[2.2.0, )"

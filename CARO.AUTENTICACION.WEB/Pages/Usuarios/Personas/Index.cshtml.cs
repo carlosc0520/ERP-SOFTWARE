@@ -1,4 +1,5 @@
 using CARO.CONFIG;
+using CARO.CORE;
 using CARO.CORE.Helpers;
 using CARO.DATOS.CONSULTAS.USUARIOS;
 using CARO.DATOS.EVENTOS.Comandos.USUARIOS.PERMISOS;
@@ -16,6 +17,7 @@ namespace CARO.AUTENTICACION.WEB.Pages.Usuarios.Personas
   {
     private readonly IMediator _mediator;
     private readonly IConsultasPersonas _consultasPersonas;
+    private readonly FileUploads _fileUploads;  
 
     public IndexModel(
       IConsultasPersonas consultasPersonas,
@@ -24,6 +26,7 @@ namespace CARO.AUTENTICACION.WEB.Pages.Usuarios.Personas
     {
       _consultasPersonas = consultasPersonas;
       _mediator = mediator;
+      _fileUploads = new FileUploads();  
     }
 
     #region PERSONAS
@@ -38,13 +41,7 @@ namespace CARO.AUTENTICACION.WEB.Pages.Usuarios.Personas
         foreach (var persona in personas)
         {
           var rutacompleta = ConfiguracionProyecto.DISK + persona.RTAFTO;
-          if (!string.IsNullOrEmpty(rutacompleta) && System.IO.File.Exists(rutacompleta) && rutacompleta != null)
-          {
-            byte[] fileBytes = await System.IO.File.ReadAllBytesAsync(rutacompleta);
-            persona.FTO = Convert.ToBase64String(fileBytes);
-            persona.NAMEFTO = Path.GetFileName(rutacompleta);
-            persona.TPOFTO = ObtenerMimeType(rutacompleta);
-          }
+          persona.RTAFTO = rutacompleta;
         }
 
         var totalRows = personas?.FirstOrDefault()?.TOTALROWS ?? 0;
@@ -63,14 +60,9 @@ namespace CARO.AUTENTICACION.WEB.Pages.Usuarios.Personas
       {
         if (comando.FTO != null && comando.FTO.Length > 0)
         {
-          string folderPath = Path.Combine(ConfiguracionProyecto.DISK, "CCFIRMA", "PERSONAS");
-          if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
-
-          string filePath = await GuardarArchivoConHash(comando.FTO, folderPath);
-          comando.RTAFTO = filePath;
+          comando.RTAFTO = await _fileUploads.UploadFileAsync("CCFIRMA/PERSONAS", comando.FTO); ;
         }
 
-        comando.RTAFTO = comando.RTAFTO.Replace(ConfiguracionProyecto.DISK, "");
         comando.PASSWORD = await HashPassword(comando.PASSWORD);
         comando.UEDCN = HttpContextDraw.User(HttpContext, 1);
         var result = await _mediator.Send(comando);
@@ -91,29 +83,23 @@ namespace CARO.AUTENTICACION.WEB.Pages.Usuarios.Personas
     {
       try
       {
+
+        if (!string.IsNullOrEmpty(comando.RTAFTO) && comando.RTAFTO.Contains(ConfiguracionProyecto.DISK))
+          comando.RTAFTO = comando.RTAFTO.Replace(ConfiguracionProyecto.DISK, "");
+
+
         if (comando.FTO != null && comando.FTO.Length > 0 && comando.DELETE == false)
         {
-          var rtaEliminar = Path.Combine(ConfiguracionProyecto.DISK, comando.RTAFTO);
-          if (!string.IsNullOrEmpty(rtaEliminar) && System.IO.File.Exists(rtaEliminar))
-            System.IO.File.Delete(rtaEliminar);
+          if (!string.IsNullOrEmpty(comando.RTAFTO))
+            await _fileUploads.DeleteDirectoryAsync(comando.RTAFTO); 
 
-
-          string folderPath = Path.Combine(ConfiguracionProyecto.DISK, "CCFIRMA", "PERSONAS");
-          if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
-
-          string nuevaRuta = await GuardarArchivoConHash(comando.FTO, folderPath);
-          comando.RTAFTO = nuevaRuta;
-          comando.RTAFTO = comando.RTAFTO.Replace(ConfiguracionProyecto.DISK, "");
+          comando.RTAFTO = await _fileUploads.UploadFileAsync("CCFIRMA/PERSONAS", comando.FTO);
         }
 
-        if(comando.DELETE == true && comando.RTAFTO != null)
+        if (comando.DELETE == true && comando.RTAFTO != null)
         {
-          var rtaCompleta = Path.Combine(ConfiguracionProyecto.DISK, comando.RTAFTO);
-          if (!string.IsNullOrEmpty(rtaCompleta) && System.IO.File.Exists(rtaCompleta))
-          {
-            System.IO.File.Delete(rtaCompleta);
-            comando.RTAFTO = null;
-          }
+          await _fileUploads.DeleteDirectoryAsync(comando.RTAFTO);
+          comando.RTAFTO = null; 
         }
 
         if(!string.IsNullOrEmpty(comando.PASSWORD)) comando.PASSWORD = await HashPassword(comando.PASSWORD);
@@ -145,56 +131,6 @@ namespace CARO.AUTENTICACION.WEB.Pages.Usuarios.Personas
     #endregion
 
     #region METODOS
-    private async Task<string> GuardarArchivoConHash(IFormFile archivo, string folderPath)
-    {
-      string filePath;
-      using (var sha256 = SHA256.Create())
-      {
-        int attempt = 0;
-        bool exists;
-        do
-        {
-          var hash = await GenerarHashArchivo(archivo, sha256);
-          if (attempt > 0) hash = $"{hash}_{attempt}";
-
-          string fileName = $"{hash}{Path.GetExtension(archivo.FileName)}";
-          filePath = Path.Combine(folderPath, fileName);
-
-          exists = System.IO.File.Exists(filePath);
-          attempt++;
-        } while (exists);
-      }
-
-      using (var fileStream = new FileStream(filePath, FileMode.Create))
-      {
-        await archivo.CopyToAsync(fileStream);
-      }
-
-      return filePath;
-    }
-
-    private async Task<string> GenerarHashArchivo(IFormFile archivo, SHA256 sha256)
-    {
-      using (var stream = archivo.OpenReadStream())
-      {
-        var hashBytes = await sha256.ComputeHashAsync(stream);
-        return BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
-      }
-    }
-
-    private string ObtenerMimeType(string filePath)
-    {
-      var extension = Path.GetExtension(filePath)?.ToLower();
-      return extension switch
-      {
-        ".jpg" or ".jpeg" => "image/jpeg",
-        ".png" => "image/png",
-        ".gif" => "image/gif",
-        ".bmp" => "image/bmp",
-        _ => "application/octet-stream"
-      };
-    }
-
     public async Task<string> HashPassword(string password)
     {
       byte[] salt = new byte[16];

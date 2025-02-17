@@ -1,0 +1,21 @@
+<div class="modal fade" id="modalAsistenciaParticipante" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-simple modal-edit-user">
+        <div class="modal-content p-3 p-md-5">
+            <div class="modal-body">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="text-center mb-4">
+                    <h3>Detalle de Asistencia</h3>
+                </div>
+                <form id="AsistenciaParticipante" class="row g-3" action="~/Comunicado/CrearEncuesta/Index/AsistenciaParticipante"
+                    method="post">
+                    @Html.AntiForgeryToken()
+
+                    <div class="table-responsive pb-0">
+                        <table id="AsistenciaParticipanteTable" class="datatables-ajax table table-bordered">
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

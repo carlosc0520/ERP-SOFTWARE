@@ -10,5 +10,9 @@
 		<ProjectReference Include="..\CARO.ENTIDAD\CARO.ENTIDAD.csproj" />
 		<ProjectReference Include="..\CARO.CORE\CARO.CORE.csproj" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="LEGAL\COMPARTIDOS\" />
+	</ItemGroup>
 	
 </Project>

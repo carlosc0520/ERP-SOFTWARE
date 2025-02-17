@@ -9,6 +9,6 @@ namespace CARO.DATOS.MODELO.COM.MENU
         public string? URL { get; set; } = null;
         public string? SUBMODULO { get; set; } = null;
         public bool? ISPARENT { get; set; } = null;
-        public int? IDMDLO { get; set; } = null;
+        public int? IDPRSNA { get; set; } = null;
     }
 }

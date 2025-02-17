@@ -12,9 +12,39 @@ namespace CARO.DATOS.MODELO.COM.PLANTILLA
         public string? RTAPLNTLLA { get; set; } = null;
     }
 
+    #region PLANTILLA-LOCACION-SERVICIOS
+    public class PlantillaLocacionServiciosModel : EntidadAuditoria
+    {
+        public string? EMPRESA { get; set; } = null;
+        public string? RUC { get; set; } = null;
+        public string? DIRECCION { get; set; } = null;
+        public string? PROVINCIA { get; set; } = null;
+        public string? PAIS { get; set; } = null;
+        public string? GERENTE { get; set; } = null;
+        public string? DNIGERENTE{ get; set; } = null;
+        public string? EMPRESALOCADOR { get; set; } = null;
+        public string? RUCLOCADOR { get; set; } = null; 
+        public string? PARTIDALOCADOR { get; set; } = null;
+        public string? DIRECCIONLOCADOR { get; set; } = null;
+        public string? PROVINCIALOCADOR { get; set; } = null;
+        public string? PAISLOCADOR { get; set; } = null;
+        public string? GERENTELOCADOR { get; set; } = null;
+        public string? DNILOCADOR { get; set; } = null;
+        public string? CASOLOCADOR { get; set; } = null;
+        public string? SERVICIOCONTRATO { get; set; } = null;
+        public string? CASOSEGUIDO { get; set; } = null;
+        public string? HONORARIO { get; set; } = null;
+        public string? CUENTA { get; set; } = null;
+        public string? CCICUENTA { get; set; } = null;
+        public string? GDENTDD { get; set; } = null;
+        public string? GDMONEDA { get; set; } = null;
+    }
+
+    #endregion
+
+    #region PLANTILLA-AUDITORIA
     public class ProveedorPlantillaModel : EntidadAuditoria
     {
-     
         public string? DAY { get; set; } = null;
         public string? UBICATION { get; set; } = null;
         public string? ONTH { get; set; } = null;
@@ -235,4 +265,5 @@ namespace CARO.DATOS.MODELO.COM.PLANTILLA
         public string? TIA17 { get; set; } = null;
         public string? TIA18 { get; set; } = null;
     }
+    #endregion
 }

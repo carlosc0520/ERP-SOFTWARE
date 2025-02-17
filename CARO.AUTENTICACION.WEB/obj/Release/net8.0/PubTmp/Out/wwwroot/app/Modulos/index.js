@@ -11,12 +11,9 @@ const executeView = () => {
 
   // * TABLAS
   const modulosCrud = {
-    init: () => {},
+    init: () => { },
 
     globales: () => {
-      // * FORMULARIOS
-      //   modulosCrud.formularios.AUTENTICAR();
-
       // * MODULOS
       modulosCrud.eventos.CARGARMODULOS();
     },
@@ -25,18 +22,29 @@ const executeView = () => {
       AUTENTICAR: () => {
         alert(1);
       },
-      CARGARMODULOS: () => {
+      CARGARMODULOS: async () => {
+        let token = await localStorage.getItem('accessToken');
+        
+        if (!token || ['null', 'undefined', ''].includes(token)) {
+          modulosCrud.eventos.CARGARMODULOS();
+          return;
+        }
+
         swalFire.cargando(['Espere un momento', 'Estamos cargando los módulos']);
         let data = {
           length: 10000,
           start: 0,
           draw: 1,
-          search: { value: '' }
+          search: { value: '' },
+          accessToken: token
         };
-        $.ajax({
-          url: uisApis.MOD + '=Buscar',
+        await $.ajax({
+          url: uisApis.MOD + '=Buscar&accessToken=' + token,
           beforeSend: function (xhr) {
-            xhr.setRequestHeader('XSRF-TOKEN', localStorage.getItem('accessToken'));
+            xhr.setRequestHeader('Authorization', token);
+          },
+          headers: {
+            'XSRF-TOKEN': token
           },
           type: 'GET',
           data: data,
@@ -49,6 +57,7 @@ const executeView = () => {
             swalFire.error('Ocurrió un error al cargar los módulos');
           },
           error: function (error) {
+            console.log(error)
             swalFire.error('Ocurrió un error al cargar los módulos');
           }
         });
@@ -59,9 +68,12 @@ const executeView = () => {
 
         data.forEach(modulo => {
           const moduloHtml = `
-          <div class="col-md-6 col-lg-4 mb-3">
-            <div class="card h-100">
-                <img class="card-img-top" src="img${modulo?.img}" alt="Card image cap" />
+          <div class="col-md-3 col-lg-3 mb-3">
+            <div class="card">
+                <img class="card-img-top img-fluid" 
+                width="100%" height="100"
+                style="object-fit: cover!important;height: 300px!important;"
+                src="${modulo?.fto}" alt="${modulo?.mdlo}">
                 <div class="card-body mx-auto">
                     <a href="${modulo?.url}" class="btn btn-outline-primary">
                        Ir a ${modulo?.mdlo}
@@ -72,7 +84,24 @@ const executeView = () => {
           `;
 
           modulosContainer.append(moduloHtml);
+
+          
         });
+
+        let butonLogin = `<div class="col-12 text-center">
+          <a href="/Login" class="btn btn-outline-primary" id="btnLogin">
+              Ir a Login
+          </a>
+        </div>`;
+
+        modulosContainer.append(butonLogin);
+
+        $("#btnLogin").off().on('click', function (e) {
+          e.preventDefault();
+          alert('cerrando sesion');
+          window.location.href = '/Login';
+        });
+
 
         swalFire.cerrar();
       }
@@ -95,7 +124,7 @@ const executeView = () => {
   };
 
   return {
-    init: () => {
+    init: async () => {
       modulosCrud.init();
       modulosCrud.globales();
     }

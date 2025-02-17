@@ -1,0 +1,207 @@
+@page
+@model CARO.AUTENTICACION.WEB.Pages.Comercial.Plantillas.locacionServicios.IndexModel
+@{
+    ViewData["Title"] = "PLANTILLA - CONTRATOS POR L.S.";
+}
+
+@section VendorStyles {
+    <link rel="stylesheet" href="~/vendor/libs/datatables-bs5/datatables.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/umd/styles/index.min.css" />
+    <link rel="stylesheet" href="~/vendor/libs/select2/select2.dist.css" />
+}
+
+@section VendorScripts {
+    <script src="~/vendor/libs/moment/moment.dist.js"></script>
+    <script src="~/vendor/libs/datatables-bs5/datatables-bootstrap5.dist.js"></script>
+    <script src="~/vendor/libs/cleavejs/cleave.dist.js"></script>
+    <script src="~/vendor/libs/cleavejs/cleave-phone.dist.js"></script>
+    <script src="~/vendor/libs/flatpickr/flatpickr.dist.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/bundle/popular.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-bootstrap5/index.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
+    <script src="~/vendor/libs/select2/select2.dist.js"></script>
+}
+
+@section PageScripts {
+    <script src="~/app/Comercial/Plantillas/locacionServicios/index.js"></script>
+}
+
+
+<div class="row">
+    <div class="col-12">
+        <h5>Plantilla Contrato por locación de Servicios</h5>
+    </div>
+
+    <!-- Variants -->
+    <div class="card mb-4 col-12">
+        <div class="card-body">
+            <form class="row align-items-start formContrato" id="formContrato">
+
+                <div class="row row-span-1 col-md-4 col-12"> 
+                    <div class="col-12 mb-3">
+                        <h5>Empresa</h5>
+                        <hr>
+                    </div>
+
+                    <div class="col-12 mb-3">
+                        <label class="form-label" for="EMPRESA">Empresa<span class="text-danger"> *</span></label>
+                        <div class="input-group">
+                            <input type="text" id="EMPRESA" name="EMPRESA" class="form-control noMayus" placeholder="" />
+                            <button class="btn btn-xs btn-outline-secondary" type="button" id="btnBuscarEmpresa">
+                                <i class="bi bi-search"></i>
+                            </button>
+                            <button class="btn btn-xs btn-outline-secondary" type="button" id="btnLimpiarEmpresa">
+                                <i class="bi bi-x"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 col-12 mb-3">
+                        <label class="form-label" for="RUC">RUC<span class="text-danger"> *</span></label>
+                        <input type="text" id="RUC" name="RUC" class="form-control noMayus" placeholder="" />
+                    </div>
+
+                    <div class="col-md-6 col-12 mb-3">
+                        <label class="form-label" for="GERENTE">Gerente<span class="text-danger"> *</span></label>
+                        <input type="text" id="GERENTE" name="GERENTE" class="form-control noMayus" placeholder="" />
+                    </div>
+
+                    <div class="col-md-6 col-12 mb-3">
+                        <label class="form-label" for="DNIGERENTE">DNI Gerente<span class="text-danger"> *</span></label>
+                        <input type="text" id="DNIGERENTE" name="DNIGERENTE" class="form-control noMayus" placeholder="" />
+                    </div>
+
+                    <div class="col-md-6 col-12 mb-3">
+                        <label class="form-label" for="DIRECCION">Dirección<span class="text-danger"> *</span></label>
+                        <input type="text" id="DIRECCION" name="DIRECCION" class="form-control noMayus" placeholder="" />
+                    </div>
+
+                    <div class="col-md-6 col-12 mb-3">
+                        <label class="form-label" for="PROVINCIA">Provincia<span class="text-danger"> *</span></label>
+                        <input type="text" id="PROVINCIA" name="PROVINCIA" class="form-control noMayus" placeholder="" />
+                    </div>
+
+                    <div class="col-md-6 col-12 mb-3">
+                        <label class="form-label" for="PAIS">País<span class="text-danger"> *</span></label>
+                        <select id="PAIS" name="PAIS" class="select2 form-select" data-allow-clear="true"></select>
+                    </div>
+
+                    <div class="col-md-12 col-12 mb-3">
+                        <label class="form-label" for="CASOSEGUIDO">Caso Seguido<span class="text-danger"> *</span></label>
+                        <textarea id="CASOSEGUIDO" name="CASOSEGUIDO" class="form-control noMayus" placeholder=""></textarea>
+                    </div>
+                </div>
+
+                <div class="row row-span-1 col-md-4 col-12"> 
+                    <div class="col-12 mb-3">
+                        <h5>Locador</h5>
+                        <hr>
+                    </div>
+
+                    <div class="col-12 mb-3">
+                        <label class="form-label" for="EMPRESALOCADOR">Empresa<span class="text-danger"> *</span></label>
+                        <!-- <input type="text" id="EMPRESALOCADOR" name="EMPRESALOCADOR" class="form-control noMayus" placeholder="" /> -->
+                        <div class="input-group">
+                            <input type="text" id="EMPRESALOCADOR" name="EMPRESALOCADOR" class="form-control noMayus" placeholder="" />
+                            <button class="btn btn-xs btn-outline-secondary" type="button" id="btnBuscarEmpresaLocador">
+                                <i class="bi bi-search"></i>
+                            </button>
+                            <button class="btn btn-xs btn-outline-secondary" type="button" id="btnLimpiarEmpresaLocador">
+                                <i class="bi bi-x"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 col-12 mb-3">
+                        <label class="form-label" for="RUCLOCADOR">RUC<span class="text-danger"> *</span></label>
+                        <input type="text" id="RUCLOCADOR" name="RUCLOCADOR" class="form-control noMayus" placeholder="" />
+                    </div>
+
+                    <div class="col-md-6 col-12 mb-3">
+                        <label class="form-label" for="GERENTELOCADOR">Gerente<span class="text-danger"> *</span></label>
+                        <input type="text" id="GERENTELOCADOR" name="GERENTELOCADOR" class="form-control noMayus" placeholder="" />
+                    </div>
+
+                    <div class="col-md-6 col-12 mb-3">
+                        <label class="form-label" for="DNILOCADOR">DNI Gerente<span class="text-danger"> *</span></label>
+                        <input type="text" id="DNILOCADOR" name="DNILOCADOR" class="form-control noMayus" placeholder="" />
+                    </div>
+
+                    <div class="col-md-6 col-12 mb-3">
+                        <label class="form-label" for="DIRECCIONLOCADOR">Dirección<span class="text-danger"> *</span></label>
+                        <input type="text" id="DIRECCIONLOCADOR" name="DIRECCIONLOCADOR" class="form-control noMayus" placeholder="" />
+                    </div>
+
+                    <div class="col-md-6 col-12 mb-3">
+                        <label class="form-label" for="PROVINCIALOCADOR">Provincia<span class="text-danger"> *</span></label>
+                        <input type="text" id="PROVINCIALOCADOR" name="PROVINCIALOCADOR" class="form-control noMayus" placeholder="" />
+                    </div>
+
+                    <div class="col-md-6 col-12 mb-3">
+                        <label class="form-label" for="PAISLOCADOR">País<span class="text-danger"> *</span></label>
+                        <select id="PAISLOCADOR" name="PAISLOCADOR" class="select2 form-select" data-allow-clear="true"></select>
+                    </div>
+
+                     <div class="col-md-12 col-12 mb-3">
+                        <label class="form-label" for="CASOLOCADOR">Caso Seguido<span class="text-danger"> *</span></label>
+                        <textarea id="CASOLOCADOR" name="CASOLOCADOR" class="form-control noMayus" placeholder=""></textarea>
+                    </div>
+                </div>
+
+                <div class="row row-span-1 col-md-4 col-12"> 
+                    <div class="col-12 mb-3">
+                        <h5>Otros Datos</h5>
+                        <hr>
+                    </div>
+
+                    <div class="col-12 mb-3">
+                        <label class="form-label" for="SERVICIOCONTRATO">Servicio<span class="text-danger"> *</span></label>
+                        <input type="text" id="SERVICIOCONTRATO" name="SERVICIOCONTRATO" class="form-control noMayus" placeholder="" />
+                    </div>
+
+                    <div class="col-md-6 col-12 mb-3">
+                        <label class="form-label" for="GDMONEDA">Moneda<span class="text-danger"> *</span></label>
+                        <select id="GDMONEDA" name="GDMONEDA" class="select2 form-select" data-allow-clear="true">
+                        </select>
+                    </div>
+
+                    <div class="col-md-6 col-12 mb-3">
+                        <label class="form-label" for="HONORARIO">Honorario<span class="text-danger"> *</span></label>
+                        <input type="text" id="HONORARIO" name="HONORARIO" class="form-control solo-decimales" placeholder="" maxlength="10" />
+                    </div>
+
+                    <div class="col-md-6 col-12 mb-3">
+                        <label class="form-label" for="GDENTDD">Entidad<span class="text-danger"> *</span></label>
+                        <select id="GDENTDD" name="GDENTDD" class="select2 form-select" data-allow-clear="true">
+                        </select>
+                    </div>
+
+                    <div class="col-md-6 col-12 mb-3">
+                        <label class="form-label" for="CUENTA">Cuenta<span class="text-danger"> *</span></label>
+                        <input type="text" id="CUENTA" name="CUENTA" class="form-control noMayus" placeholder="" />
+                    </div>
+
+                    <div class="col-md-6 col-12 mb-3">
+                        <label class="form-label" for="CCICUENTA">Cuenta CCI<span class="text-danger"> *</span></label>
+                        <input type="text" id="CCICUENTA" name="CCICUENTA" class="form-control noMayus" placeholder="" />
+                    </div>
+                </div>
+
+                <div>
+                    <button class="btn btn-secondary" id="generate-doc">
+                        Generar 
+                    </button>
+                    <button class="btn btn-danger" id="clear">
+                        Limpiar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- /Variants -->
+
+</div>
+
+@await Html.PartialAsync("./_Partials/_ModalBuscarEmpresa")

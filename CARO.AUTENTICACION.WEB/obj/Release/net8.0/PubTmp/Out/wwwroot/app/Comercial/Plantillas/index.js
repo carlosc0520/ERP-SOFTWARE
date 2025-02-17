@@ -7,7 +7,7 @@
 const executeView = () => {
   const uisApis = {
     API: '/Comercial/Plantillas/Index?handler',
-    GD: '/Seguridad/GrupoDato/Index?handler'
+    GD: '/Seguridad/GrupoDato/Index?handler',
   };
 
   // * VARIABLES
@@ -43,10 +43,11 @@ const executeView = () => {
         window.open(`${data.rta}`, '_blank');
       });
 
-      $(`#downloadPlantilla`).on('click', function () {
+      $(`#downloadPlantilla`).on('click', async function (e) {
+        e.preventDefault();
         const data = plantillasCrud.variables.editPlantilla;
         // obtener archivo de data.rtaplntlla y descargarlo
-        $.ajax({
+        await $.ajax({
           url: uisApis.API + '=ObtenerFile&RTAPLNTLLA=' + data.rtaplntlla,
           type: 'GET',
           beforeSend: function (xhr) {
@@ -150,9 +151,8 @@ const executeView = () => {
                 title: 'Estado',
                 className: 'text-center',
                 render: data => {
-                  return `<span><i class="fa fa-circle ${data.cestdo == 'A' ? 'text-success' : 'text-danger'}" title=${
-                    data.cestdo == 'A' ? 'Activo' : 'Inactivo'
-                  }></i></span>`;
+                  return `<span><i class="fa fa-circle ${data.cestdo == 'A' ? 'text-success' : 'text-danger'}" title=${data.cestdo == 'A' ? 'Activo' : 'Inactivo'
+                    }></i></span>`;
                 }
               },
               { data: 'uedcn', title: 'U. Edición' },
@@ -395,7 +395,8 @@ const executeView = () => {
   };
 
   return {
-    init: () => {
+    init: async () => {
+      await func.limitarCaracteres();
       plantillasCrud.init();
       plantillasCrud.globales();
 

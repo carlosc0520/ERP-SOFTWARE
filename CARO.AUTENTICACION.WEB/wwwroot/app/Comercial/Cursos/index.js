@@ -49,7 +49,7 @@ const executeView = () => {
           parallelUploads: 1,
           maxFilesize: 5,
           maxFiles: 1,
-          acceptedFiles: '.png,.jpg,.jpeg',
+          acceptedFiles: 'image/*',
           init: function () {
             this.on('addedfile', function (file) {
               if (this.files.length > 1) {
@@ -129,9 +129,9 @@ const executeView = () => {
                 <div class="col-sm-6 col-lg-4">
                   <div class="card p-2 h-100">
                       <div class="rounded-2 text-center mb-3">
-                          <a href="CourseDetails"><img class="img-fluid" src="data:${d?.type};base64,${
-                  d?.imagen
-                }" alt="tutor image 1" /></a>
+                          <a href="CourseDetails"><img class="img-fluid" src="${d.imagen}" alt="tutor image 1"  
+                          width="300" height="300"
+                          /></a>
                       </div>
                       <div class="card-body p-3 pt-2">
                           <div class="d-flex justify-content-between align-items-center mb-3">
@@ -152,8 +152,15 @@ const executeView = () => {
                               }">
                                   <i class="bx bx-edit align-middle me-2 "></i><span>Editar</span>
                               </button>
-                              <a class="app-academy-md-50 btn btn-label-primary d-flex align-items-center" href="cursos/CourseDetails?course=${d?.id}">
-                                  <span class="me-2">Ir a</span><i class="bx bx-chevron-right lh-1 scaleX-n1-rtl"></i>
+                              <a class="app-academy-md-50 btn btn-label-primary d-flex align-items-center" href="cursos/CourseDetails?course=${
+                                d?.id
+                              }">
+                                  <span class="me-2">Config</span><i class="bx bx-chevron-right lh-1 scaleX-n1-rtl"></i>
+                              </a>
+                              <a class="app-academy-md-50 btn btn-label-primary d-flex align-items-center" href="cursos/Detalle?course=${
+                                d?.id
+                              }">
+                                  <span class="me-2">Detalle</span><i class="bx bx-chevron-right lh-1 scaleX-n1-rtl"></i>
                               </a>
 
                           </div>
@@ -306,17 +313,10 @@ const executeView = () => {
         $('#EditCurso #FFIN')[0]._flatpickr.setDate(func.formatFecha(curso.ffin, 'DD-MM-YYYY'));
 
         // * ACTUALIZAR DROPZONE
-        var filename = curso?.name;
-        curso.imagen = curso?.imagen.includes('data:image')
-          ? curso?.imagen
-          : `data:${curso?.type};base64,${curso?.imagen}`;
-        var blob = new Blob([curso?.imagen], { type: curso?.type });
-        var fileOfBlob = new File([blob], filename);
-        fileOfBlob.dataURL = curso?.imagen;
-        fileOfBlob.isExist = true;
-        cursosCrud.variables.myDropzoneEditCurso.files.push(fileOfBlob);
-        cursosCrud.variables.myDropzoneEditCurso.emit('addedfile', fileOfBlob);
-        cursosCrud.variables.myDropzoneEditCurso.emit('complete', fileOfBlob);
+        if (curso?.imagen) {
+          let rutaArchivo = curso?.imagen;
+          agregarArchivoADropzone(rutaArchivo, cursosCrud.variables.myDropzoneEditCurso);
+        }
 
         $('#modalEditCurso').modal('show');
       }

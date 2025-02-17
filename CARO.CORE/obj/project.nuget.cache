@@ -1,13 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "n94AFpFID7YbAkoKSRUyoCb/pI5YaOzfaxOWyKXwIB5Cww868V3Kj+wYdzv+q8xIRo+H+TWBeVfx/EmrAJJi2A==",
+  "dgSpecHash": "c46GQqb4Eg+ck9QBIrP31dy5kabxSCA7ML8wWQfIbqDqG9nZKx7Dwc3wGMAtLW1QCZZgpEh1w9iFLK2Jq7eRsA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.CORE\\CARO.CORE.csproj",
+  "projectFilePath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CORE\\CARO.CORE.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\User\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\bouncycastle.cryptography\\2.3.0\\bouncycastle.cryptography.2.3.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\documentformat.openxml\\2.7.2\\documentformat.openxml.2.7.2.nupkg.sha512",
+    "C:\\Users\\User\\.nuget\\packages\\fluentftp\\51.1.0\\fluentftp.51.1.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.aspnetcore.antiforgery\\2.2.0\\microsoft.aspnetcore.antiforgery.2.2.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.aspnetcore.authentication\\2.2.0\\microsoft.aspnetcore.authentication.2.2.0.nupkg.sha512",
     "C:\\Users\\User\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",

@@ -1,0 +1,50 @@
+@page
+@model CARO.AUTENTICACION.WEB.Pages.Mantenimientos.Empresas.IndexModel
+@{
+    ViewData["Title"] = "Empresas";
+}
+
+@section VendorStyles {
+    <link rel="stylesheet" href="~/vendor/libs/select2/select2.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/datatables-bs5/datatables.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/umd/styles/index.min.css" />
+    <link rel="stylesheet" href="~/vendor/libs/dropzone/dropzone.dist.css">
+}
+ 
+@section VendorScripts {
+    <script src="~/vendor/libs/datatables-bs5/datatables-bootstrap5.dist.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/bundle/popular.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-bootstrap5/index.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
+    <script src="~/vendor/libs/dropzone/dropzone.dist.js"></script>
+    <script src="~/vendor/libs/select2/select2.dist.js"></script>
+} 
+ 
+@section PageScripts {
+    <script src="~/app/Mantenimientos/Empresas/index.js"></script>
+}
+
+@* ************** Content ************** *@
+<h4 class="py-3 breadcrumb-wrapper mb-4">
+    <span class="text-muted fw-light">Empresas /</span> Listado
+</h4>
+
+<!-- Empresa cards --> 
+<div class="row g-4">
+    <div class="Empresa-12">
+        <!-- Role Table -->
+        <div class="card">
+            <div class="card-datatable table-responsive">
+                <table id="empresasTable" class="datatables-users table border-top">
+                </table>
+            </div>
+        </div>
+        <!--/ Empresa Table -->
+    </div>
+</div>
+<!--/ Empresa cards -->
+
+
+@await Html.PartialAsync("./_Partials/_ModalAgregarEmpresa")
+@await Html.PartialAsync("./_Partials/_ModalEditarEmpresa") 

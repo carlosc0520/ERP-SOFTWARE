@@ -1,0 +1,50 @@
+<div class="modal fade" id="modalAddSeguimiento" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-simple modal-edit-user">
+        <div class="modal-content p-3 p-md-5">
+            <div class="modal-body">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="text-center mb-4">
+                    <h3>Agregar Seguimiento</h3>
+                </div>
+                <form id="AddSeguimiento" class="row g-3" method="post">
+                    <div class="col-12 col-md-5">
+                        <label class="form-label" for="FCHA">Fecha <span class="text-danger">*</span></label>
+                        <div class="input-group">
+                            <input type="text" id="FCHA" name="FCHA" placeholder="DD-MM-YYYY" class="form-control date-mask dob-picker-format" />
+                            <span class="input-group-text">
+                                <i class="bi bi-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-7">
+                        <label class="form-label" for="IDPRSNA">Persona <span class="text-danger">*</span></label>
+                        <select id="IDPRSNA" name="IDPRSNA" class="select2 form-select" data-allow-clear="true">
+                        </select>
+                    </div>
+                     
+                    <div class="col-12">
+                        <label class="form-label" for="MOTIVO">Motivo <span class="text-danger">*</span></label>
+                        <textarea id="MOTIVO" name="MOTIVO" class="form-control max-length" 
+                        rows="8"
+                        data-maxlength="200"></textarea>
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label" for="APUNTES">Apuntes </label>
+                        <div id="APUNTES">
+                        </div>
+                    </div>
+
+                    <div class="col-12 text-center mt-4">
+                        <button id="btnAddSeguimiento" class="btn btn-primary me-sm-3 me-1">Agregar</button>
+                        <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                    </div>
+
+                    @await Html.PartialAsync("../../../_Partials/_Auditoria.cshtml")
+                     
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

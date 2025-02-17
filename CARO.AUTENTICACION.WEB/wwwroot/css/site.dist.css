@@ -100,7 +100,7 @@
 .slide-vertical ul,
 .slide-vertical li {
   list-style: none;
-  font-size: 1.3rem!important;
+  font-size: 1.3rem !important;
   margin: 0 0 0 0 !important;
   padding: 0 0 0 0 !important;
 }
@@ -186,8 +186,8 @@
   }
 }
 
-.spinner-container{
-  padding-top: 1rem!important;
+.spinner-container {
+  padding-top: 1rem !important;
 }
 
 /* SPINNER */
@@ -260,30 +260,109 @@
   }
 }
 
-div.dt-buttons{
-  gap: .8rem!important;
+div.dt-buttons {
+  gap: .8rem !important;
 }
 
-.content-datatable{
-  padding: 1.375rem!important;
+.content-datatable {
+  padding: 1.375rem !important;
 }
 
-.cursor-blocked-icon{
-  cursor: not-allowed!important;
+.cursor-blocked-icon {
+  cursor: not-allowed !important;
 }
 
 
 .email-compose-form .form-control:disabled,
 .email-compose-form .form-select:disabled {
-  background-color: var(--bs-gray-25)!important;
+  background-color: var(--bs-gray-25) !important;
 }
 
-.email-compose-form .select2:disabled, 
+.email-compose-form .select2:disabled,
 .email-compose-form select:disabled {
-  background-color: var(--bs-gray-50)!important;
+  background-color: var(--bs-gray-50) !important;
 }
 
 
 .dataTables_wrapper {
   margin: 0px 10px;
+}
+
+
+/* // activar scroll a todas las tablas en pantallas pequeñas */
+@media screen and (max-width: 600px) {
+  .dataTables_wrapper {
+    overflow-x: auto;
+  }
+
+  .dataTables_wrapper table thead th,
+  .dataTables_wrapper table tbody td {
+    display: table-cell !important;
+  }
+
+  .nav.nav-tabs.nav-fill {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .dataTables_filter {
+    display: flex;
+    width: 100%;
+  }
+
+  .dataTables_filter div {
+    width: 100%;
+    padding: 0px 1rem;
+  }
+
+  .dataTables_filter label {
+    display: block !important;
+    width: 92.9% !important;
+  }
+
+  .dataTables_filter label input {
+    width: 100% !important;
+    margin-left: 0px !important;
+  }
+
+  .dt-buttons {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .dt-buttons button span {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+
+/* movil  */
+@media screen and (max-width: 600px) {
+  .app-email-compose.modal {
+    margin: 0px !important;
+  }
+
+  .app-email-compose.modal .modal-dialog {
+    margin: 0px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+
+.btn-primary {
+  background-color: #FF8C00 !important;
+  color: #fff !important;
+  border-color: #FF8C00 !important;
+}
+
+.btn-primary:hover, .btn-primary[data-trigger=hover].show.dropdown-toggle:hover,
+.btn-primary:focus, .btn-primary[data-trigger=hover].show.dropdown-toggle:focus
+{
+  /* // poner mas claro el color del boton */
+  background-color: #FFA500 !important;
+  color: #fff !important;
+  border-color: #FFA500 !important;
 }

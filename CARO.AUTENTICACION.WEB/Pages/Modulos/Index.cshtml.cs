@@ -36,14 +36,7 @@ namespace CARO.AUTENTICACION.WEB.Pages.Modulos
 
         foreach (var mod in modulos)
         {
-          var rutacompleta = ConfiguracionProyecto.DISK + mod.IMG;
-          if (!string.IsNullOrEmpty(rutacompleta) && System.IO.File.Exists(rutacompleta) && rutacompleta != null)
-          {
-            byte[] fileBytes = await System.IO.File.ReadAllBytesAsync(rutacompleta);
-            mod.FTO = Convert.ToBase64String(fileBytes);
-            mod.NAMEFTO = Path.GetFileName(rutacompleta);
-            mod.TPOFTO = ObtenerMimeType(rutacompleta);
-          }
+          mod.FTO = ConfiguracionProyecto.DISK + mod.IMG;
         }
 
 

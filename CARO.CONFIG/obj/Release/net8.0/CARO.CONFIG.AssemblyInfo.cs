@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CARO.CONFIG")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+80bb9feece217d8e206e1338fb8dc89c3e82ba46")]
 [assembly: System.Reflection.AssemblyProductAttribute("CARO.CONFIG")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CARO.CONFIG")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

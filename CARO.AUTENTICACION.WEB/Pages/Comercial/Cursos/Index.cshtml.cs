@@ -1,4 +1,5 @@
 using CARO.CONFIG;
+using CARO.CORE;
 using CARO.CORE.Helpers;
 using CARO.DATOS.CONSULTAS.COM;
 using CARO.DATOS.EVENTOS.Comandos.COMERCIAL.CURSO;
@@ -6,6 +7,7 @@ using CARO.DATOS.MODELO.COM.CURSO;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.IdentityModel.Tokens;
 
 namespace CARO.AUTENTICACION.WEB.Pages.Comercial.Cursos
 {
@@ -13,7 +15,7 @@ namespace CARO.AUTENTICACION.WEB.Pages.Comercial.Cursos
   public class IndexModel : PageModel
   {
     private readonly IMediator _mediator;
-
+    private readonly FileUploads _fileUploads;
     private readonly IConsultasCurso _consultasCurso;
 
     public IndexModel(
@@ -23,7 +25,8 @@ namespace CARO.AUTENTICACION.WEB.Pages.Comercial.Cursos
     {
       _consultasCurso = consultasCurso;
       _mediator = mediator;
-    }
+      _fileUploads = new FileUploads();
+    } 
 
     #region CURSOS
     [HttpGet]
@@ -34,16 +37,7 @@ namespace CARO.AUTENTICACION.WEB.Pages.Comercial.Cursos
         var cursos = await _consultasCurso.Listar(custom);
         cursos.ForEach(curso =>
         {
-          string imagePath = Path.Combine(ConfiguracionProyecto.DISK, curso.RTAIMG);
-
-          if (System.IO.File.Exists(imagePath))
-          {
-            byte[] imageBytes = System.IO.File.ReadAllBytes(imagePath);
-            curso.IMAGEN = Convert.ToBase64String(imageBytes);
-            curso.TYPE = GetMimeType(imagePath);
-            curso.NAME = Path.GetFileName(imagePath);
-          }
-          else curso.IMAGEN = null; 
+          curso.IMAGEN = ConfiguracionProyecto.DISK + curso.RTAIMG;
         });
 
 
@@ -57,20 +51,44 @@ namespace CARO.AUTENTICACION.WEB.Pages.Comercial.Cursos
 
     }
 
+    [HttpGet]
+    public async Task<IActionResult> OnGetBuscarTableAsync([FromQuery] CursoModel custom)
+    {
+      try
+      {
+        HttpContextDraw.SetModelValues(HttpContext, custom);
+        var cursosTable = await _consultasCurso.Listar(custom);
+        cursosTable.ForEach(curso =>
+        {
+          curso.IMAGEN = ConfiguracionProyecto.DISK + curso.RTAIMG;
+          curso.RTAFTO = (!curso.RTAFTO.IsNullOrEmpty()) ? (ConfiguracionProyecto.DISK + curso.RTAFTO) : curso.RTAFTO;
+        });
+        var totalRows = cursosTable?.FirstOrDefault()?.TOTALROWS ?? 0;
+        return new JsonResult(new { recordsTotal = totalRows, recordsFiltered = totalRows, data = cursosTable, draw = custom.DRAW });
+      }
+      catch (Exception ex)
+      {
+        return BadRequest(new { success = false, message = "Ocurrió un error al listar los grupo cursos.", error = ex.Message });
+      }
+
+    }
+
     [HttpPost]
     public async Task<IActionResult> OnPostAddAsync([FromForm] ComandoCursoInsertar comando)
     {
       try
-      { 
-        string filePath = await GuardarImagenAsync(comando.IMG);
-        comando.RTAIMG = filePath.Replace(ConfiguracionProyecto.DISK, "");
-        comando.UEDCN = HttpContextDraw.User(HttpContext, 1);
+      {
+        if (comando.IMG != null && comando.IMG.Length > 0)
+        {
+          comando.RTAIMG = await _fileUploads.UploadFileAsync("CCFIRMA/CURSOS", comando.IMG); ;
+        }
 
+        comando.UEDCN = HttpContextDraw.User(HttpContext, 1);
         var result = await _mediator.Send(comando);
 
-        if (!result.EsSatisfactoria && System.IO.File.Exists(filePath))
-          System.IO.File.Delete(filePath);
-     
+        if (!result.EsSatisfactoria)
+            await _fileUploads.DeleteDirectoryAsync(comando.RTAIMG);
+
         return new JsonResult(result);
       }
       catch (Exception ex)
@@ -84,18 +102,19 @@ namespace CARO.AUTENTICACION.WEB.Pages.Comercial.Cursos
     {
       try
       {
-        comando.UEDCN = HttpContextDraw.User(HttpContext, 1);
+        if (!string.IsNullOrEmpty(comando.RTAIMG) && comando.RTAIMG.Contains(ConfiguracionProyecto.DISK))
+          comando.RTAIMG = comando.RTAIMG.Replace(ConfiguracionProyecto.DISK, "");
+
 
         if (comando.IMG != null && comando.IMG.Length > 0)
         {
-          if (!string.IsNullOrEmpty(comando.RTAIMG) && System.IO.File.Exists(comando.RTAIMG))
-            System.IO.File.Delete(comando.RTAIMG);
-          
+          if (!string.IsNullOrEmpty(comando.RTAIMG))
+            await _fileUploads.DeleteDirectoryAsync(comando.RTAIMG);
 
-          string filePath = await GuardarImagenAsync(comando.IMG);
-          comando.RTAIMG = filePath.Replace(ConfiguracionProyecto.DISK, "");
+          comando.RTAIMG = await _fileUploads.UploadFileAsync("CCFIRMA/CURSOS", comando.IMG);
         }
 
+        comando.UEDCN = HttpContextDraw.User(HttpContext, 1);
         var result = await _mediator.Send(comando);
         return new JsonResult(result);
       }

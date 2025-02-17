@@ -1,4 +1,5 @@
 using CARO.CONFIG;
+using CARO.CORE;
 using CARO.CORE.Helpers;
 using CARO.DATOS.CONSULTAS.MANTENIMIENTOS;
 using CARO.DATOS.EVENTOS.Comandos.MANTENIMIENTOS.MODULOS;
@@ -16,6 +17,7 @@ namespace CARO.AUTENTICACION.WEB.Pages.Mantenimientos.Vistas
   {
     private readonly IMediator _mediator;
     private readonly IConsultasModulosGD _consultasModulosGD;
+    private readonly FileUploads _fileUploads;
 
     public IndexModel(
       IConsultasModulosGD consultasModulosGD,
@@ -24,6 +26,7 @@ namespace CARO.AUTENTICACION.WEB.Pages.Mantenimientos.Vistas
     {
       _consultasModulosGD = consultasModulosGD;
       _mediator = mediator;
+      _fileUploads = new FileUploads();
     }
 
     #region MODULOS
@@ -37,13 +40,7 @@ namespace CARO.AUTENTICACION.WEB.Pages.Mantenimientos.Vistas
         foreach (var mod in modulos)
         {
           var rutacompleta = ConfiguracionProyecto.DISK + mod.IMG;
-          if (!string.IsNullOrEmpty(rutacompleta) && System.IO.File.Exists(rutacompleta) && rutacompleta != null)
-          {
-            byte[] fileBytes = await System.IO.File.ReadAllBytesAsync(rutacompleta);
-            mod.FTO = Convert.ToBase64String(fileBytes);
-            mod.NAMEFTO = Path.GetFileName(rutacompleta);
-            mod.TPOFTO = ObtenerMimeType(rutacompleta);
-          }
+          mod.IMG = rutacompleta;
         }
         var totalRows = modulos?.FirstOrDefault()?.TOTALROWS ?? 0;
         return new JsonResult(new { recordsTotal = totalRows, recordsFiltered = totalRows, data = modulos, draw = custom.DRAW });
@@ -62,14 +59,9 @@ namespace CARO.AUTENTICACION.WEB.Pages.Mantenimientos.Vistas
       {
         if (comando.FTO != null && comando.FTO.Length > 0)
         {
-          string folderPath = Path.Combine(ConfiguracionProyecto.DISK, "CCFIRMA", "MODULOS");
-          if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
-
-          string filePath = await GuardarArchivoConHash(comando.FTO, folderPath);
-          comando.IMG = filePath;
+          comando.IMG = await _fileUploads.UploadFileAsync("CCFIRMA/MODULOS", comando.FTO); ;
         }
 
-        comando.IMG = comando.IMG.Replace(ConfiguracionProyecto.DISK, "");
         comando.UEDCN = HttpContextDraw.User(HttpContext, 1);
         var result = await _mediator.Send(comando);
         return new JsonResult(result);
@@ -85,29 +77,21 @@ namespace CARO.AUTENTICACION.WEB.Pages.Mantenimientos.Vistas
     {
       try
       {
+        if (!string.IsNullOrEmpty(comando.IMG) && comando.IMG.Contains(ConfiguracionProyecto.DISK))
+          comando.IMG = comando.IMG.Replace(ConfiguracionProyecto.DISK, "");
+
         if (comando.FTO != null && comando.FTO.Length > 0 && comando.DELETE == false)
         {
-          var rtaEliminar = Path.Combine(ConfiguracionProyecto.DISK, comando.IMG);
-          if (!string.IsNullOrEmpty(rtaEliminar) && System.IO.File.Exists(rtaEliminar))
-            System.IO.File.Delete(rtaEliminar);
+          if (!string.IsNullOrEmpty(comando.IMG))
+            await _fileUploads.DeleteDirectoryAsync(comando.IMG);
 
-
-          string folderPath = Path.Combine(ConfiguracionProyecto.DISK, "CCFIRMA", "MODULOS");
-          if (!Directory.Exists(folderPath)) Directory.CreateDirectory(folderPath);
-
-          string nuevaRuta = await GuardarArchivoConHash(comando.FTO, folderPath);
-          comando.IMG = nuevaRuta;
-          comando.IMG = comando.IMG.Replace(ConfiguracionProyecto.DISK, "");
+          comando.IMG = await _fileUploads.UploadFileAsync("CCFIRMA/MODULOS", comando.FTO);
         }
 
         if (comando.DELETE == true && comando.IMG != null)
         {
-          var rtaCompleta = Path.Combine(ConfiguracionProyecto.DISK, comando.IMG);
-          if (!string.IsNullOrEmpty(rtaCompleta) && System.IO.File.Exists(rtaCompleta))
-          {
-            System.IO.File.Delete(rtaCompleta);
-            comando.IMG = null;
-          }
+          await _fileUploads.DeleteDirectoryAsync(comando.IMG);
+          comando.IMG = null;
         }
 
         comando.UEDCN = HttpContextDraw.User(HttpContext, 1);

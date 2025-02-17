@@ -11,7 +11,8 @@ namespace CARO.DATOS.CONSULTAS.COM
     {
         Task<List<CursoModel>> Listar(CursoModel custom);
         Task<List<CursoModel>> ListarDetalleCurso(CursoModel custom);
-
+        Task<List<ProfesoresModel>> ListarProfesores(ProfesoresModel custom);
+        Task<List<SponsorsModel>> ListarSponsors(SponsorsModel custom);
     }
     public class ConsultasCurso : IConsultasCurso
     {
@@ -61,6 +62,45 @@ namespace CARO.DATOS.CONSULTAS.COM
             var conexionSql = _configuration.GetConnectionString("DefaultConnection");
             return await FuncionesSql.EjecutarProcedimiento<CursoModel>(conexionSql, Procedimientos.COMERCIAL.DetalleCursoCrud, parametros);
         }
+        public async Task<List<ProfesoresModel>> ListarProfesores(ProfesoresModel custom)
+        {
+            var parametros = new DynamicParameters();
+            var json = JsonSerializer.Serialize(new
+            {
+                DESC = custom.DESC,
+                CESTDO = custom.CESTDO,
+                INIT = custom.INIT,
+                ROWS = custom.ROWS,
+                IDCRSO = custom.IDCRSO,
+            }).ToUpper();
 
+            parametros.Add("@p_cData", json);
+            parametros.Add("@p_cUser", null);
+            parametros.Add("@p_nTipo", 4);
+            parametros.Add("@p_nId", custom.ID ?? 0);
+
+            var conexionSql = _configuration.GetConnectionString("DefaultConnection");
+            return await FuncionesSql.EjecutarProcedimiento<ProfesoresModel>(conexionSql, Procedimientos.COMERCIAL.ProfesoresCrud, parametros);
+        }
+        public async Task<List<SponsorsModel>> ListarSponsors(SponsorsModel custom)
+        {
+            var parametros = new DynamicParameters();
+            var json = JsonSerializer.Serialize(new
+            {
+                DESC = custom.DESC,
+                CESTDO = custom.CESTDO,
+                INIT = custom.INIT,
+                ROWS = custom.ROWS,
+                IDCRSO = custom.IDCRSO,
+            }).ToUpper();
+
+            parametros.Add("@p_cData", json);
+            parametros.Add("@p_cUser", null);
+            parametros.Add("@p_nTipo", 4);
+            parametros.Add("@p_nId", custom.ID ?? 0);
+
+            var conexionSql = _configuration.GetConnectionString("DefaultConnection");
+            return await FuncionesSql.EjecutarProcedimiento<SponsorsModel>(conexionSql, Procedimientos.COMERCIAL.SponsorsCrud, parametros);
+        }
     }
 }

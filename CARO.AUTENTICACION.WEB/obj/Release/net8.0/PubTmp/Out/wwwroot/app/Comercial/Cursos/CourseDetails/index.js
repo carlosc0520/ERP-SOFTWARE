@@ -9,7 +9,8 @@ const executeView = () => {
     API: '/Comercial/Cursos/Index?handler',
     DET: '/Comercial/Cursos/CourseDetails/Index?handler',
     GD: '/Seguridad/GrupoDato/Index?handler',
-    MR: '/Seguridad/Marcas/Index?handler'
+    MR: '/Seguridad/Marcas/Index?handler',
+    PR: '/Comercial/Cursos/Detalle/Index?handler'
   };
 
   // * VARIABLES
@@ -17,6 +18,7 @@ const executeView = () => {
   let formRepeater = null;
   let dropzoneBasicEdit = null,
     dropzoneBasic = null;
+  let usersList = [];
   let paginationData = {
     INIT: 0,
     ROWS: 10,
@@ -215,14 +217,17 @@ const executeView = () => {
         let horarios = [];
         if (formRepeater) {
           formRepeater.each(function (index, i) {
-            let inputs = $(this).find('.form-control');
+            let inputs = $(this).find('.form-control').not('.tagify');
             horarios.push({
               ID: null,
               IDDCRSO: null,
               TITLE: inputs?.[0].value || '',
               ORDEN: inputs?.[1].value || '',
               DTLLE: inputs?.[2].value || '',
-              CLNDRIO: inputs?.[3] ? new Quill('#' + inputs?.[3].id).root.innerHTML : '',
+              PRFSRS: JSON.parse(inputs?.[3].value)
+                .map(p => p.value)
+                .join(','),
+              CLNDRIO: inputs?.[4] ? new Quill('#' + inputs?.[4].id).root.innerHTML : '',
               CESTDO: 'A'
             });
           });
@@ -231,7 +236,6 @@ const executeView = () => {
         }
 
         formData.append('MODULOS', JSON.stringify(horarios));
-
         swalFire.cargando(['Espere un momento', 'Estamos registrando la plantilla']);
         $.ajax({
           url: uisApis.DET + '=Add',
@@ -261,7 +265,6 @@ const executeView = () => {
         if (!file) return swalFire.error('Debe seleccionar una imagen');
         if (!detalleCursoCrud.variables.curso) return swalFire.error('Ocurrió un error al obtener el curso');
 
-
         let formData = new FormData();
         formData.append('ID', detalleCursoCrud.variables.curso.id);
         formData.append('IDCRSO', detalleCursoCrud.variables.courseId);
@@ -279,14 +282,17 @@ const executeView = () => {
         let horarios = [];
         if (formRepeater) {
           formRepeater.each(function (index, i) {
-            let inputs = $(this).find('.form-control');
+            let inputs = $(this).find('.form-control').not('.tagify');
             horarios.push({
-              ID: inputs?.[4].value || null,
+              ID: inputs?.[5].value || null,
               IDDCRSO: null,
               TITLE: inputs?.[0].value || '',
               ORDEN: inputs?.[1].value || '',
               DTLLE: inputs?.[2].value || '',
-              CLNDRIO: inputs?.[3] ? new Quill('#' + inputs?.[3].id).root.innerHTML : '',
+              PRFSRS: JSON.parse(inputs?.[3].value)
+                .map(p => p.value)
+                .join(','),
+              CLNDRIO: inputs?.[4] ? new Quill('#' + inputs?.[4].id).root.innerHTML : '',
               CESTDO: 'A'
             });
           });
@@ -346,14 +352,13 @@ const executeView = () => {
         });
       },
       GETCURSO: () => {
-
         let id = func.getURLParameter('course');
         if (!id || isNaN(id)) return (window.location.href = '/Comercial/Cursos');
 
         swalFire.cargando(['Espere un momento', 'Estamos cargando el curso']);
         detalleCursoCrud.variables.courseId = id;
 
-        $("div[data-repeater-item]").not(':first').remove();
+        $('div[data-repeater-item]').not(':first').remove();
         $.ajax({
           url: uisApis.DET + `=Buscar&ROWS=${1}&INIT=${0}&DRAW=1&DESC=&ID=${id}`,
           beforeSend: function (xhr) {
@@ -363,6 +368,7 @@ const executeView = () => {
           success: function (response) {
             if (response.data) {
               let course = response.data[0];
+
               $('#NAME_COURSE').text(course.course);
               if (course?.idcrso) {
                 configFormVal('formAddDetalle', detalleCursoCrud.validaciones.UPDATE, () =>
@@ -380,16 +386,9 @@ const executeView = () => {
                 new Quill('#full-editor-participantes').root.innerHTML = course?.prtcpnts;
 
                 // * FILE ....
-                if(course?.imgfile){
-                  var filename = course?.name;
-                  course.imagen = `data:${course?.type};base64,${course?.imgfile}`;
-                  var blob = new Blob([course?.imagen], { type: course?.type });
-                  var fileOfBlob = new File([blob], filename);
-                  fileOfBlob.dataURL = course?.imagen;
-                  fileOfBlob.isExist = true;
-                  detalleCursoCrud.variables.myDropzoneAddDetalle.files.push(fileOfBlob);
-                  detalleCursoCrud.variables.myDropzoneAddDetalle.emit('addedfile', fileOfBlob);
-                  detalleCursoCrud.variables.myDropzoneAddDetalle.emit('complete', fileOfBlob);
+                if (course?.rtaimg) {
+                  let rutaArchivo = course.rtaimg;
+                  agregarArchivoADropzone(rutaArchivo, detalleCursoCrud.variables.myDropzoneAddDetalle);
                 }
 
                 // * FORM REPEATER
@@ -399,16 +398,21 @@ const executeView = () => {
                     if (index > 0) $('#data-repeater-create').click();
 
                     let formRepeater = $('.div_chapterOne').last();
-                    let inputs = formRepeater.find('.form-control');
+                    let inputs = formRepeater.find('.form-control').not('.tagify');
                     inputs[0].value = m.TITLE;
                     inputs[1].value = m.ORDEN;
                     inputs[2].value = m.DTLLE;
-                    let editor = $(inputs[3]).find('.ql-editor');
+
+                    let tagify = $(`#form-repeater-profesores-${index + 1}-4`);
+                    tagify[0].__tagify.removeAllTags();
+                    tagify[0].__tagify.addTags(usersList.filter(u => m.PRFSRS.split(',').includes(u.value.toString())));
+
+                    let editor = $(inputs[4]).find('.ql-editor');
                     if (editor) editor.html(m.CLNDRIO);
-                    inputs[4].value = m.ID;
+                    inputs[5].value = m.ID;
                   });
                 }
-              }else{
+              } else {
                 configFormVal('formAddDetalle', detalleCursoCrud.validaciones.INSERT, () =>
                   detalleCursoCrud.eventos.INSERT()
                 );
@@ -442,8 +446,8 @@ const executeView = () => {
   };
 
   const globalCrud = {
-    init: () => {
-      globalCrud.eventos.selects();
+    init: async () => {
+      await globalCrud.eventos.selects();
       globalCrud.globales();
     },
     globales: () => {
@@ -464,8 +468,7 @@ const executeView = () => {
             });
 
             $(this).slideDown();
-            let formRepeaterCalendarios = $(this).find('#form-repeater-horarios-' + rowIndex + '-4');
-            let repeatEditor = new Quill('#form-repeater-horarios-' + rowIndex + '-4', {
+            let repeatEditor = new Quill('#form-repeater-horarios-' + rowIndex + '-5', {
               bounds: '#full-editor',
               placeholder: 'Escriba algo aquí...',
               modules: {
@@ -474,6 +477,8 @@ const executeView = () => {
               },
               theme: 'snow'
             });
+
+            tagsTagify(document.querySelector(`#form-repeater-profesores-${rowIndex}-4`), usersList);
 
             rowIndex++;
             let accordionButton = $(this).find('.accordion-button');
@@ -496,11 +501,11 @@ const executeView = () => {
               });
           },
           hide: function (e) {
-            let id = $(this).find('.form-control[data-var="id"]').val();   
+            let id = $(this).find('.form-control[data-var="id"]').val();
             swalFire.delete('¿Está seguro de eliminar este elemento?', {
               1: () => {
                 if (id) {
-                    detalleCursoCrud.eventos.DELETE(id);
+                  detalleCursoCrud.eventos.DELETE(id);
                 }
                 $(this).slideUp(e);
               }
@@ -542,14 +547,40 @@ const executeView = () => {
     },
     eventos: {
       selects: async () => {
-  
+        // PR
+        $.ajax({
+          url: uisApis.PR + `=Buscar&length=1000&start=0&draw=1&desc=&IDCRSO=${func.getURLParameter('course')}`,
+          beforeSend: function (xhr) {
+            xhr.setRequestHeader('XSRF-TOKEN', localStorage.getItem('accessToken'));
+          },
+          type: 'GET',
+          success: function (response) {
+            usersList = [];
+            if (response.data) {
+              response.data.forEach(d => {
+                usersList.push({
+                  value: d.id,
+                  name: d.nmbrs,
+                  avatar: d.rtafto
+                });
+              });
+            }
+
+            const TagifyUserListEl = document.querySelector('#form-repeater-profesores-1-4');
+            tagsTagify(TagifyUserListEl, usersList);
+          },
+          error: error => swalFire.error('Ocurrió un error al cargar las marcas')
+        });
       }
     }
   };
 
   return {
-    init: () => {
-      globalCrud.init();
+    init: async () => {
+      let id = func.getURLParameter('course');
+      if (!id || isNaN(id)) return (window.location.href = '/Comercial/Cursos');
+
+      await globalCrud.init();
       detalleCursoCrud.init();
       detalleCursoCrud.globales();
     }

@@ -8,6 +8,7 @@ using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Newtonsoft.Json;
 using OpenXmlPowerTools;
+using CARO.CORE;
 
 namespace CARO.AUTENTICACION.WEB.Pages.Comercial.Plantillas.proveedoresRGPD
 {
@@ -16,6 +17,7 @@ namespace CARO.AUTENTICACION.WEB.Pages.Comercial.Plantillas.proveedoresRGPD
   {
     private readonly IMediator _mediator;
     private readonly IConsultasPlantilla _consultasPlantilla;
+    private readonly FileUploads _fileUploads;
 
     public IndexModel(
       IConsultasPlantilla consultasPlantilla,
@@ -24,13 +26,15 @@ namespace CARO.AUTENTICACION.WEB.Pages.Comercial.Plantillas.proveedoresRGPD
     {
       _consultasPlantilla = consultasPlantilla;
       _mediator = mediator;
+      _fileUploads = new FileUploads();
     }
 
     [HttpPost]
     public async Task<IActionResult> OnPostGenerateDocumentAsync([FromForm] ProveedorPlantillaModel entidad)
     {
-      string filePath = $@"{ConfiguracionProyecto.DISK}CCFIRMA\PLANTILLAS\PROVEEDORESRGPD.docx";
-      string tempFilePath = $@"{ConfiguracionProyecto.DISK}CCFIRMA\PLANTILLAS\PROVEEDORESRGPD_Temp.docx";
+      string rutaRemota = "CCFIRMA/PLANTILLAS/PROVEEDORESRGPD.docx"; // Ruta en el servidor FTP
+      string tempFileName = $"PROVEEDORESRGPD_Temp_{Guid.NewGuid()}.docx"; // Nombre temporal
+      string tempFilePath = Path.Combine(Path.GetTempPath(), tempFileName); // Ruta temporal en el servidor
 
       try
       {
@@ -40,13 +44,13 @@ namespace CARO.AUTENTICACION.WEB.Pages.Comercial.Plantillas.proveedoresRGPD
         entidad.TTRANSFERENCIA = JsonConvert.DeserializeObject<TableTraferencia>(entidad.STTRANSFERENCIA);
         entidad.TTRATAMIENTO = JsonConvert.DeserializeObject<TableTratamiento>(entidad.STTRATAMIENTO);
 
-        if (!System.IO.File.Exists(filePath))
+        byte[] fileBytes = await _fileUploads.DownloadFileAsync(rutaRemota);
+        if (fileBytes == null || fileBytes.Length == 0)
         {
-          return NotFound("El archivo no se encuentra.");
+          return NotFound("El archivo no se encuentra en el servidor FTP.");
         }
 
-        // Crear una copia del archivo original
-        System.IO.File.Copy(filePath, tempFilePath, true);
+        await System.IO.File.WriteAllBytesAsync(tempFilePath, fileBytes);
 
         using (WordprocessingDocument doc = WordprocessingDocument.Open(tempFilePath, true))
         {
@@ -58,7 +62,6 @@ namespace CARO.AUTENTICACION.WEB.Pages.Comercial.Plantillas.proveedoresRGPD
           };
 
           MarkupSimplifier.SimplifyMarkup(doc, settings);
-
           var body = doc.MainDocumentPart.Document.Body;
 
           // Función para reemplazar texto en un párrafo
@@ -86,7 +89,6 @@ namespace CARO.AUTENTICACION.WEB.Pages.Comercial.Plantillas.proveedoresRGPD
           }
 
           var replacements = new Dictionary<string, string>();
-
           foreach (var property in entidad.GetType().GetProperties())
           {
             string placeholder = $"##{property.Name}##";
@@ -142,10 +144,9 @@ namespace CARO.AUTENTICACION.WEB.Pages.Comercial.Plantillas.proveedoresRGPD
           }
         }
 
-
         // Leer el archivo modificado y convertirlo a Base64
-        byte[] fileBytes = System.IO.File.ReadAllBytes(tempFilePath);
-        string fileBase64 = Convert.ToBase64String(fileBytes);
+        byte[] modifiedFileBytes = System.IO.File.ReadAllBytes(tempFilePath);
+        string fileBase64 = Convert.ToBase64String(modifiedFileBytes);
 
         // Opcional: Eliminar el archivo temporal
         System.IO.File.Delete(tempFilePath);
@@ -159,6 +160,141 @@ namespace CARO.AUTENTICACION.WEB.Pages.Comercial.Plantillas.proveedoresRGPD
         return StatusCode(500, $"Error al generar el documento: {ex.Message}");
       }
     }
+
+
+    //[HttpPost]
+    //public async Task<IActionResult> OnPostGenerateDocumentAsync([FromForm] ProveedorPlantillaModel entidad)
+    //{
+    //  string filePath = $@"{ConfiguracionProyecto.DISK}CCFIRMA\PLANTILLAS\PROVEEDORESRGPD.docx";
+    //  string tempFilePath = $@"{ConfiguracionProyecto.DISK}CCFIRMA\PLANTILLAS\PROVEEDORESRGPD_Temp.docx";
+
+    //  try
+    //  {
+    //    // Deserializar los modelos desde los JSON enviados
+    //    entidad.TAPLICABLE = JsonConvert.DeserializeObject<TableAplicable>(entidad.STAPLICABLE);
+    //    entidad.TINTERESADO = JsonConvert.DeserializeObject<TableInteresado>(entidad.STINTERESADO);
+    //    entidad.TTRANSFERENCIA = JsonConvert.DeserializeObject<TableTraferencia>(entidad.STTRANSFERENCIA);
+    //    entidad.TTRATAMIENTO = JsonConvert.DeserializeObject<TableTratamiento>(entidad.STTRATAMIENTO);
+
+    //    if (!System.IO.File.Exists(filePath))
+    //    {
+    //      return NotFound("El archivo no se encuentra.");
+    //    }
+
+    //    // Crear una copia del archivo original
+    //    System.IO.File.Copy(filePath, tempFilePath, true);
+
+    //    using (WordprocessingDocument doc = WordprocessingDocument.Open(tempFilePath, true))
+    //    {
+    //      SimplifyMarkupSettings settings = new SimplifyMarkupSettings
+    //      {
+    //        RemoveComments = true,
+    //        RemoveProof = true,
+    //        RemoveRsidInfo = true
+    //      };
+
+    //      MarkupSimplifier.SimplifyMarkup(doc, settings);
+
+    //      var body = doc.MainDocumentPart.Document.Body;
+
+    //      // Función para reemplazar texto en un párrafo
+    //      void ReplaceTextInParagraph(DocumentFormat.OpenXml.Wordprocessing.Paragraph para, Dictionary<string, string> replacements)
+    //      {
+    //        string combinedText = string.Join("", para.Elements<Run>()
+    //            .SelectMany(run => run.Elements<Text>())
+    //            .Select(textElement => textElement.Text));
+
+    //        foreach (var placeholder in replacements.Keys.ToList())
+    //        {
+    //          string propertyValue = replacements[placeholder];
+
+    //          if (combinedText.Contains(placeholder))
+    //          {
+    //            combinedText = combinedText.Replace(placeholder, propertyValue);
+    //            para.RemoveAllChildren<Run>();
+    //            foreach (var part in combinedText.Split(new[] { '\n', '\r' }, StringSplitOptions.None))
+    //            {
+    //              var run = new Run(new Text(part));
+    //              para.Append(run);
+    //            }
+    //          }
+    //        }
+    //      }
+
+    //      var replacements = new Dictionary<string, string>();
+
+    //      foreach (var property in entidad.GetType().GetProperties())
+    //      {
+    //        string placeholder = $"##{property.Name}##";
+    //        string propertyValue = property.GetValue(entidad)?.ToString() ?? string.Empty;
+    //        replacements[placeholder] = propertyValue;
+    //      }
+
+    //      foreach (var property in entidad.TAPLICABLE.GetType().GetProperties())
+    //      {
+    //        string placeholder = $"##{property.Name}##";
+    //        string propertyValue = property.GetValue(entidad.TAPLICABLE)?.ToString() ?? string.Empty;
+    //        replacements[placeholder] = propertyValue;
+    //      }
+
+    //      foreach (var property in entidad.TINTERESADO.GetType().GetProperties())
+    //      {
+    //        string placeholder = $"##{property.Name}##";
+    //        string propertyValue = property.GetValue(entidad.TINTERESADO)?.ToString() ?? string.Empty;
+    //        replacements[placeholder] = propertyValue;
+    //      }
+
+    //      foreach (var property in entidad.TTRANSFERENCIA.GetType().GetProperties())
+    //      {
+    //        string placeholder = $"##{property.Name}##";
+    //        string propertyValue = property.GetValue(entidad.TTRANSFERENCIA)?.ToString() ?? string.Empty;
+    //        replacements[placeholder] = propertyValue;
+    //      }
+
+    //      foreach (var property in entidad.TTRATAMIENTO.GetType().GetProperties())
+    //      {
+    //        string placeholder = $"##{property.Name}##";
+    //        string propertyValue = property.GetValue(entidad.TTRATAMIENTO)?.ToString() ?? string.Empty;
+    //        replacements[placeholder] = propertyValue;
+    //      }
+
+    //      foreach (var para in body.Elements<DocumentFormat.OpenXml.Wordprocessing.Paragraph>())
+    //      {
+    //        ReplaceTextInParagraph(para, replacements);
+    //      }
+
+    //      foreach (var table in body.Elements<DocumentFormat.OpenXml.Wordprocessing.Table>())
+    //      {
+    //        foreach (var row in table.Elements<DocumentFormat.OpenXml.Wordprocessing.TableRow>())
+    //        {
+    //          foreach (var cell in row.Elements<DocumentFormat.OpenXml.Wordprocessing.TableCell>())
+    //          {
+    //            foreach (var para in cell.Elements<DocumentFormat.OpenXml.Wordprocessing.Paragraph>())
+    //            {
+    //              ReplaceTextInParagraph(para, replacements);
+    //            }
+    //          }
+    //        }
+    //      }
+    //    }
+
+
+    //    // Leer el archivo modificado y convertirlo a Base64
+    //    byte[] fileBytes = System.IO.File.ReadAllBytes(tempFilePath);
+    //    string fileBase64 = Convert.ToBase64String(fileBytes);
+
+    //    // Opcional: Eliminar el archivo temporal
+    //    System.IO.File.Delete(tempFilePath);
+    //    return new JsonResult(new
+    //    {
+    //      base64Word = fileBase64
+    //    });
+    //  }
+    //  catch (Exception ex)
+    //  {
+    //    return StatusCode(500, $"Error al generar el documento: {ex.Message}");
+    //  }
+    //}
 
     private void ReplaceTextInTable(WordprocessingDocument doc, string placeholder, string replacement)
     {

@@ -50,7 +50,7 @@ namespace CARO.DATOS.EVENTOS.SEG.LOGIN
                 }
 
                 return result;
-    
+
             }
             else
             {
@@ -60,7 +60,7 @@ namespace CARO.DATOS.EVENTOS.SEG.LOGIN
                 return result;
             }
 
- 
+
         }
         public bool LeerEncriptada(string enteredPassword, string storedHash)
         {
@@ -75,12 +75,12 @@ namespace CARO.DATOS.EVENTOS.SEG.LOGIN
                 {
                     if (hashBytes[i + 16] != hash[i])
                     {
-                        return false; 
+                        return false;
                     }
                 }
             }
 
-            return true; 
+            return true;
         }
 
 
@@ -95,6 +95,8 @@ namespace CARO.DATOS.EVENTOS.SEG.LOGIN
                 new Claim(ClaimTypes.Name, user.CORREO),
                 new Claim(ClaimTypes.Surname, user.NYAPLLDS),
                 new Claim("IDMRCA", user.IDMRCA.ToString()),
+                new Claim("email", user.CORREO.ToString()),
+
             };
 
             var tokenDescriptor = new SecurityTokenDescriptor
@@ -111,5 +113,7 @@ namespace CARO.DATOS.EVENTOS.SEG.LOGIN
             var createdToken = tokenHandler.CreateToken(tokenDescriptor);
             identity.AccessToken = tokenHandler.WriteToken(createdToken);
         }
+   
+    
     }
 }

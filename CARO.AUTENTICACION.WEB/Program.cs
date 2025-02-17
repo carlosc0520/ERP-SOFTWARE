@@ -5,14 +5,36 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using CARO.CONFIG;
 using Microsoft.AspNetCore.Http.Features;
+
 using CARO.DATOS.CONSULTAS.SEG;
 using CARO.DATOS.CONSULTAS.COM;
 using CARO.DATOS.CONSULTAS.USUARIOS;
 using CARO.DATOS.CONSULTAS.MANTENIMIENTOS;
+using CARO.DATOS.CONSULTAS.MARCAS.AIC;
+using CARO.DATOS.CONSULTAS.MARKETING;
+using CARO.DATOS.CONSULTAS.LEGAL;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+//builder.Services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+//{
+//  builder.WithOrigins(
+//      "http://localhost:3000",
+//      "http://resourcesasociados.caroasociados.pe",
+//      "http://127.0.0.1:5500",
+//      "https://ccfirma.com"
+//      )
+//         .AllowAnyMethod()
+//         .AllowAnyHeader();
+//}));
+
+builder.Services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+{
+  builder.AllowAnyOrigin()  // Permite cualquier origen
+         .AllowAnyMethod()  // Permite cualquier método HTTP (GET, POST, etc.)
+         .AllowAnyHeader(); // Permite cualquier encabezado
+}));
 
 // Add services to the container.
 builder.Services.AddRazorPages();
@@ -62,6 +84,7 @@ builder.Services.AddTransient<IConsultasMarca, ConsultasMarca>();
 builder.Services.AddTransient<IConsultasPlantilla, ConsultasPlantilla>();
 builder.Services.AddTransient<IConsultasCurso, ConsultasCurso>();
 builder.Services.AddTransient<IConsultasContacto, ConsultasContacto>();
+builder.Services.AddTransient<IConsultasClientes, ConsultasClientes>();
 #endregion COMERCIAL
 
 #region USUARIOS
@@ -73,6 +96,20 @@ builder.Services.AddTransient<IConsultasPersonas, ConsultasPersonas>();
 #region MANTENIMIENTOS
 builder.Services.AddTransient<IConsultasGrupoDatoGD, ConsultasGrupoDatoGD>();
 builder.Services.AddTransient<IConsultasModulosGD, ConsultasModulosGD>();
+builder.Services.AddTransient<IConsultasEmpresas, ConsultasEmpresas>();
+#endregion
+
+#region MARCAS
+builder.Services.AddTransient<IConsultasAIC, ConsultasAIC>();
+#endregion
+
+#region MARKETING
+builder.Services.AddTransient<IConsultasAsistencia, ConsultasAsistencia>();
+#endregion
+
+#region LEGAL
+builder.Services.AddTransient<IConsultasDocumentos, ConsultasDocumentos>();
+builder.Services.AddTransient<IConsultasAbogados, ConsultasAbogados>();
 #endregion
 
 var app = builder.Build();
@@ -81,14 +118,15 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+  // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+  app.UseHsts();
 }
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseCors("MyPolicy");  // Asegúrate de que esta línea esté antes de UseAuthentication y UseAuthorization
 app.UseAuthentication();
 app.UseAuthorization();
 

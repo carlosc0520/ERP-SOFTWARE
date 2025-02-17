@@ -1,0 +1,96 @@
+<div class="modal fade" id="modalAddCliente" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-simple modal-edit-user">
+        <div class="modal-content p-3 p-md-5">
+            <div class="modal-body">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="text-center mb-4">
+                    <h3>Agregar Cliente</h3>
+                </div>
+                <form id="AddCliente" class="row g-3" method="post">
+                    <div class="col-12 col-md-4">
+                        <label class="form-label" for="NMBRS">Nombres <span class="text-danger">*</span></label>
+                        <input type="text" id="NMBRS" name="NMBRS" class="form-control max-length" data-maxlength="200" />
+                    </div>
+                     
+                    <div class="col-12 col-md-4">
+                        <label class="form-label" for="APLLDS">Apellidos <span class="text-danger">*</span></label>
+                        <input type="text" id="APLLDS" name="APLLDS" class="form-control max-length" data-maxlength="200" />
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <label class="form-label" for="IDMRCA">Marca <span class="text-danger">*</span></label>
+                        <select id="IDMRCA" name="IDMRCA" class="select2 form-select" data-allow-clear="true">
+                        </select>
+                    </div>
+                    
+                    <div class="col-12 col-md-4">
+                        <label class="form-label" for="RUC">RUC </label>
+                        <input type="text" id="RUC" name="RUC" class="solo-numero form-control max-length" data-maxlength="15" />
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <label class="form-label" for="RZNSCL">Razón Social </label>
+                        <input type="text" id="RZNSCL" name="RZNSCL" class="form-control max-length" data-maxlength="200" />
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <label class="form-label" for="GDESTDOCLI">Estado <span class="text-danger">*</span></label>
+                        <select id="GDESTDOCLI" name="GDESTDOCLI" class="select2 form-select" data-allow-clear="true">
+                        </select>
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <label class="form-label" for="DRCCN">Dirección </label>
+                        <input type="text" id="DRCCN" name="DRCCN" class="form-control max-length" data-maxlength="200" />
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <label class="form-label" for="CORREO">Correo </label>
+                        <input type="text" id="CORREO" name="CORREO" class="form-control max-length" data-maxlength="200" />
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <label class="form-label" for="CNTCTO">Contacto </label>
+                        <input type="text" id="CNTCTO" name="CNTCTO" class="solo-numero form-control max-length" data-maxlength="20" />
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <label class="form-label" for="MOTIVO">Motivo <span class="text-danger">*</span></label>
+                        <textarea id="MOTIVO" name="MOTIVO" class="form-control max-length" 
+                        rows="12"
+                        data-maxlength="200"></textarea>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <label class="form-label" for="APUNTES">Apuntes </label>
+                        <div id="APUNTES">
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label" for="dropzone-area">Imagen Cliente</label>
+                        <div action="/upload" class="dropzone needsclick
+                            d-flex justify-content-center align-items-center" id="dropzone-area">
+                            <div class="dz-message needsclick">
+                                Arrastra la imagen aquí o haz clic para subir.
+                                <span class="note needsclick">(Esta es sólo una visualización
+                                    <span class="fw-medium">de la</span> imagen.)</span>
+                            </div>
+                            <div class="fallback">
+                                <input name="file" name="ARCHVO" type="file" accept="image/*" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 text-center mt-4">
+                        <button id="btnAddCliente" class="btn btn-primary me-sm-3 me-1">Agregar</button>
+                        <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                    </div>
+
+                    @await Html.PartialAsync("../../../_Partials/_Auditoria.cshtml")
+                     
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

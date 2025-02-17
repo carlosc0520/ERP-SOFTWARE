@@ -8,9 +8,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="Pages\Legal\Abogados\Index.cshtml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
 	  <PackageReference Include="ClosedXML" Version="0.102.2" />
 	  <PackageReference Include="DocumentFormat.OpenXml" Version="2.16.0" />
+	  <PackageReference Include="FluentFTP" Version="51.1.0" />
 	  <PackageReference Include="FreeSpire.Doc" Version="11.6.0" />
+	  <PackageReference Include="itext7" Version="7.2.0" />
+	  <PackageReference Include="itext7.bouncy-castle-adapter" Version="8.0.5" />
 	  <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.4" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.3" />
 	  <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
@@ -30,8 +37,9 @@
 	  <ProjectReference Include="..\CARO.CORE\CARO.CORE.csproj" />
 	  <ProjectReference Include="..\CARO.DATOS.CONSULTAS\CARO.DATOS.CONSULTAS.csproj" />
 	  <ProjectReference Include="..\CARO.DATOS.EVENTOS\CARO.DATOS.EVENTOS.csproj" />
+    <ProjectReference Include="..\CARO.CORE\CARO.CORE.csproj" />
 
-	  <None Update="User.Data.db">
+    <None Update="User.Data.db">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </None>
   </ItemGroup>
@@ -39,6 +47,10 @@
   <ItemGroup>
 	  <PackageReference Include="MediatR" Version="9.0.0" />
 	  <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Pages\Comercial\Clientes\_Partials\" />
   </ItemGroup>
 
 

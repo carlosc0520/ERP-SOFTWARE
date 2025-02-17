@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CARO.AUTENTICACION.WEB.Pages.Seguridad.GrupoDato
 {
-  [IgnoreAntiforgeryToken(Order = 1001)]
+  //[IgnoreAntiforgeryToken(Order = 1001)]
   public class IndexModel : PageModel
   {
     private readonly IMediator _mediator;
@@ -23,6 +23,27 @@ namespace CARO.AUTENTICACION.WEB.Pages.Seguridad.GrupoDato
 
     [HttpGet]
     public async Task<IActionResult> OnGetObtenerAllAsync([FromQuery] GrupoDatoModel custom)
+    {
+      try
+      {
+        var grupoDatos = await _consultasGrupoDato.ObtenerAll(custom);
+        var totalRows = grupoDatos?.FirstOrDefault()?.TOTALROWS ?? 0;
+
+        return new JsonResult(new
+        {
+          recordsTotal = totalRows,
+          recordsFiltered = totalRows,
+          data = grupoDatos,
+          draw = 1
+        });
+      }
+      catch (Exception ex) {
+        return StatusCode(500, "Error interno del servidor: " + ex.Message);
+      }
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> OnGetPaisesAsync([FromQuery] GrupoDatoModel custom)
     {
       var grupoDatos = await _consultasGrupoDato.ObtenerAll(custom);
       var totalRows = grupoDatos?.FirstOrDefault()?.TOTALROWS ?? 0;

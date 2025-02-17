@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.ENTIDAD\\CARO.ENTIDAD.csproj",
+      "projectUniqueName": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.ENTIDAD\\CARO.ENTIDAD.csproj",
       "projectName": "CARO.ENTIDAD",
-      "projectPath": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.ENTIDAD\\CARO.ENTIDAD.csproj",
+      "projectPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.ENTIDAD\\CARO.ENTIDAD.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\Documents\\CARO.ERP\\CARO.ENTIDAD\\obj\\",
+      "outputPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.ENTIDAD\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",

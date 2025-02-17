@@ -286,7 +286,7 @@ button.list-group-item-primary.active {
   color: #263c55;
 }
 
-.btn-primary, .btn-primary[data-trigger=hover].dropdown-toggle:not(.show) {
+/* .btn-primary, .btn-primary[data-trigger=hover].dropdown-toggle:not(.show) {
   color: #fff;
   background-color: #5a8dee;
   border-color: #5a8dee;
@@ -297,7 +297,7 @@ button.list-group-item-primary.active {
   background-color: #7ba4f1 !important;
   border-color: #7ba4f1 !important;
   box-shadow: 0 0.25rem 1rem rgba(147, 158, 170, 0.45) !important;
-}
+} */
 .btn-check:focus + .btn-primary, .btn-primary:focus, .btn-primary.focus {
   color: #fff;
   background-color: #4d78ca;

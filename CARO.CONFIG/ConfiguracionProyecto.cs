@@ -8,11 +8,14 @@
 
         public const int TIEMPO_SESION_MINUTOS = 120;
 
-        public const string DISK = "C:\\";
+        //public const string DISK = "http://resourcesasociados.caroasociados.pe/";
+        public const string DISK = "https://jurissearch.com/";
         public const string HOST = "https://localhost:7001/";
+        public const string DISKFILE = "file:///C:/";
 
         //public const string DISK = "h:\\root\\home\\devcar0520-001\\www\\";
         //public const string HOST = "http://devcar0520-001-site11.etempurl.com/";
+        //public const string DISKFILE = "http://devcar0520-001-site13.etempurl.com/";
 
         public static class TEMAS
         {
@@ -64,8 +67,8 @@
          
         public static class CORREOS_CONTACTO
         {
-            public const string CORREO = "ccarbajalmt0520@gmail.com";
-            public const string KEY = "qcigvfwwdyrwelib";
+            public const string CORREO = "formulariocaro@gmail.com";
+            public const string KEY = "xcumpfimulzqkulx";
         }
     }
 }

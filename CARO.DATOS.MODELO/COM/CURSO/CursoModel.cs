@@ -16,6 +16,11 @@ namespace CARO.DATOS.MODELO.COM.CURSO
         public string? NAME { get; set; } = null;
         public IFormFile? IMG { get; set; } = null;
         public string? IMAGEN { get; set; } = null;
+        public string? RTAFTO { get; set; } = null;
+        public decimal? EJEX { get; set; } = null;
+        public decimal? EJEY { get; set; } = null;
+        public decimal? EJEX2 { get; set; } = null;
+        public decimal? EJEY2 { get; set; } = null;
 
     }
 
@@ -32,5 +37,27 @@ namespace CARO.DATOS.MODELO.COM.CURSO
         public string? MODULOS { get; set; } = null;
         public string? COURSE { get; set; } = null;
 
+    }
+
+    public class ProfesoresModel : EntidadAuditoria
+    {
+        public int? IDCRSO { get; set; } = null;
+        public string? NMBRS { get; set; } = null;
+        public string? CARGO { get; set; } = null;
+        public string? UNVRSDD { get; set; } = null;
+        public string? RTAFTO { get; set; } = null;
+        public IFormFile? FTO { get; set; } = null;
+        public string? RISIG { get; set; } = null;
+        public string? RISFB { get; set; } = null;
+        public string? RISLK { get; set; } = null;
+        public string? RTIK { get; set; } = null;
+    }
+
+    public class SponsorsModel : EntidadAuditoria
+    {
+        public int? IDCRSO { get; set; } = null;
+        public string? NMBRS { get; set; } = null;
+        public IFormFile? FTO { get; set; } = null;
+        public string? RTAFTO { get; set; } = null;
     }
 }

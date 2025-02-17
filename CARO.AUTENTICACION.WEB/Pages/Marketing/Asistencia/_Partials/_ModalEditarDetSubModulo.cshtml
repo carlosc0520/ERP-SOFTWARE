@@ -1,0 +1,36 @@
+<div class="modal fade" id="modalEditDetSubModulo" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-simple modal-edit-user">
+        <div class="modal-content p-3 p-md-5">
+            <div class="modal-body">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="text-center mb-4">
+                    <h3>Editar Detalle Sub Módulo</h3>
+                </div>
+                <form id="EditDetSubModulo" class="row g-3" method="post">
+                    <div class="col-12">
+                        <label class="form-label" for="DSCRPCN">Descripción <span class="text-danger">*</span></label>
+                        <input type="text" id="DSCRPCN" name="DSCRPCN" class="form-control max-length" data-maxlength="200" />
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <label class="form-label" for="URL">URL <span class="text-danger">*</span></label>
+                        <input type="text" id="URL" name="URL" class="form-control max-length noMayus" data-maxlength="200" />
+                    </div>
+                    
+                    <div class="col-12 col-md-6">
+                        <label class="form-label" for="ICONO">Icono </label>
+                        <input type="text" id="ICONO" name="ICONO" class="form-control max-length noMayus" data-maxlength="20000" />
+                    </div>
+
+                    <div class="col-12 text-center mt-4">
+                        <button id="btnEditDetSubModulo" class="btn btn-primary me-sm-3 me-1">Guardar</button>
+                        <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                    </div>
+
+                    @await Html.PartialAsync("../../../_Partials/_AuditoriaE.cshtml")
+
+                </form> 
+            </div>
+        </div>
+    </div>
+</div>

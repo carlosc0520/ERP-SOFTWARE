@@ -195,7 +195,13 @@ $(document).ready(function () {
 
   // *** AJAX
   $(document).ajaxSend(function (event, xhr, settings) {
-    xhr.setRequestHeader('Authorization', 'Bearer ' + (localStorage.getItem('accessToken') || null));
+    var url = new URL(settings.url, window.location.origin);
+    let token = localStorage.getItem('accessToken');
+    if (!token || ['null', 'undefined', ''].includes(token)) {
+      token = url.searchParams.get('accessToken');
+    }
+
+    xhr.setRequestHeader('Authorization', 'Bearer ' + token);
   });
 
   $('input[type="text"], textarea, input[type="email"]').not('.noMayus').on('input', function () {
@@ -256,8 +262,6 @@ $(document).ready(function () {
     flatpickr(datepicker, {
       altFormat: 'd-m-Y',
       dateFormat: 'd-m-Y',
-      // altFormat: 'd-m-Y',
-      // dateFormat: 'd-m-Y',
       altInput: true,
       allowInput: true,
       disableMobile: true,
@@ -280,5 +284,56 @@ $(document).ready(function () {
     });
   });
 
+  const datepickerHourListModify = document.querySelectorAll('.dob-picker-format-hour');
+  datepickerHourListModify.forEach(function (datepicker) {
+    // PONERLE PLACEHOLDER DD-MM-YYYY
+    datepicker.placeholder = 'DD-MM-YYYY HH:mm';
+    if (datepicker._flatpickr) {
+      datepicker._flatpickr.destroy();
+    }
 
+    flatpickr(datepicker, {
+      enableTime: true,
+      altFormat: 'Y-m-dTH:i:S',
+      locale: {
+        firstDayOfWeek: 1,
+        weekdays: {
+          shorthand: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'],
+          longhand: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+        },
+        months: {
+          shorthand: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+          longhand: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        },
+      },
+      locale: {
+        firstDayOfWeek: 1,
+        weekdays: {
+          shorthand: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'],
+          longhand: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+        },
+        months: {
+          shorthand: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+          longhand: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+        },
+      },
+      onReady: function (selectedDates, dateStr, instance) {
+        if (instance.isMobile) {
+          instance.mobileInput.setAttribute('step', null);
+        }
+      }
+    });
+  });
+
+
+});
+
+
+$("#log-out").on('click', function () {
+  localStorage.clear();
+  window.location.href = '/login';
+});
+
+$("textarea, input[type='text'], input[type='email']").on('blur', function () {
+  this.value = this.value.trim();
 });

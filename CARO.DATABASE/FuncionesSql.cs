@@ -37,6 +37,29 @@ namespace CARO.DATABASE
                 }
             }
         }
+
+        public static async Task<T> EjecutarProcedimientoFirst<T>(string? conexionSql, string nombreProcedimiento, DynamicParameters parametros)
+        {
+            using (var conn = new SqlConnection(conexionSql))
+            {
+                try
+                {
+                    conn.Open();
+                    //reader = await conn.ExecuteReaderAsync(nombreProcedimiento, parametros, commandType: CommandType.StoredProcedure);
+                    var enumerable = await conn.QueryAsync<T>(nombreProcedimiento, parametros, commandType: CommandType.StoredProcedure);
+                    return enumerable.FirstOrDefault();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                    SqlConnection.ClearAllPools();
+                }
+            }
+        }
         public static async Task<RespuestaLista<T>> EjecutarProcedimientoRespuesta<T>(string conexionSql, string nombreProcedimiento, DynamicParameters parametros)
         {
             using (var conn = new SqlConnection(conexionSql))
@@ -120,7 +143,7 @@ namespace CARO.DATABASE
                 try
                 {
                     conn.Open();
-                    await conn.ExecuteAsync(nombreProcedimiento, parametros, commandType: CommandType.StoredProcedure);
+                    var retornoV = await conn.ExecuteAsync(nombreProcedimiento, parametros, commandType: CommandType.StoredProcedure);
                     var vRetorno = parametros.Get<int>(variableRetorno);
                     return new RespuestaConsulta()
                     {

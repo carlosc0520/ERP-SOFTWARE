@@ -1,0 +1,55 @@
+@page
+@model CARO.AUTENTICACION.WEB.Pages.Legal.Documentos.IndexModel
+@{
+    ViewData["Title"] = "Mis Documentos";
+}
+
+@section VendorStyles {
+    <link rel="stylesheet" href="~/vendor/libs/jstree/jstree.dist.css" />
+}
+@section VendorScripts {
+    <script src="~/vendor/libs/jstree/jstree.dist.js"></script>
+    <script src="~/vendor/libs/block-ui/block-ui.dist.js"></script>
+}
+@section PageScripts {
+    <!-- <script src="~/js/extended-ui-treeview.dist.js"></script> -->
+    <script src="~/app/Legal/Documentos/index.js"></script>
+}
+
+@* ************** Content ************** *@
+<h4 class="py-3 breadcrumb-wrapper mb-4">
+    <span class="text-muted fw-light">Mis Documentos /</span> Listado
+</h4>
+
+
+<div class="row">
+    <!-- /Context Menu -->
+    <!-- Drag & Drop -->
+    <div class="col-md-5 col-12">
+        <div class="card mb-4">
+            <h5 class="card-header">Repositorio</h5>
+            <div class="card-body">
+                <div class="d-flex gap-3 mb-3" role="group" aria-label="Basic example">
+                    <button type="button" class="btn btn-primary btn-sm p-1" title="Agregar" id="btnNuevo"><i class="fas fa-plus"></i> </button>
+                    <button type="button" class="btn btn-secondary btn-sm p-1" title="Renombrar" id="btnRename"><i class="fas fa-edit"></i> </button>
+                    <button type="button" class="btn btn-danger btn-sm p-1" title="Eliminar" id="btnDelete"><i class="fas fa-trash-alt"></i> </button>
+                    <button type="button" class="btn btn-success btn-sm p-1" title="Subir Archivo" id="btnSubir"><i class="fas fa-upload"></i> </button>
+                    <button type="button" class="btn btn-success btn-sm p-1" title="Previsualizar" id="btnPreview"><i class="fas fa-eye"></i> </button>
+                    <button type="button" class="btn btn-success btn-sm p-1" title="Descargar" id="btnDownload"><i class="fas fa-download"></i> </button>
+                </div>
+
+                <div id="jstree-drag-drop" class="overflow-auto"></div>
+            </div>
+        </div>
+    </div>
+    <!-- /Drag & Drop -->
+    <!-- Context Menu -->
+    <div class="col-md-7 col-12" id="card-preview">
+        <div class="card mb-4">
+            <h5 class="card-header">Previsualización</h5>
+            <div class="card-body">
+                <iframe id="frame_previsualizacion" width="100%" height="500px"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
