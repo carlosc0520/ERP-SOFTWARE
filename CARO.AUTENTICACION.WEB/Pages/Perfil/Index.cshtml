@@ -1,9 +1,10 @@
-﻿@page
+@page
 @model CARO.AUTENTICACION.WEB.Pages.Perfil.IndexModel
 @{
     ViewData["Title"] = "Perfil - Caro Asociados";
 }
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
 @section VendorStyles {
     <link rel="stylesheet" href="~/vendor/libs/select2/select2.dist.css" />
@@ -51,7 +52,7 @@
         transform: scale(1.03);
     }
 
-    .profile-pic {
+    /* .profile-pic {
         max-width: 110px;
         border: 4px solid white;
         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
@@ -60,7 +61,7 @@
 
     .profile-pic:hover {
         transform: scale(1.08) rotate(2deg);
-    }
+    } */
 
     /* Botones */
     .btn-custom {
@@ -82,17 +83,19 @@
         border: none;
         padding: 0.6rem 1.2rem;
         transition: color 0.3s ease, background 0.3s ease;
+        background-color: transparent !important;
     }
 
     .nav-tabs .nav-link.active {
-        color: white;
-        background-color: var(--primary-orange);
-        border-radius: 8px;
+        border-bottom: 5px solid var(--primary-orange) ;
+    }
+
+    .nav-tabs .nav-link.active:focus{
+        border-bottom: 5px solid var(--primary-orange) ;
     }
 
     .nav-tabs .nav-link:hover {
-        background-color: rgba(255, 123, 0, 0.15);
-        border-radius: 8px;
+        border-radius: 0 !important;
     }
 
     /* Tablas */
@@ -122,55 +125,162 @@
     .qr-code img:hover {
         transform: rotate(3deg) scale(1.05);
     }
+
+
+
+    .badge {
+        display: inline-block;
+        padding: .25em .4em;
+        font-size: 75%;
+        font-weight: 700;
+        line-height: 1;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: .25rem;
+        color: #FFF;
+        background-color: #365779
+    }
+
+
+    :root{ --accent:#6b63ff; --muted:#6c6c6c; }
+    body{ font-family: 'Poppins', sans-serif; background:#fff; color:#222; }
+
+    /* gradient banner */
+    .profile-banner{
+      height:120px;
+      background: linear-gradient(90deg, rgba(107,99,255,0.22) 0%, rgba(246,187,255,0.22) 100%);
+      border-radius:0 0 14px 14px;
+    }
+
+    .profile-card{
+      margin-top:-48px; /* lift over the banner */
+      background:transparent;
+    }
+
+    /* css de nuevo diseño */
+    .avatar-wrap{
+      width:100%;
+      max-width: 200px!important;
+      margin: auto;
+      height:200px !important;
+      overflow:hidden;
+      border-radius:38px;
+      box-shadow:0 10px 30px rgba(19,24,47,0.06);
+      border:6px solid rgba(255,255,255,0.85);
+    }
+    .avatar-wrap img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    .pro-badge{
+      background:linear-gradient(90deg,#4b79ff,#8b66ff);
+      color:#fff;
+      font-weight:600;
+      font-size:13px;
+      padding:6px 8px;
+      border-radius:8px;
+      display:inline-flex;
+      align-items:center; gap:6px;
+    }
+
+    .btn-follow{
+      background:#111;
+      color:#fff;
+      border-radius:10px;
+      padding:7px 18px;
+      border:0;
+      box-shadow:none;
+    }
+    .btn-contact{
+      border-radius:10px;
+      padding:7px 18px;
+    }
+
+    .stat-number{
+      font-weight:800;
+      font-size:36px;
+    }
+
+    .stat-label{
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    /* circular small badges on top-right */
+    .small-badge{
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      color:#fff;
+      font-weight:700;
+      font-size:14px;
+      margin-left:8px;
+      box-shadow:0 6px 18px rgba(16,24,40,0.06);
+    }
+    .small-badge.orange{
+      background:#ff7a00;
+    }
+    .small-badge.blue{
+      background:#6b63ff;
+    }
+    .small-badge.dark{
+      background:#111;
+    }
+
+    /* bottom nav */
+    .profile-nav{ border-top:1px solid rgba(0,0,0,0.06); margin-top:22px; padding-top:18px; }
+    .profile-nav .nav-link{ color:#333; font-weight:600; padding:8px 0; }
+    .profile-nav .nav-link.active{ border-bottom:2px solid var(--accent); color:var(--accent); }
 </style>
 
-<div class="container py-4">
+<div class="container py-4" style="max-width: 800px !important">
     <div class="row g-4 align-items-center">
         <!-- Columna izquierda -->
-        <div class="col-12 col-lg-5 text-center">
-            <div class="cover d-flex align-items-center justify-content-center p-4">
-                <img id="IMG_PERFIL" src="https://via.placeholder.com/160" alt="Foto perfil"
-                    class="profile-pic rounded-circle border border-3 border-light shadow-sm" style="max-width: 140px;">
-            </div>
+        <div class="col-12 col-md-4 text-center">
+          <div class="card d-flex justify-content-center align-items-center" style="width: 100% !important; height: 220px !important; border-radius: 3rem !important; overflow: hidden !important;">
+            <img id="IMG_PERFIL" src="https://via.placeholder.com/160" alt="Foto perfil"
+                class="profile-pic" style="width: 100% !important; heigth: 100% !important; object-fit: contain">
+          </div>
         </div>
 
         <!-- Columna derecha -->
-        <div class="col-12 col-lg-7">
-            <p id="NOMBRES_PERFIL" class="fw-bold fs-2 mb-2 text-dark">
+        <div class="col-12 col-md-8">
+            <span class="badge badge-dark" id="CARGO_PERFIL"></span>
+            <p id="NOMBRES_PERFIL" class="fw-bold fs-4 mb-2 text-dark"></p>
 
-            </p>
-            <p id="CARGO_PERFIL" class="text-muted fs-3 mb-3">
-
-            </p>
-            <p class="mb-1 fs-4">
-                <span class="fw-bold text-secondary">Correo:</span>
+            <p class="mb-1 fs-6">
+                <span class="fw-bold text-secondary">Correo: </span>
                 <a class="fw-normal text-decoration-none text-dark" href="" id="CORREO_PERFIL">
                 </a>
             </p>
-            <p class="mb-0 fs-4">
-                <span class="fw-bold text-secondary">Teléfono:</span>
+            <p class="mb-0 fs-6">
+                <span class="fw-bold text-secondary">Teléfono: </span>
                 <a class="fw-normal text-decoration-none text-dark" href="t" id="TELEFONO_PERFIL">
                 </a>
             </p>
+
+            <!-- Botones -->
+            <div class="d-flex mt-3" style="gap: .6rem">
+                <a href="#" class="btn btn-primary btn-custom px-4">Guardar</a>
+                <a href="#" class="btn btn-outline-secondary btn-custom px-4">Enviar</a>
+                <a href="#" class="btn btn-success btn-custom px-3"><i class="bi bi-whatsapp"></i></a>
+            </div>
         </div>
     </div>
 
+    <div class="">
 
-    <!-- Botones -->
-    <div class="row justify-content-end g-2 mt-3">
-        <div class="col-12 col-lg-2">
-            <a href="#" class="btn btn-primary btn-custom w-100">Guardar</a>
-        </div>
-        <div class="col-12 col-lg-2">
-            <a href="#" class="btn btn-outline-secondary btn-custom w-100">Enviar</a>
-        </div>
-        <div class="col-12 col-lg-2">
-            <a href="#" class="btn btn-success btn-custom w-100">WhatsApp</a>
-        </div>
     </div>
 
     <!-- Tabs -->
-    <ul class="nav nav-tabs mt-4" id="profileTabs" role="tablist">
+    @* <ul class="nav nav-tabs mt-5" id="profileTabs" role="tablist">
         <li class="nav-item">
             <button class="nav-link" id="personal-tab" data-bs-toggle="tab" data-bs-target="#personal">Personal</button>
         </li>
@@ -183,18 +293,18 @@
         <li class="nav-item">
             <button class="nav-link active" id="qr-tab" data-bs-toggle="tab" data-bs-target="#qr">Mi QR</button>
         </li>
-    </ul>
+    </ul> *@
 
     <!-- Contenido tabs -->
-    <div class="tab-content mt-3">
+    @* <div class="tab-content mt-3">
         <div class="tab-pane fade" id="personal">
             <table class="table table-borderless">
                 <tr>
-                    <td><strong>Nombre:</strong></td>
+                    <td><strong>Nombre</strong></td>
                     <td>Juan Pérez</td>
                 </tr>
                 <tr>
-                    <td><strong>Ocupación:</strong></td>
+                    <td><strong>Ocupación</strong></td>
                     <td>Gerente de Ventas</td>
                 </tr>
             </table>
@@ -202,11 +312,11 @@
         <div class="tab-pane fade" id="company">
             <table class="table table-borderless">
                 <tr>
-                    <td><strong>Empresa:</strong></td>
+                    <td><strong>Empresa</strong></td>
                     <td>GoNet</td>
                 </tr>
                 <tr>
-                    <td><strong>Cargo:</strong></td>
+                    <td><strong>Cargo</strong></td>
                     <td>Gerente</td>
                 </tr>
             </table>
@@ -214,11 +324,11 @@
         <div class="tab-pane fade" id="contact">
             <table class="table table-borderless">
                 <tr>
-                    <td><strong>Teléfono:</strong></td>
+                    <td><strong>Teléfono</strong></td>
                     <td>+52 123 456 7890</td>
                 </tr>
                 <tr>
-                    <td><strong>Email:</strong></td>
+                    <td><strong>Email</strong></td>
                     <td>correo@empresa.com</td>
                 </tr>
             </table>
@@ -229,5 +339,113 @@
                 <p class="mt-2">Escanea para ver el perfil</p>
             </div>
         </div>
-    </div>
+    </div> *@
 </div>
+
+
+<!-- Nueva UI -->
+<div class="profile-banner"></div>
+
+  <div class="container profile-card">
+    <div class="row align-items-center">
+      <!-- avatar -->
+      <div class="col-md-3 d-flex align-items-center">
+        <div class="avatar-wrap">
+          <img src="img/avatars/flaca.png" alt="avatar">
+        </div>
+      </div>
+
+      <div class="col-md-5 mt-5">
+        <div class="d-flex align-items-center gap-3">
+          <h2 class="mb-0" style="font-weight:800; font-size:28px;">Irene Brooks</h2>
+          <span class="pro-badge">PRO</span>
+        </div>
+        <p class="mb-2" style="color:var(--muted);">Interface and Brand Designer<br>based in San Antonio</p>
+        <div class="d-flex align-items-center gap-2 mt-2">
+          <button class="btn btn-follow">Follow</button>
+          <button class="btn btn-outline-secondary btn-contact">Get in touch</button>
+        </div>
+      </div>
+
+      <div class="col-md-4 mt-3 mt-md-0">
+        <div class="d-flex justify-content-end align-items-center mb-3">
+          <div class="small-badge orange">26</div>
+          <div class="small-badge blue">6</div>
+          <div class="small-badge dark">12</div>
+        </div>
+
+        <div class="row text-end">
+          <div class="col-4">
+            <div class="stat-number">985</div>
+            <div class="stat-label">Followers</div>
+          </div>
+          <div class="col-4">
+            <div class="stat-number">132</div>
+            <div class="stat-label">Following</div>
+          </div>
+          <div class="col-4">
+            <div class="stat-number">548</div>
+            <div class="stat-label">Likes</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- nav -->
+    <div class="row profile-nav">
+      <div class="col-12">
+        <ul class="nav" id="profileTabs" role="tablist" style="gap: 2rem !important">
+          <li class="nav-item"><button class="nav-link" id="personal-tab" data-bs-toggle="tab" data-bs-target="#personal">Personal</button></li>
+          <li class="nav-item"><button class="nav-link" id="company-tab" data-bs-toggle="tab" data-bs-target="#company">Empresa</button></li>
+          <li class="nav-item"><button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact">Contacto</button></li>
+          <li class="nav-item"><button class="nav-link active" id="qr-tab" data-bs-toggle="tab" data-bs-target="#qr">Mi QR</button></li>
+        </ul>
+
+        <!-- Contenido tabs -->
+        <div class="tab-content mt-3">
+            <div class="tab-pane fade" id="personal">
+                <table class="table table-borderless">
+                    <tr>
+                        <td><strong>Nombre</strong></td>
+                        <td>Juan Pérez</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ocupación</strong></td>
+                        <td>Gerente de Ventas</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="company">
+                <table class="table table-borderless">
+                    <tr>
+                        <td><strong>Empresa</strong></td>
+                        <td>GoNet</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cargo</strong></td>
+                        <td>Gerente</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="contact">
+                <table class="table table-borderless">
+                    <tr>
+                        <td><strong>Teléfono</strong></td>
+                        <td>+52 123 456 7890</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Email</strong></td>
+                        <td>correo@empresa.com</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="tab-pane fade show active" id="qr">
+                <div class="qr-code text-center">
+                    <img id="QR_CODE" src="" alt="QR Code">
+                    <p class="mt-2">Escanea para ver el perfil</p>
+                </div>
+            </div>
+         </div>
+      </div>
+    </div>
+  </div>
