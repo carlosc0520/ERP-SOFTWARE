@@ -1,0 +1,309 @@
+@page
+@model CARO.AUTENTICACION.WEB.Pages.Comercial.LibroReclamaciones.IndexModel
+@{
+    ViewData["Title"] = "Libro de Reclamaciones";
+}
+
+@section VendorStyles {
+    <link rel="stylesheet" href="~/vendor/libs/datatables-bs5/datatables.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/umd/styles/index.min.css" />
+    <link rel="stylesheet" href="~/vendor/libs/flatpickr/flatpickr.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/dropzone/dropzone.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/tagify/tagify.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/quill/typography.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/quill/katex.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/quill/editor.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/select2/select2.dist.css" />
+}
+
+@section PageStyles {
+    <link rel="stylesheet" href="~/vendor/css/pages/app-calendar.dist.css" />
+}
+
+
+@section VendorScripts {
+    <script src="~/vendor/libs/block-ui/block-ui.dist.js"></script>
+    <script src="~/vendor/libs/datatables-bs5/datatables-bootstrap5.dist.js"></script>
+    <script src="~/vendor/libs/cleavejs/cleave.dist.js"></script>
+    <script src="~/vendor/libs/cleavejs/cleave-phone.dist.js"></script>
+    <script src="~/vendor/libs/flatpickr/flatpickr.dist.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/bundle/popular.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-bootstrap5/index.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
+    <script src="~/vendor/libs/dropzone/dropzone.dist.js"></script>
+    <script src="~/vendor/libs/quill/katex.dist.js"></script>
+    <script src="~/vendor/libs/quill/quill.dist.js"></script>
+    <script src="~/vendor/libs/tagify/tagify.dist.js"></script>
+    <script src="~/vendor/libs/select2/select2.dist.js"></script>
+    <script src="~/vendor/libs/chartjs/chartjs.dist.js"></script>
+}
+
+@section PageScripts {
+    <script src="https://cdn.jsdelivr.net/npm/exceljs/dist/exceljs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="~/app/Comercial/LibroReclamaciones/index.js"></script>
+    <!-- <script src="~/js/charts-chartjs.dist.js"></script> -->
+}
+
+@* ************** Content ************** *@
+<h4 class="py-3 breadcrumb-wrapper mb-4">
+    <span class="text-muted fw-light">Libro Reclamaciones /</span> Listado
+</h4>
+
+
+<div class="col-12">
+    <div class="nav-align-top mb-4">
+        <ul class="nav nav-tabs nav-fill" role="tablist">
+            <li class="nav-item">
+                <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
+                    data-bs-target="#navs-queja" aria-controls="navs-queja" aria-selected="false">
+                    <i class="tf-icons bx bx-clipboard me-1"></i> Reclamos / Quejas
+                </button>
+            </li>
+            <li class="nav-item">
+                <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-detalle"
+                    aria-controls="navs-detalle" aria-selected="false">
+                    <i class="tf-icons bx bx-detail me-1"></i> Detalle
+                </button>
+            </li>
+        </ul>
+        <div class="tab-content p-0">
+            <div class="p-2 tab-pane fade show active" id="navs-queja" role="tabpanel">
+                <div class="row gy-4 p-3">
+                    <form id="formSearch" class="row g-3" method="post">
+                        <div class="col-12 col-md-3 mb-3">
+                            <label class="form-label fw-bold" for="USUARIO">Usuario</label>
+                            <input type="text" class="form-control" id="USUARIO" name="USUARIO" autocomplete="off">
+                        </div>
+                        <div class="col-12 col-md-3 mb-3">
+                            <label class="form-label fw-bold" for="TIPORECLAMO">Tipo</label>
+                            <select class="form-select" id="TIPORECLAMO" name="TIPORECLAMO">
+                                <option value="">Seleccione</option>
+                                <option value="Queja">Queja</option>
+                                <option value="Reclamo">Reclamo</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-3 mb-3">
+                            <label class="form-label fw-bold" for="YEAR">Año</label>
+                            <input type="text" class="form-control" id="YEAR" name="YEAR" placeholder="YYYY"
+                                autocomplete="off">
+                        </div>
+                        <div class="col-12 col-md-3 mb-3">
+                            <label class="form-label fw-bold" for="MESES">Meses</label>
+                            <select class="form-select" id="MESES" name="MESES">
+                                <option value="">Seleccione</option>
+                                <option value="01">Enero</option>
+                                <option value="02">Febrero</option>
+                                <option value="03">Marzo</option>
+                                <option value="04">Abril</option>
+                                <option value="05">Mayo</option>
+                                <option value="06">Junio</option>
+                                <option value="07">Julio</option>
+                                <option value="08">Agosto</option>
+                                <option value="09">Septiembre</option>
+                                <option value="10">Octubre</option>
+                                <option value="11">Noviembre</option>
+                                <option value="12">Diciembre</option>
+                            </select>
+                        </div>
+                    </form>
+                    <div class="table-responsive pb-0">
+                        <div id="libroreclamaciones_title" class="card-header pb-2"></div>
+                        <table id="libroreclamaciones" class="mx-1 table border-top">
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="p-2 tab-pane fade" id="navs-detalle" role="tabpanel">
+                <div class="row gy-4 p-3">
+                    <form id="formDetalle" class="row g-3" method="post">
+                        <div class="col-12 mb-3">
+                            <p class="palote fw-bold"><span>1. IDENTIFICACIÓN DEL CONSUMIDOR RECLAMANTE</span></p>
+                        </div>
+                        <div class="col-12 col-md-3 mb-3">
+                            <label class="form-label fw-bold" for="FECHARECL">Fecha de Reclamo</label>
+                            <input type="text" class="form-control" id="FECHARECL" name="FECHARECL"
+                                placeholder="DD/MM/YYYY" readonly autocomplete="off">
+                        </div>
+                        <div class="col-12 col-md-3 mb-3">
+                            <label class="form-label fw-bold" for="DIDEMPRSA">Empresa</label>
+                            <input type="text" class="form-control" id="DIDEMPRSA" name="DIDEMPRSA" readonly>
+                        </div>
+                        <div class="col-12 col-md-3 mb-3">
+                            <label class="form-label fw-bold" for="SEDE">Sede</label>
+                            <input type="text" class="form-control" id="SEDE" name="SEDE" readonly>
+                        </div>
+                        <div class="col-12 col-md-3 mb-3">
+                            <label class="form-label fw-bold" for="DIRECCION">Dirección</label>
+                            <input type="text" class="form-control" id="DIRECCION" name="DIRECCION" readonly>
+                        </div>
+                        <div class="col-12">
+                            <p style="font-weight: semibold;">Datos Personales</p>
+                            <hr>
+                        </div>
+                        <div class="col-12 col-md-2 mb-3">
+                            <label class="form-label fw-bold" for="MENOREDAD">Es menor de edad?</label>
+                            <select class="form-select" disabled id="MENOREDAD" name="MENOREDAD">
+                                <option value="Si">Si</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-3 mb-3">
+                            <label class="form-label fw-bold" for="TDOCRECL">Tipo de Documento</label>
+                            <input type="text" class="form-control" id="TDOCRECL" name="TDOCRECL" readonly>
+                        </div>
+                        <div class="col-12 col-md-3 mb-3">
+                            <label class="form-label fw-bold" for="NRODOCRECL">Número de Documento</label>
+                            <input type="text" class="form-control" id="NRODOCRECL" name="NRODOCRECL" readonly>
+                        </div>
+                        <div class="col-12 col-md-4 mb-3">
+                            <label class="form-label fw-bold" for="NOMBREAPELLIDO1">Nombres completos y/o denominación o
+                                razón social</label>
+                            <input type="text" class="form-control" id="NOMBREAPELLIDO1" name="NOMBREAPELLIDO1"
+                                readonly>
+                        </div>
+
+                        <div class="col-12 row" id="isMenorEdad">
+                            <div class="col-12">
+                                <p style="font-weight: semibold;">DATOS DEL APODERADO</p>
+                                <hr>
+                            </div>
+                            <div class="col-12 col-md-3 mb-3">
+                                <label class="form-label fw-bold" for="TDOCRECL2">Tipo de Documento</label>
+                                <input type="text" class="form-control" id="TDOCRECL2" name="TDOCRECL2" readonly>
+                            </div>
+                            <div class="col-12 col-md-3 mb-3">
+                                <label class="form-label fw-bold" for="NRODOCRECL2">Número de Documento</label>
+                                <input type="text" class="form-control" id="NRODOCRECL2" name="NRODOCRECL2" readonly>
+                            </div>
+                            <div class="col-12 col-md-4 mb-3">
+                                <label class="form-label fw-bold" for="NOMBREAPELLIDO12">Nombres completos y/o
+                                    denominación o razón social</label>
+                                <input type="text" class="form-control" id="NOMBREAPELLIDO12" name="NOMBREAPELLIDO12"
+                                    readonly>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-3 mb-3">
+                            <label class="form-label fw-bold" for="EMPRESA">Representa una empresa?</label>
+                            <select class="form-select" disabled id="EMPRESA" name="EMPRESA">
+                                <option value="Si">Si</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+
+                        <div class="col-12 row" id="isEmpresa">
+                            <div class="col-12">
+                                <p style="font-weight: semibold;">DATOS DE EMPRESA</p>
+                                <hr>
+                            </div>
+                            <div class="col-12 col-md-3 mb-3">
+                                <label class="form-label fw-bold" for="EMPRESARSOCIAL">Razón Social</label>
+                                <input type="text" class="form-control" id="EMPRESARSOCIAL" name="EMPRESARSOCIAL"
+                                    readonly>
+                            </div>
+                            <div class="col-12 col-md-3 mb-3">
+                                <label class="form-label fw-bold" for="EMPRESATPODOC">Tipo de Documento</label>
+                                <input type="text" class="form-control" id="EMPRESATPODOC" name="EMPRESATPODOC"
+                                    readonly>
+                            </div>
+                            <div class="col-12 col-md-3 mb-3">
+                                <label class="form-label fw-bold" for="EMPRESANUMERO">Número de Documento</label>
+                                <input type="text" class="form-control" id="EMPRESANUMERO" name="EMPRESANUMERO"
+                                    readonly>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <p style="font-weight: bold;">DATOS DE CONTACTO</p>
+                            <hr>
+                        </div>
+                        <div class="col-12 col-md-3 mb-3">
+                            <label class="form-label fw-bold" for="EMAILRECL">Correo Electrónico</label>
+                            <input type="text" class="form-control" id="EMAILRECL" name="EMAILRECL" readonly>
+                        </div>
+                        <div class="col-12 col-md-3 mb-3">
+                            <label class="form-label fw-bold" for="TELEFONORECL">Teléfono</label>
+                            <input type="text" class="form-control" id="TELEFONORECL" name="TELEFONORECL" readonly>
+                        </div>
+                        <div class="col-12 col-md-3 mb-3">
+                            <label class="form-label fw-bold" for="DEPARTAMENTO">Departamento</label>
+                            <input type="text" class="form-control" id="DEPARTAMENTO" name="DEPARTAMENTO" readonly>
+                        </div>
+                        <div class="col-12 col-md-3 mb-3">
+                            <label class="form-label fw-bold" for="PROVINCIA">Provincia</label>
+                            <input type="text" class="form-control" id="PROVINCIA" name="PROVINCIA" readonly>
+                        </div>
+                        <div class="col-12 col-md-3 mb-3">
+                            <label class="form-label fw-bold" for="DISTRITO">Distrito</label>
+                            <input type="text" class="form-control" id="DISTRITO" name="DISTRITO" readonly>
+                        </div>
+                        <div class="col-12 col-md-3 mb-3">
+                            <label class="form-label fw-bold" for="DIRECCIONRECL">Domicilio</label>
+                            <input type="text" class="form-control" id="DIRECCIONRECL"  name="DIRECCIONRECL" readonly>
+                        </div>
+
+                        <div class="col-12 mb-3">
+                            <p class="palote fw-bold"><span>2. IDENTIFICACIÓN DEL BIEN CONTRATADO</span></p>
+                        </div>
+
+                        <div class="col-12 col-md-3 mb-3">
+                            <label class="form-label fw-bold" for="TIPOSERVICIO">Tipo de Servicio</label>
+                            <select disabled class="form-select" id="TIPOSERVICIO" name="TIPOSERVICIO">
+                                <option value="Producto">Producto</option>
+                                <option value="Servicio">Servicio</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-3 mb-3">
+                            <label class="form-label fw-bold" for="MONTORECLAMADO">Monto Reclamado</label>
+                            <input type="text" class="form-control" id="MONTORECLAMADO" name="MONTORECLAMADO"
+                                placeholder="0.00" autocomplete="off">
+                        </div>
+                        <div class="col-12 col-md-3 mb-3">
+                            <label class="form-label fw-bold" for="DETALLE">Detalle del Servicio o Producto</label>
+                            <input type="text" class="form-control" id="DETALLE" name="DETALLE"
+                                placeholder="Detalle del Servicio o Producto" autocomplete="off">
+                        </div>
+
+                        <div class="col-12 mb-3">
+                            <p class="palote fw-bold"><span>3. DETALLE DE LA RECLAMACIÓN Y PEDIDO DEL CONSUMIDOR</span></p>
+                        </div>
+                        <div class="col-12 col-md-3 mb-3">
+                            <label class="form-label fw-bold" for="TIPORECLAMO">Tipo</label>
+                            <select class="form-select" disabled id="TIPORECLAMO" name="TIPORECLAMO">
+                                <option value="Queja">Queja</option>
+                                <option value="Reclamo">Reclamo</option>
+                            </select>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label class="form-label fw-bold" for="DETALLERECLAMO">Detalle</label>
+                            <textarea class="form-control" id="DETALLERECLAMO" name="DETALLERECLAMO"
+                                rows="3" placeholder="Detalle de la Reclamación"></textarea>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label class="form-label fw-bold" for="PEDIDO">Pedido</label>
+                            <textarea class="form-control" id="PEDIDO" name="PEDIDO"
+                                rows="3" placeholder="Pedido del Consumidor"></textarea>
+                        </div>  
+
+                        <div class="table-responsive pb-0">
+                            <table id="archivos" class="mx-1 table border-top">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Archivo</th>
+                                        <th class="text-left">Comentarios</th>
+                                        <th class="text-center">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Los archivos se llenarán dinámicamente con JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -12,4 +12,14 @@ namespace CARO.DATOS.MODELO.SEG.GRUPODATO
         public string? VLR3 { get; set; } = null;
         public string? VLR4 { get; set; } = null;
     }
+
+    public class FUbigeos
+    {
+        public int? IND { get; set; } = null;
+        public string? DDPRTMNTO { get; set; } = null;
+        public string? DPRVNCA { get; set; } = null;
+        public string? VALUE { get; set; } = null;
+        public string? LABEL { get; set; } = null;
+
+    }
 }

@@ -6,13 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using CARO.DATOS.MODELO.LEGAL.ABOGADOS;
 using CARO.DATOS.EVENTOS.Comandos.LEGAL.ABOGADOS;
-using System;
 using System.Net;
 using System.Net.Mail;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using System.Net.Mail;
-using System.Net;
+using CARO.CORE;
+using Microsoft.IdentityModel.Tokens;
+using DocumentFormat.OpenXml.Drawing.Charts;
+using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace CARO.AUTENTICACION.WEB.wwwroot.app.Legal.Abogados
 {
@@ -21,6 +20,8 @@ namespace CARO.AUTENTICACION.WEB.wwwroot.app.Legal.Abogados
   {
     private readonly IMediator _mediator;
     private readonly IConsultasAbogados _consultasAbogados;
+    private readonly FileUploads _fileUploads;
+    private string filesPath = "/CCFIRMA/SOLICITUDES";
 
     public IndexModel(
       IConsultasAbogados consultasAbogados,
@@ -29,6 +30,7 @@ namespace CARO.AUTENTICACION.WEB.wwwroot.app.Legal.Abogados
     {
       _consultasAbogados = consultasAbogados;
       _mediator = mediator;
+      _fileUploads = new FileUploads();
     }
 
     #region ABOGADOS
@@ -155,12 +157,14 @@ namespace CARO.AUTENTICACION.WEB.wwwroot.app.Legal.Abogados
     #region SOLICITUDES
     [HttpPost]
     public async Task<IActionResult> OnPostAddSolicitudAsync([FromForm] ComandoSolicitudInsertar comando)
-    {
+    { 
       try
       {
-        string emailBody = GetEmailBody(comando);
-
-        await SendEmailAsync("ccarbajal@ccfirma.com", "Nueva Solicitud de Servicio", emailBody, comando.FILES);
+        comando.RUTAS = await _fileUploads.UploadFilesAsync(this.filesPath,comando.FILES);
+        string emails = "ccarbajal@ccfirma.com";
+        string emailBody = GetEmailBody(comando, emails);
+        string emailReceptor = GetEmailBody(comando, null);
+        await SendEmailAsync(emails, comando.CORREO, "Nueva Solicitud de Servicio", emailBody, emailReceptor, comando.FILES);
 
         var result = await _mediator.Send(comando);
 
@@ -172,8 +176,7 @@ namespace CARO.AUTENTICACION.WEB.wwwroot.app.Legal.Abogados
       }
     }
 
-    // Método para generar el cuerpo del correo HTML dinámicamente
-    private string GetEmailBody(ComandoSolicitudInsertar comando)
+    private string GetEmailBody(ComandoSolicitudInsertar comando, string? emails = null)
     {
       return $@"
       <!DOCTYPE html>
@@ -210,7 +213,6 @@ namespace CARO.AUTENTICACION.WEB.wwwroot.app.Legal.Abogados
               .section-title {{
                   font-weight: bold;
                   color: #34495e;
-                  margin-right: 5px;
               }}
               .details {{
                   background-color: #ecf0f1;
@@ -218,10 +220,6 @@ namespace CARO.AUTENTICACION.WEB.wwwroot.app.Legal.Abogados
                   margin: 15px 0;
                   border-radius: 8px;
                   border: 1px solid #bdc3c7;
-              }}
-              .details p {{
-                  margin: 5px 0;
-                  font-size: 16px;
               }}
               .footer {{
                   text-align: center;
@@ -231,19 +229,28 @@ namespace CARO.AUTENTICACION.WEB.wwwroot.app.Legal.Abogados
                   border-top: 1px solid #ecf0f1;
                   padding-top: 20px;
               }}
-              .footer p {{
-                  margin: 5px 0;
-              }}
               .email-header {{
                   padding: 10px;
-                  background-color: #ff6c17ff;
+                  background-color: #ff6c17;
                   color: #ffffff;
                   border-radius: 10px 10px 0 0;
                   font-size: 18px;
                   text-align: center;
               }}
-              .email-header h3 {{
-                  margin: 0;
+              .signature {{
+                  text-align: center;
+                  margin-top: 30px;
+                  padding-top: 20px;
+                  border-top: 1px solid #bdc3c7;
+              }}
+              .signature img {{
+                  max-width: 150px;
+                  margin-bottom: 10px;
+              }}
+              .signature p {{
+                  font-size: 14px;
+                  color: #34495e;
+                  margin: 5px 0;
               }}
           </style>
       </head>
@@ -252,7 +259,7 @@ namespace CARO.AUTENTICACION.WEB.wwwroot.app.Legal.Abogados
               <div class='email-header'>
                   <h3>Detalles de la Solicitud de Servicio</h3>
               </div>
-              <p><span class='section-title'>Cliente:</span> {comando.APLLDS + " " + comando.NMBRES}</p>
+              <p><span class='section-title'>Cliente:</span> {comando.APLLDS} {comando.NMBRES}</p>
               <p><span class='section-title'>Correo:</span> {comando.CORREO}</p>
               <p><span class='section-title'>Celular:</span> {comando.CELULAR}</p>
               <p><span class='section-title'>Comentarios:</span> {comando.COMENTARIOS}</p>
@@ -269,10 +276,17 @@ namespace CARO.AUTENTICACION.WEB.wwwroot.app.Legal.Abogados
                   <p><span class='section-title'>Dirección:</span> {comando.NAME_DRCCN}</p>
               </div>
 
+              {(string.IsNullOrEmpty(emails) ? $@"
               <div class='footer'>
-                  <p>Gracias por confiar en nuestros servicios.</p>
+                  <p>Gracias por confiar en nuestros servicios, nos pondremos en contacto contigo.</p>
                   <p>Si tienes alguna duda, no dudes en contactarnos.</p>
-                  <p><a href='mailto:{comando.CORREO}' style='color: #2980b9;'>Responder a esta solicitud</a></p>
+              </div>" : "")}
+          
+              <div class='signature'>
+                  <img
+                    style='max-width: 150px!important!'
+                    src ='https://acompliancepe.com/wp-content/uploads/2024/06/B6.png' alt='Logo'>
+                  <p>Visítanos en <a href='https://ccfirma.com' style='color: #2980b9;'>ccfirma.com</a></p>
               </div>
           </div>
       </body>
@@ -280,20 +294,28 @@ namespace CARO.AUTENTICACION.WEB.wwwroot.app.Legal.Abogados
       ";
     }
 
+    private async Task SendEmailAsync(string toEmail, string FromEmail, string subject, string body, string bodyRecepetor, List<IFormFile> files)
+    {
+ 
 
-    // Método para enviar el correo electrónico utilizando Gmail
-    private async Task SendEmailAsync(string toEmail, string subject, string body, List<IFormFile> files)
+      var task1 = SendEmailInternalAsync(toEmail, subject, body, files);
+      var task2 = SendEmailInternalAsync(FromEmail, subject, bodyRecepetor, null); 
+
+      await Task.WhenAll(task1, task2); 
+    }
+
+    private async Task SendEmailInternalAsync (string toEmail, string subject, string body, List<IFormFile>? files)
     {
       var smtpClient = new SmtpClient("smtp.gmail.com")
       {
-        Port = 587, // El puerto para Gmail es 587
+        Port = 587,
         Credentials = new NetworkCredential(ConfiguracionProyecto.CORREOS_CONTACTO.CORREO, ConfiguracionProyecto.CORREOS_CONTACTO.KEY),
         EnableSsl = true,
       };
 
       var mailMessage = new MailMessage
       {
-        From = new MailAddress("formulariocaro@gmail.com", "CCFIRMA - CONSULTORIA"),
+        From = new MailAddress("formulariocaro@gmail.com", "CCFIRMA - CONSULTORÍA"),
         Subject = subject,
         Body = body,
         IsBodyHtml = true
@@ -301,7 +323,6 @@ namespace CARO.AUTENTICACION.WEB.wwwroot.app.Legal.Abogados
 
       mailMessage.To.Add(toEmail);
 
-      // Agregar archivos adjuntos
       if (files != null && files.Count > 0)
       {
         foreach (var file in files)
@@ -310,8 +331,7 @@ namespace CARO.AUTENTICACION.WEB.wwwroot.app.Legal.Abogados
           using (var stream = new MemoryStream())
           {
             await file.CopyToAsync(stream);
-            var attachment = new Attachment(new MemoryStream(stream.ToArray()), fileName);
-            mailMessage.Attachments.Add(attachment);
+            mailMessage.Attachments.Add(new Attachment(new MemoryStream(stream.ToArray()), fileName));
           }
         }
       }

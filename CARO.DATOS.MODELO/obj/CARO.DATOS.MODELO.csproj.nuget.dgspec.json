@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj": {}
+    "C:\\Users\\CARLOS\\Desktop\\CARO_ASOCIADOS\\ERP-SOFTWARE\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj": {}
   },
   "projects": {
-    "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CONFIG\\CARO.CONFIG.csproj": {
+    "C:\\Users\\CARLOS\\Desktop\\CARO_ASOCIADOS\\ERP-SOFTWARE\\CARO.CONFIG\\CARO.CONFIG.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CONFIG\\CARO.CONFIG.csproj",
+        "projectUniqueName": "C:\\Users\\CARLOS\\Desktop\\CARO_ASOCIADOS\\ERP-SOFTWARE\\CARO.CONFIG\\CARO.CONFIG.csproj",
         "projectName": "CARO.CONFIG",
-        "projectPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CONFIG\\CARO.CONFIG.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CONFIG\\obj\\",
+        "projectPath": "C:\\Users\\CARLOS\\Desktop\\CARO_ASOCIADOS\\ERP-SOFTWARE\\CARO.CONFIG\\CARO.CONFIG.csproj",
+        "packagesPath": "C:\\Users\\CARLOS\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\CARLOS\\Desktop\\CARO_ASOCIADOS\\ERP-SOFTWARE\\CARO.CONFIG\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\CARLOS\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -39,7 +43,8 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -60,21 +65,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CORE\\CARO.CORE.csproj": {
+    "C:\\Users\\CARLOS\\Desktop\\CARO_ASOCIADOS\\ERP-SOFTWARE\\CARO.CORE\\CARO.CORE.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CORE\\CARO.CORE.csproj",
+        "projectUniqueName": "C:\\Users\\CARLOS\\Desktop\\CARO_ASOCIADOS\\ERP-SOFTWARE\\CARO.CORE\\CARO.CORE.csproj",
         "projectName": "CARO.CORE",
-        "projectPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CORE\\CARO.CORE.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CORE\\obj\\",
+        "projectPath": "C:\\Users\\CARLOS\\Desktop\\CARO_ASOCIADOS\\ERP-SOFTWARE\\CARO.CORE\\CARO.CORE.csproj",
+        "packagesPath": "C:\\Users\\CARLOS\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\CARLOS\\Desktop\\CARO_ASOCIADOS\\ERP-SOFTWARE\\CARO.CORE\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\CARLOS\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -88,8 +97,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CONFIG\\CARO.CONFIG.csproj": {
-                "projectPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CONFIG\\CARO.CONFIG.csproj"
+              "C:\\Users\\CARLOS\\Desktop\\CARO_ASOCIADOS\\ERP-SOFTWARE\\CARO.CONFIG\\CARO.CONFIG.csproj": {
+                "projectPath": "C:\\Users\\CARLOS\\Desktop\\CARO_ASOCIADOS\\ERP-SOFTWARE\\CARO.CONFIG\\CARO.CONFIG.csproj"
               }
             }
           }
@@ -103,7 +112,8 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -111,7 +121,7 @@
           "dependencies": {
             "FluentFTP": {
               "target": "Package",
-              "version": "[51.1.0, )"
+              "version": "[50.0.1, )"
             },
             "Microsoft.AspNetCore.Authentication.Cookies": {
               "target": "Package",
@@ -182,21 +192,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj": {
+    "C:\\Users\\CARLOS\\Desktop\\CARO_ASOCIADOS\\ERP-SOFTWARE\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj",
+        "projectUniqueName": "C:\\Users\\CARLOS\\Desktop\\CARO_ASOCIADOS\\ERP-SOFTWARE\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj",
         "projectName": "CARO.DATOS.MODELO",
-        "projectPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.DATOS.MODELO\\obj\\",
+        "projectPath": "C:\\Users\\CARLOS\\Desktop\\CARO_ASOCIADOS\\ERP-SOFTWARE\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj",
+        "packagesPath": "C:\\Users\\CARLOS\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\CARLOS\\Desktop\\CARO_ASOCIADOS\\ERP-SOFTWARE\\CARO.DATOS.MODELO\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\CARLOS\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -210,11 +224,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CORE\\CARO.CORE.csproj": {
-                "projectPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.CORE\\CARO.CORE.csproj"
+              "C:\\Users\\CARLOS\\Desktop\\CARO_ASOCIADOS\\ERP-SOFTWARE\\CARO.CORE\\CARO.CORE.csproj": {
+                "projectPath": "C:\\Users\\CARLOS\\Desktop\\CARO_ASOCIADOS\\ERP-SOFTWARE\\CARO.CORE\\CARO.CORE.csproj"
               },
-              "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.ENTIDAD\\CARO.ENTIDAD.csproj": {
-                "projectPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.ENTIDAD\\CARO.ENTIDAD.csproj"
+              "C:\\Users\\CARLOS\\Desktop\\CARO_ASOCIADOS\\ERP-SOFTWARE\\CARO.ENTIDAD\\CARO.ENTIDAD.csproj": {
+                "projectPath": "C:\\Users\\CARLOS\\Desktop\\CARO_ASOCIADOS\\ERP-SOFTWARE\\CARO.ENTIDAD\\CARO.ENTIDAD.csproj"
               }
             }
           }
@@ -228,7 +242,8 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -249,21 +264,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.ENTIDAD\\CARO.ENTIDAD.csproj": {
+    "C:\\Users\\CARLOS\\Desktop\\CARO_ASOCIADOS\\ERP-SOFTWARE\\CARO.ENTIDAD\\CARO.ENTIDAD.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.ENTIDAD\\CARO.ENTIDAD.csproj",
+        "projectUniqueName": "C:\\Users\\CARLOS\\Desktop\\CARO_ASOCIADOS\\ERP-SOFTWARE\\CARO.ENTIDAD\\CARO.ENTIDAD.csproj",
         "projectName": "CARO.ENTIDAD",
-        "projectPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.ENTIDAD\\CARO.ENTIDAD.csproj",
-        "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\User\\Desktop\\CARO_ASOCIADOS\\CARO-ERP\\CARO.ERP\\CARO.ENTIDAD\\obj\\",
+        "projectPath": "C:\\Users\\CARLOS\\Desktop\\CARO_ASOCIADOS\\ERP-SOFTWARE\\CARO.ENTIDAD\\CARO.ENTIDAD.csproj",
+        "packagesPath": "C:\\Users\\CARLOS\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\CARLOS\\Desktop\\CARO_ASOCIADOS\\ERP-SOFTWARE\\CARO.ENTIDAD\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\CARLOS\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -288,7 +307,8 @@
           "enableAudit": "true",
           "auditLevel": "low",
           "auditMode": "direct"
-        }
+        },
+        "SdkAnalysisLevel": "9.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -309,7 +329,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

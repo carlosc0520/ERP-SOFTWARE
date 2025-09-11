@@ -56,5 +56,19 @@ namespace CARO.AUTENTICACION.WEB.Pages.Seguridad.GrupoDato
         draw = 1
       });
     }
+
+    [HttpGet]
+    public async Task<IActionResult> OnGetUbigeosAsync([FromQuery] FUbigeos custom)
+    {
+      var ubigeosData = await _consultasGrupoDato.ObtenerUbigeos(custom);
+
+      return new JsonResult(new
+      {
+        data = ubigeosData,
+        draw = 1
+      });
+    }
+
+
   }
 }

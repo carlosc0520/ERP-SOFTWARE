@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.2.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CARO.AUTENTICACION.WEB", "CARO.AUTENTICACION.WEB.csproj", "{E19CF023-CC96-0262-F9A4-E5C49BA779AE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E19CF023-CC96-0262-F9A4-E5C49BA779AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E19CF023-CC96-0262-F9A4-E5C49BA779AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E19CF023-CC96-0262-F9A4-E5C49BA779AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E19CF023-CC96-0262-F9A4-E5C49BA779AE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F67BD60A-C93D-404D-BB6C-4EC5A07A0364}
+	EndGlobalSection
+EndGlobal

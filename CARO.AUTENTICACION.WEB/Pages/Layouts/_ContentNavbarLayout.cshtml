@@ -23,9 +23,10 @@
 }
 @{
     bool isMenu = false;
+    bool isPerfil = false;
     var request = HttpContextAccessor.HttpContext.Request;
     var routePath = request.Path.Value;
-
+    isPerfil = routePath.Contains("/Perfil");
     isMenu = !(routePath == "/Index" || routePath == "/Modulos");
 }
 
@@ -60,19 +61,23 @@
 
 <div class='layout-wrapper layout-content-navbar @(isMenu ? "" : "layout-without-menu")'>
     <div class='layout-container'>
-        @if (isMenu)
+        @if (isMenu && !isPerfil)
         {
             @await Html.PartialAsync("Layouts/Sections/Menu/_VerticalMenu")
         }
-        <div class="layout-page">
-            @if (isMenu)
+        @* // si isPerfil es true poner style padding 0!importantk *@
+        <div class="layout-page" 
+        style="@(isPerfil ? "padding: 0 !important;" : "")"
+        >
+            @if (isMenu && !isPerfil)
             {
                 @await Html.PartialAsync("Layouts/Sections/Navbar/_Navbar")
             }
 
             <div class="content-wrapper position-relative">
 
-                <div class="@(ViewData["container"]) + @(Convert.ToBoolean(ViewData["isFlex"]) ? "d-flex align-items-stretch flex-grow-1 p-0" : "flex-grow-1 container-p-y")">
+                <div class="@(ViewData["container"]) + @(Convert.ToBoolean(ViewData["isFlex"]) ? "d-flex align-items-stretch flex-grow-1 p-0" : "flex-grow-1 container-p-y")"
+                    style="@(isPerfil ? "max-width: 90%; margin: 0 auto;" : "")">
                     <div id="preloader" class="position-absolute" style="display:none; margin-top: -3.5rem">
                         <div class="loader d-flex m-auto">
                             <img src="~/img/favicon/logojanox.png" class="mx-2 my-1" alt="logo" width="35px" height="35px">

@@ -20,7 +20,7 @@ namespace CARO.DATOS.MODELO.USUARIOS.PERSONAS
         public bool? PRMSO { get; set; } = null;
         public string? NCMPTO { get; set; } = null;
         public string? MARCA { get; set; } = null;
-        public string? ROL { get; set; } = null;
-
+        public string? ROL { get; set; } = null; 
+        public int? IDEMPRESA { get; set; } = null;
     }
 }

@@ -13,9 +13,15 @@ using CARO.DATOS.CONSULTAS.MANTENIMIENTOS;
 using CARO.DATOS.CONSULTAS.MARCAS.AIC;
 using CARO.DATOS.CONSULTAS.MARKETING;
 using CARO.DATOS.CONSULTAS.LEGAL;
+using CARO.DATOS.CONSULTAS.CANALDENUNCIAS;
+using CARO.DATOS.CONSULTAS.CCFIRMA;
+using Syncfusion.Licensing;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
+SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1JEaF5cXmRCdkx3Rnxbf1x1ZFdMZVVbRnJPIiBoS35Rc0VkWHtfdXRTRGZVV0J2VEFd");
+
+
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 //builder.Services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
 //{
@@ -85,6 +91,8 @@ builder.Services.AddTransient<IConsultasPlantilla, ConsultasPlantilla>();
 builder.Services.AddTransient<IConsultasCurso, ConsultasCurso>();
 builder.Services.AddTransient<IConsultasContacto, ConsultasContacto>();
 builder.Services.AddTransient<IConsultasClientes, ConsultasClientes>();
+builder.Services.AddTransient<IConsultasSolicitudes, ConsultasSolicitudes>();
+
 #endregion COMERCIAL
 
 #region USUARIOS
@@ -112,6 +120,15 @@ builder.Services.AddTransient<IConsultasDocumentos, ConsultasDocumentos>();
 builder.Services.AddTransient<IConsultasAbogados, ConsultasAbogados>();
 #endregion
 
+#region CANAL_DENUNCIAS
+builder.Services.AddTransient<IConsultasConfiguracion, ConsultasConfiguracion>();
+builder.Services.AddTransient<IConsultasDenuncias, ConsultasDenuncias>();
+#endregion
+
+#region CCFIRMA
+builder.Services.AddTransient<IConsultasLibroReclamaciones, ConsultasLibroReclamaciones>();
+#endregion
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -124,6 +141,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+
 
 app.UseRouting();
 app.UseCors("MyPolicy");  // Asegúrate de que esta línea esté antes de UseAuthentication y UseAuthorization

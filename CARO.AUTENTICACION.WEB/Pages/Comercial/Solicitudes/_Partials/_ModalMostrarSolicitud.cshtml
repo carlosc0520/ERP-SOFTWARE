@@ -1,0 +1,87 @@
+<div class="modal fade" id="modalAddSolicitud" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-simple modal-edit-user">
+        <div class="modal-content p-3 p-md-5">
+            <div class="modal-body">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="text-center mb-4">
+                    <h3>Mostrar Solicitud</h3>
+                </div>
+                <form id="AddSolicitud" class="row g-3" method="post">
+                    <div class="col-12 col-md-4  mt-2">
+                        <label class="form-label" for="DGDSUCRSLS">Sucursal </label>
+                        <input readonly type="text" id="DGDSUCRSLS" name="DGDSUCRSLS" class="form-control max-length" data-maxlength="200" />
+                    </div>
+
+                    <div class="col-12 col-md-4  mt-2">
+                        <label class="form-label" for="DGDESPCLDD">Especialidad </label>
+                        <input readonly type="text" id="DGDESPCLDD" name="DGDESPCLDD" class="form-control max-length" data-maxlength="200" />
+                    </div>
+
+                    <div class="col-12 col-md-4  mt-2">
+                        <label class="form-label" for="ABOGADO">Abogado </label>
+                        <input readonly type="text" id="ABOGADO" name="ABOGADO" class="form-control max-length" data-maxlength="200" />
+                    </div>
+
+                     <div class="col-12 col-md-4 mt-2">
+                        <label class="form-label" for="FCHASERVICIO">Fecha Solicitud</label>
+                        <div class="input-group">
+                            <input readonly type="text" id="FCHASERVICIO" name="FCHASERVICIO" placeholder="DD-MM-YYYY"
+                                class="form-control date-mask dob-picker-format" />
+                            <span class="input-group-text">
+                                <i class="bi bi-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-4  mt-2">
+                        <label class="form-label" for="APLLDS">Nombre Cliente </label>
+                        <input readonly type="text" id="APLLDS" name="APLLDS" class="form-control max-length" data-maxlength="200" />
+                    </div>
+
+                    <div class="col-12 col-md-4  mt-2">
+                        <label class="form-label" for="ABOGADO">Apellido Cliente </label>
+                        <input readonly type="text" id="ABOGADO" name="ABOGADO" class="form-control max-length" data-maxlength="200" />
+                    </div>
+
+                    <div class="col-12 col-md-4  mt-2">
+                        <label class="form-label" for="CORREO">Correo </label>
+                        <input readonly type="text" id="CORREO" name="CORREO" class="form-control max-length" data-maxlength="200" />
+                    </div>
+                     
+                    <div class="col-12 col-md-4  mt-2">
+                        <label class="form-label" for="CELULAR">Celular </label>
+                        <input readonly type="text" id="CELULAR" name="CELULAR" class="form-control max-length" data-maxlength="200" />
+                    </div>
+
+                    <div class="col-12 col-md-4 mt-2">
+                        <label class="form-label" for="CESTDO">Estado</label>
+                        <select readonly id="CESTDO" name="CESTDO" class="select2 form-select" data-allow-clear="true">
+                        </select>
+                    </div>
+                    
+                    <div class="col-12 mt-2">
+                        <label class="form-label" for="FILES">Archivos </label>
+                        <div class="input-group">
+                            <button id="btnDescargarArchivos" class="btn btn-primary">Descargar Archivos</button>
+                        </div>
+                    </div>
+
+                    <div class="col-12 mt-2">
+                        <label class="form-label" for="HORARIOS">Horarios </label>
+                        <textarea readonly id="HORARIOS" name="HORARIOS" class="form-control max-length" rows="6"></textarea>
+                    </div>
+
+                    <div class="col-12 mt-2">
+                        <label class="form-label" for="COMENTARIOS">Comentarios </label>
+                        <textarea readonly id="COMENTARIOS" name="COMENTARIOS" class="form-control max-length" rows="6"></textarea>
+                    </div>
+
+                    <div class="col-12 text-center mt-4">
+                        <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Cerrar</button>
+                    </div>
+                     
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

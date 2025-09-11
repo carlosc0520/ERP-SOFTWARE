@@ -247,9 +247,6 @@ const executeView = () => {
             CASOSEGUIDO: agregarValidaciones({
                 required: true
             }),
-            CASOLOCADOR: agregarValidaciones({
-                required: true
-            }),
             GDMONEDA: agregarValidaciones({
                 required: true
             }),

@@ -18,6 +18,7 @@ namespace CARO.DATOS.EVENTOS.Comandos.LEGAL.ABOGADOS
         public string? CELULAR { get; set; } = null;
         public string? COMENTARIOS { get; set; } = null;
         public List<IFormFile>? FILES { get; set; } = new List<IFormFile>();
+        public string? RUTAS { get; set; } = null;
 
         public string? NAME_SUCURSAL { get; set; } = null;
         public string? NAME_DRCCN { get; set; } = null;

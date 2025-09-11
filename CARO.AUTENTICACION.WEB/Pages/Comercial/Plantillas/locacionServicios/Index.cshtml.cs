@@ -1,12 +1,9 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using CARO.DATOS.CONSULTAS.COM;
 using CARO.DATOS.MODELO.COM.PLANTILLA;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
-using Newtonsoft.Json;
 using OpenXmlPowerTools;
 using CARO.CORE;
 

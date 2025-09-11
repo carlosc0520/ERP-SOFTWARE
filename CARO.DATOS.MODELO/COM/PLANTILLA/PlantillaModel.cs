@@ -1,4 +1,5 @@
 ﻿using CARO.ENTIDAD.Modelo.Auditoria;
+using Microsoft.AspNetCore.Http;
 
 namespace CARO.DATOS.MODELO.COM.PLANTILLA
 {
@@ -21,16 +22,15 @@ namespace CARO.DATOS.MODELO.COM.PLANTILLA
         public string? PROVINCIA { get; set; } = null;
         public string? PAIS { get; set; } = null;
         public string? GERENTE { get; set; } = null;
-        public string? DNIGERENTE{ get; set; } = null;
+        public string? DNIGERENTE { get; set; } = null;
         public string? EMPRESALOCADOR { get; set; } = null;
-        public string? RUCLOCADOR { get; set; } = null; 
+        public string? RUCLOCADOR { get; set; } = null;
         public string? PARTIDALOCADOR { get; set; } = null;
         public string? DIRECCIONLOCADOR { get; set; } = null;
         public string? PROVINCIALOCADOR { get; set; } = null;
         public string? PAISLOCADOR { get; set; } = null;
         public string? GERENTELOCADOR { get; set; } = null;
         public string? DNILOCADOR { get; set; } = null;
-        public string? CASOLOCADOR { get; set; } = null;
         public string? SERVICIOCONTRATO { get; set; } = null;
         public string? CASOSEGUIDO { get; set; } = null;
         public string? HONORARIO { get; set; } = null;
@@ -65,7 +65,7 @@ namespace CARO.DATOS.MODELO.COM.PLANTILLA
         public string? STINTERESADO { get; set; } = null;
         public string? STTRATAMIENTO { get; set; } = null;
         public string? STTRANSFERENCIA { get; set; } = null;
-        public TableAplicable? TAPLICABLE { get; set; } =  new TableAplicable();
+        public TableAplicable? TAPLICABLE { get; set; } = new TableAplicable();
         public TableInteresado? TINTERESADO { get; set; } = new TableInteresado();
         public TableTratamiento? TTRATAMIENTO { get; set; } = new TableTratamiento();
         public TableTraferencia? TTRANSFERENCIA { get; set; } = new TableTraferencia();
@@ -219,13 +219,13 @@ namespace CARO.DATOS.MODELO.COM.PLANTILLA
     }
     public class TableInteresado
     {
-        public string? TA1 {get; set; } = null;
-        public string? TA2 {get; set; } = null;
-        public string? TA3 {get; set; } = null;
-        public string? TA4 {get; set; } = null;
-        public string? TA5 {get; set; } = null;
-        public string? TA6 {get; set; } = null;
-        public string? TA7 {get; set; } = null;
+        public string? TA1 { get; set; } = null;
+        public string? TA2 { get; set; } = null;
+        public string? TA3 { get; set; } = null;
+        public string? TA4 { get; set; } = null;
+        public string? TA5 { get; set; } = null;
+        public string? TA6 { get; set; } = null;
+        public string? TA7 { get; set; } = null;
         public string? TA8 { get; set; } = null;
     }
     public class TableTratamiento
@@ -233,11 +233,11 @@ namespace CARO.DATOS.MODELO.COM.PLANTILLA
         public string? TRA1 { get; set; } = null;
         public string? TRA2 { get; set; } = null;
         public string? TRA3 { get; set; } = null;
-        public string? TRA4  { get; set; } = null;
-        public string? TRA5  { get; set; } = null;
-        public string? TRA6  { get; set; } = null;
-        public string? TRA7  { get; set; } = null;
-        public string? TRA8  { get; set; } = null;
+        public string? TRA4 { get; set; } = null;
+        public string? TRA5 { get; set; } = null;
+        public string? TRA6 { get; set; } = null;
+        public string? TRA7 { get; set; } = null;
+        public string? TRA8 { get; set; } = null;
         public string? TRA9 { get; set; } = null;
         public string? TRA10 { get; set; } = null;
         public string? TRA11 { get; set; } = null;
@@ -253,11 +253,11 @@ namespace CARO.DATOS.MODELO.COM.PLANTILLA
         public string? TIA5 { get; set; } = null;
         public string? TIA6 { get; set; } = null;
         public string? TIA7 { get; set; } = null;
-        public string? TIA8  { get; set; } = null;
+        public string? TIA8 { get; set; } = null;
         public string? TIA9 { get; set; } = null;
-        public string? TIA10  { get; set; } = null;
-        public string? TIA11  { get; set; } = null;
-        public string? TIA12  { get; set; } = null;
+        public string? TIA10 { get; set; } = null;
+        public string? TIA11 { get; set; } = null;
+        public string? TIA12 { get; set; } = null;
         public string? TIA13 { get; set; } = null;
         public string? TIA14 { get; set; } = null;
         public string? TIA15 { get; set; } = null;
@@ -266,4 +266,88 @@ namespace CARO.DATOS.MODELO.COM.PLANTILLA
         public string? TIA18 { get; set; } = null;
     }
     #endregion
+
+    #region PLANTILLA-PRESTACION-SERVICIOS
+    public class PlantillaPrestacionServicio : EntidadAuditoria
+    {
+        public string? MES { get; set; } = null;
+        public string? YEAR { get; set; } = null;
+        public string? DIA { get; set; } = null;
+        public string? ASUNTO1 { get; set; } = null;
+        public string? ASUNTO2 { get; set; } = null;
+        public string? ASUNTO3 { get; set; } = null;
+        public string? SERVICIO { get; set; } = null;
+        public string? CLIENTE { get; set; } = null;
+        public string? SIMBOLO { get; set; } = null;
+        public string? MONTO { get; set; } = null;
+        public string? LECTURA { get; set; } = null;
+        public string? APROBACION { get; set; } = null;
+
+    }
+    #endregion
+
+
+    #region CHECLISTFORM
+    public class FormularioModel : EntidadAuditoria
+    {
+        public int? IDEMPRSA { get; set; } = null;
+        public string? NOMBRE { get; set; } = null;
+        public string? DESCP { get; set; } = null;
+        public DateTime? FINICIO { get; set; } = null;
+        public DateTime? FFIN { get; set; } = null;
+        public IFormFile? FTO { get; set; } = null;
+        public string? LOGO { get; set; } = null;
+        public string? BGCOLOR { get; set; } = null;
+        public string? BGCOLOR2 { get; set; } = null;
+        public string? GDFORMT { get; set; } = null; 
+        public string? GDTPOGR { get; set; } = null;
+        public string? PREGUNTAS { get; set; } = null;
+
+    }
+
+    public class PreguntaModel : EntidadAuditoria
+    {
+        public int? IDFORM { get; set; } = null;
+        public string? DESCP { get; set; } = null;
+        public bool? REQUIREDP { get; set; } = null;
+        public string? GDTYPEP { get; set; } = null;
+        public string? ALTERNATIVAS { get; set; } = null;
+
+    }
+
+    public class AlternativaModel : EntidadAuditoria
+    {
+        public int? IDPRGNTA { get; set; } = null;
+        public string? DESCP { get; set; } = null;
+        public bool? REQUIREDP { get; set; } = null;
+        public string? GDTYPEP { get; set; } = null;
+
+    }
+
+    public class UsuarioFormModel : EntidadAuditoria
+    {
+        public int? IDFORM { get; set; } = null;
+        public string? EMAIL { get; set; } = null;
+        public string? NOMBRES { get; set; } = null;
+
+    }
+
+    public class FormularioRespuestaModel : EntidadAuditoria
+    {
+        public int? IDFORM { get; set; } = null;
+        public string? EMAIL { get; set; } = null;
+        public string? NOMBRES { get; set; } = null;
+        public int? STATUSF { get; set; } = null;
+        public string? RESPUESTAS { get; set; } = null;
+        public string? PREGUNTAS { get; set; } = null;
+        public string? NOMBRE { get; set; } = null;
+        public string? DESCP { get; set; } = null;
+        public string? BGCOLOR { get; set; } = null;
+        public string? BGCOLOR2 { get; set; } = null;
+        public string? LOGO { get; set; } = null;
+        public string? GDTPOGR { get; set; } = null;
+
+    }
+
+    #endregion CHECLISTFORM
 }

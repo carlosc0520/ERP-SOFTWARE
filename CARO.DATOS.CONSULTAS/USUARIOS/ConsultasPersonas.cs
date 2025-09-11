@@ -29,7 +29,9 @@ namespace CARO.DATOS.CONSULTAS.USUARIOS
                 DESC = custom.DESC,
                 CESTDO = custom.CESTDO,
                 INIT = custom.INIT,
-                ROWS = custom.ROWS
+                ROWS = custom.ROWS,
+                IDMRCA = custom.IDMRCA,
+                IDEMPRSA = custom.IDEMPRESA
             }).ToUpper();
 
             parametros.Add("@p_cData", json);

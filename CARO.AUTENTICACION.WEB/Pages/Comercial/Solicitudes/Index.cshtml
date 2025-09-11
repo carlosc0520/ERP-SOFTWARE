@@ -1,0 +1,121 @@
+@page
+@model CARO.AUTENTICACION.WEB.Pages.Comercial.Solicitudes.IndexModel
+@{
+    ViewData["Title"] = "Solicitudes";
+}
+
+@section VendorStyles {
+    <link rel="stylesheet" href="~/vendor/libs/datatables-bs5/datatables.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/umd/styles/index.min.css" />
+    <link rel="stylesheet" href="~/vendor/libs/flatpickr/flatpickr.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/select2/select2.dist.css" />
+}
+
+@section VendorScripts {
+    <script src="~/vendor/libs/moment/moment.dist.js"></script>
+    <script src="~/vendor/libs/block-ui/block-ui.dist.js"></script>
+    <script src="~/vendor/libs/datatables-bs5/datatables-bootstrap5.dist.js"></script>
+    <script src="~/vendor/libs/flatpickr/flatpickr.dist.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/bundle/popular.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-bootstrap5/index.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
+    <script src="~/vendor/libs/select2/select2.dist.js"></script>
+}
+
+@section PageScripts {
+    <script src="~/app/Comercial/Solicitudes/index.js"></script>
+}
+
+
+@* ************** Content ************** *@
+<h4 class="py-3 breadcrumb-wrapper mb-4">
+    <span class="text-muted fw-light">Solicitudes /</span> Listado
+</h4>
+
+
+<div class="col-12">
+    <div class="nav-align-top mb-4">
+        <ul class="nav nav-tabs nav-fill" role="tablist">
+            <li class="nav-item">
+                <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
+                        data-bs-target="#navs-solicitudes" aria-controls="navs-solicitudes" aria-selected="false">
+                    <i class="tf-icons bx bx-user me-1"></i> Solicitudes
+                </button>
+            </li>
+            <li class="nav-item">
+                <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+                        data-bs-target="#navs-detalle" disabled="true" aria-controls="navs-detalle" aria-selected="false">
+                    <i class="tf-icons bx bx-plus me-1"></i> Detalle
+                </button>
+            </li>
+        </ul>
+        <div class="tab-content p-0">
+            <div class="tab-pane fade show active" id="navs-solicitudes" role="tabpanel">
+                <div class="table-responsive pb-0">
+                    <form id="formSearchSolicitud" class="row p-4">
+                         <div class="col-12 col-md-4 mt-2">
+                            <label class="form-label" for="FCHA">Fecha Solicitud</label>
+                            <div class="input-group">
+                                <input type="text" id="FCHA" name="FCHA" placeholder="DD-MM-YYYY"
+                                    class="form-control date-mask dob-picker-format" />
+                                <span class="input-group-text">
+                                    <i class="bi bi-calendar"></i>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-md-4 mt-2">
+                            <label class="form-label" for="NMBRES">Nombres </label>
+                            <input type="text" id="NMBRES" name="NMBRES" class="form-control max-length" data-maxlength="200" />
+                        </div>
+
+                        <div class="col-12 col-md-4 mt-2">
+                            <label class="form-label" for="ABOGADO">Abogado</label>
+                            <select id="ABOGADO" name="ABOGADO" class="select2 form-select" data-allow-clear="true">
+                            </select>
+                        </div>
+
+                        <div class="col-12 col-md-4 mt-2">
+                            <label class="form-label" for="GDSUCRSLS">Sucursal</label>
+                            <select id="GDSUCRSLS" name="GDSUCRSLS" class="select2 form-select" data-allow-clear="true">
+                            </select>
+                        </div>
+
+                        <div class="col-12 col-md-4 mt-2">
+                            <label class="form-label" for="GDESPCLDD">Especialidad</label>
+                            <select id="GDESPCLDD" name="GDESPCLDD" class="select2 form-select" data-allow-clear="true">
+                            </select>
+                        </div>
+
+                        <div class="col-12 col-md-4 mt-2">
+                            <label class="form-label" for="CESTDO">Estado</label>
+                            <select id="CESTDO" name="CESTDO" class="select2 form-select" data-allow-clear="true">
+                            </select>
+                        </div>
+
+                        <div class="col-12 d-flex justify-content-end gap-3">
+                            <button id="btnBuscar" class="btn btn-primary mt-4" type="button">
+                                <i class="bi bi-search mr-1"></i> Buscar
+                            </button>
+                            <button id="btnExportar" class="btn btn-success mt-4 ms-2" type="button">
+                                <i class="bi bi-file-earmark-excel mk-1"></i> Exportar
+                            </button>
+                        </div>  
+                    </form>
+                    <table id="solicitudesTable" class="mx-1 table border-top">
+                    </table>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="navs-detalle" role="tabpanel">
+                <div class="table-responsive pb-0">
+                    <table id="detalleTable" class="mx-1 table border-top">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@await Html.PartialAsync("./_Partials/_ModalMostrarSolicitud")

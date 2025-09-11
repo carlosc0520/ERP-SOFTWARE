@@ -328,6 +328,23 @@ $(document).ready(function () {
 
 });
 
+$.ajax({
+  url: `/Seguridad/Marcas/Index?handler=Obtener&start=0&length=100`,
+  beforeSend: function (xhr) {
+    xhr.setRequestHeader('XSRF-TOKEN', localStorage.getItem('accessToken'));
+  },
+  type: 'GET',
+  success: response => {
+    if(response?.data && response?.data.length > 0){
+      let marcas = response.data || [];
+      $("#condominio-actual_select").empty();
+      marcas.forEach(marca => {
+        $("#condominio-actual_select").append('<option value="' + marca.id + '">' + marca.mrca + '</option>');
+      });
+    }
+  },
+  error: error => reject('Ocurrió un error al cargar los datos MR')
+});
 
 $("#log-out").on('click', function () {
   localStorage.clear();

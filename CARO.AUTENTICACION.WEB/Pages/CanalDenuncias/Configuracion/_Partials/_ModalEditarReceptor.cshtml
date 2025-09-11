@@ -1,0 +1,64 @@
+<div class="modal fade" id="modalEditReceptor" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-simple modal-edit-user">
+        <div class="modal-content p-3 p-md-5">
+            <div class="modal-body">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="text-center mb-4">
+                    <h3>Editar Relación con Empresa</h3>
+                </div>
+                <form id="EditReceptor" class="row g-3" method="post">
+                    
+                    <div class="col-12 col-md-4">
+                        <label class="form-label" for="NOMBRS">P. Nombre </label>
+                        <input type="text" id="NOMBRS" name="NOMBRS" disabled class="form-control max-length" data-maxlength="100" />
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <label class="form-label" for="SNOMBRS">S. Nombre </label>
+                        <input type="text" id="SNOMBRS" name="SNOMBRS" disabled class="form-control max-length" data-maxlength="100" />
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <label class="form-label" for="APLLDS">P. Apellido</label>
+                        <input type="text" id="APLLDS" name="APLLDS" disabled class="form-control max-length" data-maxlength="100" />
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <label class="form-label" for="SAPLLDS">S. Apellido</label>
+                        <input type="text" id="SAPLLDS" name="SAPLLDS" disabled class="form-control max-length" data-maxlength="100" />
+                    </div>
+        
+                    <div class="col-12 col-md-4">
+                        <label class="form-label" for="DCUMNTO">Nro. Documento </label>
+                        <input type="text" id="DCUMNTO" name="DCUMNTO" disabled class="form-control max-length sin-espacios" data-maxlength="13" />
+                    </div>
+        
+                    <div class="col-12 col-md-4">
+                        <label class="form-label" for="CORREO">Correo </label>
+                        <input type="text" id="CORREO" name="CORREO" disabled class="form-control max-length sin-espacios" data-maxlength="100" />
+                    </div>
+
+
+                    <div class="col-12 col-md-4 d-flex flex-row align-items-center gap-3 ">
+                        <label class="form-label" for=" ">Receptor Principal?  </label>
+                        <label class="switch switch-square">
+                            <input type="checkbox" class="switch-input" id="PRINCIPAL" name="PRINCIPAL">
+                            <span class="switch-toggle-slider">
+                                <span class="switch-on"></span>
+                                <span class="switch-off"></span>
+                            </span>
+                        </label>
+                    </div>
+
+                    <div class="col-12 text-center mt-4">
+                        <button id="btnEditReceptor" class="btn btn-primary me-sm-3 me-1">Guardar</button>
+                        <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                    </div>      
+
+                    @await Html.PartialAsync("../../../_Partials/_AuditoriaE.cshtml")
+         
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

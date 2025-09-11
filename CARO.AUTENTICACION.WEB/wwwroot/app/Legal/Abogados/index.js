@@ -13,11 +13,10 @@ const executeView = () => {
 
     // * VARIABLES
     let abogadosTable = 'abogadosTable';
-    let horariosTable = 'horariosTable';
     let CabogadosTable = null;
-    let ChorariosTable = null;
     let calendar = null;
     let bsAddEventSidebar = null;
+    let fechaGlobal = null;
     let diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
     let coloresBEBE = ['warning', 'danger', 'success', 'info', 'primary', 'secondary'];
 
@@ -288,7 +287,10 @@ const executeView = () => {
             horariosCrud.eventos.RELOADCALENDAR();
         },
         globales: () => {
-            // * CALENDAR
+            $('#addEventSidebar').on('hidden.bs.offcanvas', function () {
+                fechaGlobal = null;
+            });
+
             function initializeCalendar({
                 formSelector,
                 calendarSelector,
@@ -329,6 +331,7 @@ const executeView = () => {
                     };
 
                     $("#AddCalendar #FCHA")[0]._flatpickr.setDate(fecha);
+                    fechaGlobal = fecha;
 
                     bsAddEventSidebar.show();
                     $offcanvasTitle.text('Agregar');
@@ -446,10 +449,10 @@ const executeView = () => {
                 if (errores > 0) return;
                 if (!abogadosCrud.variables.rolEdit.id) return swalFire.error('Seleccione un abogado');
 
-
+                let fechaFormateada = moment(fechaGlobal).format('YYYY-MM-DD');
                 let formData = new FormData();
                 formData.append('IDABGDO', abogadosCrud.variables.rolEdit.id);
-                formData.append('FCHA', $('#AddCalendar #FCHA').val());
+                formData.append('FCHA', fechaFormateada);
                 formData.append('HRAINIT', $('#AddCalendar #HRAINIT').val());
                 formData.append('HRAFN', $('#AddCalendar #HRAFN').val());
                 formData.append('CESTDO', 'A');

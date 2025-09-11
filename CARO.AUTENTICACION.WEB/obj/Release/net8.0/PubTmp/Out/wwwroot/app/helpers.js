@@ -1,3 +1,5 @@
+const pathFileImg = "https://resourcesasociados.caroasociados.pe/";
+
 const Authorization = () => {
   return {
     Authorization: 'Bearer ' + localStorage.getItem('accessToken') || null
@@ -93,6 +95,11 @@ const radio_group_estadosAll =
   '<label class="text-lg" ><input type="radio" id="radioGroup_1" name="radioGroup_estado" checked value=""> Todos</label>' +
   '</div>';
 
+let GDESTDO_G = [
+  { vlR1: 'A', dtlle: 'Activo' },
+  { vlR1: 'I', dtlle: 'Inactivo' }
+]
+
 const swalFire = {
   cargando: (mensaje = [], isClose = true) => {
     Swal.fire({
@@ -137,6 +144,18 @@ const swalFire = {
         if (Object.hasOwnProperty.call(eventos, key)) {
           eventos[key]();
         }
+      }
+    });
+  },
+  errorMensaje: (mensaje = '') => {
+    Swal.fire({
+      icon: 'error',
+      title: '',
+      html: `<p class="">${mensaje}<br></p>`,
+      showConfirmButton: true,
+      confirmButtonText: 'Ok',
+      customClass: {
+        confirmButton: 'btn btn-success'
       }
     });
   },
@@ -203,6 +222,36 @@ const swalFire = {
           }
         }
       }
+    });
+  },
+  coolToAction: (title, eventos = {}) => {
+    Swal.fire({
+      title,
+      // poner textarea
+      input: 'textarea',
+      inputAttributes: {
+        autocapitalize: "off"
+      },
+      showCancelButton: true,
+      confirmButtonText: "Confirmar",
+      cancelButtonText: "Cancelar",
+      showLoaderOnConfirm: true,
+      preConfirm: async () => {
+        const value = Swal.getInput().value;
+        if (!value) {
+          Swal.showValidationMessage("Debe ingresar un valor");
+          return false;
+        }
+
+        for (const key in eventos) {
+          if (Object.hasOwnProperty.call(eventos, key)) {
+            await eventos[key](value);
+          }
+        }
+      },
+      allowOutsideClick: () => !Swal.isLoading()
+    }).then((result) => {
+      if (result.isConfirmed) { }
     });
   }
 };
@@ -403,11 +452,11 @@ const postForm = form => {
 };
 
 const configFormVal = (form, campos, thisEvent = () => { }) => {
-  func.selects2(form); 
-  
+  func.selects2(form);
+
   // limpiar todos los select2
   $(`#${form} .select2`).val(null).trigger('change');
-  
+
   try {
     FormValidation.formValidation(document.getElementById(form)).destroy();
 
@@ -527,15 +576,16 @@ const func = {
         } else {
           $(`#${form} [name="${uppercaseKey}"]`).val(['undefined', undefined, null].includes(value) ? '' : value);
         }
-       
+
         if ($(`#${form} [name="${uppercaseKey}"]`).hasClass('select2')) {
           $(`#${form} [name="${uppercaseKey}"]`).val(value).trigger('change');
         }
-        
+
         if ($(`#${form} [name="${uppercaseKey}"]`).hasClass('dob-picker-format')) {
-          $(`#${form} [name="${uppercaseKey}"]`).flatpickr({
-            value: value,
-          })
+          if (!['', null, undefined, '-'].includes(value)) {
+            let nuevoValor = value.replace(/(\d{4})-(\d{2})-(\d{2})T(\d{2}:\d{2}:\d{2})/, '$3-$2-$1T$4');
+            $(`#${form} [name="${uppercaseKey}"]`)[0]._flatpickr.setDate(nuevoValor);
+          }
         }
 
         if ($(`#${form} [name="${uppercaseKey}"]`).hasClass('flatpickr-timeout')) {
@@ -715,6 +765,13 @@ const func = {
       return [];
     }
   },
+  IDEMPRESA: async () => {
+    try {
+      return await $("#condominio-actual_select").val() || null;
+    } catch (error) {
+      return null;
+    }
+  },
   condominio: () => {
     try {
       let condominioStore = localStorage.getItem('CNDMNIOGBL');
@@ -724,11 +781,29 @@ const func = {
       return null;
     }
   },
-  selects2: (formId) => {
-    $(`#${formId} .select2`).select2({
-      placeholder: 'Seleccione',
-      dropdownParent: $(`#${formId}`)
-    });
+  selects2: (formId, bandera = false) => {
+    if (!bandera) {
+      $(`#${formId} .select2`).select2({
+        placeholder: 'Seleccione',
+        dropdownParent: $(`#${formId}`)
+      });
+    }
+    else {
+      console.log("deleting")
+      $(`#${formId} .select2`).select2({
+        placeholder: 'Seleccione',
+        allowClear: true,
+        templateResult: function (data) {
+          if (!data.id) { return data.text; }
+          return $(`<span>${data.text} <i class="bx bx-trash text-red-500"></i></span>`);
+        },
+        templateSelection: function (data) {
+          if (!data.id) { return data.text; }
+          return $(`<span>${data.text} <i class="bx bx-trash text-red-500"></i></span>`);
+        }
+      });
+
+    }
   },
   limitarCaracteres: () => {
     // LONGITUD CARACTERES
@@ -958,6 +1033,28 @@ const func = {
     } catch (error) {
       return monto;
     }
+  },
+  pickCreate: (referencia) => {
+    return pickr.create({
+      el: referencia,
+      theme: 'classic',
+      default: '#f6f6f6',
+      components: {
+        // Main components
+        preview: true,
+        opacity: true,
+        hue: true,
+
+        // Input / output Options
+        interaction: {
+          hex: true,
+          rgba: true,
+          input: true,
+          clear: true,
+          save: true
+        }
+      }
+    });
   }
 };
 
@@ -1201,3 +1298,65 @@ let base64toBlob = async (base64, type) => {
   let blob = await new Blob([intArray], { type: type });
   return blob;
 };
+
+const convertirMontoATexto = (monto, moneda) => {
+  const parteEntera = Math.floor(monto);
+  const centavos = Math.round((monto - parteEntera) * 100);
+
+  const textoEntero = numeroATexto(parteEntera);
+  const textoMoneda = moneda.toUpperCase().startsWith("SOL")
+    ? (parteEntera === 1 ? "SOL" : "SOLES")
+    : (parteEntera === 1 ? "DÓLAR" : "DÓLARES");
+
+  const textoCentavos = `CON ${centavos.toString().padStart(2, '0')}/100`;
+
+  return `${textoEntero} ${textoMoneda} ${textoCentavos}`;
+};
+
+const numeroATexto = (numero) => {
+  const unidades = ["", "UNO", "DOS", "TRES", "CUATRO", "CINCO", "SEIS", "SIETE", "OCHO", "NUEVE"];
+  const decenas = ["", "DIEZ", "VEINTE", "TREINTA", "CUARENTA", "CINCUENTA", "SESENTA", "SETENTA", "OCHENTA", "NOVENTA"];
+  const especiales = {
+    10: "DIEZ", 11: "ONCE", 12: "DOCE", 13: "TRECE", 14: "CATORCE",
+    15: "QUINCE", 16: "DIECISÉIS", 17: "DIECISIETE", 18: "DIECIOCHO", 19: "DIECINUEVE",
+    21: "VEINTIUNO", 22: "VEINTIDÓS", 23: "VEINTITRÉS", 24: "VEINTICUATRO",
+    25: "VEINTICINCO", 26: "VEINTISÉIS", 27: "VEINTISIETE", 28: "VEINTIOCHO", 29: "VEINTINUEVE"
+  };
+  const centenas = ["", "CIENTO", "DOSCIENTOS", "TRESCIENTOS", "CUATROCIENTOS", "QUINIENTOS", "SEISCIENTOS", "SETECIENTOS", "OCHOCIENTOS", "NOVECIENTOS"];
+
+  if (numero === 0) return "CERO";
+  if (numero === 100) return "CIEN";
+
+  let resultado = "";
+
+  if (numero >= 1000000) {
+    const millones = Math.floor(numero / 1000000);
+    resultado += `${numeroATexto(millones)} MILLÓN${millones > 1 ? "ES" : ""} `;
+    numero %= 1000000;
+  }
+  if (numero >= 1000) {
+    const miles = Math.floor(numero / 1000);
+    resultado += miles === 1 ? "MIL " : `${numeroATexto(miles)} MIL `;
+    numero %= 1000;
+  }
+  if (numero >= 100) {
+    const c = Math.floor(numero / 100);
+    resultado += `${centenas[c]} `;
+    numero %= 100;
+  }
+
+  if (especiales[numero]) {
+    resultado += especiales[numero] + " ";
+    numero = 0; // ❗ Evitar duplicación
+  } else if (numero >= 30) {
+    const d = Math.floor(numero / 10);
+    resultado += `${decenas[d]} `;
+    numero %= 10;
+    if (numero > 0) resultado += `Y ${unidades[numero]} `;
+  } else if (numero > 0) {
+    resultado += `${unidades[numero]} `;
+  }
+
+  return resultado.trim();
+};
+

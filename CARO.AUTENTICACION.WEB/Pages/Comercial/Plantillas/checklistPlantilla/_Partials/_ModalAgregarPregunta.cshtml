@@ -1,0 +1,124 @@
+<div class="modal fade" id="modalAddPregunta" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-simple modal-edit-user">
+        <div class="modal-content p-3 p-md-5">
+            <div class="modal-body">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="text-center mb-4">
+                    <h3>Agregar Pregunta</h3>
+                </div>
+                <form id="AddPregunta" class="row g-3" method="post">
+                    <div class="col-12">
+                        <label class="form-label" for="DESCP">Pregunta y/o Descripción <span class="text-danger">*</span></label>
+                        <input type="text" id="DESCP" name="DESCP" class="noMayus form-control max-length" data-maxlength="50000" />
+                    </div>
+
+                    
+                    <div class="col-12 col-md-6">
+                        <label class="form-label" for="GDTYPEP">Tipo de Pregunta <span class="text-danger">*</span></label>
+                        <select id="GDTYPEP" name="GDTYPEP" class="form-select noMayus">
+                        </select>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <div class="text-light small fw-medium mb-3"></div>
+                        <label class="switch switch-square">
+                            <input type="checkbox" id="REQUIREDP" name="REQUIREDP" class="switch-input" />
+                            <span class="switch-toggle-slider">
+                                <span class="switch-on"></span>
+                                <span class="switch-off"></span>
+                            </span>
+                            <span class="switch-label">Requerido <span class="text-danger">*</span></span>
+                        </label>
+                    </div>
+
+                    <div class="row g-3" id="GDTYPEP_S">
+                        <!-- Input + Botón -->
+                        <div class="col-12 col-md-6">
+                            <div class="row g-2 align-items-end">
+                                <div class="col-12 col-md-8">
+                                    <label class="form-label" for="OPTION_S">Opción</label>
+                                    <input type="text" id="OPTION_S" name="OPTION_S" class="noMayus form-control" />
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <label class="form-label d-none d-md-block">&nbsp;</label>
+                                    <button type="button" id="ADD_OPTION_S" class="btn btn-primary w-100">
+                                        Agregar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Select -->
+                        <div class="col-12 col-md-6">
+                            <label class="form-label" for="OPTIONSELECT">Visualización</label>
+                            <select id="OPTIONSELECT" name="OPTIONSELECT" class="select2 form-select"></select>
+                        </div>
+                    </div>
+
+
+                    @* R = RADIO BUTTONS ... *@
+                    <div class="row g-3" id="GDTYPEP_R">
+                        <!-- Input + Botón -->
+                        <div class="col-12 col-md-6">
+                            <div class="row g-2 align-items-end">
+                                <div class="col-12 col-md-8">
+                                    <label class="form-label" for="OPTION_R">Opción</label>
+                                    <input type="text" id="OPTION_R" name="OPTION_R" class="noMayus form-control" />
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <label class="form-label d-none d-md-block">&nbsp;</label>
+                                    <button type="button" id="ADD_OPTION_R" class="btn btn-primary w-100">
+                                        Agregar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- IR AGREGANDO RADIOS -->
+                        <div class="col-12 col-md-6">
+                            <label class="form-label" for="OPTION_R">Opciones</label>
+                            <div id="RADIO_OPTIONS_CONTAINER" class="d-flex flex-column gap-2 p-3" style="max-height: 200px; overflow-y: auto;">
+                                <!-- Aquí se agregarán las opciones de radio dinámicamente -->
+                            </div>
+                        </div>
+                    </div>
+
+                    @* C = CASILLEROS VARIAS OPCIONES *@
+                    <div class="row g-3" id="GDTYPEP_C">
+                        <!-- Input + Botón -->
+                        <div class="col-12 col-md-6">
+                            <div class="row g-2 align-items-end">
+                                <div class="col-12 col-md-8">
+                                    <label class="form-label" for="OPTION_C">Opción</label>
+                                    <input type="text" id="OPTION_C" name="OPTION_C" class="noMayus form-control" />
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <label class="form-label d-none d-md-block">&nbsp;</label>
+                                    <button type="button" id="ADD_OPTION_C" class="btn btn-primary w-100">
+                                        Agregar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- IR AGREGANDO CASILLEROS -->
+                        <div class="col-12 col-md-6">
+                            <label class="form-label" for="OPTION_C">Opciones</label>
+                            <div id="CASILLEROS_OPTIONS_CONTAINER" class="d-flex flex-column gap-2 p-3" style="max-height: 200px; overflow-y: auto;">
+                                <!-- Aquí se agregarán las opciones de casilleros dinámicamente -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 text-center" style="margin-top: 25px;">
+                        <button id="btnAddPregunta" class="btn btn-primary me-sm-3 me-1">Agregar</button>
+                        <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                    </div>
+
+                    @await Html.PartialAsync("../../../../_Partials/_Auditoria.cshtml")
+                     
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

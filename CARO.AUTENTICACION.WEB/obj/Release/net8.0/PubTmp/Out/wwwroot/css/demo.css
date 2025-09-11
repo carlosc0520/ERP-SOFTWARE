@@ -46,36 +46,39 @@
 * Content
 ******************************************************************************/
 
-.demo-blocks > * {
+.demo-blocks>* {
   display: block !important;
 }
 
-.demo-inline-spacing > * {
+.demo-inline-spacing>* {
   margin: 1rem 0.375rem 0 0 !important;
 }
 
 /* ? .demo-vertical-spacing class is used to have vertical margins between elements. To remove margin-top from the first-child, use .demo-only-element class with .demo-vertical-spacing class. For example, we have used this class in forms-input-groups.html file. */
-.demo-vertical-spacing > * {
+.demo-vertical-spacing>* {
   margin-top: 1rem !important;
   margin-bottom: 0 !important;
 }
-.demo-vertical-spacing.demo-only-element > :first-child {
+
+.demo-vertical-spacing.demo-only-element> :first-child {
   margin-top: 0 !important;
 }
 
-.demo-vertical-spacing-lg > * {
+.demo-vertical-spacing-lg>* {
   margin-top: 1.875rem !important;
   margin-bottom: 0 !important;
 }
-.demo-vertical-spacing-lg.demo-only-element > :first-child {
+
+.demo-vertical-spacing-lg.demo-only-element> :first-child {
   margin-top: 0 !important;
 }
 
-.demo-vertical-spacing-xl > * {
+.demo-vertical-spacing-xl>* {
   margin-top: 5rem !important;
   margin-bottom: 0 !important;
 }
-.demo-vertical-spacing-xl.demo-only-element > :first-child {
+
+.demo-vertical-spacing-xl.demo-only-element> :first-child {
   margin-top: 0 !important;
 }
 
@@ -95,6 +98,7 @@
     width: 231px;
     position: relative;
   }
+
   #dropdown-variation-demo .btn-group .text-truncate::after {
     position: absolute;
     top: 45%;
@@ -119,23 +123,153 @@
   flex-direction: column;
   margin-top: 1rem;
 }
+
 .layout-demo-placeholder img {
   width: 900px;
 }
+
 .layout-demo-info {
   text-align: center;
   margin-top: 1rem;
 }
 
-.swal2-html-container{
-  overflow: hidden!important;
+.swal2-html-container {
+  overflow: hidden !important;
 }
 
 .email-compose-form .form-control:disabled,
 .email-compose-form .form-select:disabled {
-  background-color: var(--bs-gray-25)!important;
+  background-color: var(--bs-gray-25) !important;
 }
 
-.email-compose-form .light-style .select2-container--default.select2-container--disabled .select2-selection--multiple{
-  background-color: var(--bs-gray-25)!important;
+.email-compose-form .light-style .select2-container--default.select2-container--disabled .select2-selection--multiple {
+  background-color: var(--bs-gray-25) !important;
+}
+
+.palote {
+  border-left-width: 5px;
+  border-left-style: solid;
+  padding-left: 1rem;
+  color: #ff6c17ff;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.palote span {
+  color: #434344;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 4px;
+}
+
+.skeleton-img {
+  width: 100%;
+  height: 200px;
+  /* ajusta la altura del placeholder */
+}
+
+@keyframes loading {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+
+#CONTAINER_FORMULARIO {
+  margin: 0px;
+  padding: 0px;
+}
+
+#DIV_HEADER,
+#DIV_CORREO,
+#preguntas-container,
+#DIV_BOTON {
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+#preguntas-container table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: white;
+}
+
+#preguntas-container table tr {
+  border-bottom: 1px solid rgb(221, 221, 221);
+}
+
+#preguntas-container table tr td {
+  padding: 20px 15px;
+}
+
+#preguntas-container table tr td:first-child {
+  width: 50%;
+  vertical-align: top;
+  font-weight: 600;
+  border-right: 1px solid white;
+  border-bottom: 0px !important;
+}
+
+#preguntas-container table tr td:nth-child(1) {
+  width: 50%;
+  vertical-align: top;
+  font-weight: 600;
+  border-right: 1px solid white;
+  border-bottom: 0px !important;
+}
+
+#preguntas-container table tr td:nth-child(2) {
+  width: 50%;
+  border-bottom: 0px !important;
+}
+
+#preguntas-container table .TIPO_V td:nth-child(2) .TIPO_DIV_V {
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+}
+
+
+
+
+@media (max-width: 576px) {
+
+  #DIV_HEADER,
+  #DIV_CORREO,
+  #preguntas-container,
+  #DIV_BOTON {
+    width: 100% !important;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #preguntas-container {
+    overflow-x: auto;
+  }
+
+  #preguntas-container table {
+    width: 100%;
+    table-layout: fixed;
+  }
+
+  #preguntas-container table tr td{
+    display: block;
+    width: 100%!important;
+  }
 }

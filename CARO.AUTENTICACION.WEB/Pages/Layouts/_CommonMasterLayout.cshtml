@@ -4,7 +4,8 @@
     ViewData["main"] = isFront ? "front-" : "";
     ViewData["frontVar"] = isFront ? "Front" : "";
     @* Compact/Fluid class *@
-    ViewData["contentType"] = ViewData["container"] is string container && container == "container-xxl" ? "layout-compact" : "layout-wide";
+    ViewData["contentType"] = ViewData["container"] is string container && container == "container-xxl" ? "layout-compact" :
+    "layout-wide";
 }
 
 @await Html.PartialAsync("Layouts/Sections/_Variables")
@@ -12,14 +13,15 @@
 
 <!DOCTYPE html>
 <html lang="en"
-      class='light-style @(ViewData["navbarType"] is string navbarType ? navbarType : "") @(ViewData["menuFixed"] is string menuFixed ? menuFixed : "") @(ViewData["menuCollapsed"] is string menuCollapsed ? menuCollapsed : "") @(ViewData["contentType"] is string contentType ? contentType : "") @(ViewData["footerFixed"] is string footerFixed ? footerFixed : "") @(ViewData["customizerHidden"] is string customizerHidden ? customizerHidden : "")'
-      dir="ltr" data-theme="theme-default" data-assets-path='@((httpContextAccessor.HttpContext?.Request.PathBase ?? "") + "/")'
-      data-template='@(isFront ? "front-page" : (Convert.ToBoolean(TempData.Peek("menuHorizontal")?.ToString()) ? "horizontal-menu-template" : "vertical-menu-template"))'>
+    class='light-style @(ViewData["navbarType"] is string navbarType ? navbarType : "") @(ViewData["menuFixed"] is string menuFixed ? menuFixed : "") @(ViewData["menuCollapsed"] is string menuCollapsed ? menuCollapsed : "") @(ViewData["contentType"] is string contentType ? contentType : "") @(ViewData["footerFixed"] is string footerFixed ? footerFixed : "") @(ViewData["customizerHidden"] is string customizerHidden ? customizerHidden : "")'
+    dir="ltr" data-theme="theme-default"
+    data-assets-path='@((httpContextAccessor.HttpContext?.Request.PathBase ?? "") + "/")'
+    data-template='@(isFront ? "front-page" : (Convert.ToBoolean(TempData.Peek("menuHorizontal")?.ToString()) ? "horizontal-menu-template" : "vertical-menu-template"))'>
 
 <head>
     <meta charset="utf-8" />
     <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+        content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 
     @{
         string title = ViewData["title"] as string ?? "";
@@ -35,8 +37,7 @@
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="~/img/favicon/janox.ico" />
-    <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <!-- Core Styles -->
     @await Html.PartialAsync("Layouts/Sections/_Styles" + ViewData["frontVar"])
     <link rel="stylesheet" href="~/vendor/libs/select2/select2.dist.css" />
@@ -71,8 +72,6 @@
     <script src="~/vendor/libs/sweetalert2/sweetalert2.dist.js"></script>
     <script src="~/vendor/libs/select2/select2.dist.js"></script>
     <script src="~/vendor/libs/moment/moment.dist.js"></script>
-
-    <!-- Page Scripts-->
     @RenderSection("PageScripts", required: false)
 </body>
 

@@ -10,6 +10,7 @@ namespace CARO.DATOS.CONSULTAS.SEG
     public interface IConsultasGrupoDato
     {
         Task<List<GrupoDatoModel>> ObtenerAll(GrupoDatoModel custom);
+        Task<List<FUbigeos>> ObtenerUbigeos(FUbigeos custom);
 
     }
     public class ConsultasGrupoDato : IConsultasGrupoDato
@@ -37,6 +38,16 @@ namespace CARO.DATOS.CONSULTAS.SEG
 
             var conexionSql = _configuration.GetConnectionString("DefaultConnection");
             return await FuncionesSql.EjecutarProcedimiento<GrupoDatoModel>(conexionSql, Procedimientos.SEGURIDAD.GrupoDatoCrud, parametros);
+        }
+
+        public async Task<List<FUbigeos>> ObtenerUbigeos(FUbigeos entidad)
+        {
+            var param = new DynamicParameters();
+            param.Add("@IND", entidad.IND);
+            param.Add("@DDPRTMNTO", entidad.DDPRTMNTO);
+            param.Add("@DPRVNCA", entidad.DPRVNCA);
+            var conexionSql = _configuration.GetConnectionString("DefaultConnection");
+            return await FuncionesSql.EjecutarProcedimiento<FUbigeos>(conexionSql, Procedimientos.SEGURIDAD.ListarUbigeos, param);
         }
 
     }

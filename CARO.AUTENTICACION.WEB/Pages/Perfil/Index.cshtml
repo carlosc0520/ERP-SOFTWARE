@@ -1,0 +1,233 @@
+﻿@page
+@model CARO.AUTENTICACION.WEB.Pages.Perfil.IndexModel
+@{
+    ViewData["Title"] = "Perfil - Caro Asociados";
+}
+
+
+@section VendorStyles {
+    <link rel="stylesheet" href="~/vendor/libs/select2/select2.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/datatables-bs5/datatables.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/umd/styles/index.min.css" />
+    <link rel="stylesheet" href="~/vendor/libs/dropzone/dropzone.dist.css">
+}
+
+@section VendorScripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="~/vendor/libs/datatables-bs5/datatables-bootstrap5.dist.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/bundle/popular.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-bootstrap5/index.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
+    <script src="~/vendor/libs/dropzone/dropzone.dist.js"></script>
+    <script src="~/vendor/libs/select2/select2.dist.js"></script>
+}
+
+@section PageScripts {
+    <script src="~/app/Perfil/index.js"></script>
+}
+<style>
+    /* Colores base */
+    :root {
+        --primary-orange: #ff7b00;
+        --light-gray: #f7f7f7;
+        --text-gray: #555;
+    }
+
+    body {
+        background-color: var(--light-gray);
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    /* Perfil */
+    .cover {
+        background: linear-gradient(135deg, var(--primary-orange), #ffa94d);
+        border-radius: 15px;
+        transition: transform 0.3s ease;
+    }
+
+    .cover:hover {
+        transform: scale(1.03);
+    }
+
+    .profile-pic {
+        max-width: 110px;
+        border: 4px solid white;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+        transition: transform 0.3s ease;
+    }
+
+    .profile-pic:hover {
+        transform: scale(1.08) rotate(2deg);
+    }
+
+    /* Botones */
+    .btn-custom {
+        font-weight: 500;
+        border-radius: 25px;
+        padding: 0.5rem 1.2rem;
+        transition: all 0.3s ease;
+    }
+
+    .btn-custom:hover {
+        transform: translateY(-2px);
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Tabs */
+    .nav-tabs .nav-link {
+        font-weight: 500;
+        color: var(--text-gray);
+        border: none;
+        padding: 0.6rem 1.2rem;
+        transition: color 0.3s ease, background 0.3s ease;
+    }
+
+    .nav-tabs .nav-link.active {
+        color: white;
+        background-color: var(--primary-orange);
+        border-radius: 8px;
+    }
+
+    .nav-tabs .nav-link:hover {
+        background-color: rgba(255, 123, 0, 0.15);
+        border-radius: 8px;
+    }
+
+    /* Tablas */
+    .table td {
+        padding: 0.6rem;
+        vertical-align: middle;
+    }
+
+    /* Redes Sociales */
+    .social-links img {
+        width: 40px;
+        margin: 5px;
+        transition: transform 0.3s ease;
+    }
+
+    .social-links img:hover {
+        transform: scale(1.2);
+    }
+
+    /* QR */
+    .qr-code img {
+        max-width: 180px;
+        margin: 10px 0;
+        transition: transform 0.3s ease;
+    }
+
+    .qr-code img:hover {
+        transform: rotate(3deg) scale(1.05);
+    }
+</style>
+
+<div class="container py-4">
+    <div class="row g-4 align-items-center">
+        <!-- Columna izquierda -->
+        <div class="col-12 col-lg-5 text-center">
+            <div class="cover d-flex align-items-center justify-content-center p-4">
+                <img id="IMG_PERFIL" src="https://via.placeholder.com/160" alt="Foto perfil"
+                    class="profile-pic rounded-circle border border-3 border-light shadow-sm" style="max-width: 140px;">
+            </div>
+        </div>
+
+        <!-- Columna derecha -->
+        <div class="col-12 col-lg-7">
+            <p id="NOMBRES_PERFIL" class="fw-bold fs-2 mb-2 text-dark">
+
+            </p>
+            <p id="CARGO_PERFIL" class="text-muted fs-3 mb-3">
+
+            </p>
+            <p class="mb-1 fs-4">
+                <span class="fw-bold text-secondary">Correo:</span>
+                <a class="fw-normal text-decoration-none text-dark" href="" id="CORREO_PERFIL">
+                </a>
+            </p>
+            <p class="mb-0 fs-4">
+                <span class="fw-bold text-secondary">Teléfono:</span>
+                <a class="fw-normal text-decoration-none text-dark" href="t" id="TELEFONO_PERFIL">
+                </a>
+            </p>
+        </div>
+    </div>
+
+
+    <!-- Botones -->
+    <div class="row justify-content-end g-2 mt-3">
+        <div class="col-12 col-lg-2">
+            <a href="#" class="btn btn-primary btn-custom w-100">Guardar</a>
+        </div>
+        <div class="col-12 col-lg-2">
+            <a href="#" class="btn btn-outline-secondary btn-custom w-100">Enviar</a>
+        </div>
+        <div class="col-12 col-lg-2">
+            <a href="#" class="btn btn-success btn-custom w-100">WhatsApp</a>
+        </div>
+    </div>
+
+    <!-- Tabs -->
+    <ul class="nav nav-tabs mt-4" id="profileTabs" role="tablist">
+        <li class="nav-item">
+            <button class="nav-link" id="personal-tab" data-bs-toggle="tab" data-bs-target="#personal">Personal</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" id="company-tab" data-bs-toggle="tab" data-bs-target="#company">Empresa</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact">Contacto</button>
+        </li>
+        <li class="nav-item">
+            <button class="nav-link active" id="qr-tab" data-bs-toggle="tab" data-bs-target="#qr">Mi QR</button>
+        </li>
+    </ul>
+
+    <!-- Contenido tabs -->
+    <div class="tab-content mt-3">
+        <div class="tab-pane fade" id="personal">
+            <table class="table table-borderless">
+                <tr>
+                    <td><strong>Nombre:</strong></td>
+                    <td>Juan Pérez</td>
+                </tr>
+                <tr>
+                    <td><strong>Ocupación:</strong></td>
+                    <td>Gerente de Ventas</td>
+                </tr>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="company">
+            <table class="table table-borderless">
+                <tr>
+                    <td><strong>Empresa:</strong></td>
+                    <td>GoNet</td>
+                </tr>
+                <tr>
+                    <td><strong>Cargo:</strong></td>
+                    <td>Gerente</td>
+                </tr>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="contact">
+            <table class="table table-borderless">
+                <tr>
+                    <td><strong>Teléfono:</strong></td>
+                    <td>+52 123 456 7890</td>
+                </tr>
+                <tr>
+                    <td><strong>Email:</strong></td>
+                    <td>correo@empresa.com</td>
+                </tr>
+            </table>
+        </div>
+        <div class="tab-pane fade show active" id="qr">
+            <div class="qr-code text-center">
+                <img id="QR_CODE" src="" alt="QR Code">
+                <p class="mt-2">Escanea para ver el perfil</p>
+            </div>
+        </div>
+    </div>
+</div>

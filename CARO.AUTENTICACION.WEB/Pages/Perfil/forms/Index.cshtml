@@ -1,0 +1,107 @@
+@page
+@model CARO.AUTENTICACION.WEB.Pages.Perfil.forms.IndexModel
+@{
+    ViewData["Title"] = "FORMULARIO - ";
+}
+
+
+@section VendorStyles {
+    <link rel="stylesheet" href="~/vendor/libs/datatables-bs5/datatables.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/umd/styles/index.min.css" />
+    <link rel="stylesheet" href="~/vendor/libs/flatpickr/flatpickr.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/dropzone/dropzone.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/bs-stepper/bs-stepper.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/tagify/tagify.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/pickr/pickr-themes.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/quill/typography.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/quill/katex.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/quill/editor.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/select2/select2.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/rateyo/rateyo.dist.css" />
+}
+
+@section VendorScripts {
+    <script src="~/vendor/libs/moment/moment.dist.js"></script>
+    <script src="~/vendor/libs/datatables-bs5/datatables-bootstrap5.dist.js"></script>
+    <script src="~/vendor/libs/cleavejs/cleave.dist.js"></script>
+    <script src="~/vendor/libs/cleavejs/cleave-phone.dist.js"></script>
+    <script src="~/vendor/libs/flatpickr/flatpickr.dist.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/bundle/popular.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-bootstrap5/index.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
+    <script src="~/vendor/libs/bs-stepper/bs-stepper.dist.js"></script>
+    <script src="~/vendor/libs/dropzone/dropzone.dist.js"></script>
+    <script src="~/vendor/libs/tagify/tagify.dist.js"></script>
+    <script src="~/vendor/libs/jquery-repeater/jquery-repeater.dist.js"></script>
+    <script src="~/vendor/libs/pickr/pickr.dist.js"></script>
+    <script src="~/vendor/libs/quill/katex.dist.js"></script>
+    <script src="~/vendor/libs/select2/select2.dist.js"></script>
+    <script src="~/vendor/libs/quill/quill.dist.js"></script>
+    <script src="~/vendor/libs/rateyo/rateyo.dist.js"></script>
+}
+
+@section PageScripts {
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js" integrity="sha512-2/YdOMV+YNpanLCF5MdQwaoFRVbTmrJ4u4EpqS/USXAQNUDgI5uwYi6J98WVtJKcfe1AbgerygzDFToxAlOGEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="~/app/Perfil/forms/index.js"></script>
+}
+
+
+<div 
+id="CONTAINER_FORMULARIO"
+class="container-fluid min-vh-100 d-flex flex-column align-items-center py-4" style="background-color: #f5f7fb;">
+    
+    <!-- Logo -->
+    <div class="mb-4 text-center">
+        <img src="https://acompliancepe.com/wp-content/uploads/2024/06/B6.png" alt="Logo" style="max-height: 80px;">
+    </div>
+
+    <!-- Card principal -->
+    <div id="DIV_HEADER" class="card shadow-sm mb-4">
+        <div id="IMG_SKELETON" class="skeleton skeleton-img"></div>
+
+        <img src="" id="IMG_FORM" class="card-img-top d-none" alt="Imagen Formulario">
+        <div class="card-body">
+            <h3 class="card-title fw-bold" id="NOMBRE_FORM"></h3>
+            <div class="card-text text-muted" id="DESCRIPCION_FORM">
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- Input correo -->
+    <div id="DIV_CORREO" class="card shadow-sm mb-4">
+        <div class="card-body row">
+            <div class="col-md-6 col-12 mb-3">
+               <label for="CORREO" class="form-label">Correo electrónico</label>
+                <br />
+                <span class="text-muted small">Ingresa tu correo para recibir una copia de tus respuestas.</span>
+                <input type="email" id="CORREO" name="CORREO" class="form-control noMayus" required>
+            </div>
+            <div class="col-md-6 col-12 mb-3">
+                <label for="NOMBRE_USUARIO" class="form-label">Nombre Completo</label>
+                <br />
+                <span class="text-muted small">Ingresa tu nombre completo.</span>
+                <input type="text" id="NOMBRE_USUARIO" name="NOMBRE_USUARIO" class="form-control noMayus">
+            </div>
+        </div>
+    </div>
+
+    <!-- Preguntas -->
+    <div id="preguntas-container">
+        
+    </div>
+
+    @* // boton guardar *@
+    <div class="mt-4" id="DIV_BOTON">
+        <div class="d-grid d-md-flex justify-content-md-end">
+            <button id="btnGuardar" class="btn btn-primary btn-lg">
+            <i class="bi bi-send-fill me-2"></i> Enviar
+            </button>
+        </div>
+    </div>
+</div>

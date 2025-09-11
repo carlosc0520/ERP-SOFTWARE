@@ -1,0 +1,111 @@
+@page
+@model CARO.AUTENTICACION.WEB.Pages.Comercial.Plantillas.PropuestaHonorarios.IndexModel
+@{
+    ViewData["Title"] = "PLANTILLA - PROPUESTA DE HONORARIOS";
+}
+
+
+@section VendorStyles {
+    <link rel="stylesheet" href="~/vendor/libs/datatables-bs5/datatables.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/umd/styles/index.min.css" />
+    <link rel="stylesheet" href="~/vendor/libs/select2/select2.dist.css" />
+}
+
+@section VendorScripts {
+    <script src="~/vendor/libs/moment/moment.dist.js"></script>
+    <script src="~/vendor/libs/datatables-bs5/datatables-bootstrap5.dist.js"></script>
+    <script src="~/vendor/libs/cleavejs/cleave.dist.js"></script>
+    <script src="~/vendor/libs/cleavejs/cleave-phone.dist.js"></script>
+    <script src="~/vendor/libs/flatpickr/flatpickr.dist.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/bundle/popular.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-bootstrap5/index.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
+    <script src="~/vendor/libs/select2/select2.dist.js"></script>
+}
+
+@section PageScripts {
+    <script src="~/app/Comercial/Plantillas/PropuestaHonorarios/index.js"></script>
+}
+
+<div class="row">
+    <div class="col-12">
+        <h5>Plantilla Propuesta de Honorarios</h5>
+    </div>
+
+    <!-- Variants -->
+    <div class="card mb-4 col-12">
+        <div class="card-body">
+            <form class="row align-items-start formContrato" id="formContrato">
+
+                <div class="row row-span-1 col-12">
+                    <div class="col-12 mb-3">
+                        <h5>Datos Generales</h5>
+                        <hr>
+                    </div>
+                    
+                    <div class="col-md-4 col-12 mb-3">
+                        <label for="SERVICIO" class="form-label">Servicio</label>
+                        <input type="text" class="form-control" id="SERVICIO" name="SERVICIO" required>
+                    </div>
+                    
+                    <div class="col-md-4 col-12 mb-3">
+                        <label for="ASUNTO1" class="form-label">Asunto 1</label>
+                        <input type="text" class="form-control" id="ASUNTO1" name="ASUNTO1" required>
+                    </div>
+
+                    <div class="col-md-4 col-12 mb-3">
+                        <label for="ASUNTO2" class="form-label">Asunto 2</label>
+                        <input type="text" class="form-control" id="ASUNTO2" name="ASUNTO2">
+                    </div>
+
+                    <div class="col-md-4 col-12 mb-3">
+                        <label for="ASUNTO3" class="form-label">Asunto 3</label>
+                        <input type="text" class="form-control" id="ASUNTO3" name="ASUNTO3">
+                    </div>  
+
+                    <div class="col-md-4 col-12 mb-3">
+                        <label for="SIMBOLO" class="form-label">Símbolo (Moneda)</label>
+                        <select class="form-select" id="SIMBOLO" name="SIMBOLO" required>
+                            <option value="">Seleccione</option>
+                            <option value="S/." selected>Soles</option>
+                            <option value="$">Dólares</option>
+                            <option value="€">Euros</option>
+                            <option value="£">Libras</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-4 col-12 mb-3">
+                        <label for="MONTO" class="form-label">Monto</label>
+                        <input type="text" class="form-control solo-decimales" id="MONTO"
+                        data-maxlength="5"
+                         name="MONTO" required>
+                    </div>
+
+                    <div class="col-md-4 col-12 mb-3">
+                        <label for="APROBACION" class="form-label">Aprobación</label>
+                        <input type="text" class="form-control" id="APROBACION" name="APROBACION" required>
+                    </div>  
+
+                    <div class="col-md-4 col-12 mb-3">
+                        <label for="CLIENTE" class="form-label">Cliente</label>
+                        <input type="text" class="form-control" id="CLIENTE" name="CLIENTE" required>
+                    </div>
+
+                </div>
+
+                <div>
+                    <button class="btn btn-secondary" id="generate-doc">
+                        Generar
+                    </button>
+                    <button class="btn btn-danger" id="clear">
+                        Limpiar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- /Variants -->
+
+</div>
