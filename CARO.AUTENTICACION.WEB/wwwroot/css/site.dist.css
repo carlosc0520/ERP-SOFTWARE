@@ -403,3 +403,24 @@ div.dt-buttons {
   }
 }
 
+
+/* // DIST PROFILE */
+#NOMBRES_PERFIL{
+  margin-top: 20px;
+}
+
+.container-profile{
+  margin-top: 3rem!important;
+}
+
+@media screen and (max-width: 600px) {
+  #NOMBRES_PERFIL{
+    font-size: 20px !important;
+    margin-top: 5px !important;
+  }
+
+  .container-profile{
+    margin-top: 1rem !important;
+    padding: 0px 1rem !important;
+  }
+}

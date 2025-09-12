@@ -24,6 +24,7 @@ const executeView = () => {
                         xhr.setRequestHeader('Authorization', 'Bearer ' + aleatorio);
                     },
                     success: async function (response) {
+                        // aqui ocultar spinner
                         if (response && response.data && response.data.length > 0) {
                             const persona = response.data[0];
                             console.log(persona);

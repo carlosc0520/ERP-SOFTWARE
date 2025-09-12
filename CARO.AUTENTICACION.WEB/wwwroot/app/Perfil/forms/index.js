@@ -219,7 +219,7 @@ const executeView = () => {
 
                 if (!preguntas || preguntas.length === 0) {
                     contenedor.append('<p class="text-muted">No hay preguntas disponibles en este formulario.</p>');
-                    return;
+                    return; 
                 }
 
                 let tablaHtml = `<table class="table table-bordered bg-white rounded"><tbody>`;

@@ -143,13 +143,13 @@
     }
 
 
-    :root{ --accent:#6b63ff; --muted:#6c6c6c; }
+    :root{ --accent:#ED6A23 ; --muted:#6c6c6c; }
     body{ font-family: 'Poppins', sans-serif; background:#fff; color:#222; }
 
     /* gradient banner */
     .profile-banner{
       height:120px;
-      background: linear-gradient(90deg, rgba(107,99,255,0.22) 0%, rgba(246,187,255,0.22) 100%);
+      background: linear-gradient(90deg, #ED6A23 0%, #ffc7a8 100%);
       border-radius:0 0 14px 14px;
     }
 
@@ -234,114 +234,23 @@
       background:#111;
     }
 
-    /* bottom nav */
+    .container-xxl{
+        max-width:100% !important;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .content-wrapper .container-p-y:not([class^=pt-]):not([class*=" pt-"]){
+        padding-top: 0px!important;
+    }
+
     .profile-nav{ border-top:1px solid rgba(0,0,0,0.06); margin-top:22px; padding-top:18px; }
     .profile-nav .nav-link{ color:#333; font-weight:600; padding:8px 0; }
     .profile-nav .nav-link.active{ border-bottom:2px solid var(--accent); color:var(--accent); }
+    .nav .nav-link:hover, .nav .nav-link:focus {
+        color: var(--accent) !important;
+    }
 </style>
-
-<div class="container py-4" style="max-width: 800px !important">
-    <div class="row g-4 align-items-center">
-        <!-- Columna izquierda -->
-        <div class="col-12 col-md-4 text-center">
-          <div class="card d-flex justify-content-center align-items-center" style="width: 100% !important; height: 220px !important; border-radius: 3rem !important; overflow: hidden !important;">
-            <img id="IMG_PERFIL" src="https://via.placeholder.com/160" alt="Foto perfil"
-                class="profile-pic" style="width: 100% !important; heigth: 100% !important; object-fit: contain">
-          </div>
-        </div>
-
-        <!-- Columna derecha -->
-        <div class="col-12 col-md-8">
-            <span class="badge badge-dark" id="CARGO_PERFIL"></span>
-            <p id="NOMBRES_PERFIL" class="fw-bold fs-4 mb-2 text-dark"></p>
-
-            <p class="mb-1 fs-6">
-                <span class="fw-bold text-secondary">Correo: </span>
-                <a class="fw-normal text-decoration-none text-dark" href="" id="CORREO_PERFIL">
-                </a>
-            </p>
-            <p class="mb-0 fs-6">
-                <span class="fw-bold text-secondary">Teléfono: </span>
-                <a class="fw-normal text-decoration-none text-dark" href="t" id="TELEFONO_PERFIL">
-                </a>
-            </p>
-
-            <!-- Botones -->
-            <div class="d-flex mt-3" style="gap: .6rem">
-                <a href="#" class="btn btn-primary btn-custom px-4">Guardar</a>
-                <a href="#" class="btn btn-outline-secondary btn-custom px-4">Enviar</a>
-                <a href="#" class="btn btn-success btn-custom px-3"><i class="bi bi-whatsapp"></i></a>
-            </div>
-        </div>
-    </div>
-
-    <div class="">
-
-    </div>
-
-    <!-- Tabs -->
-    @* <ul class="nav nav-tabs mt-5" id="profileTabs" role="tablist">
-        <li class="nav-item">
-            <button class="nav-link" id="personal-tab" data-bs-toggle="tab" data-bs-target="#personal">Personal</button>
-        </li>
-        <li class="nav-item">
-            <button class="nav-link" id="company-tab" data-bs-toggle="tab" data-bs-target="#company">Empresa</button>
-        </li>
-        <li class="nav-item">
-            <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact">Contacto</button>
-        </li>
-        <li class="nav-item">
-            <button class="nav-link active" id="qr-tab" data-bs-toggle="tab" data-bs-target="#qr">Mi QR</button>
-        </li>
-    </ul> *@
-
-    <!-- Contenido tabs -->
-    @* <div class="tab-content mt-3">
-        <div class="tab-pane fade" id="personal">
-            <table class="table table-borderless">
-                <tr>
-                    <td><strong>Nombre</strong></td>
-                    <td>Juan Pérez</td>
-                </tr>
-                <tr>
-                    <td><strong>Ocupación</strong></td>
-                    <td>Gerente de Ventas</td>
-                </tr>
-            </table>
-        </div>
-        <div class="tab-pane fade" id="company">
-            <table class="table table-borderless">
-                <tr>
-                    <td><strong>Empresa</strong></td>
-                    <td>GoNet</td>
-                </tr>
-                <tr>
-                    <td><strong>Cargo</strong></td>
-                    <td>Gerente</td>
-                </tr>
-            </table>
-        </div>
-        <div class="tab-pane fade" id="contact">
-            <table class="table table-borderless">
-                <tr>
-                    <td><strong>Teléfono</strong></td>
-                    <td>+52 123 456 7890</td>
-                </tr>
-                <tr>
-                    <td><strong>Email</strong></td>
-                    <td>correo@empresa.com</td>
-                </tr>
-            </table>
-        </div>
-        <div class="tab-pane fade show active" id="qr">
-            <div class="qr-code text-center">
-                <img id="QR_CODE" src="" alt="QR Code">
-                <p class="mt-2">Escanea para ver el perfil</p>
-            </div>
-        </div>
-    </div> *@
-</div>
-
 
 <!-- Nueva UI -->
 <div class="profile-banner"></div>
@@ -351,19 +260,31 @@
       <!-- avatar -->
       <div class="col-md-3 d-flex align-items-center">
         <div class="avatar-wrap">
-          <img src="img/avatars/flaca.png" alt="avatar">
+          <img id="IMG_PERFIL" src="https://via.placeholder.com/160" alt="avatar">
         </div>
       </div>
 
-      <div class="col-md-5 mt-5">
+      <div class="col-md-5 container-profile">
         <div class="d-flex align-items-center gap-3">
-          <h2 class="mb-0" style="font-weight:800; font-size:28px;">Irene Brooks</h2>
-          <span class="pro-badge">PRO</span>
+          <h2 class="mb-0" style="font-weight:800; font-size:24px;" id="NOMBRES_PERFIL"></h2>
         </div>
-        <p class="mb-2" style="color:var(--muted);">Interface and Brand Designer<br>based in San Antonio</p>
+        <div class="mt-2 list-group list-group-flush">
+            <div class="list-group-item d-flex align-items-center border-0 px-0 py-0">
+                <i class="bi bi-briefcase text-secondary me-2 fs-5"></i>
+                <span class="fw-bold text-dark">Cargo:</span>
+                <span class="ms-2 text-muted" id="CARGO_PERFIL"></span>
+            </div>
+            <div class="list-group-item cursor-pointer d-flex align-items-center border-0 px-0 py-0">
+                <i class="bi bi-envelope text-secondary me-2 fs-5"></i>
+                <span class="fw-bold text-dark">Correo:</span>
+                <a class="ms-2 text-muted" id="CORREO_PERFIL"></a>
+            </div>
+        </div>
+
         <div class="d-flex align-items-center gap-2 mt-2">
-          <button class="btn btn-follow">Follow</button>
-          <button class="btn btn-outline-secondary btn-contact">Get in touch</button>
+          <button class="btn btn-follow">GUARDAR</button>
+          <button class="btn btn-outline-secondary btn-contact">ENVIAR</button>
+        <button class="btn btn-success btn-contact"><i class="bi bi-whatsapp"></i></button>
         </div>
       </div>
 
