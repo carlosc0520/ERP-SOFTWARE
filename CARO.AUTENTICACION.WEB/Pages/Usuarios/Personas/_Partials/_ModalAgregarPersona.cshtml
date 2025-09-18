@@ -23,39 +23,77 @@
                         </div>
                     </div>
 
-                    <div class="col-12 col-md-4">
+                    <div class="col-12">
+                        <h5 class="mb-4">Datos Personales</h5>
+                        <hr />
+                    </div>
+
+                    <div class="col-12 col-md-3">
                         <label class="form-label" for="NOMBRS">P. Nombre <span class="text-danger">*</span></label>
-                        <input type="text" id="NOMBRS" name="NOMBRS" class="form-control max-length" data-maxlength="100" />
+                        <input type="text" id="NOMBRS" name="NOMBRS" class="form-control noMayus max-length" data-maxlength="100" />
                     </div>
 
-                    <div class="col-12 col-md-4">
+                    <div class="col-12 col-md-3">
                         <label class="form-label" for="SNOMBRS">S. Nombre </label>
-                        <input type="text" id="SNOMBRS" name="SNOMBRS" class="form-control max-length" data-maxlength="100" />
+                        <input type="text" id="SNOMBRS" name="SNOMBRS" class="form-control noMayus max-length" data-maxlength="100" />
                     </div>
 
-                    <div class="col-12 col-md-4">
+                    <div class="col-12 col-md-3">
                         <label class="form-label" for="APLLDS">P. Apellido <span class="text-danger">*</span></label>
-                        <input type="text" id="APLLDS" name="APLLDS" class="form-control max-length" data-maxlength="100" />
+                        <input type="text" id="APLLDS" name="APLLDS" class="form-control noMayus max-length" data-maxlength="100" />
                     </div>
 
-                    <div class="col-12 col-md-4">
+                    <div class="col-12 col-md-3">
                         <label class="form-label" for="SAPLLDS">S. Apellido</label>
-                        <input type="text" id="SAPLLDS" name="SAPLLDS" class="form-control max-length" data-maxlength="100" />
+                        <input type="text" id="SAPLLDS" name="SAPLLDS" class="form-control noMayus max-length" data-maxlength="100" />
                     </div>
         
-                    <div class="col-12 col-md-4">
+                    <div class="col-12 col-md-3">
                         <label class="form-label" for="DCUMNTO">Nro. Documento <span class="text-danger">*</span></label>
-                        <input type="text" id="DCUMNTO" name="DCUMNTO" class="form-control max-length sin-espacios" data-maxlength="13" />
+                        <input type="text" id="DCUMNTO" name="DCUMNTO" class="form-control noMayus max-length sin-espacios" data-maxlength="13" />
                     </div>
         
-                    <div class="col-12 col-md-4">
-                        <label class="form-label" for="CORREO">Correo <span class="text-danger">*</span></label>
-                        <input type="text" id="CORREO" name="CORREO" class="form-control max-length sin-espacios" data-maxlength="100" />
+                    <div class="col-12">
+                        <h5 class="mb-4">Datos de Contacto</h5>
+                        <hr />
                     </div>
 
-                    <div class="col-12 col-md-4">
-                        <label class="form-label" for="PASSWORD">Contraseña <span class="text-danger">*</span></label>
-                        <input type="password" id="PASSWORD" name="PASSWORD" class="form-control max-length sin-espacios" data-maxlength="100" />
+                    <div class="col-12 col-md-3">
+                        <label class="form-label" for="CORREO">Correo <span class="text-danger">*</span></label>
+                        <input type="text" id="CORREO" name="CORREO" class="form-control noMayus max-length sin-espacios" data-maxlength="100" />
+                    </div>
+
+                    <div class="col-12 col-md-3">
+                        <label class="form-label" for="TELFNO">Teléfono</label>
+                        <input type="text" id="TELFNO" name="TELFNO" class="form-control max-length sin-espacios" data-maxlength="15" />
+                    </div>
+
+                    <div class="col-12 col-md-3">
+                        <label class="form-label" for="DEPARTAMENTO">Departamento</label>
+                        <select id="DEPARTAMENTO" name="DEPARTAMENTO" class="select2 form-select" data-allow-clear="true">
+                        </select>
+                    </div>
+
+                    <div class="col-12 col-md-3">
+                        <label class="form-label" for="PROVINCIA">Provincia</label>
+                        <select id="PROVINCIA" name="PROVINCIA" class="select2 form-select" data-allow-clear="true">
+                        </select>
+                    </div>
+
+                    <div class="col-12 col-md-3">
+                        <label class="form-label" for="DISTRITO">Distrito</label>
+                        <select id="DISTRITO" name="DISTRITO" class="select2 form-select" data-allow-clear="true">
+                        </select>   
+                    </div>
+
+                    <div class="col-12 col-md-9">
+                        <label class="form-label" for="DIRECCION">Dirección</label>
+                        <input type="text" id="DIRECCION" name="DIRECCION" class="noMayus form-control max-length" data-maxlength="200" />
+                    </div>
+
+                    <div class="col-12">
+                        <h5 class="mb-4">Datos de Empresa</h5>
+                        <hr />
                     </div>
 
                     <div class="col-12 col-md-4">
@@ -65,25 +103,77 @@
                     </div>
 
                     <div class="col-12 col-md-4">
+                        <label class="form-label" for="CARGO">Cargo</label>
+                        <input type="text" id="CARGO" name="CARGO" class="form-control noMayus max-length" data-maxlength="200" />
+                    </div>
+
+                    <div class="col-12 col-md-4">
                         <label class="form-label" for="IDROL">Rol <span class="text-danger">*</span></label>
                         <select id="IDROL" name="IDROL" class="select2 form-select" data-allow-clear="true">
                         </select>
                     </div>
 
-                    <div class="col-12 col-md-4">
-                        <label class="form-label" for="ANEXO">Anexo</label>
-                        <input type="text" id="ANEXO" name="ANEXO" class="form-control max-length" data-maxlength="30" />
+                    <div class="col-12">
+                        <label class="form-label" for="RESENA">Reseña</label>
+                        <textarea id="RESENA" name="RESENA" class="form-control noMayus max-length" data-maxlength="500" rows="3"></textarea>
                     </div>
+
+                    <div class="col-12 col-md-3">
+                        <label class="form-label" for="PASSWORD">Contraseña <span class="text-danger">*</span></label>
+                        <input type="password" id="PASSWORD" name="PASSWORD" class="form-control max-length noMayus sin-espacios" data-maxlength="100" />
+                    </div>
+
 
                     <div class="col-12 col-md-4 d-flex flex-row align-items-center gap-3 ">
                         <label class="form-label" for="PRMSO">Usuario Activo?  </label>
                         <label class="switch switch-square">
-                            <input type="checkbox" class="switch-input" id="PRMSO" name="PRMSO">
+                            <input type="checkbox" class="switch-input"
+                                value="S" checked
+                                id="PRMSO" name="PRMSO">
                             <span class="switch-toggle-slider">
                                 <span class="switch-on"></span>
                                 <span class="switch-off"></span>
                             </span>
                         </label>
+                    </div>
+
+                    <div class="col-12">
+                        <h5 class="mb-4">Redes Sociales</h5>
+                        <hr />
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <label class="form-label" for="GDREDSOCIAL">Red Social <span class="text-danger">*</span></label>
+                        <select id="GDREDSOCIAL" name="GDREDSOCIAL" class="select2 form-select" data-allow-clear="true">
+                        </select>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <label class="form-label" for="ENLACE">Link <span class="text-danger">*</span></label>
+                        <input type="text" id="ENLACE" name="ENLACE" class="form-control noMayus max-length sin-espacios" data-maxlength="200" />
+                    </div>
+
+                    <div class="col-12 col-md-2 d-flex flex-row align-items-end gap-3 ">
+                        <button id="btnAddRedSocial" class="btn btn-icon btn-primary" type="button">
+                            <span class="tf-icons bx bx-plus"></span>
+                        </button>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="table-responsive text-nowrap">
+                            <table class="table table-bordered" id="tblRedesSociales">
+                                <thead>
+                                    <tr class="text-center">
+                                        <th>Red Social</th>
+                                        <th>Link</th>
+                                        <th>Acciones</th>
+                                        <th class="d-none"></th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-border-bottom-0">
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
 
                     <div class="col-12 text-center mt-4">

@@ -1,4 +1,5 @@
 ﻿using CARO.ENTIDAD.Modelo.Auditoria;
+using Microsoft.AspNetCore.Http;
 
 namespace CARO.DATOS.MODELO.CCFIRMA
 {
@@ -46,6 +47,14 @@ namespace CARO.DATOS.MODELO.CCFIRMA
     public class AdobePdfConfig
     {
         public string CredentialsFilePath { get; set; }
+    }
+    public class SendMailModel
+    {
+        public string? ASUNTO { get; set; } = null;
+        public string? ORIGEN { get; set; } = null;
+        public string? EMAILS { get; set; } = null; 
+        public string? BODY { get; set; } = null;
+        public List<IFormFile>? FILES { get; set; } = new List<IFormFile>();
     }
 
 }

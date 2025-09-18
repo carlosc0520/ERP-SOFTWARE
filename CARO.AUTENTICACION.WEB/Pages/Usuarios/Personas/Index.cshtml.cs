@@ -53,6 +53,31 @@ namespace CARO.AUTENTICACION.WEB.Pages.Usuarios.Personas
       }
     }
 
+    [HttpGet]
+    public async Task<IActionResult> OnGetBuscarFindAsync([FromQuery] PersonaModel custom)
+    {
+      try
+      {
+        HttpContextDraw.SetModelValues(HttpContext, custom);
+        var personas = await _consultasPersonas.Listar(custom);
+
+        foreach (var persona in personas)
+        {
+          var rutacompleta = ConfiguracionProyecto.DISK + persona.RTAFTO;
+          persona.RTAFTOEMP = ConfiguracionProyecto.DISK + persona.RTAFTOEMP;
+          persona.RTAFTO2 = await _fileUploads.ObtenerFileBase64(persona.RTAFTO);
+          persona.RTAFTO = rutacompleta;
+        }
+
+        var totalRows = personas?.FirstOrDefault()?.TOTALROWS ?? 0;
+        return new JsonResult(new { recordsTotal = totalRows, recordsFiltered = totalRows, data = personas, draw = custom.DRAW });
+      }
+      catch (Exception ex)
+      {
+        return BadRequest(new { success = false, message = "Ocurrió un error al listar las personas.", error = ex.Message });
+      }
+    }
+
     [HttpPost]
     public async Task<IActionResult> OnPostAddAsync([FromForm] ComandoPersonaInsertar comando)
     {

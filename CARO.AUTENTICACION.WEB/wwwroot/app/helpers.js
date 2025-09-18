@@ -223,6 +223,13 @@ const swalFire = {
         }
       }
     });
+    info: (mensaje = '') => {
+      Swal.fire({
+        icon: 'info',
+        title: mensaje,
+        showConfirmButton: true
+      });
+    };
   },
   coolToAction: (title, eventos = {}) => {
     Swal.fire({

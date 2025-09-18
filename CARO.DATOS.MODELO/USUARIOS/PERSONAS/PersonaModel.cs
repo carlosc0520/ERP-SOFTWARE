@@ -1,4 +1,5 @@
 ﻿using CARO.ENTIDAD.Modelo.Auditoria;
+using Microsoft.AspNetCore.Http;
 
 namespace CARO.DATOS.MODELO.USUARIOS.PERSONAS
 {
@@ -22,5 +23,17 @@ namespace CARO.DATOS.MODELO.USUARIOS.PERSONAS
         public string? MARCA { get; set; } = null;
         public string? ROL { get; set; } = null; 
         public int? IDEMPRESA { get; set; } = null;
+        public string? TELFNO { get; set; } = null;
+        public string? DEPARTAMENTO { get; set; } = null;
+        public string? PROVINCIA { get; set; } = null;
+        public string? DISTRITO { get; set; } = null;
+        public string? DIRECCION { get; set; } = null;
+        public string? CARGO { get; set; } = null;
+        public string? RESENA { get; set; } = null;
+        public string? REDES { get; set; } = null;
+        public string? WEBPAGE { get; set; } = null;
+        public string? RTAFTO2 { get; set; } = null;
+        public string? RTAFTOEMP { get; set; } = null;
+
     }
 }

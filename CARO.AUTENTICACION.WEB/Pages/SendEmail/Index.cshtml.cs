@@ -32,6 +32,8 @@ namespace CARO.AUTENTICACION.WEB.Pages.SendEmail
       try
       {
         if (string.IsNullOrWhiteSpace(custom.EMAILS))
+          // crear log
+          
           return BadRequest(new { success = false, message = "El campo EMAILS es obligatorio." });
 
         if (string.IsNullOrWhiteSpace(custom.BODY))

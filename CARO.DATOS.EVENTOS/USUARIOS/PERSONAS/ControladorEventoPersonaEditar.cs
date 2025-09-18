@@ -21,6 +21,18 @@ namespace CARO.DATOS.EVENTOS.USUARIOS.PERSONAS
         public async Task<RespuestaConsulta> Handle(ComandoPersonaEditar entidad, CancellationToken cancellationToken)
         {
             var parametros = new DynamicParameters();
+            if (!string.IsNullOrWhiteSpace(entidad.REDESVAR))
+            {
+                try
+                {
+                    entidad.REDES = JsonSerializer.Deserialize<List<RedSocialModel>>(entidad.REDESVAR);
+                }
+                catch (JsonException ex)
+                {
+                    entidad.REDES = new List<RedSocialModel>();
+                }
+            }
+
             var json = JsonSerializer.Serialize(new
             {
                 ID = entidad.ID,
@@ -32,10 +44,18 @@ namespace CARO.DATOS.EVENTOS.USUARIOS.PERSONAS
                 SAPLLDS = entidad.SAPLLDS,
                 DCUMNTO = entidad.DCUMNTO,
                 CORREO = entidad.CORREO,
+                TELFNO = entidad.TELFNO,
+                DEPARTAMENTO = entidad.DEPARTAMENTO,
+                PROVINCIA = entidad.PROVINCIA,
+                DISTRITO = entidad.DISTRITO,
+                DIRECCION = entidad.DIRECCION,
+                CARGO = entidad.CARGO,
+                RESENA = entidad.RESENA,
                 PASSWORD = entidad.PASSWORD,
+                PRMSO = entidad.PRMSO,
                 ANEXO = entidad.ANEXO,
                 RTAFTO = entidad.RTAFTO,
-                PRMSO = entidad.PRMSO,
+                REDES = entidad.REDES,
                 CESTDO = entidad.CESTDO
             });
 

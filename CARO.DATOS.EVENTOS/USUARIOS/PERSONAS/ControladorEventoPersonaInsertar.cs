@@ -1,11 +1,13 @@
-﻿using Dapper;
+﻿using CARO.CORE.Structs;
+using CARO.DATABASE;
+using CARO.DATABASE.Helper;
+using CARO.DATOS.EVENTOS.Comandos.USUARIOS.PERSONAS;
+using Dapper;
+using DocumentFormat.OpenXml.Bibliography;
 using MediatR;
 using Microsoft.Extensions.Configuration;
+using Mysqlx.Session;
 using System.Text.Json;
-using CARO.CORE.Structs;
-using CARO.DATABASE.Helper;
-using CARO.DATABASE;
-using CARO.DATOS.EVENTOS.Comandos.USUARIOS.PERSONAS;
 
 namespace CARO.DATOS.EVENTOS.USUARIOS.PERSONAS
 {
@@ -21,6 +23,18 @@ namespace CARO.DATOS.EVENTOS.USUARIOS.PERSONAS
         public async Task<RespuestaConsulta> Handle(ComandoPersonaInsertar entidad, CancellationToken cancellationToken)
         {
             var parametros = new DynamicParameters();
+            if (!string.IsNullOrWhiteSpace(entidad.REDESVAR))
+            {
+                try
+                {
+                    entidad.REDES = JsonSerializer.Deserialize<List<RedSocialModel>>(entidad.REDESVAR);
+                }
+                catch (JsonException ex)
+                {
+                    entidad.REDES = new List<RedSocialModel>();
+                }
+            }
+
             var json = JsonSerializer.Serialize(new
             {
                 ID          = entidad.ID,
@@ -32,10 +46,18 @@ namespace CARO.DATOS.EVENTOS.USUARIOS.PERSONAS
                 SAPLLDS     = entidad.SAPLLDS,
                 DCUMNTO     = entidad.DCUMNTO,
                 CORREO      = entidad.CORREO,
+                TELFNO      = entidad.TELFNO,
+                DEPARTAMENTO    = entidad.DEPARTAMENTO,
+                PROVINCIA   = entidad.PROVINCIA,
+                DISTRITO    = entidad.DISTRITO,
+                DIRECCION   = entidad.DIRECCION,
+                CARGO       = entidad.CARGO,
+                RESENA      = entidad.RESENA,
                 PASSWORD    = entidad.PASSWORD,
+                PRMSO       = entidad.PRMSO,
                 ANEXO       = entidad.ANEXO,
                 RTAFTO      = entidad.RTAFTO,
-                PRMSO       = entidad.PRMSO,
+                REDES       = entidad.REDES,
                 CESTDO      = entidad.CESTDO
             });
 
