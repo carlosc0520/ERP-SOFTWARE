@@ -481,5 +481,43 @@ namespace CARO.CORE
                 if (client.IsConnected) client.Disconnect();
             }
         }
+
+        public async Task<string> ObtenerFileBase64(string rutaCompletaArchivo)
+        {
+            var client = new FtpClient(this.servidor, 21)
+            {
+                Credentials = new System.Net.NetworkCredential(this.credetencialts, this.password)
+            };
+            client.Config.DataConnectionType = FtpDataConnectionType.PASV;
+
+            try
+            {
+                client.Connect();
+
+                if (!client.FileExists(rutaCompletaArchivo))
+                {
+                    throw new FileNotFoundException($"El archivo '{rutaCompletaArchivo}' no existe en el servidor FTP.");
+                }
+
+                using (var memoryStream = new MemoryStream())
+                {
+                    client.DownloadStream(memoryStream, rutaCompletaArchivo);
+                    memoryStream.Position = 0;
+                    var bytes = memoryStream.ToArray();
+                    string base64 = Convert.ToBase64String(bytes);
+
+                    return base64;
+                }
+            }
+            catch
+            {
+                throw;
+            }
+            finally
+            {
+                if (client.IsConnected) client.Disconnect();
+            }
+        }
+
     }
 }
