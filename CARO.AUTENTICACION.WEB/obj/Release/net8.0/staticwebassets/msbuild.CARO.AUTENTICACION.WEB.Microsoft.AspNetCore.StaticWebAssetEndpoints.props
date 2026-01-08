@@ -312,29 +312,29 @@
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"nc7qritnlf"},{"Name":"integrity","Value":"sha256-SUW86JqVu3bOX56gjcE5VFx2Nv/AKrfoLf\u002BhJa11wbY="},{"Name":"label","Value":"_content/CARO.AUTENTICACION.WEB/app/Modulos/index.js"}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"3875"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022SUW86JqVu3bOX56gjcE5VFx2Nv/AKrfoLf\u002BhJa11wbY=\u0022"},{"Name":"Last-Modified","Value":"Mon, 17 Feb 2025 18:23:08 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/CARO.AUTENTICACION.WEB/app/Perfil/forms/index.j7jqbn8170.js">
+    <StaticWebAssetEndpoint Include="_content/CARO.AUTENTICACION.WEB/app/Perfil/forms/index.f0f6pizk4r.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\app\Perfil\forms\index.js'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"j7jqbn8170"},{"Name":"integrity","Value":"sha256-v0qvt7jhDqUFzCXRji0L5rQTYakhPFpCIHKwB\u002BjQvs0="},{"Name":"label","Value":"_content/CARO.AUTENTICACION.WEB/app/Perfil/forms/index.js"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"48453"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022v0qvt7jhDqUFzCXRji0L5rQTYakhPFpCIHKwB\u002BjQvs0=\u0022"},{"Name":"Last-Modified","Value":"Thu, 04 Sep 2025 21:02:54 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"f0f6pizk4r"},{"Name":"integrity","Value":"sha256-gf0\u002BGAzvSZWhmXdy9wb/3ONPZfJFsKaJ1oS6QAH1KuM="},{"Name":"label","Value":"_content/CARO.AUTENTICACION.WEB/app/Perfil/forms/index.js"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"48454"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022gf0\u002BGAzvSZWhmXdy9wb/3ONPZfJFsKaJ1oS6QAH1KuM=\u0022"},{"Name":"Last-Modified","Value":"Fri, 12 Sep 2025 02:18:49 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/CARO.AUTENTICACION.WEB/app/Perfil/forms/index.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\app\Perfil\forms\index.js'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-v0qvt7jhDqUFzCXRji0L5rQTYakhPFpCIHKwB\u002BjQvs0="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"48453"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022v0qvt7jhDqUFzCXRji0L5rQTYakhPFpCIHKwB\u002BjQvs0=\u0022"},{"Name":"Last-Modified","Value":"Thu, 04 Sep 2025 21:02:54 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-gf0\u002BGAzvSZWhmXdy9wb/3ONPZfJFsKaJ1oS6QAH1KuM="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"48454"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022gf0\u002BGAzvSZWhmXdy9wb/3ONPZfJFsKaJ1oS6QAH1KuM=\u0022"},{"Name":"Last-Modified","Value":"Fri, 12 Sep 2025 02:18:49 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/CARO.AUTENTICACION.WEB/app/Perfil/index.5hvqhppth0.js">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\app\Perfil\index.js'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"5hvqhppth0"},{"Name":"integrity","Value":"sha256-2aYXn4w87DMeevtYNSVqMoxZcSO/WnqL36u1y0T5Z\u002BQ="},{"Name":"label","Value":"_content/CARO.AUTENTICACION.WEB/app/Perfil/index.js"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"6131"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u00222aYXn4w87DMeevtYNSVqMoxZcSO/WnqL36u1y0T5Z\u002BQ=\u0022"},{"Name":"Last-Modified","Value":"Fri, 12 Sep 2025 03:34:03 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/CARO.AUTENTICACION.WEB/app/Perfil/index.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\app\Perfil\index.js'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-ah3Nhnqgo1mBKQ6gLdHJJXNMPfcaIPX81m7MvpRXmgI="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"6082"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022ah3Nhnqgo1mBKQ6gLdHJJXNMPfcaIPX81m7MvpRXmgI=\u0022"},{"Name":"Last-Modified","Value":"Mon, 11 Aug 2025 00:56:09 GMT"}]]]></ResponseHeaders>
-    </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/CARO.AUTENTICACION.WEB/app/Perfil/index.mcd4umxjxt.js">
-      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\app\Perfil\index.js'))</AssetFile>
-      <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"mcd4umxjxt"},{"Name":"integrity","Value":"sha256-ah3Nhnqgo1mBKQ6gLdHJJXNMPfcaIPX81m7MvpRXmgI="},{"Name":"label","Value":"_content/CARO.AUTENTICACION.WEB/app/Perfil/index.js"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"6082"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u0022ah3Nhnqgo1mBKQ6gLdHJJXNMPfcaIPX81m7MvpRXmgI=\u0022"},{"Name":"Last-Modified","Value":"Mon, 11 Aug 2025 00:56:09 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-2aYXn4w87DMeevtYNSVqMoxZcSO/WnqL36u1y0T5Z\u002BQ="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"6131"},{"Name":"Content-Type","Value":"text/javascript"},{"Name":"ETag","Value":"\u00222aYXn4w87DMeevtYNSVqMoxZcSO/WnqL36u1y0T5Z\u002BQ=\u0022"},{"Name":"Last-Modified","Value":"Fri, 12 Sep 2025 03:34:03 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/CARO.AUTENTICACION.WEB/app/Usuarios/Permisos/index.c2s3w5x7r7.js">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\app\Usuarios\Permisos\index.js'))</AssetFile>
@@ -384,17 +384,17 @@
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-yEdu2tFOQCFsFQ95v301d1b2hiT4ZJxKiE95xPfWIpY="}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"5184961"},{"Name":"Content-Type","Value":"audio/mpeg"},{"Name":"ETag","Value":"\u0022yEdu2tFOQCFsFQ95v301d1b2hiT4ZJxKiE95xPfWIpY=\u0022"},{"Name":"Last-Modified","Value":"Mon, 17 Feb 2025 18:23:08 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/CARO.AUTENTICACION.WEB/css/demo.c5xbc26usl.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\demo.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"c5xbc26usl"},{"Name":"integrity","Value":"sha256-cM9Yw0sGx9PJvHmrsgkfSTtPFCBXFByw6Y/YkjcvubE="},{"Name":"label","Value":"_content/CARO.AUTENTICACION.WEB/css/demo.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"6022"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022cM9Yw0sGx9PJvHmrsgkfSTtPFCBXFByw6Y/YkjcvubE=\u0022"},{"Name":"Last-Modified","Value":"Fri, 12 Sep 2025 19:52:34 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/CARO.AUTENTICACION.WEB/css/demo.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\demo.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-x6hqM5Q6M7Z4DiJi0eCJGH3kZs7d62GVD4veo3sEIfY="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"5644"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022x6hqM5Q6M7Z4DiJi0eCJGH3kZs7d62GVD4veo3sEIfY=\u0022"},{"Name":"Last-Modified","Value":"Thu, 04 Sep 2025 20:10:50 GMT"}]]]></ResponseHeaders>
-    </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/CARO.AUTENTICACION.WEB/css/demo.fuoo5gbsun.css">
-      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\demo.css'))</AssetFile>
-      <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"fuoo5gbsun"},{"Name":"integrity","Value":"sha256-x6hqM5Q6M7Z4DiJi0eCJGH3kZs7d62GVD4veo3sEIfY="},{"Name":"label","Value":"_content/CARO.AUTENTICACION.WEB/css/demo.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"5644"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022x6hqM5Q6M7Z4DiJi0eCJGH3kZs7d62GVD4veo3sEIfY=\u0022"},{"Name":"Last-Modified","Value":"Thu, 04 Sep 2025 20:10:50 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-cM9Yw0sGx9PJvHmrsgkfSTtPFCBXFByw6Y/YkjcvubE="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"6022"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022cM9Yw0sGx9PJvHmrsgkfSTtPFCBXFByw6Y/YkjcvubE=\u0022"},{"Name":"Last-Modified","Value":"Fri, 12 Sep 2025 19:52:34 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/CARO.AUTENTICACION.WEB/css/site.0cfq3gtw6y.scss">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.scss'))</AssetFile>
@@ -405,14 +405,14 @@
     <StaticWebAssetEndpoint Include="_content/CARO.AUTENTICACION.WEB/css/site.dist.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.dist.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-84V8ZjqEHRIf0/xDkRmvi5Co/K\u002Bu6cx5Mhk\u002BkiqHy6k="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"6776"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u002284V8ZjqEHRIf0/xDkRmvi5Co/K\u002Bu6cx5Mhk\u002BkiqHy6k=\u0022"},{"Name":"Last-Modified","Value":"Thu, 28 Aug 2025 04:27:36 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-A52HpCql9ZQdgXW0Xdxf0v5dPX\u002B5d5QnaJXDnDV0GOk="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"7133"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022A52HpCql9ZQdgXW0Xdxf0v5dPX\u002B5d5QnaJXDnDV0GOk=\u0022"},{"Name":"Last-Modified","Value":"Fri, 12 Sep 2025 03:08:26 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/CARO.AUTENTICACION.WEB/css/site.dist.f5fh3fm1u3.css">
+    <StaticWebAssetEndpoint Include="_content/CARO.AUTENTICACION.WEB/css/site.dist.zguvx0n7t2.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.dist.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"f5fh3fm1u3"},{"Name":"integrity","Value":"sha256-84V8ZjqEHRIf0/xDkRmvi5Co/K\u002Bu6cx5Mhk\u002BkiqHy6k="},{"Name":"label","Value":"_content/CARO.AUTENTICACION.WEB/css/site.dist.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"6776"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u002284V8ZjqEHRIf0/xDkRmvi5Co/K\u002Bu6cx5Mhk\u002BkiqHy6k=\u0022"},{"Name":"Last-Modified","Value":"Thu, 28 Aug 2025 04:27:36 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"zguvx0n7t2"},{"Name":"integrity","Value":"sha256-A52HpCql9ZQdgXW0Xdxf0v5dPX\u002B5d5QnaJXDnDV0GOk="},{"Name":"label","Value":"_content/CARO.AUTENTICACION.WEB/css/site.dist.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"7133"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022A52HpCql9ZQdgXW0Xdxf0v5dPX\u002B5d5QnaJXDnDV0GOk=\u0022"},{"Name":"Last-Modified","Value":"Fri, 12 Sep 2025 03:08:26 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/CARO.AUTENTICACION.WEB/css/site.scss">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.scss'))</AssetFile>
@@ -671,6 +671,18 @@
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-xWrCe470pljJbv7tkKZOKtPwrTIYH45g5pugQOWXAPk="}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"42721"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022xWrCe470pljJbv7tkKZOKtPwrTIYH45g5pugQOWXAPk=\u0022"},{"Name":"Last-Modified","Value":"Mon, 17 Feb 2025 18:23:08 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/CARO.AUTENTICACION.WEB/img/avatars/flaca.5jvjzg3vmq.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\img\avatars\flaca.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"5jvjzg3vmq"},{"Name":"integrity","Value":"sha256-n6ahlL29TEmJjU0BFRHb6iCvDGnuorWrlfkptrmOBrA="},{"Name":"label","Value":"_content/CARO.AUTENTICACION.WEB/img/avatars/flaca.png"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"78282"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022n6ahlL29TEmJjU0BFRHb6iCvDGnuorWrlfkptrmOBrA=\u0022"},{"Name":"Last-Modified","Value":"Fri, 12 Sep 2025 02:12:12 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/CARO.AUTENTICACION.WEB/img/avatars/flaca.png">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\img\avatars\flaca.png'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-n6ahlL29TEmJjU0BFRHb6iCvDGnuorWrlfkptrmOBrA="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=3600, must-revalidate"},{"Name":"Content-Length","Value":"78282"},{"Name":"Content-Type","Value":"image/png"},{"Name":"ETag","Value":"\u0022n6ahlL29TEmJjU0BFRHb6iCvDGnuorWrlfkptrmOBrA=\u0022"},{"Name":"Last-Modified","Value":"Fri, 12 Sep 2025 02:12:12 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/CARO.AUTENTICACION.WEB/img/backgrounds/1.jpg">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\img\backgrounds\1.jpg'))</AssetFile>

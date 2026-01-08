@@ -170,7 +170,7 @@ namespace CARO.AUTENTICACION.WEB.Pages.Comercial.Solicitudes
         comando.UEDCN = HttpContextDraw.User(HttpContext, 1);
         var result = await _mediator.Send(comando);
 
-        SolicitudModel custom = new SolicitudModel
+        /*SolicitudModel custom = new SolicitudModel
         {
           ROWS = 1,
           INIT = 0,
@@ -205,7 +205,7 @@ namespace CARO.AUTENTICACION.WEB.Pages.Comercial.Solicitudes
             await SendEmailAsync(customData.ACORREO, "Solicitud Aprobada", mensaje, archivos);
 
           }
-        }
+        } */
 
 
         return new JsonResult(result);
@@ -300,7 +300,7 @@ namespace CARO.AUTENTICACION.WEB.Pages.Comercial.Solicitudes
             <p><span class='section-title'>Comentarios:</span> {comando.COMENTARIOS}</p>" : "")}
         </div>
         <div class='signature'>
-            <img src='https://acompliancepe.com/wp-content/uploads/2024/06/B6.png' alt='Logo'>
+            <img src='https://aicompliance.es/wp-content/uploads/2024/06/B6.png' alt='Logo'>
             <p>Visítanos en <a href='https://ccfirma.com' style='color: #2980b9;'>ccfirma.com</a></p>
         </div>
     </body>

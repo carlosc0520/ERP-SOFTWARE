@@ -3,6 +3,7 @@ wwwroot\app\CanalDenuncias\Configuracion\index.js
 wwwroot\app\Comercial\Clientes\index.js
 wwwroot\app\Comercial\Complytools\index.js
 wwwroot\app\Comercial\Contactos\index.js
+wwwroot\app\Comercial\Contactos\index2.js
 wwwroot\app\Comercial\Cursos\CourseDetails\index.js
 wwwroot\app\Comercial\Cursos\Detalle\index.js
 wwwroot\app\Comercial\Cursos\index.js
@@ -54,6 +55,7 @@ wwwroot\img\avatars\6.png
 wwwroot\img\avatars\7.png
 wwwroot\img\avatars\8.png
 wwwroot\img\avatars\9.png
+wwwroot\img\avatars\flaca.png
 wwwroot\img\backgrounds\1.jpg
 wwwroot\img\backgrounds\10.jpg
 wwwroot\img\backgrounds\11.jpg

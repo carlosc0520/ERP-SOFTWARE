@@ -14,10 +14,10 @@ const executeView = () => {
   // * VARIABLES
   let formularioTable = 'formularioTable';
   let preguntasTable = 'preguntasTable';
-  let usuariosTable = 'usuariosTable';
+  let respuestasTable = 'respuestasTable';
   let CformularioTable = null;
   let CpreguntasTable = null;
-  let CusuariosTable = null;
+  let CrespuestasTable = null;
 
 
   // * TABLAS
@@ -45,6 +45,8 @@ const executeView = () => {
         },
         theme: 'snow'
       });
+
+
 
       if ($("#AddFormulario #BGCOLOR").length) formularioCrud.variables.classicAddFormulario = func.pickCreate($("#AddFormulario #BGCOLOR")[0])
       if ($("#AddFormulario #BGCOLOR2").length) formularioCrud.variables.classicAddFormulario2 = func.pickCreate($("#AddFormulario #BGCOLOR2")[0])
@@ -119,7 +121,7 @@ const executeView = () => {
         formularioCrud.variables.myDropzoneEditFormulario.removeAllFiles(true);
         configFormVal('EditFormulario', formularioCrud.validaciones.UPDATE, () => formularioCrud.eventos.UPDATE());
         func.actualizarForm('EditFormulario', formularioCrud.variables.rowEdit);
-        new Quill('#EditFormulario #editor-DESCP').root.innerHTML = formularioCrud.variables.rowEdit.descp || '';
+        fullEditorEditFormulario.root.innerHTML = formularioCrud.variables.rowEdit.descp || '';
 
         formularioCrud.variables.classicEditFormulario.setColor(formularioCrud.variables.rowEdit.bgcolor || '#ffffff')
         formularioCrud.variables.classicEditFormulario2.setColor(formularioCrud.variables.rowEdit.bgcoloR2 || '#ffffff')
@@ -157,6 +159,14 @@ const executeView = () => {
         if (!data.id) return swalFire.error('No se encontró el formulario seleccionado');
         let url = window.location.origin + `/Perfil/forms/Index?id=${data.id}&formulario=${data.nombre}`;
         window.open(url, '_blank');
+      });
+
+      // ver respuestas
+      $(`#${formularioTable}`).on('click', '.btn-ver-respuestas', function () {
+        const data = CformularioTable.row($(this).parents('tr')).data();
+        if (!data.id) return swalFire.error('No se encontró el formulario seleccionado');
+        formularioCrud.variables.rowEdit = data;
+        redirect(true, 'navs-respuestas', data.id);
       });
     },
     variables: {
@@ -213,7 +223,8 @@ const executeView = () => {
                         <button name="ELIMINAR" class="btn btn-sm btn-icon delete-row-button" title="Eliminar"><i class="bx bx-trash"></i></button>
                         <button name="CONFIGURACION" class="btn btn-sm btn-icon config-row-button" title="Configuración"><i class="bx bx-cog"></i></button>
                         <button name="IR A LINK" class="btn btn-sm btn-icon btn-link-formulario" title="Ir al formulario"><i class="bx bx-link"></i></button>
-                      </div>`;
+                        <button name="VER RESPUESTAS" class="btn btn-sm btn-icon btn-ver-respuestas" title="Ver respuestas"><i class="bx bx-show"></i></button>
+                        </div>`;
                 }
               }
             ],
@@ -992,6 +1003,94 @@ const executeView = () => {
     }
   };
 
+  const respuestasCrud = {
+    init: () => {
+      respuestasCrud.eventos.TABLE();
+    },
+    globales: () => {
+      $(`#${respuestasTable}`).on('click', '.btn-link-pre-formulario', function () {
+        const data = CrespuestasTable.row($(this).parents('tr')).data();
+        if (!data.id) return swalFire.error('No se encontró el registro seleccionado');
+        const urlFormulario = '/Perfil/Forms/index?preview=true&id=' + formularioCrud.variables.rowEdit.id + '&sendmail=' + encodeURIComponent(data.email);
+        window.open(urlFormulario, '_blank');
+      });
+    },
+    eventos: {
+      TABLE: () => {
+        $(`#${respuestasTable}_filter .radio-buttons #radioGroup_2`).prop('checked', true);
+
+        if (!CrespuestasTable) {
+          CrespuestasTable = $(`#${respuestasTable}`).DataTable({
+            ...configTable(),
+            ajax: {
+              url: uisApis.API + '=AllEmails',
+              type: 'GET',
+              beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', 'Bearer ' + (localStorage.getItem('accessToken') || null));
+              },
+              data: function (d) {
+                delete d.columns;
+                d.ID = formularioCrud.variables.rowEdit.id;
+                d.CESTDO = func.obtenerCESTDO(respuestasTable);
+              },
+            },
+            columns: [
+              { data: 'rn', title: '' },
+              { data: "nombres", title: "Nombres", },
+              { data: "email", title: "Correo", },
+              { data: null, title: 'U. Edición', render: data => data.uedcn.split('@')[0] },
+              { data: null, title: 'F. Edición', render: data => func.formatFecha(data.fedcn, 'DD-MM-YYYY HH:mm a') },
+              {
+                data: null,
+                title: 'Estado',
+                className: 'text-center',
+                render: data => {
+                  return `<span><i class="fa fa-circle ${data.cestdo == 'A' ? 'text-success' : 'text-danger'}" title=${data.cestdo == 'A' ? 'Activo' : 'Inactivo'
+                    }></i></span>`;
+                }
+              },
+              {
+                data: null,
+                title: '',
+                className: 'text-center',
+                render: data => {
+                  return `<div class="d-flex justify-content-center m-0 p-0">
+                        <button name="IR A LINK" class="btn btn-sm btn-icon btn-link-pre-formulario" title="Ir al formulario"><i class="bx bx-link"></i></button>
+                      </div>`;
+                }
+              }
+            ],
+            initComplete: function (settings, json) {
+              if ($(`#${respuestasTable}`).find('.radio-buttons').length == 0) {
+                $(`#${respuestasTable}_filter`).append(radio_group_estados);
+
+                $(`#${respuestasTable}_filter .radio-buttons #radioGroup_estado`).on('change', function () {
+                  $(`#${respuestasTable}`).DataTable().ajax.reload();
+                });
+              }
+            },
+            columnDefs: [],
+            buttons: (() => {
+              let buttons = [];
+
+              buttons.unshift({
+                text: '<i class="bx bx-plus me-0 me-md-2"></i><span class="d-none d-md-inline-block">Agregar</span>',
+                className: 'btn btn-label-primary btn-add-new',
+                action: function (e, dt, node, config) {
+                  $('#modalAddFormulario').modal('show');
+                }
+              });
+
+              return buttons;
+            })()
+          });
+        } else {
+          CrespuestasTable.ajax.reload();
+        }
+      },
+    }
+  }
+
   const usuariosCrud = {
     init: () => {
       func.selects2("FormReporte");
@@ -1227,6 +1326,7 @@ const executeView = () => {
       formularioCrud.init();
       formularioCrud.globales();
       preguntasCrud.globales();
+      respuestasCrud.globales();
       // usuariosCrud.globales();
 
       var myTabs = document.querySelectorAll('.nav-tabs button');
@@ -1246,8 +1346,8 @@ const executeView = () => {
             preguntasCrud.eventos.TABLE();
           }
 
-          if (tabPane === '#navs-usuarios') {
-            // usuariosCrud.eventos.TABLE();
+          if (tabPane === '#navs-respuestas') {
+            respuestasCrud.eventos.TABLE();
           }
         });
       });

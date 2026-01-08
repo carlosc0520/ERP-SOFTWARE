@@ -8,8 +8,9 @@ namespace CARO.DATOS.MODELO.LEGAL.ABOGADOS
         public string? NMBRS { get; set; } = null;
         public string? DCUMNTO { get; set; } = null;
         public string? RTAFTO { get; set; } = null;
-        public string? NCLGTRA { get; set; } = null;
+        public string? NCLGTRA { get; set; } = null; 
         public string? GDESPCLDD { get; set; } = null;
+        public string? GDSCRSLS { get; set; } = null;
         public string? DGDESPCLDD { get; set; } = null;
         public string? NLICNCIA { get; set; } = null;
         public string? HORARIOS { get; set; } = null;

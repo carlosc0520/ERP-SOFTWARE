@@ -1860,6 +1860,23 @@
           "lib/net462/Oracle.ManagedDataAccess.dll": {}
         }
       },
+      "Quartz/3.7.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "2.1.1",
+          "System.Configuration.ConfigurationManager": "6.0.1"
+        },
+        "compile": {
+          "lib/net6.0/Quartz.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Quartz.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
         "type": "package",
         "runtimeTargets": {
@@ -3827,6 +3844,7 @@
           "Microsoft.JSInterop": "8.0.4",
           "MimeKit": "4.4.0",
           "OpenXmlPowerTools": "4.5.3.2",
+          "Quartz": "3.7.0",
           "System.Security.Permissions": "8.0.0"
         },
         "compile": {
@@ -5958,6 +5976,26 @@
         "oracle.manageddataaccess.21.13.0.nupkg.sha512",
         "oracle.manageddataaccess.nuspec",
         "readme.txt"
+      ]
+    },
+    "Quartz/3.7.0": {
+      "sha512": "11sQqbnhv/KBLcdpj8I7KlpK/QGnNbVj8YiBLsGo4d7rm78WSukODcKlJuz7bLQ6ZF5BYkalrdHUDTgL8ZgkcQ==",
+      "type": "package",
+      "path": "quartz/3.7.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net462/Quartz.dll",
+        "lib/net462/Quartz.xml",
+        "lib/net472/Quartz.dll",
+        "lib/net472/Quartz.xml",
+        "lib/net6.0/Quartz.dll",
+        "lib/net6.0/Quartz.xml",
+        "lib/netstandard2.0/Quartz.dll",
+        "lib/netstandard2.0/Quartz.xml",
+        "quartz-logo-small.png",
+        "quartz.3.7.0.nupkg.sha512",
+        "quartz.nuspec"
       ]
     },
     "runtime.debian.8-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
@@ -10732,23 +10770,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\CARLOS\\.nuget\\packages\\": {},
+    "C:\\Users\\LENOVO\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\CARLOS\\Desktop\\CARO_ASOCIADOS\\ERP-SOFTWARE\\CARO.DATOS.CONSULTAS\\CARO.DATOS.CONSULTAS.csproj",
+      "projectUniqueName": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.CONSULTAS\\CARO.DATOS.CONSULTAS.csproj",
       "projectName": "CARO.DATOS.CONSULTAS",
-      "projectPath": "C:\\Users\\CARLOS\\Desktop\\CARO_ASOCIADOS\\ERP-SOFTWARE\\CARO.DATOS.CONSULTAS\\CARO.DATOS.CONSULTAS.csproj",
-      "packagesPath": "C:\\Users\\CARLOS\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\CARLOS\\Desktop\\CARO_ASOCIADOS\\ERP-SOFTWARE\\CARO.DATOS.CONSULTAS\\obj\\",
+      "projectPath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.CONSULTAS\\CARO.DATOS.CONSULTAS.csproj",
+      "packagesPath": "C:\\Users\\LENOVO\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.CONSULTAS\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\CARLOS\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\LENOVO\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -10763,14 +10801,14 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\CARLOS\\Desktop\\CARO_ASOCIADOS\\ERP-SOFTWARE\\CARO.CORE\\CARO.CORE.csproj": {
-              "projectPath": "C:\\Users\\CARLOS\\Desktop\\CARO_ASOCIADOS\\ERP-SOFTWARE\\CARO.CORE\\CARO.CORE.csproj"
+            "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CORE\\CARO.CORE.csproj": {
+              "projectPath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CORE\\CARO.CORE.csproj"
             },
-            "C:\\Users\\CARLOS\\Desktop\\CARO_ASOCIADOS\\ERP-SOFTWARE\\CARO.DATABASE\\CARO.DATABASE.csproj": {
-              "projectPath": "C:\\Users\\CARLOS\\Desktop\\CARO_ASOCIADOS\\ERP-SOFTWARE\\CARO.DATABASE\\CARO.DATABASE.csproj"
+            "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATABASE\\CARO.DATABASE.csproj": {
+              "projectPath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATABASE\\CARO.DATABASE.csproj"
             },
-            "C:\\Users\\CARLOS\\Desktop\\CARO_ASOCIADOS\\ERP-SOFTWARE\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj": {
-              "projectPath": "C:\\Users\\CARLOS\\Desktop\\CARO_ASOCIADOS\\ERP-SOFTWARE\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj"
+            "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj": {
+              "projectPath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj"
             }
           }
         }
@@ -10785,7 +10823,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.100"
+      "SdkAnalysisLevel": "9.0.300"
     },
     "frameworks": {
       "net8.0": {
@@ -10806,7 +10844,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.101/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
       }
     }
   },

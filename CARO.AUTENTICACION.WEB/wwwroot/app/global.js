@@ -1,5 +1,83 @@
 
-$(document).ready(function () {
+$(document).ready(async function () {
+  async function cargarMarcas() {
+    const $select = $("#condominio-actual_select");
+    const LS_MARCAS = "marcaList";
+    const LS_SELECTED = "selectedMarca";
+    const token = localStorage.getItem("accessToken");
+
+    // 🔹 Función auxiliar para llenar el select y restaurar selección
+    const llenarSelect = (marcas) => {
+      $select.empty();
+
+      // Agregar opciones
+      marcas.forEach(({ id, mrca }) => {
+        $select.append(`<option value="${id}">${mrca}</option>`);
+      });
+
+      // Esperar un pequeño tiempo para asegurar que el select esté renderizado
+      const selected = localStorage.getItem(LS_SELECTED);
+      if (selected && marcas.some(m => m.id == selected)) {
+        // Si existe el valor guardado, lo selecciona
+        $select.val(selected);
+      } else {
+        // Si no existe o fue eliminado del listado, selecciona el valor 1 por defecto
+        const defaultValue = '1';
+        const existeValor1 = marcas.some(m => m.id == defaultValue);
+        
+        if (existeValor1) {
+          localStorage.setItem(LS_SELECTED, defaultValue);
+          $select.val(defaultValue);
+        } else {
+          // Si no existe el valor 1, guarda el primero
+          const firstValue = $select.find("option:first").val();
+          localStorage.setItem(LS_SELECTED, firstValue);
+          $select.val(firstValue);
+        }
+      }
+    };
+
+    // 🔹 Registrar evento de cambio solo una vez
+    if (!$select.data("has-change-listener")) {
+      $select.on("change", function () {
+        localStorage.setItem(LS_SELECTED, $(this).val());
+      });
+      $select.data("has-change-listener", true);
+    }
+
+    // 🔹 Si ya hay datos en localStorage, úsalo directamente
+    const cached = localStorage.getItem(LS_MARCAS);
+    if (cached) {
+      const marcas = JSON.parse(cached);
+      if (Array.isArray(marcas) && marcas.length > 0) {
+        llenarSelect(marcas);
+        return; // ✅ No hace falta ir al servidor
+      }
+    }
+
+    // 🔹 Si no hay cache, obtener del servidor
+    try {
+      const response = await $.ajax({
+        url: `/Seguridad/Marcas/Index?handler=Obtener&start=0&length=100`,
+        type: "GET",
+        beforeSend: (xhr) => xhr.setRequestHeader("XSRF-TOKEN", token),
+      });
+
+      if (response?.data?.length > 0) {
+        const marcas = response.data;
+        localStorage.setItem(LS_MARCAS, JSON.stringify(marcas));
+        llenarSelect(marcas);
+      } else {
+        console.warn("⚠️ No se encontraron marcas en el servidor.");
+        $select.empty().append('<option value="">(Sin registros)</option>');
+      }
+    } catch (error) {
+      console.error("❌ Error al cargar las marcas:", error);
+    }
+  }
+
+  await cargarMarcas();
+
   const actualizarAuditoria = (isEdit = false) => {
     var $modal = $('.modal.show')?.[0];
     if ($modal) {
@@ -326,24 +404,6 @@ $(document).ready(function () {
   });
 
 
-});
-
-$.ajax({
-  url: `/Seguridad/Marcas/Index?handler=Obtener&start=0&length=100`,
-  beforeSend: function (xhr) {
-    xhr.setRequestHeader('XSRF-TOKEN', localStorage.getItem('accessToken'));
-  },
-  type: 'GET',
-  success: response => {
-    if(response?.data && response?.data.length > 0){
-      let marcas = response.data || [];
-      $("#condominio-actual_select").empty();
-      marcas.forEach(marca => {
-        $("#condominio-actual_select").append('<option value="' + marca.id + '">' + marca.mrca + '</option>');
-      });
-    }
-  },
-  error: error => reject('Ocurrió un error al cargar los datos MR')
 });
 
 $("#log-out").on('click', function () {

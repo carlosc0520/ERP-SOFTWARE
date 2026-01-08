@@ -480,8 +480,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>j7jqbn8170</Fingerprint>
-      <Integrity>v0qvt7jhDqUFzCXRji0L5rQTYakhPFpCIHKwB+jQvs0=</Integrity>
+      <Fingerprint>f0f6pizk4r</Fingerprint>
+      <Integrity>gf0+GAzvSZWhmXdy9wb/3ONPZfJFsKaJ1oS6QAH1KuM=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\app\Perfil\forms\index.js'))</OriginalItemSpec>
@@ -498,8 +498,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>mcd4umxjxt</Fingerprint>
-      <Integrity>ah3Nhnqgo1mBKQ6gLdHJJXNMPfcaIPX81m7MvpRXmgI=</Integrity>
+      <Fingerprint>5hvqhppth0</Fingerprint>
+      <Integrity>2aYXn4w87DMeevtYNSVqMoxZcSO/WnqL36u1y0T5Z+Q=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\app\Perfil\index.js'))</OriginalItemSpec>
@@ -588,8 +588,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>fuoo5gbsun</Fingerprint>
-      <Integrity>x6hqM5Q6M7Z4DiJi0eCJGH3kZs7d62GVD4veo3sEIfY=</Integrity>
+      <Fingerprint>c5xbc26usl</Fingerprint>
+      <Integrity>cM9Yw0sGx9PJvHmrsgkfSTtPFCBXFByw6Y/YkjcvubE=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\demo.css'))</OriginalItemSpec>
@@ -624,8 +624,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>f5fh3fm1u3</Fingerprint>
-      <Integrity>84V8ZjqEHRIf0/xDkRmvi5Co/K+u6cx5Mhk+kiqHy6k=</Integrity>
+      <Fingerprint>zguvx0n7t2</Fingerprint>
+      <Integrity>A52HpCql9ZQdgXW0Xdxf0v5dPX+5d5QnaJXDnDV0GOk=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.dist.css'))</OriginalItemSpec>
@@ -1007,6 +1007,24 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\img\avatars\9.png'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\img\avatars\flaca.png'))">
+      <SourceType>Package</SourceType>
+      <SourceId>CARO.AUTENTICACION.WEB</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/CARO.AUTENTICACION.WEB</BasePath>
+      <RelativePath>img/avatars/flaca.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>5jvjzg3vmq</Fingerprint>
+      <Integrity>n6ahlL29TEmJjU0BFRHb6iCvDGnuorWrlfkptrmOBrA=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\img\avatars\flaca.png'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\img\backgrounds\1.jpg'))">
       <SourceType>Package</SourceType>

@@ -1,12 +1,16 @@
-﻿using FluentFTP;
+﻿using CARO.CORE.Models;
+using FluentFTP;
 using FluentFTP.Exceptions;
+using FluentFTP.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.IO.Compression;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 
 namespace CARO.CORE
 {
@@ -15,15 +19,9 @@ namespace CARO.CORE
         private string credetencialts = "devcar0520";
         private string password = "ING052001";
         private string servidor = "win8168.site4now.net";
-
-        //private string credetencialts = "u551436692.jurisFiles";
-        //private string password = "jurisFiles123$";
-        //private string servidor = "jurissearch.com";
+        private string apiResources = "https://resourcesasociados.caroasociados.pe/";
         private string api = "http://localhost:3000/complytools";
 
-        //private string credetencialts = "devbussinnes-001";
-        //private string password = "ING052001";
-        //private string servidor = "win1083.site4now.net";
         public async Task<string> UploadFilesAPIAsync(List<IFormFile> files, string remotePath)
         {
             if (files == null || files.Count == 0)
@@ -516,6 +514,87 @@ namespace CARO.CORE
             finally
             {
                 if (client.IsConnected) client.Disconnect();
+            }
+        }
+
+
+        // pára mailings correos
+        public async Task<List<AdjuntosCorreoMalingModel>> UploadMailingImagesAsync(IEnumerable<object> data)
+        {
+            if (data == null || !data.Any())
+                throw new ArgumentException("No se han proporcionado archivos para subir.");
+
+            var client = new FtpClient(this.servidor, 21)
+            {
+                Credentials = new NetworkCredential(this.credetencialts, this.password),
+                Config =
+        {
+            ValidateAnyCertificate = true,
+            DataConnectionType = FtpDataConnectionType.AutoPassive
+        }
+            };
+
+            var result = new List<AdjuntosCorreoMalingModel>();
+
+            try
+            {
+                client.Connect();
+
+                string uniqueFolder = $"CCFIRMA/MAILINGS/{Guid.NewGuid():N}/IMAGES";
+
+                if (!client.DirectoryExists(uniqueFolder))
+                    client.CreateDirectory(uniqueFolder, true);
+
+                foreach (var item in data)
+                {
+                    var tipo = item.GetType().GetProperty("TYPE")?.GetValue(item)?.ToString();
+                    var fileProp = item.GetType().GetProperty("FILE");
+                    var file = fileProp?.GetValue(item) as IFormFile;
+
+                    if (file == null || file.Length == 0)
+                        continue;
+
+                    var cleanName = Regex.Replace(file.FileName, @"[^a-zA-Z0-9\._-]", "");
+                    string randomName = $"{Guid.NewGuid():N}_{cleanName}";
+                    string remotePath = $"{uniqueFolder}/{randomName}";
+
+                    using (var ms = new MemoryStream())
+                    {
+                        await file.CopyToAsync(ms);
+                        ms.Position = 0;
+                        client.UploadStream(ms, remotePath, FtpRemoteExists.Overwrite, true);
+                    }
+
+                    string publicUrl = $"{this.apiResources}{remotePath.Replace("\\", "/")}";
+                    var indexValue = item.GetType().GetProperty("INDEX")?.GetValue(item, null);
+                    var urlValue = item.GetType().GetProperty("URL")?.GetValue(item, null);
+                    var typeValue = item.GetType().GetProperty("TYPE")?.GetValue(item, null);
+
+                    // 🔹 Crear resultado estándar
+                    var adj = new AdjuntosCorreoMalingModel
+                    {
+                        FILE = null,
+                        URL = urlValue != null ? (string)urlValue : "",
+                        URLIMG = remotePath,
+                        URIIMG = publicUrl,
+                        INDEX = indexValue != null ? (string)indexValue : "",
+                        TYPE = typeValue != null ? (string)typeValue : ""
+                    };
+
+                    result.Add(adj);
+                }
+
+
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error subiendo imágenes del mailing: {ex.Message}", ex);
+            }
+            finally
+            {
+                if (client.IsConnected)
+                    client.Disconnect();
             }
         }
 

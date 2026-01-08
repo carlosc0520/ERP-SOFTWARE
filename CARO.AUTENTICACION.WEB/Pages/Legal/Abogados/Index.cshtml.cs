@@ -1,17 +1,18 @@
 using CARO.CONFIG;
+using CARO.CORE;
 using CARO.CORE.Helpers;
 using CARO.DATOS.CONSULTAS.LEGAL;
+using CARO.DATOS.EVENTOS.Comandos.LEGAL.ABOGADOS;
+using CARO.DATOS.MODELO.LEGAL.ABOGADOS;
+using DocumentFormat.OpenXml.Drawing.Charts;
+using DocumentFormat.OpenXml.Wordprocessing;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using CARO.DATOS.MODELO.LEGAL.ABOGADOS;
-using CARO.DATOS.EVENTOS.Comandos.LEGAL.ABOGADOS;
+using Microsoft.IdentityModel.Tokens;
+using System.Globalization;
 using System.Net;
 using System.Net.Mail;
-using CARO.CORE;
-using Microsoft.IdentityModel.Tokens;
-using DocumentFormat.OpenXml.Drawing.Charts;
-using DocumentFormat.OpenXml.Wordprocessing;
 
 namespace CARO.AUTENTICACION.WEB.wwwroot.app.Legal.Abogados
 {
@@ -161,10 +162,10 @@ namespace CARO.AUTENTICACION.WEB.wwwroot.app.Legal.Abogados
       try
       {
         comando.RUTAS = await _fileUploads.UploadFilesAsync(this.filesPath,comando.FILES);
-        string emails = "ccarbajal@ccfirma.com";
+        string emails = "kojeda@ccfirma.com,rsaldarriaga@ccfirma.com";
         string emailBody = GetEmailBody(comando, emails);
         string emailReceptor = GetEmailBody(comando, null);
-        await SendEmailAsync(emails, comando.CORREO, "Nueva Solicitud de Servicio", emailBody, emailReceptor, comando.FILES);
+        await SendEmailAsync(emails, comando.CORREO, "Nueva Solicitud de Servicio - Cita", emailBody, emailReceptor, comando.FILES);
 
         var result = await _mediator.Send(comando);
 
@@ -178,6 +179,11 @@ namespace CARO.AUTENTICACION.WEB.wwwroot.app.Legal.Abogados
 
     private string GetEmailBody(ComandoSolicitudInsertar comando, string? emails = null)
     {
+      TimeZoneInfo peruZone = TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time");
+      DateTime peruTime = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, peruZone);
+      string fecha = peruTime.ToString("dd-MM-yyyy");
+      string hora = peruTime.ToString("hh:mm tt", CultureInfo.InvariantCulture); // tt -> am/pm
+
       return $@"
       <!DOCTYPE html>
       <html lang='es'>
@@ -267,8 +273,10 @@ namespace CARO.AUTENTICACION.WEB.wwwroot.app.Legal.Abogados
               <div class='details'>
                   <p><span class='section-title'>Abogado:</span> {comando.NAME_ABGDO}</p>
                   <p><span class='section-title'>Especialidad:</span> {comando.NAME_ESPCDD}</p>
-                  <p><span class='section-title'>Fecha de Servicio:</span> {comando.FCHASERVICIO:yyyy-MM-dd}</p>
-                  <p><span class='section-title'>Hora:</span> {comando.NAME_HORA}</p>
+                  <p><span class='section-title'>Fecha de Solicitud:</span> {fecha}</p>
+                  <p><span class='section-title'>Hora:</span> {hora}</p>
+                  <p><span class='section-title'>Tipo de Atención:</span> {comando.NAME_TATENCION}</p>
+
               </div>
 
               <div class='details'>
@@ -285,7 +293,7 @@ namespace CARO.AUTENTICACION.WEB.wwwroot.app.Legal.Abogados
               <div class='signature'>
                   <img
                     style='max-width: 150px!important!'
-                    src ='https://acompliancepe.com/wp-content/uploads/2024/06/B6.png' alt='Logo'>
+                    src ='https://aicompliance.es/wp-content/uploads/2024/06/B6.png' alt='Logo'>
                   <p>Visítanos en <a href='https://ccfirma.com' style='color: #2980b9;'>ccfirma.com</a></p>
               </div>
           </div>
@@ -299,9 +307,9 @@ namespace CARO.AUTENTICACION.WEB.wwwroot.app.Legal.Abogados
  
 
       var task1 = SendEmailInternalAsync(toEmail, subject, body, files);
-      var task2 = SendEmailInternalAsync(FromEmail, subject, bodyRecepetor, null); 
+      // var task2 = SendEmailInternalAsync(FromEmail, subject, bodyRecepetor, null); 
 
-      await Task.WhenAll(task1, task2); 
+      await Task.WhenAll(task1); 
     }
 
     private async Task SendEmailInternalAsync (string toEmail, string subject, string body, List<IFormFile>? files)
@@ -321,7 +329,13 @@ namespace CARO.AUTENTICACION.WEB.wwwroot.app.Legal.Abogados
         IsBodyHtml = true
       };
 
-      mailMessage.To.Add(toEmail);
+      foreach (string email in toEmail.Split(','))
+      {
+        if (!string.IsNullOrWhiteSpace(email))
+        {
+          mailMessage.To.Add(email.Trim());
+        }
+      }
 
       if (files != null && files.Count > 0)
       {

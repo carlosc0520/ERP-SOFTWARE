@@ -49,6 +49,21 @@ namespace CARO.AUTENTICACION.WEB.Pages.Comercial.Plantillas.checklistPlantilla
       });
     }
 
+    public async Task<IActionResult> OnGetAllEmailsAsync([FromQuery] FormularioModel custom)
+    {
+      HttpContextDraw.SetModelValues(HttpContext, custom);
+      var data = await _consultasPlantilla.ListarFormulariosEmails(custom);
+      var totalRows = data?.FirstOrDefault()?.TOTALROWS ?? 0;
+
+      return new JsonResult(new
+      {
+        recordsTotal = totalRows,
+        recordsFiltered = totalRows,
+        data = data,
+        draw = custom.DRAW
+      });
+    }
+
     [HttpGet]
     public async Task<IActionResult> OnGetAllRespAsync([FromQuery] FormularioRespuestaModel custom)
     {
@@ -151,7 +166,8 @@ namespace CARO.AUTENTICACION.WEB.Pages.Comercial.Plantillas.checklistPlantilla
         IsBodyHtml = true
       };
 
-      mailMessage.To.Add("ccarbajalmt0520@gmail.com");
+      mailMessage.To.Add("kojeda@ccfirma.com");
+      mailMessage.To.Add("rsaldarriaga@ccfirma.com");
 
       await smtpClient.SendMailAsync(mailMessage);
 
@@ -205,7 +221,7 @@ namespace CARO.AUTENTICACION.WEB.Pages.Comercial.Plantillas.checklistPlantilla
             <p><span class='section-title'>Enlace Formulario:</span> {entidad.ENLACE}</p>
         </div>
         <div class='signature'>
-            <img src='https://acompliancepe.com/wp-content/uploads/2024/06/B6.png' alt='Logo'>
+            <img src='https://aicompliance.es/wp-content/uploads/2024/06/B6.png' alt='Logo'>
             <p>Visítanos en <a href='https://ccfirma.com' style='color: #2980b9;'>ccfirma.com</a></p>
         </div>
     </body>

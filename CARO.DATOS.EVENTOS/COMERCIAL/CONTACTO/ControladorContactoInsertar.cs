@@ -32,8 +32,10 @@ namespace CARO.DATOS.EVENTOS.COMERCIAL.CONTACTO
                 CLENTE   = entidad.CLENTE,
                 GDRBROC  = entidad.GDRBROC,
                 GDCRGOC  = entidad.GDCRGOC,
-                IDMRCA   = entidad.IDMRCA,
-                CESTDO = entidad.CESTDO 
+                IDMRCA   = entidad.IDMRCA_V,
+                CLIENTE = entidad.CLIENTE,
+                CESTDO = entidad.CESTDO,
+                GDSEXO = entidad.GDSEXO
             });
 
             parametros.Add("@p_cData", json);

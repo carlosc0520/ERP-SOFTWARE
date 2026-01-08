@@ -7,9 +7,9 @@
                     <h3>Editar Abogado</h3>
                 </div>
                 <form id="EditAbogado" class="row g-3" method="post">
-                    <div class="col-12 mb-3">
+                                   <div class="col-12 mb-3">
                         <label class="form-label" for="IDPRSNA">Persona <span class="text-danger">*</span></label>
-                        <select disabled id="IDPRSNA" name="IDPRSNA" class="select2 form-select" data-allow-clear="true">
+                        <select id="IDPRSNA" name="IDPRSNA" class="select2 form-select" data-allow-clear="true">
                         </select>
                     </div>
 
@@ -18,15 +18,21 @@
                         <input type="text" id="NCLGTRA" name="NCLGTRA" class="form-control max-length" data-maxlength="11" />
                     </div>
 
-                    <div class="col-md-4 col-12 mb-3">
+                    <div class="col-md-8 col-12 mb-3">
                         <label class="form-label" for="GDESPCLDD">Especialidad</label>
-                        <select id="GDESPCLDD" name="GDESPCLDD" class="select2 form-select" data-allow-clear="true">
+                        <select id="GDESPCLDD" name="GDESPCLDD" multiple class="select2 form-select" data-allow-clear="true">
                         </select>
                     </div>
 
                     <div class="col-md-4 col-12 mb-3">
                         <label class="form-label" for="NLICNCIA">N° Licencia</label>
                         <input type="text" id="NLICNCIA" name="NLICNCIA" class="form-control max-length" data-maxlength="200" />
+                    </div>
+
+                    <div class="col-md-8 col-12 mb-3">
+                        <label class="form-label" for="GDSCRSLS">Sucursales</label>
+                        <select id="GDSCRSLS" name="GDSCRSLS" multiple class="select2 form-select" data-allow-clear="true">
+                        </select>
                     </div>
 
                     <div class="col-12 text-center mt-4">

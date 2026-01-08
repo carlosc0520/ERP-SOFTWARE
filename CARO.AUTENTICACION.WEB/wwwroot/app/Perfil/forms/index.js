@@ -219,7 +219,7 @@ const executeView = () => {
 
                 if (!preguntas || preguntas.length === 0) {
                     contenedor.append('<p class="text-muted">No hay preguntas disponibles en este formulario.</p>');
-                    return; 
+                    return;
                 }
 
                 let tablaHtml = `<table class="table table-bordered bg-white rounded"><tbody>`;
@@ -280,6 +280,7 @@ const executeView = () => {
                         case 'R':
                             let IDRSP = pregunta.RESPUESTAS?.[0]?.IDRSPSTA || 0;
                             if (pregunta.ALTERNATIVAS && pregunta.ALTERNATIVAS.length > 0) {
+                                tablaHtml += `<div class="TIPO_DIV_${pregunta.GDTYPEP}">`;
                                 pregunta.ALTERNATIVAS.forEach((opcion, optIndex) => {
                                     tablaHtml += `
                                     <div class="form-check pl-0 mt-2">
@@ -290,6 +291,7 @@ const executeView = () => {
                                         <label class="form-check-label" for="pregunta_${pregunta.ID}_option_${optIndex}">${opcion.DESCP}</label>
                                     </div>`;
                                 });
+                                tablaHtml += `</div>`;
                             } else {
                                 tablaHtml += `<p class="text-muted">No hay opciones disponibles.</p>`;
                             }
@@ -552,6 +554,7 @@ const executeView = () => {
                             break;
                         case 'R': // Opción múltiple (radio)
                             if (pregunta.ALTERNATIVAS && pregunta.ALTERNATIVAS.length > 0) {
+                                tablaHtml += `<div class="TIPO_DIV_${pregunta.GDTYPEP}">`;
                                 pregunta.ALTERNATIVAS.forEach((opcion, optIndex) => {
                                     tablaHtml += `
                             <div class="form-check mt-2">
@@ -559,6 +562,7 @@ const executeView = () => {
                                 <label class="form-check-label" for="pregunta_${pregunta.ID}_option_${optIndex}">${opcion.DESCP}</label>
                             </div>`;
                                 });
+                                tablaHtml += `</div>`;
                             } else {
                                 tablaHtml += `<p class="text-muted">No hay opciones disponibles.</p>`;
                             }
@@ -736,7 +740,7 @@ const executeView = () => {
                 formData.append("CESTDO", 'A');
 
 
-                swalFire.cargando('Guardando respuestas...');
+                swalFire.cargando(['Enviando sus respuestas...', 'Esto puede tardar unos segundos. Por favor, no cierre esta ventana.']);
                 $.ajax({
                     url: uisApis.API + '=AddRespuestas',
                     beforeSend: function (xhr) {
@@ -749,12 +753,27 @@ const executeView = () => {
                     data: formData,
                     success: function (data) {
                         if (data?.codEstado > 0) {
-                            swalFire.success('formulario guardado correctamente', '', {
-                                1: () => {
-                                    window.location.href = `/Perfil/Forms/index?preview=true&id=${ID}&sendmail=${correo}`;
+                            // swalFire.success(
+                            //     'Su checklist fue enviado correctamente',
+                            //     'Nuestro equipo comercial se estará comunicando con usted en breve.',
+                            //     {
+                            //         1: () => {
+                            //             window.location.href = `/Perfil/Forms/index?preview=true&id=${ID}&sendmail=${correo}`;
+                            //         }
+                            //     }
+                            // );
+
+                            swalFire.success(
+                                'Su checklist fue enviado correctamente',
+                                'Nuestro equipo comercial se estará comunicando con usted en breve.',
+                                {
+                                    1: () => {
+                                        window.location.href = `/Perfil/Forms/index?preview=true&id=${ID}&sendmail=${correo}`;
+                                    }
                                 }
-                            });
+                            );
                         }
+
 
                         if (data?.codEstado <= 0) swalFire.error(data.mensaje);
                     },

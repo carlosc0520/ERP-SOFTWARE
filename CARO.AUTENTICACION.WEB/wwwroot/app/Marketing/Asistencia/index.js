@@ -39,6 +39,20 @@ const executeView = () => {
     return (horas + " hrs " + minutos + " min.");
   }
 
+  function combinarFechaYHoraLocal(fechaSeleccionada) {
+    const ahora = new Date();
+    const [año, mes, dia] = fechaSeleccionada.split('-');
+
+    // Obtener hora local actual
+    const horas = String(ahora.getHours()).padStart(2, '0');
+    const minutos = String(ahora.getMinutes()).padStart(2, '0');
+    const segundos = String(ahora.getSeconds()).padStart(2, '0');
+    console.log(`${año}-${mes}-${dia}T${horas}:${minutos}:${segundos}`);
+    return `${año}-${mes}-${dia}T${horas}:${minutos}:${segundos}`;
+  }
+
+
+
   // * TABLAS
   const cursosCrud = {
     init: () => {
@@ -94,6 +108,12 @@ const executeView = () => {
       });
 
       $('#modalEditConfiguracion').on('show.bs.modal', function (e) {
+        if (cursosCrud.variables.rowEdit.cestdo == 'I') {
+          $("#modalEditConfiguracion #btnEditConfiguracion").addClass('d-none');
+        } else {
+          $("#modalEditConfiguracion #btnEditConfiguracion").removeClass('d-none');
+        }
+
         myDropzoneEditConfig.removeAllFiles(true);
         configFormVal('EditConfiguracion', cursosCrud.validaciones.EDITAR, () => cursosCrud.eventos.EDITAR());
         if (cursosCrud.variables.rowEdit?.rtafto)
@@ -140,8 +160,10 @@ const executeView = () => {
                 title: 'Estado',
                 className: 'text-center',
                 render: data => {
-                  return `<span><i class="fa fa-circle ${data.cestdo == 'A' ? 'text-success' : 'text-danger'}" title=${data.cestdo == 'A' ? 'Activo' : 'Inactivo'
-                    }></i></span>`;
+                  return `<span>
+                    <i class="fa fa-circle ${data.cestdo == 'A' ? 'text-success' : 'text-black-50'}" 
+                      title=${data.cestdo == 'A' ? 'Activo' : data.cestdo == 'I' ? 'Terminado' : 'Inactivo'}>
+                    </i></span>`;
                 }
               },
               { data: 'uedcn', title: 'U. Edición' },
@@ -154,7 +176,9 @@ const executeView = () => {
                   return `<div class="d-flex justify-content-center m-0 p-0">
                         <button name="VER" class="btn btn-sm btn-icon view-calendario-row-button" title="Ver"><i class="bx bx-show"></i></button>
                         <button name="PARTICIPANTES" class="btn btn-sm btn-icon view-row-button" title="Participantes"><i class="bx bx-user"></i></button>
-                        <button name="HORAS" class="btn btn-sm btn-icon view-horas-button" title="Reg, horas"><i class="bx bx-time"></i></button>
+                        <button name="HORAS" 
+                          ${data.cestdo == 'I' ? 'disabled' : ''}
+                        class="btn btn-sm btn-icon view-horas-button" title="Reg, horas"><i class="bx bx-time"></i></button>
                         <button name="CONFIGURACION" class="btn btn-sm btn-icon view-configuracion-button" title="Configuración"><i class="bx bx-cog"></i></button>
                      </div>`;
                 }
@@ -573,13 +597,12 @@ const executeView = () => {
 
           asistenciaCrud.variables.html5QrcodeScanner.pause();
           let FCHA = $(`#${asistenciaTable}_filter #FCHA`).val();
-          let hora = new Date().toLocaleTimeString();
 
           let formData = new FormData();
           formData.append('IDCRSO', cursosCrud.variables.rowEdit.id);
           formData.append('CODIGO', decodedText);
           formData.append('IDPRTCPNTE', "");
-          formData.append('FCHA', FCHA + ' ' + hora);
+          formData.append('FCHA', combinarFechaYHoraLocal(FCHA));
           formData.append('CESTDO', 'A');
 
           swalFire.cargando(['Espere un momento', 'Estamos registrando la asistencia']);
@@ -623,54 +646,52 @@ const executeView = () => {
       },
       ASISTENCIA_2: (decodedText, referencia) => {
 
-          if (!$(`#${asistenciaTable}_filter #FCHA`).val()) {
-            swalFire.error('Ingrese una fecha válida');
-            return;
-          }
+        if (!$(`#${asistenciaTable}_filter #FCHA`).val()) {
+          swalFire.error('Ingrese una fecha válida');
+          return;
+        }
 
-          let FCHA = $(`#${asistenciaTable}_filter #FCHA`).val();
-          let hora = new Date().toLocaleTimeString();
+        let FCHA = $(`#${asistenciaTable}_filter #FCHA`).val();
+        let formData = new FormData();
+        formData.append('IDCRSO', cursosCrud.variables.rowEdit.id);
+        formData.append('CODIGO', decodedText);
+        formData.append('IDPRTCPNTE', "");
+        formData.append('FCHA', combinarFechaYHoraLocal(FCHA));
+        formData.append('CESTDO', 'A');
 
-          let formData = new FormData();
-          formData.append('IDCRSO', cursosCrud.variables.rowEdit.id);
-          formData.append('CODIGO', decodedText);
-          formData.append('IDPRTCPNTE', "");
-          formData.append('FCHA', FCHA + ' ' + hora);
-          formData.append('CESTDO', 'A');
+        swalFire.cargando(['Espere un momento', 'Estamos registrando la asistencia']);
 
-          swalFire.cargando(['Espere un momento', 'Estamos registrando la asistencia']);
+        $.ajax({
+          url: uisApis.API + '=AddAsistencia',
+          beforeSend: function (xhr) {
+            xhr.setRequestHeader('XSRF-TOKEN', localStorage.getItem('accessToken'));
+          },
+          type: 'POST',
+          dataType: 'json',
+          contentType: false,
+          processData: false,
+          data: formData,
+          success: function (data) {
+            if (data?.codEstado >= 0) {
+              swalFire.success(data.codEstado == 0 ? "Se registró su entrada correctamente" : "Se registró su salida correctamente", "", {
+                1: () => {
+                  referencia.val('');
+                  CasistenciaTable.ajax.reload();
+                }
+              });
 
-          $.ajax({
-            url: uisApis.API + '=AddAsistencia',
-            beforeSend: function (xhr) {
-              xhr.setRequestHeader('XSRF-TOKEN', localStorage.getItem('accessToken'));
-            },
-            type: 'POST',
-            dataType: 'json',
-            contentType: false,
-            processData: false,
-            data: formData,
-            success: function (data) {
-              if (data?.codEstado >= 0) {
-                swalFire.success(data.codEstado == 0 ? "Se registró su entrada correctamente" : "Se registró su salida correctamente", "", {
-                  1: () => {
-                    referencia.val('');
-                    CasistenciaTable.ajax.reload();
-                  }
-                });
-
-              }
-
-              if (data?.codEstado < 0){
-                referencia.val('');
-                swalFire.error(data.mensaje);
-              }
-            },
-            error: (jqXHR, textStatus, errorThrown) => {
-              referencia.val('');
-              swalFire.error('Ocurrió un error al registrar la asistencia');
             }
-          });
+
+            if (data?.codEstado < 0) {
+              referencia.val('');
+              swalFire.error(data.mensaje);
+            }
+          },
+          error: (jqXHR, textStatus, errorThrown) => {
+            referencia.val('');
+            swalFire.error('Ocurrió un error al registrar la asistencia');
+          }
+        });
       },
     },
     formularios: {},
@@ -749,6 +770,7 @@ const executeView = () => {
     },
     eventos: {
       TABLEPARTICIPANTES: () => {
+        console.log(cursosCrud.variables.rowEdit.cestdo)
         $(`#${participantesTable}_filter .radio-buttons #radioGroup_2`).prop('checked', true);
         $(`#${participantesTable}_title`).text('CURSO : ' + cursosCrud.variables.rowEdit?.dscrpcn || '');
 
@@ -793,8 +815,12 @@ const executeView = () => {
                 className: 'text-center',
                 render: data => {
                   return `<div class="d-flex justify-content-center m-0 p-0">
-                            <button name="EDITAR" class="btn btn-sm btn-icon edit-row-button" title="Editar"><i class="bx bx-edit"></i></button>
-                            <button name="ELIMINAR" class="btn btn-sm btn-icon delete-row-button" title="Eliminar"><i class="bx bx-trash"></i></button>
+                            <button name="EDITAR" 
+                            ${cursosCrud.variables.rowEdit.cestdo == 'I' ? 'disabled' : ''}
+                            class="btn btn-sm btn-icon edit-row-button" title="Editar"><i class="bx bx-edit"></i></button>
+                            <button 
+                            ${cursosCrud.variables.rowEdit.cestdo == 'I' ? 'disabled' : ''}
+                            name="ELIMINAR" class="btn btn-sm btn-icon delete-row-button" title="Eliminar"><i class="bx bx-trash"></i></button>
                             <button name="DESCARGAR" class="btn btn-sm btn-icon view-row-button" title="Descargar"><i class="bx bx-download"></i></button>
                             <button name="VER" class="btn btn-sm btn-icon view-view-button" title="Ver"><i class="bx bx-show me-0 me-md-2"></i></button>
                          </div>`;
@@ -809,6 +835,10 @@ const executeView = () => {
                   $(`#${participantesTable}`).DataTable().ajax.reload();
                 });
               }
+
+            },
+            drawCallback: function (settings) {
+              $(`#${participantesTable}_wrapper .btn-add-new`).prop('disabled', cursosCrud.variables.rowEdit.cestdo != 'A');
             },
             columnDefs: [],
             buttons: (() => {

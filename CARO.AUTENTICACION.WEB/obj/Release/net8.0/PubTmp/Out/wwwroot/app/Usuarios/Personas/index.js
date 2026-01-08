@@ -13,6 +13,7 @@ const executeView = () => {
   };
 
   // * VARIABLES
+  let grupoDatosBD = {};
   let personasTable = 'personasTable';
   let CpersonasTable = null;
 
@@ -26,16 +27,121 @@ const executeView = () => {
       $('#modalAddPersona').on('show.bs.modal', function (e) {
         personasCrud.variables.myDropzoneAddPersona.removeAllFiles(true);
         configFormVal('AddPersona', personasCrud.validaciones.INSERT, () => personasCrud.eventos.INSERT());
+        $('#AddPersona #PROVINCIA').html('').prop('disabled', true);
+        $('#AddPersona #DISTRITO').html('').prop('disabled', true);
+        $('#AddPersona #tblRedesSociales tbody').html('');
       });
 
-      $('#modalEditPersona').on('show.bs.modal', function (e) {
+      $('#modalEditPersona').on('show.bs.modal', async function (e) {
+        let tabla = $("#EditPersona #tblRedesSociales tbody");
+        tabla.html('');
         personasCrud.variables.myDropzoneEditPersona.removeAllFiles(true);
         configFormVal('EditPersona', personasCrud.validaciones.UPDATE, () => personasCrud.eventos.UPDATE());
         func.actualizarForm('EditPersona', personasCrud.variables.rowEdit);
+
+        console.log(personasCrud.variables.rowEdit);
+        $('#EditPersona #PROVINCIA').html('').prop('disabled', true);
+        $('#EditPersona #DISTRITO').html('').prop('disabled', true);
+        if (personasCrud.variables.rowEdit?.departamento) {
+          await globalCrud.eventos.obtenerUbigeos(2, personasCrud.variables.rowEdit.departamento, '', ['#EditPersona #PROVINCIA']);
+          $('#EditPersona #PROVINCIA').val(personasCrud.variables.rowEdit?.provincia).trigger('change');
+        }
+
+        if (personasCrud.variables.rowEdit?.provincia) {
+          await globalCrud.eventos.obtenerUbigeos(3, personasCrud.variables.rowEdit.departamento, personasCrud.variables.rowEdit.provincia, ['#EditPersona #DISTRITO']);
+          $('#EditPersona #DISTRITO').val(personasCrud.variables.rowEdit?.distrito).trigger('change');
+        }
+
+        let redes = JSON.parse(personasCrud.variables.rowEdit.redes || '[]');
+        redes.forEach(r => {
+          let textRed = grupoDatosBD['GDREDSOCIAL'].find(red => red.vlR1 === r.IDRED)?.dtlle || '';
+          tabla.append(`<tr>
+            <td>${textRed}</td>
+            <td>${r.ENLACE}</td>
+            <td class="text-center"><button type="button" class="btn btn-sm btn-danger btnEliminarRed"><i class="bx bx-trash"></i></button></td>
+            <td class="d-none">${r.ID ? `<input type="hidden" value="${r.ID}">` : ''}</td>
+          </tr>`);
+        });
+        tabla.find('.btnEliminarRed').off('click').on('click', function () {
+          $(this).closest('tr').remove();
+        });
+
         if (personasCrud.variables.rowEdit?.rtafto) {
-          let rutaArchivo = personasCrud.variables.rowEdit?.rtafto; 
+          let rutaArchivo = personasCrud.variables.rowEdit?.rtafto;
           agregarArchivoADropzone(rutaArchivo, personasCrud.variables.myDropzoneEditPersona);
         }
+      });
+
+      // SELECT
+      $('#AddPersona #DEPARTAMENTO').on('change', function () {
+        let departamento = $(this).val();
+        $('#AddPersona #PROVINCIA').html('').prop('disabled', true);
+        $('#AddPersona #DISTRITO').html('').prop('disabled', true);
+        if (departamento) globalCrud.eventos.obtenerUbigeos(2, departamento, '', ['#AddPersona #PROVINCIA']);
+      });
+
+      $('#AddPersona #PROVINCIA').on('change', function () {
+        let departamento = $('#AddPersona #DEPARTAMENTO').val();
+        let provincia = $(this).val();
+        $('#AddPersona #DISTRITO').html('').prop('disabled', true);
+        if (provincia) globalCrud.eventos.obtenerUbigeos(3, departamento, provincia, ['#AddPersona #DISTRITO']);
+      });
+
+      $('#EditPersona #DEPARTAMENTO').on('change', function () {
+        let departamento = $(this).val();
+        $('#EditPersona #PROVINCIA').html('').prop('disabled', true);
+        $('#EditPersona #DISTRITO').html('').prop('disabled', true);
+        if (departamento) globalCrud.eventos.obtenerUbigeos(2, departamento, '', ['#EditPersona #PROVINCIA']);
+      });
+
+      $('#EditPersona #PROVINCIA').on('change', function () {
+        let departamento = $('#EditPersona #DEPARTAMENTO').val();
+        let provincia = $(this).val();
+        $('#EditPersona #DISTRITO').html('').prop('disabled', true);
+        if (provincia) globalCrud.eventos.obtenerUbigeos(3, departamento, provincia, ['#EditPersona #DISTRITO']);
+      });
+
+      $("#AddPersona #btnAddRedSocial").on('click', function () {
+        let idRed = $("#AddPersona #GDREDSOCIAL").val();
+        let textRed = $("#AddPersona #GDREDSOCIAL option:selected").text();
+        let enlace = $("#AddPersona #ENLACE").val().trim();
+        if (!idRed) return swalFire.info('Seleccione una red social');
+        if (!/^https?:\/\//i.test(enlace)) return swalFire.info('Ingrese un enlace válido (http o https)');
+
+        let tabla = $("#AddPersona #tblRedesSociales tbody");
+        tabla.append(`<tr>
+          <td>${textRed}</td>
+          <td>${enlace}</td>
+          <td><button type="button" class="btn btn-sm btn-danger btnEliminarRed"><i class="bx bx-trash"></i></button></td>
+          <td class="d-none">${idRed ? `<input type="hidden" value="${idRed}">` : ''}</td>
+        </tr>`);
+
+        $("#AddPersona #GDREDSOCIAL").val('').trigger('change');
+        $("#AddPersona #ENLACE").val('');
+
+        tabla.find('.btnEliminarRed').off('click').on('click', function () {
+          $(this).closest('tr').remove();
+        });
+      });
+
+      $("#EditPersona #btnAddRedSocial").on('click', function () {
+        let idRed = $("#EditPersona #GDREDSOCIAL").val();
+        let textRed = $("#EditPersona #GDREDSOCIAL option:selected").text();
+        let enlace = $("#EditPersona #ENLACE").val().trim();
+        if (!idRed) return swalFire.info('Seleccione una red social');
+        if (!/^https?:\/\//i.test(enlace)) return swalFire.info('Ingrese un enlace válido (http o https)');
+        let tabla = $("#EditPersona #tblRedesSociales tbody");
+        tabla.append(`<tr>
+          <td>${textRed}</td>
+          <td>${enlace}</td>
+          <td class="text-center"><button type="button" class="btn btn-sm btn-danger btnEliminarRed"><i class="bx bx-trash"></i></button></td>
+          <td class="d-none"><input type="hidden" value=""></td>
+        </tr>`);
+        $("#EditPersona #GDREDSOCIAL").val('').trigger('change');
+        $("#EditPersona #ENLACE").val('');
+        tabla.find('.btnEliminarRed').off('click').on('click', function () {
+          $(this).closest('tr').remove();
+        });
       });
 
       // * FORMULARIOS
@@ -193,9 +299,8 @@ const executeView = () => {
                 title: 'Estado',
                 className: 'text-center',
                 render: data => {
-                  return `<span><i class="fa fa-circle ${data.cestdo == 'A' ? 'text-success' : 'text-danger'}" title=${
-                    data.cestdo == 'A' ? 'Activo' : 'Inactivo'
-                  }></i></span>`;
+                  return `<span><i class="fa fa-circle ${data.cestdo == 'A' ? 'text-success' : 'text-danger'}" title=${data.cestdo == 'A' ? 'Activo' : 'Inactivo'
+                    }></i></span>`;
                 }
               },
               { data: 'uedcn', title: 'U. Edición' },
@@ -223,7 +328,7 @@ const executeView = () => {
             columnDefs: [],
             buttons: (() => {
               let buttons = [
-                
+
               ];
 
               buttons.unshift({
@@ -243,21 +348,39 @@ const executeView = () => {
       },
       INSERT: () => {
         let file = personasCrud.variables.myDropzoneAddPersona.files[0];
+        let tabla = $("#AddPersona #tblRedesSociales tbody tr");
+        let redes = [];
+        tabla.each(function () {
+          let red = {};
+          let IDRED = grupoDatosBD['GDREDSOCIAL'].find(r => r.dtlle === $(this).find('td').eq(0).text());
+          red['ID'] = null,
+            red['IDRED'] = IDRED ? IDRED.vlR1 : null;
+          red['ENLACE'] = $(this).find('td').eq(1).text();
+          redes.push(red);
+        });
 
         let formData = new FormData();
-        formData.append('IDROL', $('#AddPersona #IDROL').val());
-        formData.append('IDMRCA', $('#AddPersona #IDMRCA').val());
         formData.append('NOMBRS', $('#AddPersona #NOMBRS').val());
         formData.append('SNOMBRS', $('#AddPersona #SNOMBRS').val());
         formData.append('APLLDS', $('#AddPersona #APLLDS').val());
         formData.append('SAPLLDS', $('#AddPersona #SAPLLDS').val());
         formData.append('DCUMNTO', $('#AddPersona #DCUMNTO').val());
         formData.append('CORREO', $('#AddPersona #CORREO').val());
+        formData.append('TELFNO', $('#AddPersona #TELFNO').val());
+        formData.append('DEPARTAMENTO', $('#AddPersona #DEPARTAMENTO option:selected').text());
+        formData.append('PROVINCIA', $('#AddPersona #PROVINCIA option:selected').text());
+        formData.append('DISTRITO', $('#AddPersona #DISTRITO option:selected').text());
+        formData.append('DIRECCION', $('#AddPersona #DIRECCION').val());
+        formData.append('IDMRCA', $('#AddPersona #IDMRCA').val());
+        formData.append('CARGO', $('#AddPersona #CARGO').val());
+        formData.append('IDROL', $('#AddPersona #IDROL').val());
+        formData.append('RESENA', $('#AddPersona #RESENA').val());
         formData.append('PASSWORD', $('#AddPersona #PASSWORD').val());
         formData.append('PRMSO', $('#AddPersona #PRMSO').is(':checked'));
         formData.append('FTO', file);
         formData.append('CESTDO', $('#AddPersona #CESTDO').val());
-        formData.append('ANEXO', $('#AddPersona #ANEXO').val());
+        formData.append('REDESVAR', JSON.stringify(redes));
+
 
         swalFire.cargando(['Espere un momento', 'Estamos registrando a la persona']);
         $.ajax({
@@ -274,6 +397,9 @@ const executeView = () => {
             if (data?.codEstado > 0) {
               swalFire.success('Persona registrada correctamente', '', {
                 1: () => {
+                  $('#AddPersona #tblRedesSociales tbody').html('');
+                  redes = [];
+                  personasCrud.variables.myDropzoneAddPersona.removeAllFiles(true);
                   $('#modalAddPersona').modal('hide');
                   CpersonasTable.ajax.reload();
                 }
@@ -288,20 +414,45 @@ const executeView = () => {
       UPDATE: () => {
         let file = personasCrud.variables.myDropzoneEditPersona.files[0];
         let deleteFile = false;
-        if(file && file.isExist) file = null; 
-        else if(!file) deleteFile = true;
-        
-      
+        if (file && file.isExist) file = null;
+        else if (!file) deleteFile = true;
+
+        let tabla = $("#EditPersona #tblRedesSociales tbody tr");
+        let redes = [];
+        tabla.each(function () {
+          let red = {};
+          let IDRED = grupoDatosBD['GDREDSOCIAL'].find(r => r.dtlle === $(this).find('td').eq(0).text());
+          red['ID'] = $(this).find('td').eq(3).find('input').val() || null;
+          red['IDRED'] = IDRED ? IDRED.vlR1 : null;
+          red['ENLACE'] = $(this).find('td').eq(1).text();
+          redes.push(red);
+        });
+
+        redes = redes.filter(r => r.IDRED && r.ENLACE);
+        redes.forEach(r => {
+          if (r.ID && isNaN(parseInt(r.ID))) r.ID = null;
+          else if (r.ID) r.ID = parseInt(r.ID);
+        });
+
+
+
         let formData = new FormData();
         formData.append('ID', personasCrud.variables.rowEdit.id);
-        formData.append('IDROL', $('#EditPersona #IDROL').val());
-        formData.append('IDMRCA', $('#EditPersona #IDMRCA').val());
         formData.append('NOMBRS', $('#EditPersona #NOMBRS').val());
         formData.append('SNOMBRS', $('#EditPersona #SNOMBRS').val());
         formData.append('APLLDS', $('#EditPersona #APLLDS').val());
         formData.append('SAPLLDS', $('#EditPersona #SAPLLDS').val());
         formData.append('DCUMNTO', $('#EditPersona #DCUMNTO').val());
         formData.append('CORREO', $('#EditPersona #CORREO').val());
+        formData.append('TELFNO', $('#EditPersona #TELFNO').val());
+        formData.append('DEPARTAMENTO', $('#EditPersona #DEPARTAMENTO option:selected').text());
+        formData.append('PROVINCIA', $('#EditPersona #PROVINCIA option:selected').text());
+        formData.append('DISTRITO', $('#EditPersona #DISTRITO option:selected').text());
+        formData.append('DIRECCION', $('#EditPersona #DIRECCION').val());
+        formData.append('IDMRCA', $('#EditPersona #IDMRCA').val());
+        formData.append('CARGO', $('#EditPersona #CARGO').val());
+        formData.append('IDROL', $('#EditPersona #IDROL').val());
+        formData.append('RESENA', $('#EditPersona #RESENA').val());
         formData.append('PASSWORD', $('#EditPersona #PASSWORD').val() || "");
         formData.append('PRMSO', $('#EditPersona #PRMSO').is(':checked'));
         formData.append('FTO', file);
@@ -309,6 +460,9 @@ const executeView = () => {
         formData.append('CESTDO', $('#EditPersona #CESTDO').val());
         formData.append('RTAFTO', personasCrud.variables.rowEdit?.rtafto || '');
         formData.append('ANEXO', $('#EditPersona #ANEXO').val());
+        formData.append('REDESVAR', JSON.stringify(redes));
+
+
 
         swalFire.cargando(['Espere un momento', 'Estamos actualizando a la persona']);
         $.ajax({
@@ -326,6 +480,10 @@ const executeView = () => {
               swalFire.success('Persona actualizada correctamente', '', {
                 1: () => {
                   $('#modalEditPersona').modal('hide');
+                  redes = [];
+                  personasCrud.variables.myDropzoneEditPersona.removeAllFiles(true);
+                  personasCrud.variables.rowEdit = {};
+                  $('#EditPersona #tblRedesSociales tbody').html('');
                   CpersonasTable.ajax.reload();
                 }
               });
@@ -425,10 +583,11 @@ const executeView = () => {
     init: () => {
       globalCrud.eventos.selects();
       globalCrud.eventos.selectsForm();
+      globalCrud.eventos.obtenerUbigeos(1, '', '', ["#AddPersona #DEPARTAMENTO, #EditPersona #DEPARTAMENTO"]);
     },
     eventos: {
       selects: () => {
-        let GRUPODATOS = '';
+        let GRUPODATOS = 'GDREDSOCIAL';
         if (!GRUPODATOS) return;
 
         $.ajax({
@@ -442,20 +601,13 @@ const executeView = () => {
           },
           success: function (response) {
             if (response?.data) {
-              // todos los selects dentro EditPlantilla AddPlantilla, que no sea CESTDO
-              let selects = document.querySelectorAll('#EditPlantilla select, #AddPlantilla select');
-              selects = Array.from(selects).filter(select => select.getAttribute('name') != 'CESTDO');
-
-              selects.forEach(select => {
-                const name = select.getAttribute('name');
-                const data = response.data.filter(d => d.gdpdre == name);
-                select.innerHTML = `<option value="">-- Seleccione</option>`;
-
-                if (data.length > 0) {
-                  data.forEach(d => {
-                    select.innerHTML += `<option value="${d.vlR1}">${d.dtlle}</option>`;
-                  });
-                }
+              GRUPODATOS.split(',').forEach(g => {
+                let datos = response.data.filter(d => d.gdpdre === g);
+                grupoDatosBD[g] = datos;
+                $("select[name='" + g + "']").html('<option value="">-- Seleccione</option>');
+                datos.forEach(d => {
+                  $("select[name='" + g + "']").append('<option value="' + d.vlR1 + '">' + d.dtlle + '</option>');
+                });
               });
             }
           },
@@ -475,6 +627,27 @@ const executeView = () => {
             globalCrud.generarSelects2('IDROL', resultRoles?.data || [], 'id', 'dscrpcn');
           })
           .catch(error => swalFire.error('Ocurrió un error al cargar los datos'));
+      },
+      obtenerUbigeos: async (IND, DDPRTMNTO, DPRVNCA, REF = []) => {
+        await $.ajax({
+          url: uisApis.GD + '=Ubigeos&IND=' + IND + '&DDPRTMNTO=' + DDPRTMNTO + '&DPRVNCA=' + DPRVNCA,
+          beforeSend: function (xhr) {
+            xhr.setRequestHeader('XSRF-TOKEN', localStorage.getItem('accessToken'));
+          },
+          type: 'GET',
+          success: function (response) {
+            if (response?.data.length > 0) {
+              REF.forEach(r => {
+                $(r).prop('disabled', false);
+                $(r).html('<option value="">-- Seleccione</option>');
+                response.data.forEach(d => {
+                  $(r).append(`<option value="${d.label}">${d.label}</option>`);
+                });
+              });
+            }
+          },
+          error: error => swalFire.error('Ocurrió un error al cargar los ubigeos')
+        });
       }
     },
     generarSelects2: (id, data, value, label) => {

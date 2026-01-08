@@ -7,19 +7,30 @@
                     <h3>Agregar Contacto</h3>
                 </div>
                 <form id="AddContacto" class="row g-3" method="post">
+                    <div class="col-12 col-md-6">    
+                        <label class="form-label" for="CLIENTE">Cliente Relacionado </label>
+                        <input type="text" id="CLIENTE" name="CLIENTE" class="form-control max-length noMayus" data-maxlength="300" />
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <label class="form-label" for="GDSEXO">Sexo <span class="text-danger">*</span></label>
+                        <select id="GDSEXO" name="GDSEXO" class="form-select">
+                        </select>
+                    </div>
+
                     <div class="col-12 col-md-6">
                         <label class="form-label" for="NMBRS">Nombres <span class="text-danger">*</span></label>
-                        <input type="text" id="NMBRS" name="NMBRS" class="form-control max-length" data-maxlength="200" />
+                        <input type="text" id="NMBRS" name="NMBRS" class="form-control max-length noMayus" data-maxlength="200" />
                     </div>
 
                     <div class="col-12 col-md-6">
                         <label class="form-label" for="APLLDS">Apellidos <span class="text-danger">*</span></label>
-                        <input type="text" id="APLLDS" name="APLLDS" class="form-control max-length" data-maxlength="200" />
+                        <input type="text" id="APLLDS" name="APLLDS" class="form-control max-length noMayus" data-maxlength="200" />
                     </div>
 
                     <div class="col-12 col-md-6">
                         <label class="form-label" for="EML">Email <span class="text-danger">*</span></label>
-                        <input type="text" id="EML" name="EML" class="form-control max-length" data-maxlength="300" />
+                        <input type="text" id="EML" name="EML" class="form-control max-length noMayus" data-maxlength="300" />
                     </div>
                     
                     <div class="col-12 col-md-6">
@@ -27,33 +38,35 @@
                         <input type="text" id="TLFNO" name="TLFNO" class="form-control max-length" data-maxlength="15" />
                     </div>
 
-                    <div class="col-12">
-                        <label class="form-label" for="DRCCN">Dirección</label>
-                        <input type="text" id="DRCCN" name="DRCCN" class="form-control max-length" data-maxlength="300" />
-                    </div>
-
-
                     <div class="col-12 col-md-6">
-                        <label class="form-label" for="CLENTE">Cliente</label>
-                        <input type="text" id="CLENTE" name="CLENTE" class="form-control noMayus max-length" data-maxlength="1000" />
+                        <label class="form-label" for="DRCCN">Dirección</label>
+                        <input type="text" id="DRCCN" name="DRCCN" class="form-control max-length noMayus" data-maxlength="300" />
                     </div>
 
                     <div class="col-12 col-md-6">
                         <label class="form-label" for="GDRBROC">Rubro</label>
-                        <select id="GDRBROC" name="GDRBROC" class="form-select">
+                        <select id="GDRBROC" name="GDRBROC" class="form-select select2">
                         </select>
                     </div>
 
                     <div class="col-12 col-md-6">
                         <label class="form-label" for="GDCRGOC">Cargo</label>
-                        <select id="GDCRGOC" name="GDCRGOC" class="form-select">
+                        <select id="GDCRGOC" name="GDCRGOC" class="form-select select2">
                         </select>
                     </div>
 
                     <div class="col-12 col-md-6">
                         <label class="form-label" for="IDMRCA">Marca Relacionada</label>
-                        <select id="IDMRCA" name="IDMRCA" class="form-select">
+                        <select id="IDMRCA" name="IDMRCA" class="form-select select2"> 
                         </select>
+                    </div>
+
+                    
+                    <div class="col-12 col-md-4 d-flex align-items-center gap-2">
+                        <label for="CLENTE" class="form-label mb-0">Es cliente?</label>
+                        <div class="form-check form-switch align-items-center m-0 p-0 d-flex">
+                            <input type="checkbox" id="CLENTE" name="CLENTE" class="form-check-input mx-0" />
+                        </div>
                     </div>
                     
                     <div class="col-12 text-center mt-4">

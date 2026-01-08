@@ -35,7 +35,8 @@ namespace CARO.DATOS.EVENTOS.LEGAL.ABOGADOS
                 CORREO = entidad.CORREO,
                 CELULAR = entidad.CELULAR,
                 COMENTARIOS = entidad.COMENTARIOS,
-                RUTAS = entidad.RUTAS
+                RUTAS = entidad.RUTAS,
+                GDATNCN = entidad.GDATNCN
             });
 
             parametros.Add("@p_cData", json);

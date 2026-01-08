@@ -34,6 +34,9 @@ const executeView = () => {
             $('#modalEditAbogado').on('show.bs.modal', function (e) {
                 configFormVal('EditAbogado', abogadosCrud.validaciones.UPDATE, () => abogadosCrud.eventos.UPDATE());
                 func.actualizarForm('EditAbogado', abogadosCrud.variables.rolEdit);
+                $('#EditAbogado #GDESPCLDD').val(abogadosCrud.variables.rolEdit.gdespcldd ? abogadosCrud.variables.rolEdit.gdespcldd.split(',') : []).trigger('change');
+                $('#EditAbogado #GDSCRSLS').val(abogadosCrud.variables.rolEdit.gdscrsls ? abogadosCrud.variables.rolEdit.gdscrsls.split(',') : []).trigger('change');
+
             });
 
             // * FORMULARIOS
@@ -176,6 +179,7 @@ const executeView = () => {
                 formData.append('NCLGTRA', $('#AddAbogado #NCLGTRA').val());
                 formData.append('GDESPCLDD', $('#AddAbogado #GDESPCLDD').val());
                 formData.append('NLICNCIA', $('#AddAbogado #NLICNCIA').val());
+                formData.append('GDSCRSLS', $('#AddAbogado #GDSCRSLS').val());
                 formData.append('CESTDO', $('#AddAbogado #CESTDO').val());
 
                 swalFire.cargando(['Espere un momento', 'Estamos registrando el abogado']);
@@ -211,6 +215,7 @@ const executeView = () => {
                 formData.append('NCLGTRA', $('#EditAbogado #NCLGTRA').val());
                 formData.append('GDESPCLDD', $('#EditAbogado #GDESPCLDD').val());
                 formData.append('NLICNCIA', $('#EditAbogado #NLICNCIA').val());
+                formData.append('GDSCRSLS', $('#EditAbogado #GDSCRSLS').val());
                 formData.append('CESTDO', $('#EditAbogado #CESTDO').val());
 
                 swalFire.cargando(['Espere un momento', 'Estamos actualizando el registro']);
@@ -618,7 +623,7 @@ const executeView = () => {
         },
         eventos: {
             selects2: async () => {
-                const GRUPODATOS = 'GDESPCLDD';
+                const GRUPODATOS = 'GDESPCLDD,GDSCRSLS';
                 const API1 = `${uisApis.PER}=Buscar&CESTDO=A&start=0&length=1000`;
                 const API2 = `${uisApis.GD}=ObtenerAll`;
 

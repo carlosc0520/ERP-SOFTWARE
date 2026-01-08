@@ -1,14 +1,18 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\CARLOS\\Desktop\\CARO_ASOCIADOS\\ERP-SOFTWARE\\",
+  "WorkspaceRootPath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F4E71803-BD02-443C-8562-E6BDFDE4B637}|CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj|c:\\users\\carlos\\desktop\\caro_asociados\\erp-software\\caro.datos.modelo\\com\\plantilla\\plantillamodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F4E71803-BD02-443C-8562-E6BDFDE4B637}|CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj|solutionrelative:caro.datos.modelo\\com\\plantilla\\plantillamodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{AD60ED87-01A9-4D9F-9F4F-937ABA1CB6AC}|CARO.AUTENTICACION.WEB\\CARO.AUTENTICACION.WEB.csproj|c:\\users\\lenovo\\documents\\caro_asociados\\erp-sistema\\erp-software\\caro.autenticacion.web\\pages\\comercial\\contactos\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AD60ED87-01A9-4D9F-9F4F-937ABA1CB6AC}|CARO.AUTENTICACION.WEB\\CARO.AUTENTICACION.WEB.csproj|solutionrelative:caro.autenticacion.web\\pages\\comercial\\contactos\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AD60ED87-01A9-4D9F-9F4F-937ABA1CB6AC}|CARO.AUTENTICACION.WEB\\CARO.AUTENTICACION.WEB.csproj|c:\\users\\carlos\\desktop\\caro_asociados\\erp-software\\caro.autenticacion.web\\pages\\comercial\\plantillas\\checklistplantilla\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AD60ED87-01A9-4D9F-9F4F-937ABA1CB6AC}|CARO.AUTENTICACION.WEB\\CARO.AUTENTICACION.WEB.csproj|solutionrelative:caro.autenticacion.web\\pages\\comercial\\plantillas\\checklistplantilla\\index.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{917B5B86-39CF-48D1-96DF-298B02242C9C}|CARO.DATOS.EVENTOS\\CARO.DATOS.EVENTOS.csproj|c:\\users\\lenovo\\documents\\caro_asociados\\erp-sistema\\erp-software\\caro.datos.eventos\\comandos\\comercial\\contacto\\comandocorreoinsertar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{917B5B86-39CF-48D1-96DF-298B02242C9C}|CARO.DATOS.EVENTOS\\CARO.DATOS.EVENTOS.csproj|solutionrelative:caro.datos.eventos\\comandos\\comercial\\contacto\\comandocorreoinsertar.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AD60ED87-01A9-4D9F-9F4F-937ABA1CB6AC}|CARO.AUTENTICACION.WEB\\CARO.AUTENTICACION.WEB.csproj|c:\\users\\lenovo\\documents\\caro_asociados\\erp-sistema\\erp-software\\caro.autenticacion.web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AD60ED87-01A9-4D9F-9F4F-937ABA1CB6AC}|CARO.AUTENTICACION.WEB\\CARO.AUTENTICACION.WEB.csproj|solutionrelative:caro.autenticacion.web\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,32 +22,49 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 3,
           "Children": [
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+            },
+            {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "PlantillaModel.cs",
-              "DocumentMoniker": "C:\\Users\\CARLOS\\Desktop\\CARO_ASOCIADOS\\ERP-SOFTWARE\\CARO.DATOS.MODELO\\COM\\PLANTILLA\\PlantillaModel.cs",
-              "RelativeDocumentMoniker": "CARO.DATOS.MODELO\\COM\\PLANTILLA\\PlantillaModel.cs",
-              "ToolTip": "C:\\Users\\CARLOS\\Desktop\\CARO_ASOCIADOS\\ERP-SOFTWARE\\CARO.DATOS.MODELO\\COM\\PLANTILLA\\PlantillaModel.cs",
-              "RelativeToolTip": "CARO.DATOS.MODELO\\COM\\PLANTILLA\\PlantillaModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAFsBAAAeAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.AUTENTICACION.WEB\\Program.cs",
+              "RelativeDocumentMoniker": "CARO.AUTENTICACION.WEB\\Program.cs",
+              "ToolTip": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.AUTENTICACION.WEB\\Program.cs",
+              "RelativeToolTip": "CARO.AUTENTICACION.WEB\\Program.cs",
+              "ViewState": "AgIAAGAAAAAAAAAAAAAmwG0AAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-04T17:08:25.898Z",
+              "WhenOpened": "2025-12-19T15:09:45.969Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Index.cshtml.cs",
-              "DocumentMoniker": "C:\\Users\\CARLOS\\Desktop\\CARO_ASOCIADOS\\ERP-SOFTWARE\\CARO.AUTENTICACION.WEB\\Pages\\Comercial\\Plantillas\\checklistPlantilla\\Index.cshtml.cs",
-              "RelativeDocumentMoniker": "CARO.AUTENTICACION.WEB\\Pages\\Comercial\\Plantillas\\checklistPlantilla\\Index.cshtml.cs",
-              "ToolTip": "C:\\Users\\CARLOS\\Desktop\\CARO_ASOCIADOS\\ERP-SOFTWARE\\CARO.AUTENTICACION.WEB\\Pages\\Comercial\\Plantillas\\checklistPlantilla\\Index.cshtml.cs",
-              "RelativeToolTip": "CARO.AUTENTICACION.WEB\\Pages\\Comercial\\Plantillas\\checklistPlantilla\\Index.cshtml.cs",
-              "ViewState": "AgIAADAAAAAAAAAAAAAowDQAAABbAAAAAAAAAA==",
+              "Title": "ComandoCorreoInsertar.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.EVENTOS\\Comandos\\COMERCIAL\\CONTACTO\\ComandoCorreoInsertar.cs",
+              "RelativeDocumentMoniker": "CARO.DATOS.EVENTOS\\Comandos\\COMERCIAL\\CONTACTO\\ComandoCorreoInsertar.cs",
+              "ToolTip": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.EVENTOS\\Comandos\\COMERCIAL\\CONTACTO\\ComandoCorreoInsertar.cs",
+              "RelativeToolTip": "CARO.DATOS.EVENTOS\\Comandos\\COMERCIAL\\CONTACTO\\ComandoCorreoInsertar.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-09-04T17:07:33.425Z",
+              "WhenOpened": "2025-12-19T14:57:45.155Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Index.cshtml.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.AUTENTICACION.WEB\\Pages\\Comercial\\Contactos\\Index.cshtml.cs",
+              "RelativeDocumentMoniker": "CARO.AUTENTICACION.WEB\\Pages\\Comercial\\Contactos\\Index.cshtml.cs",
+              "ToolTip": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.AUTENTICACION.WEB\\Pages\\Comercial\\Contactos\\Index.cshtml.cs",
+              "RelativeToolTip": "CARO.AUTENTICACION.WEB\\Pages\\Comercial\\Contactos\\Index.cshtml.cs",
+              "ViewState": "AgIAABgBAAAAAAAAAAAlwPYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-19T14:50:01.024Z",
               "EditorCaption": ""
             }
           ]

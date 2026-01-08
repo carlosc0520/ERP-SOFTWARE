@@ -7,6 +7,8 @@ namespace CARO.DATOS.MODELO.COM.SOLICITUD
         public string? GDSUCRSLS {get;set;} = null;
         public string? DGDSUCRSLS { get; set; } = null;
         public string? GDESPCLDD {get;set;} = null;
+        public string? GDATNCN { get; set; } = null;
+        public string? DGDATNCN { get; set; } = null;
         public string? DGDESPCLDD { get; set; } = null;
         public string? ABOGADO {get;set;} = null;
         public DateTime? FCHASERVICIO {get;set;} = null;

@@ -29,6 +29,7 @@
             public const string CursoCrud = "COM.USP_CRUD_MCTB02";
             public const string DetalleCursoCrud = "COM.USP_CRUD_MCTB03";
             public const string ContactosCrud = "COM.USP_CRUD_MCTB05";
+            public const string MailingsCrud = "COM.SP_GestionMailing";
             public const string EmailCrud = "COM.USP_CRUD_MCTB06";
             public const string ProfesoresCrud = "COM.USP_CRUD_MCTB08";
             public const string SponsorsCrud = "COM.USP_CRUD_MCTB09";

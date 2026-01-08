@@ -71,12 +71,15 @@ namespace CARO.CONFIG
          
         public static class CORREOS_CONTACTO
         {
-            public const string CORREO = "formulariocaro@gmail.com";
-            public const string KEY = "januurqltfrfixce";
+            //public const string CORREO = "formulariocaro@gmail.com";
+            //public const string KEY = "januurqltfrfixce";
             //public const string CORREO = "jsearch@ccfirma.com";
             //public const string KEY = "frspnpiwgacpyfzm";
             //public const string CORREO = "ccarbajalmt0520@gmail.com";
             //public const string KEY = "qcigvfwwdyrwelib";
+
+            public const string CORREO = "comunicacion@ccfirma.com";
+            public const string KEY = "mojhkabgffoklvlx";
         }
     }
 }

@@ -29,6 +29,7 @@ namespace CARO.DATOS.EVENTOS.LEGAL.ABOGADOS
                 NCLGTRA = entidad.NCLGTRA,
                 GDESPCLDD = entidad.GDESPCLDD,
                 NLICNCIA = entidad.NLICNCIA,
+                GDSCRSLS = entidad.GDSCRSLS,
                 CESTDO = entidad.CESTDO
             });
 

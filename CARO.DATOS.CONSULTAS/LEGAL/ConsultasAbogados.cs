@@ -33,7 +33,8 @@ namespace CARO.DATOS.CONSULTAS.LEGAL
                 INIT = custom.INIT,
                 ROWS = custom.ROWS,
                 ID = custom.ID,
-                GDESPCLDD = custom.GDESPCLDD
+                GDESPCLDD = custom.GDESPCLDD,
+                GDSCRSLS  = custom.GDSCRSLS
             }).ToUpper();
 
             parametros.Add("@p_cData", json);

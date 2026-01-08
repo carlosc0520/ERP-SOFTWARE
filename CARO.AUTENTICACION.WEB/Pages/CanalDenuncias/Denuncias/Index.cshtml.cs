@@ -525,7 +525,7 @@ namespace CARO.AUTENTICACION.WEB.Pages.CanalDenuncias.Denuncias
       <body>
           <div class='container'>
               <div class='header'>
-                  <img src='https://acompliancepe.com/wp-content/uploads/2024/06/B6.png' alt='Logo'>
+                  <img src='https://aicompliance.es/wp-content/uploads/2024/06/B6.png' alt='Logo'>
               </div>
               <div class='content'>
                   {cuerpo}

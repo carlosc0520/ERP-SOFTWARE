@@ -10,6 +10,7 @@ namespace CARO.DATOS.EVENTOS.Comandos.LEGAL.ABOGADOS
         public int? IDPRSNA { get; set; } = null;
         public string? NCLGTRA { get; set; } = null;
         public string? GDESPCLDD { get; set; } = null;
+        public string? GDSCRSLS { get; set; } = null;
         public string? NLICNCIA { get; set; } = null;
  
     }

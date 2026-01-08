@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="~/vendor/libs/flatpickr/flatpickr.dist.css" />
     <link rel="stylesheet" href="~/vendor/libs/dropzone/dropzone.dist.css" />
     <link rel="stylesheet" href="~/vendor/libs/select2/select2.dist.css" /> 
+    <link rel="stylesheet" href="https://unpkg.com/multiple-select@2.2.0/dist/multiple-select.min.css">
 }
 
 @section VendorScripts {
@@ -32,6 +33,8 @@
     <script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
     <script src="~/vendor/libs/dropzone/dropzone.dist.js"></script>
     <script src="~/vendor/libs/jquery-repeater/jquery-repeater.dist.js"></script>
+    <script src="https://unpkg.com/multiple-select@2.2.0/dist/multiple-select.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 }
 
 @section PageScripts { 
@@ -41,6 +44,48 @@
 @section PageStyles {
     <link rel="stylesheet" href="~/vendor/css/pages/app-email.dist.css" />
 }
+
+<style>
+    .quill-editor { height: 150px; }
+    .preview-body img { max-width: 100%; border-radius: 10px; }
+
+    .quill-container {
+        position: relative !important;
+        z-index: 0 !important;
+        overflow: hidden !important;
+        min-height: 180px !important;
+    }
+
+    .ql-toolbar.ql-snow {
+        border-radius: 0.5rem 0.5rem 0 0 !important;
+        z-index: 1 !important;
+    }
+
+    .ql-container.ql-snow {
+        border-radius: 0 0 0.5rem 0.5rem !important;
+        min-height: 150px !important;
+        background-color: #fff !important;
+        position: relative !important;
+        z-index: 0 !important;
+    }
+
+    #mensaje1 {
+        margin-bottom: 1rem !important;
+    }
+
+    .bloque-fila-imagenes {
+        display: flex;
+        gap: 10px;
+        margin: 10px 0;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+    }
+    .bloque-fila-imagenes img {
+        max-width: 180px;
+        border-radius: 6px;
+    }
+
+</style>
 
 
 @* ************** Content ************** *@
@@ -52,24 +97,27 @@
 <div class="col-12">
     <div class="nav-align-top mb-4"> 
         <ul class="nav nav-tabs nav-fill" role="tablist">
-            <li class="nav-item"> 
-                <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
-                        data-bs-target="#navs-email" aria-controls="navs-email" aria-selected="false">
-                    <i class="tf-icons bx bx-user me-1"></i> Emails
-                </button>
-            </li>  
             <li class="nav-item">
-                <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+                <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
                         data-bs-target="#navs-add-contacto" aria-controls="navs-add-contacto" aria-selected="false">
                     <i class="tf-icons bx bx-plus me-1"></i> Contactos
                 </button>
             </li>
+            <li class="nav-item"> 
+                <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+                        data-bs-target="#navs-email-send" aria-controls="navs-email-send" aria-selected="false">
+                    <i class="tf-icons bx bx-user me-1"></i> Emails
+                </button>
+            </li>  
+            <li class="nav-item"> 
+                <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
+                        data-bs-target="#navs-email" aria-controls="navs-email" aria-selected="false">
+                    <i class="tf-icons bx bx-envelope me-1"></i> Enviar Mailing
+                </button>
+            </li>  
         </ul> 
         <div class="tab-content p-0"> 
-            <div class="tab-pane fade show active" id="navs-email" role="tabpanel">
-                @await Html.PartialAsync("./_Partials/_EmailContactos")
-            </div> 
-            <div class="p-2 tab-pane fade" id="navs-add-contacto" role="tabpanel">
+            <div class="p-2 tab-pane fade show active" id="navs-add-contacto" role="tabpanel">
                 <div class="py-4" id="inner-html">
                 </div>
                 <div class="table-responsive pb-0">
@@ -77,9 +125,75 @@
                     </table>
                 </div>
             </div>
+            <div class="p-2 tab-pane fade" id="navs-email-send" role="tabpanel">
+                <div class="py-4" id="inner-html">
+                </div>
+                <div class="table-responsive pb-0">
+                    <table id="emailsTable" class="mx-1 table border-top">
+                    </table>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="navs-email" role="tabpanel">
+                <div class="container py-4">
+                    <h3 class="mb-4 fw-bold text-primary">🧩 Diseñador de Correos</h3>
+
+                    <div class="p-3">
+                        <div class="row g-3">
+                            <div class="col-12 col-lg-6">
+                                <div id="formularioContainer"></div>
+                            </div>
+
+                            <div class="col-12 col-lg-6">
+                                <div id="previewContainer"
+                                    class="border rounded-3 bg-white shadow-sm p-3"
+                                    style="min-height:400px; overflow-y:visible;">
+                                    <p class="text-muted">La vista previa aparecerá aquí...</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div> 
         </div>
     </div> 
 </div>
 
+<div class="modal fade" id="modalVistaPrevia" tabindex="-1" aria-labelledby="vistaPreviaLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-simple">
+    <div class="modal-content shadow-lg">
+      <div class="modal-body">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div id="vistaPreviaBody" class="mt-2 p-3 bg-white border rounded-3 shadow-sm"></div>
+      </div>
+      <div class="modal-footer">
+        <div class="col-12 text-center mt-4">
+            <button id="btnAddMailing" type="button" class="btn btn-primary me-sm-3 me-1">Enviar <i class="bx bx-paper-plane ms-1"></i></button>
+            <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalMetricas" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-simple">
+    <div class="modal-content shadow">
+      <div class="modal-body">
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+
+        <h4 class="mb-3">📊 Métricas del Mailing</h4>
+
+        <div id="metricasGeneral" class="mb-4"></div>
+        <table id="tablaMetricas" class="table table-striped"></table>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
 @await Html.PartialAsync("./_Partials/_ModalAgregarContacto")
 @await Html.PartialAsync("./_Partials/_ModalEditarContacto") 
+@await Html.PartialAsync("./_Partials/_ModalCargaMasiva") 

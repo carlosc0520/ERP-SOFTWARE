@@ -1,0 +1,35 @@
+<div class="modal fade" id="modalAddMasivoContacto" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-simple modal-edit-user">
+        <div class="modal-content p-3 p-md-5">
+            <div class="modal-body">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="text-center mb-4">
+                    <h3>Carga Masiva</h3>
+                </div>
+                <form id="AddMasivoContacto" class="row g-3" method="post">
+                    <div class="col-12 mb-3">
+                        <label for="archivoContactos" class="form-label fw-semibold">Archivo de contactos <span class="text-danger">*</span></label>
+                        <input type="file" id="archivoContactos" class="form-control" accept=".xlsx,.xls,.txt" required />
+                        <div class="form-text">Solo se permiten archivos Excel (.xlsx, .xls) o TXT (.txt)</div>
+                    </div>
+
+                    <div class="col-12">    
+                        <div class="table-responsive pb-0">
+                            <table id="cargaContactosTable" class="mx-1 table border-top">
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="col-12 text-center mt-4">
+                        <button id="btnAddMasivoContacto" class="btn btn-primary me-sm-3 me-1">Cargar</button>
+                        <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Cancelar</button>
+                    </div>
+
+
+                    @await Html.PartialAsync("../../../_Partials/_Auditoria.cshtml")
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

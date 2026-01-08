@@ -1,30 +1,44 @@
 using CARO.CONFIG;
+using CARO.CORE;
 using CARO.CORE.Helpers;
+using CARO.CORE.Models;
 using CARO.DATOS.CONSULTAS.COM;
+using CARO.DATOS.CONSULTAS.SEG;
 using CARO.DATOS.EVENTOS.Comandos.COMERCIAL.CONTACTO;
 using CARO.DATOS.MODELO.COM.CONTACTO;
+using CARO.DATOS.MODELO.SEG.GRUPODATO;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Newtonsoft.Json;
-using System.Net;
-using System.Net.Mail;
+using Quartz.Util;
+using System.Text.Json;
 
 namespace CARO.AUTENTICACION.WEB.Pages.Comercial.Contactos
 {
   [IgnoreAntiforgeryToken(Order = 1001)]
   public class IndexModel : PageModel
-    {
+  {
     private readonly IMediator _mediator;
     private readonly IConsultasContacto _consultasContacto;
+    private readonly IConsultasGrupoDato _consultasGrupoDato;
+
+    private readonly FileUploads _fileUploads;
+    private readonly EventosHandler _eventosHandler;
+    private readonly SchedulerService _schedulerService;
 
     public IndexModel(
       IConsultasContacto consultasContacto,
-      IMediator mediator
+      IMediator mediator,
+      SchedulerService schedulerService,
+      IConsultasGrupoDato consultasGrupoDato
     )
     {
       _consultasContacto = consultasContacto;
       _mediator = mediator;
+      _fileUploads = new FileUploads();
+      _eventosHandler = new EventosHandler();
+      _schedulerService = schedulerService;
+      _consultasGrupoDato = consultasGrupoDato;
     }
 
     #region CONTACTOS
@@ -35,6 +49,24 @@ namespace CARO.AUTENTICACION.WEB.Pages.Comercial.Contactos
       {
         HttpContextDraw.SetModelValues(HttpContext, custom);
         var cursos = await _consultasContacto.Listar(custom);
+        var totalRows = cursos?.FirstOrDefault()?.TOTALROWS ?? 0;
+        return new JsonResult(new { recordsTotal = totalRows, recordsFiltered = totalRows, data = cursos, draw = custom.DRAW });
+      }
+      catch (Exception ex)
+      {
+        return BadRequest(new { success = false, message = "Ocurrió un error al listar los cursos.", error = ex.Message });
+      }
+
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> OnGetBuscarMailingsAsync([FromQuery] MailingModel custom)
+    {
+      try
+      {
+        HttpContextDraw.SetModelValues(HttpContext, custom);
+        custom.UCRCN = HttpContextDraw.User(HttpContext, 1);
+        var cursos = await _consultasContacto.ListarMailings(custom);
         var totalRows = cursos?.FirstOrDefault()?.TOTALROWS ?? 0;
         return new JsonResult(new { recordsTotal = totalRows, recordsFiltered = totalRows, data = cursos, draw = custom.DRAW });
       }
@@ -85,145 +117,381 @@ namespace CARO.AUTENTICACION.WEB.Pages.Comercial.Contactos
 
     #endregion
 
-    #region EMAIL
-
-    [HttpGet]
-    public async Task<IActionResult> OnGetBuscarEmailsAsync([FromQuery] DetEmailModel custom)
+    #region MAILINGS  
+    [HttpPost]
+    public async Task<IActionResult> OnPostSendMailingAsync([FromForm] ComandoCorreoInsertar comando)
     {
       try
       {
-        HttpContextDraw.SetModelValues(HttpContext, custom);
-        var emailsModel = await _consultasContacto.ListarEmails(custom);
-        var totalRows = emailsModel?.FirstOrDefault()?.TOTALROWS ?? 0;
-        return new JsonResult(new { recordsTotal = totalRows, recordsFiltered = totalRows, data = emailsModel, draw = custom.DRAW });
+        // ---------------------------
+        // ✔ Validaciones iniciales
+        // ---------------------------
+        if (comando == null)
+          return BadRequest("El comando recibido es nulo.");
+
+        if (string.IsNullOrWhiteSpace(comando.MSJE))
+          return BadRequest("El mensaje HTML no puede estar vacío.");
+
+        if (string.IsNullOrWhiteSpace(comando.CORREOSEND))
+          return BadRequest("Debe configurar el correo de envio.");
+
+        if (string.IsNullOrWhiteSpace(comando.ASNTO))
+          comando.ASNTO = "(sin asunto)";
+
+        // ---------------------------
+        // ✔ Separar destinatarios
+        // ---------------------------
+        if (comando.CNTCTS == null || comando.CNTCTS.Count == 0)
+          return BadRequest("Debe proporcionar al menos un destinatario.");
+
+        // Limpiar, normalizar y eliminar duplicados
+        List<string> destinatarios = comando.CNTCTS
+            .Select(x => x?.Trim())
+            .Where(x => !string.IsNullOrWhiteSpace(x))
+            .Distinct(StringComparer.OrdinalIgnoreCase)
+            .ToList();
+
+        if (destinatarios.Count == 0)
+          return BadRequest("No se encontraron destinatarios válidos.");
+
+        try
+        {
+          // ---------------------------
+          // ✔ Subir imágenes si existen
+          // ---------------------------
+          List<AdjuntosCorreoMalingModel>? imagenesSubidas = null;
+
+          if (comando.DATA != null && comando.DATA.Any())
+          {
+            try
+            {
+              imagenesSubidas = await _fileUploads.UploadMailingImagesAsync(comando.DATA);
+
+              if (imagenesSubidas != null)
+              {
+                foreach (var img in imagenesSubidas)
+                {
+                  if (!string.IsNullOrEmpty(img?.URIIMG) && !string.IsNullOrEmpty(img?.INDEX))
+                  {
+                    comando.MSJE = comando.MSJE.Replace(
+                        $"src=\"{img.INDEX}\"",
+                        $"src=\"{img.URIIMG}\""
+                    );
+                  }
+                }
+              }
+            }
+            catch (Exception ex)
+            {
+              return StatusCode(500, new { success = false, error = $"Error al subir imágenes: {ex.Message}" });
+            }
+          }
+
+          // ---------------------------
+          // ✔ Obtener usuario actual
+          // ---------------------------
+          string usuarioActual = "automatic_mailing";
+          try
+          {
+            usuarioActual = HttpContextDraw.User(HttpContext, 1) ?? "automatic_mailing";
+          }
+          catch { }
+          comando.UCRCN = usuarioActual;
+
+          // ---------------------------
+          // ✔ Preparar JSON de imágenes
+          // ---------------------------
+          string? imagenesJson = null;
+          try
+          {
+            if (imagenesSubidas != null)
+            {
+              imagenesJson = JsonSerializer.Serialize(new
+              {
+                imagenes = imagenesSubidas.Select(i => new
+                {
+                  i.INDEX,
+                  i.URIIMG,
+                  i.URL,
+                  TYPE = i.TYPE
+                })
+              });
+            }
+          }
+          catch (Exception ex)
+          {
+            return StatusCode(500, new { success = false, error = $"Error serializando imágenes: {ex.Message}" });
+          }
+
+          // ---------------------------
+          // ✔ Insertar mailing (SP)
+          // ---------------------------
+          var comandoMailingInsertar = new ComandoMailingInsertar
+          {
+            MAILING_ID = 0,
+            INDICADOR = 1,
+            ASUNTO = comando.ASNTO,
+            CUERPO_HTML = comando.MSJE,
+            IMAGENES_JSON = imagenesJson,
+            UCRCN = comando.UCRCN,
+            DESTINATARIOS = string.Join(',', destinatarios),
+            DESTINATARIO = null,
+            MENSAJE = comando.MENSAJE,
+            FPROGRAMADA = comando.FPROGRAMADA,
+            ESTADO = comando.FPROGRAMADA != null ? "PENDIENTE" : "ENVIADO",
+            EVENTO = "SENT",
+            IDMRCA = comando.IDMRCA,
+            CORREOSEND = comando.CORREOSEND,
+            PLACEHOLDER = comando.PLACEHOLDER
+          };
+
+          var respuestaSP = await _mediator.Send(comandoMailingInsertar);
+          decimal mailingId = respuestaSP?.CodEstado ?? -1;
+
+          if (mailingId <= 0)
+            return StatusCode(500, new { success = false, error = "No se pudo insertar el mailing en BD." });
+
+          // ---------------------------
+          // ✔ Programación futura
+          // ---------------------------
+          if (comando.FPROGRAMADA != null)
+          {
+            return new JsonResult(new
+            {
+              success = true,
+              mailingId,
+              message = "Se programó el envío correctamente."
+            });
+          }
+
+
+          // ---------------------------
+          // ✔ llamada para el secret key
+          // ---------------------------
+          EmailSendModel correoModel = await _consultasGrupoDato.obtenerEmailSend(new EmailSendModel
+          {
+            CRREO = comando.CORREOSEND
+          });
+
+          if (correoModel == null || string.IsNullOrEmpty(correoModel.SECRETKEY))
+          {
+            return StatusCode(500, new
+            {
+              success = false,
+              error = "No se pudo obtener la configuración del correo de envío."
+            });
+          }
+
+
+          // ---------------------------
+          // ✔ Envío en paralelo
+          // ---------------------------
+          var tareas = destinatarios.Select(email =>
+          {
+            return _eventosHandler.EnviarCorreoIndividualAsync(
+                email,
+                comando.ASNTO,
+                comando.MSJE,
+                mailingId,
+                imagenesSubidas,
+                comando.CONTACTOS_DATA,
+                comando.CORREOSEND,
+                correoModel.SECRETKEY,
+                comando.PLACEHOLDER
+            );
+          });
+
+          var resultados = await Task.WhenAll(tareas);
+
+          return new JsonResult(new
+          {
+            success = true,
+            mailingId,
+            resultados,
+            message = "Correos enviados correctamente."
+          });
+        }
+        catch (Exception ex)
+        {
+          return StatusCode(500, new
+          {
+            success = false,
+            error = ex.Message,
+            detail = ex.ToString()
+          });
+        }
       }
       catch (Exception ex)
       {
-        return BadRequest(new { success = false, message = "Ocurrió un error al listar los emails.", error = ex.Message });
-      }
-
-    }
-
-
-
-    [HttpPost]
-    public async Task<IActionResult> OnPostSendMailAsync([FromForm] ComandoCorreoInsertar comando)
-    {
-      if (string.IsNullOrWhiteSpace(comando.CNTCTS) || string.IsNullOrWhiteSpace(comando.MSJE))
-      {
-        return BadRequest("Contactos o mensaje vacíos");
-      }
-
-      // Separar los correos electrónicos por ',' y remover espacios en blanco
-      var destinatarios = comando.CNTCTS.Split(',')
-                                        .Select(correo => correo.Trim())
-                                        .Where(correo => !string.IsNullOrWhiteSpace(correo))
-                                        .ToList();
-
-      if (!destinatarios.Any())
-      {
-        return BadRequest("No se han proporcionado destinatarios válidos.");
-      }
-
-
-      List<AdjuntoModel> adjuntosImagenes = JsonConvert.DeserializeObject<List<AdjuntoModel>>(comando.ADJUNTOS);
-      comando.DATA = adjuntosImagenes;
-
-      var result = await _mediator.Send(comando);
-      EmailModel entidadEmail = new EmailModel();
-      entidadEmail.IDNTCA = result.Retorno;
-      List<EmailModel> datosEmail = await _consultasContacto.ListarAdjuntos(entidadEmail);
-
-
-
-      // Tareas paralelas para el envío de correos
-      var tareasEnvio = destinatarios.Select(destinatario => EnviarCorreo(destinatario, comando.ASNTO, comando.MSJE, datosEmail , result.Retorno)).ToList();
-
-      // Ejecutar todas las tareas de envío
-      await Task.WhenAll(tareasEnvio);
-
-      return new JsonResult(new { status = 200, success = true, mensaje = "Correos enviados correctamente" });
-    }
-
-    private async Task EnviarCorreo(string destinatario, string asunto, string mensajeHtml, List<EmailModel> adjuntosImagenes, int retorno)
-    {
-
-      try
-      {
-        using (var smtpClient = new SmtpClient("smtp.gmail.com"))
-        {
-          smtpClient.Port = 587;
-          smtpClient.UseDefaultCredentials = false;
-          smtpClient.Credentials = new NetworkCredential(ConfiguracionProyecto.CORREOS_CONTACTO.CORREO, ConfiguracionProyecto.CORREOS_CONTACTO.KEY);
-          smtpClient.EnableSsl = true;
-
-          string mensajeHtmlConImagenes = $@"{mensajeHtml}";
-          foreach (var adjunto in adjuntosImagenes)
-          {
-            mensajeHtmlConImagenes += $@"
-              <div style='text-align: center; margin-bottom: 5px;'>
-                  <a href='{ConfiguracionProyecto.HOST}Comercial/Contactos/Index?handler=SendMailUrl&REDIRECT={adjunto.ID}&IDNTCA={retorno}' target='_blank'>
-                      <img src='{adjunto.IMGURL}' alt='Imagen' width='600' />
-                  </a>
-              </div>";
-          }
-
-          mensajeHtmlConImagenes += $@"
-          <div style='width: 100%; height: 1px; background-color: #cccccc; margin-top: 70px;'></div>
-          <div style='margin-top: 5px; font-size: 12px; color: #666666!important; text-align: center;'>
-              <p>This email was sent to {destinatario.ToLower()}</p>
-              <p>Caro & Asociados · Av.Víctor Andrés Belaunde N°370 San Isidro, Lima 27, Perú · Lima 15000 · Peru</p>
-          </div>";
-
-          mensajeHtmlConImagenes += @"
-          <div style='text-align: center; margin-top: 20px;'>
-              <a href='https://ccfirma.com/' target='_blank'>
-                  <img src='https://acompliancepe.com/wp-content/uploads/2024/06/B6.png' alt='Imagen Final' width='137' height='53' />
-              </a>
-          </div>";
-
-          var mailMessage = new MailMessage
-          {
-            From = new MailAddress(ConfiguracionProyecto.CORREOS_CONTACTO.CORREO, "Caro & Asociados"),
-            Subject = asunto,
-            Body = mensajeHtmlConImagenes,
-            IsBodyHtml = true  
-          };
-
-          mailMessage.To.Add(destinatario);
-
-          await smtpClient.SendMailAsync(mailMessage);
-        }
-      }
-      catch (Exception ex)  
-      {
-        Console.WriteLine($"Error enviando correo a {destinatario}: {ex.Message}");
+        return StatusCode(500, "Error interno del servidor: " + ex.Message);
       }
     }
-    #endregion
 
-    #region VISTAS-POR-NOTICIA
+
     [HttpGet]
-    public async Task<IActionResult> OnGetSendMailUrlAsync([FromQuery] ComandoIncrementView comando)
+    public async Task<IActionResult> OnGetRunPendingMailingsAsync()
     {
       try
       {
-        var result = await _mediator.Send(comando);
-        EmailModel entidadEmail = new EmailModel();
-        entidadEmail.IDNTCA = int.Parse(comando.IDNTCA);
-        entidadEmail.REDURL = comando.REDIRECT;
-        List<EmailModel> datosEmail = await _consultasContacto.ListarAdjuntos(entidadEmail);
-        EmailModel primero = datosEmail.FirstOrDefault();
-
-        return Redirect(primero.REDURL);
-
+        await _schedulerService.RunPendingsNowAsync();
+        return new JsonResult(new { success = true, message = "Processos ejecutados correctamente." });
       }
-      catch (Exception ex) {
-        return Redirect(comando.REDIRECT);
+      catch (Exception ex)
+      {
+        return StatusCode(500, ex.Message);
       }
     }
 
 
     #endregion
+
+    #region ENDPOINTS_METRICAS_MAILING
+    [HttpGet]
+    public async Task<IActionResult> OnGetMailingOpenAsync([FromQuery] int mailingId, [FromQuery] string destinatario)
+    {
+      if (mailingId <= 0 || string.IsNullOrEmpty(destinatario))
+        return BadRequest("Parámetros inválidos");
+
+      var comando = new ComandoMailingInsertar
+      {
+        MAILING_ID = mailingId,
+        INDICADOR = 2,
+        DESTINATARIO = destinatario,
+        EVENTO = "OPEN"
+      };
+
+      await _mediator.Send(comando);
+
+      // Devuelve una imagen transparente para el pixel tracking
+      return File(new byte[] { }, "image/png");
+    }
+
+    // 🔹 Click en enlaces o imágenes
+    [HttpGet]
+    public async Task<IActionResult> OnGetMailingClickAsync([FromQuery] int mailingId, [FromQuery] string destinatario, [FromQuery] string link, [FromQuery] string index = null, [FromQuery] string type = null)
+    {
+      if (mailingId <= 0 || string.IsNullOrEmpty(destinatario) || string.IsNullOrEmpty(link))
+        return BadRequest("Parámetros inválidos");
+
+      var evento = "CLICK" + (string.IsNullOrEmpty(index) ? "" : $"_IMG{index}");
+
+      var comando = new ComandoMailingInsertar
+      {
+        MAILING_ID = mailingId,
+        INDICADOR = 2,
+        DESTINATARIO = destinatario,
+        EVENTO = evento
+      };
+
+      await _mediator.Send(comando);
+
+      // Redirige al link real
+      return Redirect(link);
+    }
+
+    // 🔹 Reenvío del correo
+    [HttpGet]
+    public async Task<IActionResult> OnGetMailingForwardAsync([FromQuery] int mailingId, [FromQuery] string destinatario)
+    {
+      if (mailingId <= 0 || string.IsNullOrEmpty(destinatario))
+        return BadRequest("Parámetros inválidos");
+
+      var comando = new ComandoMailingInsertar
+      {
+        MAILING_ID = mailingId,
+        INDICADOR = 2,
+        DESTINATARIO = destinatario,
+        EVENTO = "FORWARD"
+      };
+
+      await _mediator.Send(comando);
+
+      // No se necesita contenido, solo registrar evento
+      return new EmptyResult();
+    }
+
+    // 🔹 Cancelación de suscripción
+    [HttpGet]
+    public async Task<IActionResult> OnGetUnsbscribeMailingAsync([FromQuery] int mailingId, [FromQuery] string destinatario)
+    {
+      if (mailingId <= 0 || string.IsNullOrEmpty(destinatario))
+        return BadRequest("Parámetros inválidos");
+
+      var comando = new ComandoMailingInsertar
+      {
+        MAILING_ID = mailingId,
+        INDICADOR = 3,
+        DESTINATARIO = destinatario,
+        EVENTO = "UNSUBSCRIBE"
+      };
+
+      await _mediator.Send(comando);
+
+      return Redirect("https://ccfirma.com/hablamos/");
+    }
+
+    // 🔹 Marcado como SPAM
+    [HttpGet]
+    public async Task<IActionResult> OnGetMailingSpamAsync([FromQuery] int mailingId, [FromQuery] string destinatario)
+    {
+      if (mailingId <= 0 || string.IsNullOrEmpty(destinatario))
+        return BadRequest("Parámetros inválidos");
+
+      var comando = new ComandoMailingInsertar
+      {
+        MAILING_ID = mailingId,
+        INDICADOR = 2,
+        DESTINATARIO = destinatario,
+        EVENTO = "SPAM"
+      };
+
+      await _mediator.Send(comando);
+
+      return new EmptyResult();
+    }
+
+    // 🔹 Conversión (por ejemplo, compra o acción completada)
+    [HttpGet]
+    public async Task<IActionResult> OnGetMailingConversionAsync([FromQuery] int mailingId, [FromQuery] string destinatario)
+    {
+      if (mailingId <= 0 || string.IsNullOrEmpty(destinatario))
+        return BadRequest("Parámetros inválidos");
+
+      var comando = new ComandoMailingInsertar
+      {
+        MAILING_ID = mailingId,
+        INDICADOR = 2,
+        DESTINATARIO = destinatario,
+        EVENTO = "CONVERSION"
+      };
+
+      await _mediator.Send(comando);
+
+      return new EmptyResult();
+    }
+
+    // 🔹 Enlace fallido / bounce
+    [HttpGet]
+    public async Task<IActionResult> OnGetMailingLinkBounceAsync([FromQuery] int mailingId, [FromQuery] string destinatario)
+    {
+      if (mailingId <= 0 || string.IsNullOrEmpty(destinatario))
+        return BadRequest("Parámetros inválidos");
+
+      var comando = new ComandoMailingInsertar
+      {
+        MAILING_ID = mailingId,
+        INDICADOR = 2,
+        DESTINATARIO = destinatario,
+        EVENTO = "LINK_BOUNCE"
+      };
+
+      await _mediator.Send(comando);
+
+      return new EmptyResult();
+    }
+
+    #endregion
+
+
   }
 }

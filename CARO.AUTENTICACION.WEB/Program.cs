@@ -1,21 +1,22 @@
-using System.Reflection;
-using MediatR;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
+using CARO.AUTENTICACION.WEB.Pages.Comercial.Contactos;
 using CARO.CONFIG;
-using Microsoft.AspNetCore.Http.Features;
-
-using CARO.DATOS.CONSULTAS.SEG;
+using CARO.DATOS.CONSULTAS.CANALDENUNCIAS;
+using CARO.DATOS.CONSULTAS.CCFIRMA;
 using CARO.DATOS.CONSULTAS.COM;
-using CARO.DATOS.CONSULTAS.USUARIOS;
+using CARO.DATOS.CONSULTAS.LEGAL;
 using CARO.DATOS.CONSULTAS.MANTENIMIENTOS;
 using CARO.DATOS.CONSULTAS.MARCAS.AIC;
 using CARO.DATOS.CONSULTAS.MARKETING;
-using CARO.DATOS.CONSULTAS.LEGAL;
-using CARO.DATOS.CONSULTAS.CANALDENUNCIAS;
-using CARO.DATOS.CONSULTAS.CCFIRMA;
+using CARO.DATOS.CONSULTAS.SEG;
+using CARO.DATOS.CONSULTAS.USUARIOS;
+using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http.Features;
+using Microsoft.IdentityModel.Tokens;
+using Quartz;
 using Syncfusion.Licensing;
+using System.Reflection;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -45,6 +46,37 @@ builder.Services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
 // Add services to the container.
 builder.Services.AddRazorPages();
 //builder.Services.AddScoped<CustomPageFilter>();
+builder.Services.AddQuartz(q =>
+{
+  q.UseMicrosoftDependencyInjectionJobFactory();
+
+  // Configurar JobStore persistente (SQL Server)
+  q.UsePersistentStore(s =>
+  {
+    s.UseProperties = true;
+    s.RetryInterval = TimeSpan.FromSeconds(15);
+    s.UseSqlServer(sqlServerOptions =>
+    {
+      sqlServerOptions.ConnectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+      sqlServerOptions.TablePrefix = "QRTZ_"; // prefijo por defecto del script
+                                              // sqlServerOptions.SchemaName = "dbo"; // si lo pusiste en otro schema
+    });
+
+    s.UseJsonSerializer(); // facilita pasar objetos en JobDataMap
+  });
+});
+
+// Quartz hosted service
+builder.Services.AddQuartzHostedService(q => q.WaitForJobsToComplete = true);
+
+builder.Services.AddHostedService<PendingMailingsScheduler>();
+
+
+// Registramos el job que ejecutará Quartz
+builder.Services.AddTransient<EventosHandler>();
+builder.Services.AddTransient<JobEnviarMailing>();
+// Registramos tu servicio SchedulerService
+builder.Services.AddSingleton<SchedulerService>();
 
 builder.Services.AddMediatR(Assembly.Load("CARO.DATOS.EVENTOS"));
 builder.Services.AddAntiforgery(o => o.HeaderName = "XSRF-TOKEN");
@@ -65,15 +97,17 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.Configure<FormOptions>(options =>
 {
-  options.ValueLengthLimit = int.MaxValue;
-  options.MultipartBodyLengthLimit = 1L * 1024 * 1024 * 1024; // 1GB en bytes
+  options.ValueCountLimit = int.MaxValue;        // número de keys
+  options.ValueLengthLimit = int.MaxValue;       // tamaño por valor
+  options.MultipartBodyLengthLimit = long.MaxValue; // tamaño del formulario
   options.MultipartHeadersLengthLimit = int.MaxValue;
 });
+
 
 // Configurar Kestrel para permitir archivos más grandes
 builder.WebHost.ConfigureKestrel(serverOptions =>
 {
-  serverOptions.Limits.MaxRequestBodySize = 1L * 1024 * 1024 * 1024; // 1GB en bytes
+  serverOptions.Limits.MaxRequestBodySize = 10L * 1024 * 1024 * 1024; // 1GB en bytes
 });
 
 builder.Services.AddTransient<ITokenValidationService, TokenValidationService>();

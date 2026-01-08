@@ -10,6 +10,7 @@ namespace CARO.DATOS.CONSULTAS.COM
     public interface IConsultasContacto
     {
         Task<List<ContactoModel>> Listar(ContactoModel custom);
+        Task<List<MailingModel>> ListarMailings(MailingModel custom);
         Task<List<EmailModel>> ListarAdjuntos(EmailModel custom);
         Task<List<DetEmailModel>> ListarEmails(DetEmailModel custom);
 
@@ -31,7 +32,8 @@ namespace CARO.DATOS.CONSULTAS.COM
                 DESC = custom.DESC,
                 CESTDO = custom.CESTDO,
                 INIT = custom.INIT,
-                ROWS = custom.ROWS
+                ROWS = custom.ROWS,
+                IDMRCA = custom.IDMRCA
             }).ToUpper();
 
             parametros.Add("@p_cData", json);
@@ -41,6 +43,29 @@ namespace CARO.DATOS.CONSULTAS.COM
 
             var conexionSql = _configuration.GetConnectionString("DefaultConnection");
             return await FuncionesSql.EjecutarProcedimiento<ContactoModel>(conexionSql, Procedimientos.COMERCIAL.ContactosCrud, parametros);
+        }
+
+        public async Task<List<MailingModel>> ListarMailings(MailingModel custom)
+        {
+            var parametros = new DynamicParameters();
+            var json = JsonSerializer.Serialize(new
+            {
+                DESC = custom.DESC,
+                CESTDO = custom.CESTDO,
+                INIT = custom.INIT,
+                ROWS = custom.ROWS,
+                IDMRCA = custom.IDMRCA,
+                ESTADO = custom.ESTADO,
+                UCRCN = custom.UCRCN
+            }).ToUpper();
+
+            parametros.Add("@p_cData", json);
+            parametros.Add("@p_cUser", null);
+            parametros.Add("@p_nTipo", 5);
+            parametros.Add("@p_nId", custom.ID ?? 0);
+
+            var conexionSql = _configuration.GetConnectionString("DefaultConnection");
+            return await FuncionesSql.EjecutarProcedimiento<MailingModel>(conexionSql, Procedimientos.COMERCIAL.ContactosCrud, parametros);
         }
         public async Task<List<DetEmailModel>> ListarEmails(DetEmailModel custom)
         {

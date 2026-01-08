@@ -20,6 +20,7 @@
 		<PackageReference Include="Microsoft.JSInterop" Version="8.0.4" />
 		<PackageReference Include="MimeKit" Version="4.4.0" />
 		<PackageReference Include="OpenXmlPowerTools" Version="4.5.3.2" />
+		<PackageReference Include="Quartz" Version="3.7.0" />
 		<PackageReference Include="System.Security.Permissions" Version="8.0.0" />
 	</ItemGroup>
 

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CARO.DATOS.MODELO")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+17b9069e8f2f0c212db9ea4012a80a2083d77ca4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6caa2bb66f7259a1ceeecca5cab9d0b015d06ea9")]
 [assembly: System.Reflection.AssemblyProductAttribute("CARO.DATOS.MODELO")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CARO.DATOS.MODELO")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

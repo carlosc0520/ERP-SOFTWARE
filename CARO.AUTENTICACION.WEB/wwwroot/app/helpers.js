@@ -124,7 +124,9 @@ const swalFire = {
       confirmButtonText: 'Ok',
       confirmButton: false,
       customClass: {
-        confirmButton: 'btn btn-success'
+        confirmButton: 'btn btn-success',
+        // a title quitarle margin-bottom
+        title: 'swal-title-no-margin'
       }
     }).then(result => {
       for (const key in eventos) {
@@ -159,10 +161,11 @@ const swalFire = {
       }
     });
   },
-  warning: (mensaje = '') => {
+  warning: (title = '', mensajeHtml = '') => {
     Swal.fire({
       icon: 'warning',
-      title: mensaje,
+      title: title,
+      html: mensajeHtml,
       showConfirmButton: true
     });
   },
@@ -772,9 +775,9 @@ const func = {
       return [];
     }
   },
-  IDEMPRESA: async () => {
+  IDEMPRESA: () => {
     try {
-      return await $("#condominio-actual_select").val() || null;
+      return localStorage.getItem('selectedMarca') || null;
     } catch (error) {
       return null;
     }
@@ -809,8 +812,50 @@ const func = {
           return $(`<span>${data.text} <i class="bx bx-trash text-red-500"></i></span>`);
         }
       });
-
     }
+  },
+  select2Multiple: () => {
+    // Destruir instancias previas
+    $('.select2').each(function () {
+      if ($(this).data('select2')) {
+        $(this).select2('destroy');
+      }
+    });
+
+    // Inicializar nuevamente
+    $('.select2').select2({
+      multiple: true,
+      placeholder: 'Seleccione',
+      allowClear: true,
+      width: '100%',
+      dropdownParent: $(this).parent(),
+      minimumResultsForSearch: 0, // mostrar siempre el buscador
+      templateResult: function (data) {
+        if (!data.id) return data.text;
+        return $(`<span>${data.text}</span>`);
+      },
+      templateSelection: function (data, container) {
+        // obtener todos los seleccionados del select actual
+        const selected = $(container.element).closest('select').select2('data');
+        if (selected.length === 0) return 'Seleccione';
+
+        // si hay más de 2 seleccionados, mostrar "+N más"
+        if (selected.length > 2) {
+          const visible = selected.slice(0, 2).map(s => s.text).join(', ');
+          const extra = selected.length - 2;
+          return `${visible} (+${extra} más)`;
+        }
+
+        // si hay 2 o menos, mostrarlos normalmente
+        return selected.map(s => s.text).join(', ');
+      }
+    });
+
+    // Mantener el input fijo en tamaño
+    $('.select2').on('select2:opening select2:closing', function () {
+      const $searchfield = $(this).parent().find('.select2-search__field');
+      $searchfield.css('width', '100%');
+    });
   },
   limitarCaracteres: () => {
     // LONGITUD CARACTERES
@@ -1104,12 +1149,8 @@ const fullToolbar = [
   ],
   ['bold', 'italic', 'underline', 'strike'],
   [
-    {
-      color: []
-    },
-    {
-      background: []
-    }
+    { color: ['#000000', '#e60000', '#323333', '#ff9900', '#ffff00', '#008a00', '#0066cc', '#9933cc', false] },
+    { background: ['#000000', '#e60000', '#323333', '#ff9900', '#ffff00', '#008a00', '#0066cc', '#9933cc', false] }
   ],
   [
     {
@@ -1143,9 +1184,15 @@ const fullToolbar = [
       indent: '+1'
     }
   ],
+  [
+    { align: '' },
+    { align: 'center' },
+    { align: 'right' },
+    { align: 'justify' }
+  ],
   [{ direction: 'rtl' }],
   ['link', 'image', 'video', 'formula'],
-  ['clean']
+  ['clean'],
 ];
 
 const redirect = (isView = false, selector = '', valor) => {

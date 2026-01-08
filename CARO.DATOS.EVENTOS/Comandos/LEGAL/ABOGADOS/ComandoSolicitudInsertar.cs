@@ -8,6 +8,8 @@ namespace CARO.DATOS.EVENTOS.Comandos.LEGAL.ABOGADOS
     public class ComandoSolicitudInsertar : EntidadAuditoria, IRequest<RespuestaConsulta>
     {
         public string? GDSUCRSLS { get; set; } = null;
+        public string? GDATNCN { get; set; } = null;
+        public string? NAME_TATENCION { get; set; } = null;
         public string? GDESPCLDD { get; set; } = null;
         public int? ABOGADO { get; set; } = null;
         public DateTime? FCHASERVICIO { get; set; } = null;

@@ -302,6 +302,9 @@ namespace CARO.DATOS.MODELO.COM.PLANTILLA
         public string? GDFORMT { get; set; } = null; 
         public string? GDTPOGR { get; set; } = null;
         public string? PREGUNTAS { get; set; } = null;
+        public string? EMAIL { get; set; } = null;
+        public string? NOMBRES { get; set; } = null;
+        public int? STATUSF { get; set; } = null;
 
     }
 

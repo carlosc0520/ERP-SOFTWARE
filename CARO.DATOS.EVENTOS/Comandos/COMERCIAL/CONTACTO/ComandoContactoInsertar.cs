@@ -14,5 +14,8 @@ namespace CARO.DATOS.EVENTOS.Comandos.COMERCIAL.CONTACTO
         public string? CLENTE { get; set; } = null;
         public string? GDRBROC { get; set; } = null;
         public string? GDCRGOC { get; set; } = null;
+        public string? IDMRCA_V { get; set; } = null;
+        public string? CLIENTE { get; set; } = null;
+        public string? GDSEXO { get; set; } = null;
     }
 }

@@ -22,4 +22,12 @@ namespace CARO.DATOS.MODELO.SEG.GRUPODATO
         public string? LABEL { get; set; } = null;
 
     }
+
+    public class EmailSendModel
+    {
+        public int? ID { get; set; } = null;
+        public string? CRREO { get; set; } = null;
+        public string? SECRETKEY { get; set; } = null;
+
+    }
 }

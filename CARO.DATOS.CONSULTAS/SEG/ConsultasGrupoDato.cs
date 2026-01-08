@@ -1,9 +1,10 @@
-﻿using Dapper;
+﻿using CARO.DATABASE;
 using CARO.DATABASE.Helper;
-using CARO.DATABASE;
+using CARO.DATOS.MODELO.SEG.GRUPODATO;
+using Dapper;
+using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.Extensions.Configuration;
 using System.Text.Json;
-using CARO.DATOS.MODELO.SEG.GRUPODATO;
 
 namespace CARO.DATOS.CONSULTAS.SEG
 {
@@ -11,6 +12,7 @@ namespace CARO.DATOS.CONSULTAS.SEG
     {
         Task<List<GrupoDatoModel>> ObtenerAll(GrupoDatoModel custom);
         Task<List<FUbigeos>> ObtenerUbigeos(FUbigeos custom);
+        Task<EmailSendModel> obtenerEmailSend(EmailSendModel custom);
 
     }
     public class ConsultasGrupoDato : IConsultasGrupoDato
@@ -49,6 +51,28 @@ namespace CARO.DATOS.CONSULTAS.SEG
             var conexionSql = _configuration.GetConnectionString("DefaultConnection");
             return await FuncionesSql.EjecutarProcedimiento<FUbigeos>(conexionSql, Procedimientos.SEGURIDAD.ListarUbigeos, param);
         }
+        public async Task<EmailSendModel> obtenerEmailSend(EmailSendModel entidad)
+        {
+            var parametros = new DynamicParameters();
+            var json = JsonSerializer.Serialize(new
+            {
+                CRREO = entidad.CRREO
+            }).ToUpper();
 
+            parametros.Add("@p_cData", json);
+            parametros.Add("@p_cUser", null);
+            parametros.Add("@p_nTipo", 6);
+            parametros.Add("@p_nId", 0);
+            var conexionSql = _configuration.GetConnectionString("DefaultConnection");
+            var result =  await FuncionesSql.EjecutarProcedimiento<EmailSendModel>(conexionSql, 
+                Procedimientos.SEGURIDAD.GrupoDatoCrud, parametros);
+
+            return result.FirstOrDefault() != null ? new EmailSendModel
+            {
+                ID = result.FirstOrDefault().ID,
+                CRREO = result.FirstOrDefault().CRREO,
+                SECRETKEY = result.FirstOrDefault().SECRETKEY
+            } : new EmailSendModel();
+        }
     }
 }
