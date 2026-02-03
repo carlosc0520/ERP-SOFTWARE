@@ -38,7 +38,21 @@ const executeView = () => {
                         }
                     },
                     columns: [
-                        { data: 'rn', title: '' },
+                        {
+                data: null,
+                title: '',
+                orderable: false,
+                className: 'text-center',
+                render: function (data, type, row, meta) {
+                  // Mostrar el número de fila y la flecha juntos
+                  return `
+                                        <div style="display:flex;align-items:center;justify-content:center;gap:4px;">
+                                            <button class='btn btn-sm btn-icon auditoria-row' title='Ver auditoría' tabindex="-1"><i class='bx bx-chevron-right'></i></button>
+                                            <span style="min-width:22px;display:inline-block;">${data.rn || meta.row + 1}</span>
+                                        </div>
+                                    `;
+                }
+              },
                         {
                             data: null,
                             title: 'N° Solicitud',
@@ -297,7 +311,7 @@ const executeView = () => {
         init: async () => {
             libroReclamacionesCrud.init();
             libroReclamacionesCrud.globales();
-            var myTabs = document.querySelectorAll('.nav-tabs button');
+            var myTabs = document.querySelectorAll('.erp-tabs button');
             redirect(false, 'navs-detalle', 0);
             myTabs.forEach(function (tab) {
                 tab.addEventListener('click', function () {

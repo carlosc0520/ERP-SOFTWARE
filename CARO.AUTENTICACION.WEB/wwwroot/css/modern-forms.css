@@ -1,0 +1,477 @@
+/* Modern Forms - Google Forms Inspired UI */
+
+/* Variables CSS para personalización fácil */
+:root {
+    --erp-primary: #FF6A16;
+    --erp-secondary: #808080;
+    --erp-dark: #575F61;
+    --erp-primary-hover: #e65c0f;
+    --erp-secondary-hover: #6d6d6d;
+    --erp-dark-hover: #43494a;
+    --erp-bg-light: #fff7f2;
+    --gradient-primary: linear-gradient(135deg, #FF6A16 0%, #ff8a45 100%);
+    --gradient-secondary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-success: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    --gradient-info: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);
+
+    --primary-color: #673AB7;
+    --primary-hover: #5E35B1;
+    --primary-light: #EDE7F6;
+    --border-radius: 12px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+    --text-primary: #202124;
+    --text-secondary: #5f6368;
+    --border-color: #dadce0;
+    --bg-hover: #f8f9fa;
+}
+
+/* Container principal */
+#CONTAINER_FORMULARIO {
+    max-width: 760px !important;
+    margin: auto;
+    padding: 20px 16px;
+}
+
+/* Header Image */
+#IMG_FORM {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+    overflow: hidden;
+}
+
+/* Cards modernos */
+.modern-card {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 24px;
+    margin-bottom: 16px;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+}
+
+.modern-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+}
+
+/* Header Card */
+#DIV_HEADER {
+    border-top: 10px solid var(--primary-color);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+}
+
+#DIV_HEADER:hover {
+    box-shadow: var(--shadow-lg);
+}
+
+#NOMBRE_FORM {
+    font-size: 32px;
+    font-weight: 400;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+    line-height: 1.2;
+}
+
+#DESCRIPCION_FORM {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* Form inputs modernos */
+.modern-input,
+.modern-select,
+.modern-textarea {
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+    border-radius: 0;
+    padding: 12px 0;
+    font-size: 16px;
+    transition: var(--transition);
+    background: transparent;
+    width: 100%;
+}
+
+.modern-input:focus,
+.modern-select:focus,
+.modern-textarea:focus {
+    outline: none;
+    border-bottom: 2px solid var(--primary-color);
+    box-shadow: none;
+    background: var(--bg-hover);
+    padding-left: 8px;
+    border-radius: 4px 4px 0 0;
+}
+
+/* Labels modernos */
+.modern-label {
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+    display: block;
+}
+
+.modern-label-required {
+    color: #d93025;
+    margin-left: 4px;
+}
+
+.modern-label-subtitle {
+    font-size: 12px;
+    color: var(--text-secondary);
+    font-weight: 400;
+    margin-top: 4px;
+    display: block;
+}
+
+/* Radio y Checkbox modernos */
+.modern-radio,
+.modern-checkbox {
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.modern-radio:hover,
+.modern-checkbox:hover {
+    background: var(--bg-hover);
+}
+
+.form-check-input {
+    width: 20px;
+    height: 20px;
+    margin-top: 0;
+    cursor: pointer;
+    border: 2px solid var(--border-color);
+}
+
+.form-check-input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+.form-check-input:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.form-check-label {
+    font-size: 14px;
+    color: var(--text-primary);
+    margin-left: 12px;
+    cursor: pointer;
+    line-height: 20px;
+    user-select: none;
+}
+
+/* Pregunta Card */
+.question-card {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-left: 6px solid transparent;
+    border-radius: var(--border-radius);
+    padding: 24px;
+    margin-bottom: 16px;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+}
+
+.question-card:hover {
+    box-shadow: var(--shadow-md);
+    border-left-color: var(--primary-color);
+}
+
+.question-card:focus-within {
+    border-left-color: var(--primary-color);
+    box-shadow: var(--shadow-md);
+}
+
+.question-title {
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    line-height: 1.5;
+    display: flex;
+    align-items: flex-start;
+}
+
+.question-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+    height: 28px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: 500;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+
+/* Botón moderno */
+.modern-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 32px;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+}
+
+.modern-btn:hover {
+    background: var(--primary-hover);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+    color: white;
+}
+
+.modern-btn:active {
+    transform: translateY(0);
+}
+
+.modern-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Select moderno */
+.modern-select {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: var(--text-primary);
+    background: white;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.modern-select:hover {
+    border-color: #bdc1c6;
+}
+
+.modern-select:focus {
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+/* Textarea moderno */
+.modern-textarea {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 14px;
+    color: var(--text-primary);
+    min-height: 100px;
+    resize: vertical;
+    transition: var(--transition);
+}
+
+.modern-textarea:hover {
+    border-color: #bdc1c6;
+}
+
+.modern-textarea:focus {
+    border: 2px solid var(--primary-color);
+    box-shadow: 0 0 0 3px var(--primary-light);
+}
+
+/* Skeleton loader */
+.skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.skeleton-img {
+    width: 100%;
+    height: 200px;
+    border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+/* Star rating styling */
+.star-rating-container {
+    padding: 12px 0;
+}
+
+/* Progress bar para formularios largos */
+.form-progress {
+    position: sticky;
+    top: 0;
+    height: 4px;
+    background: #e8eaed;
+    z-index: 100;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.form-progress-bar {
+    height: 100%;
+    background: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+/* Animación de entrada */
+.fade-in {
+    animation: fadeIn 0.4s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Efecto focus visible para accesibilidad */
+*:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Indicador de respuesta requerida */
+.question-card[data-required="true"]::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: #d93025;
+    border-radius: var(--border-radius) 0 0 var(--border-radius);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #CONTAINER_FORMULARIO {
+        padding: 12px 8px;
+    }
+
+    .modern-card,
+    .question-card {
+        padding: 20px 16px;
+        margin-bottom: 12px;
+    }
+
+    #NOMBRE_FORM {
+        font-size: 24px;
+    }
+
+    .question-number {
+        min-width: 24px;
+        height: 24px;
+        font-size: 12px;
+    }
+
+    .modern-btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+
+    .modern-card,
+    .question-card {
+        padding: 16px 12px;
+    }
+
+    #NOMBRE_FORM {
+        font-size: 20px;
+    }
+
+    .question-title {
+        font-size: 14px;
+    }
+}
+
+/* Print styles */
+@media print {
+    .modern-btn {
+        display: none;
+    }
+
+    .question-card,
+    .modern-card {
+        box-shadow: none;
+        border: 1px solid #ddd;
+        page-break-inside: avoid;
+    }
+}
+
+/* Estilos adicionales para mejor UX */
+.form-error {
+    border-left-color: #d93025 !important;
+    animation: shake 0.3s;
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    75% {
+        transform: translateX(5px);
+    }
+}
+
+.success-message {
+    background: #e8f5e9;
+    color: #2e7d32;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    border-left: 4px solid #4caf50;
+}
+
+.error-message {
+    background: #ffebee;
+    color: #c62828;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    border-left: 4px solid #f44336;
+}

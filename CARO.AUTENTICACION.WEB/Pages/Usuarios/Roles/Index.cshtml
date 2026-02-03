@@ -4,10 +4,13 @@
     ViewData["Title"] = "Roles";
 }
 
+ 
 @section VendorStyles {
     <link rel="stylesheet" href="~/vendor/libs/datatables-bs5/datatables.bootstrap5.dist.css">
     <link rel="stylesheet" href="~/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.dist.css">
     <link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/umd/styles/index.min.css" />
+    <link rel="stylesheet" href="~/vendor/libs/select2/select2.dist.css" />
 }
 
 @section VendorScripts {
@@ -16,45 +19,43 @@
     <script src="~/vendor/libs/&#64;form-validation/umd/bundle/popular.min.js"></script>
     <script src="~/vendor/libs/&#64;form-validation/umd/plugin-bootstrap5/index.min.js"></script>
     <script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
+    <script src="~/vendor/libs/select2/select2.dist.js"></script>
 }
 
 @section PageScripts {
     <script src="~/app/Usuarios/Roles/index.js"></script>
 }
 
-@* ************** Content ************** *@
-<h4 class="py-3 breadcrumb-wrapper mb-4">
-    <span class="text-muted fw-light">Roles /</span> Listado
-</h4>
+<link rel="stylesheet" href="~/css/erp-custom.css" asp-append-version="true" />
 
-<p>Crea roles para asignar permisos a los usuarios.</p>
-<!-- Role cards -->
-<div class="row g-4"> 
-    <div class="col-xl-4 col-lg-6 col-md-6">
-        <div class="card h-100"> 
-            <div class="row h-100">
-                <div class="col-sm-5">
-                    <div class="d-flex align-items-end h-100 justify-content-center mt-sm-0 mt-3">
-                        <img src="~/img/illustrations/lady-with-laptop-light.png" class="img-fluid" alt="Image" width="100" data-app-light-img="illustrations/lady-with-laptop-light.png" data-app-dark-img="illustrations/lady-with-laptop-dark.png">
-                    </div>
-                </div>
-                <div class="col-sm-7">
-                    <div class="card-body text-sm-end text-center ps-sm-0">
-                        <p class="mb-0">Agregar rol, si no existe.</p>
+@* ************** Content ************** *@
+<div class="erp-main-container erp-bg-main">
+    <div class="p-4">
+        <p class="mb-3">Crea roles para asignar permisos a los usuarios.</p>
+        
+        <div class="row g-4 mb-4"> 
+            <div class="col-xl-4 col-lg-6 col-md-6">
+                <div class="card h-100"> 
+                    <div class="row h-100">
+                        <div class="col-sm-5">
+                            <div class="d-flex align-items-end h-100 justify-content-center mt-sm-0 mt-3">
+                                <img src="~/img/illustrations/lady-with-laptop-light.png" class="img-fluid" alt="Image" width="100" data-app-light-img="illustrations/lady-with-laptop-light.png" data-app-dark-img="illustrations/lady-with-laptop-dark.png">
+                            </div>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="card-body text-sm-end text-center ps-sm-0">
+                                <p class="mb-0">Agregar rol, si no existe.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div> 
-    <div class="col-12">
-        <!-- Role Table -->
-        <div class="card">
-            <div class="card-datatable table-responsive">
-                <table id="rolesTable" class="datatables-users table border-top">
-                </table>
-            </div>
+
+        <div class="table-responsive pb-0">
+            <table id="rolesTable" class="mx-1 table border-top">
+            </table>
         </div>
-        <!--/ Role Table -->
     </div>
 </div>
 

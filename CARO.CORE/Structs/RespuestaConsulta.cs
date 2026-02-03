@@ -34,5 +34,6 @@
                 }
             }
         }
+        public string message { get; set; } = null;
     }
 }

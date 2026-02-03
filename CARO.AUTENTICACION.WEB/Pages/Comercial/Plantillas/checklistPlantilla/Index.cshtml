@@ -41,60 +41,56 @@
 
 @section PageScripts {
     <script src="~/app/Comercial/Plantillas/checklistPlantilla/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/exceljs/dist/exceljs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js" integrity="sha512-qZvrmS2ekKPF2mSznTQsxqPgnpkI4DNTlrdUmTzrDgektczlKNRRhy5X5AAOnx5S09ydFYWWNSfcEqDTTHgtNA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js" integrity="sha512-2/YdOMV+YNpanLCF5MdQwaoFRVbTmrJ4u4EpqS/USXAQNUDgI5uwYi6J98WVtJKcfe1AbgerygzDFToxAlOGEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 }
 
+<link rel="stylesheet" href="~/vendor/css/pages/app-email.dist.css" />
+<link rel="stylesheet" href="~/css/erp-custom.css" asp-append-version="true" />
 
 @* ************** Content ************** *@
-<h4 class="py-3 breadcrumb-wrapper mb-4">
-    <span class="text-muted fw-light">Formularios /</span> Listado
-</h4>
-
-
-
-<div class="col-12">
-    <div class="nav-align-top mb-4">
-        <ul class="nav nav-tabs nav-fill" role="tablist">
-            <li class="nav-item">
-                <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
-                        data-bs-target="#navs-formulario" aria-controls="navs-formulario" aria-selected="false">
-                    <i class="tf-icons bx bx-user me-1"></i> Formularios
-                </button>
-            </li>
-            <li class="nav-item">
-                <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
-                        data-bs-target="#navs-preguntas" disabled="true" aria-controls="navs-preguntas" aria-selected="false">
-                    <i class="tf-icons bx bx-plus me-1"></i> Preguntas
-                </button>
-            </li>
-            <li class="nav-item">
-                <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
-                        data-bs-target="#navs-respuestas" disabled="true" aria-controls="navs-respuestas" aria-selected="false">
-                    <i class="tf-icons bx bx-plus me-1"></i> Respuestas
-                </button>
-            </li>
-        </ul>
-        <div class="tab-content p-0">
-            <div class="tab-pane fade show active" id="navs-formulario" role="tabpanel">
-                <div class="table-responsive pb-0">
-                    <table id="formularioTable" class="mx-1 table border-top">
-                    </table>
-                </div>
+<div class="erp-main-container erp-bg-main">
+    <ul class="erp-tabs" role="tablist" style="overflow-x:unset;">
+        <li>
+            <button type="button" class="erp-tab active" role="tab" data-bs-toggle="tab"
+                    data-bs-target="#navs-formulario" aria-controls="navs-formulario" aria-selected="true">
+                <i class="tf-icons bx bx-list-check me-2"></i> Formularios
+            </button>
+        </li>
+        <li>
+            <button type="button" class="erp-tab" role="tab" data-bs-toggle="tab"
+                    data-bs-target="#navs-preguntas" disabled="true" aria-controls="navs-preguntas" aria-selected="false">
+                <i class="tf-icons bx bx-help-circle me-2"></i> Preguntas
+            </button>
+        </li>
+        <li>
+            <button type="button" class="erp-tab" role="tab" data-bs-toggle="tab"
+                    data-bs-target="#navs-respuestas" disabled="true" aria-controls="navs-respuestas" aria-selected="false">
+                <i class="tf-icons bx bx-comment-detail me-2"></i> Respuestas
+            </button>
+        </li>
+    </ul>
+    <div class="tab-content p-0">
+        <div class="tab-pane fade show active" id="navs-formulario" role="tabpanel">
+            <div class="table-responsive pb-0 px-4">
+                <table id="formularioTable" class="mx-1 table border-top">
+                </table>
             </div>
-            <div class="p-2 tab-pane fade" id="navs-preguntas" role="tabpanel">
-                <div class="table-responsive pb-0">
-                    <div id="preguntasTable_title" class="card-header pb-2"></div>
-                    <table id="preguntasTable" class="mx-1 table border-top">
-                    </table>
-                </div>
+        </div>
+        <div class="tab-pane fade" id="navs-preguntas" role="tabpanel">
+            <div class="table-responsive pb-0 px-4">
+                <div id="preguntasTable_title" class="card-header pb-2"></div>
+                <table id="preguntasTable" class="mx-1 table border-top">
+                </table>
             </div>
-            <div class="p-2 tab-pane fade" id="navs-respuestas" role="tabpanel">
-                <div class="table-responsive pb-0">
-                    <div id="respuestasTable_title" class="card-header pb-2"></div>
-                    <table id="respuestasTable" class="mx-1 table border-top">
-                    </table>
-                </div>
+        </div>
+        <div class="tab-pane fade" id="navs-respuestas" role="tabpanel">
+            <div class="table-responsive pb-0 px-4">
+                <div id="respuestasTable_title" class="card-header pb-2"></div>
+                <table id="respuestasTable" class="mx-1 table border-top">
+                </table>
             </div>
         </div>
     </div>

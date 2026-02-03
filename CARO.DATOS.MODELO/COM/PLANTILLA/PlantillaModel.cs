@@ -352,5 +352,14 @@ namespace CARO.DATOS.MODELO.COM.PLANTILLA
 
     }
 
+    public class FormularioExportModel : EntidadAuditoria
+    {
+        public int? IDRESP { get; set; } = null;
+        public string? EMAIL { get; set; } = null;
+        public string? NOMBRES { get; set; } = null;
+        public string? RESPUESTAS { get; set; } = null;
+        public string? PREGUNTAS { get; set; } = null;
+      
+    }
     #endregion CHECLISTFORM
 }

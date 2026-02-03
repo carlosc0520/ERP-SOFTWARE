@@ -49,6 +49,17 @@ namespace CARO.AUTENTICACION.WEB.Pages.Comercial.Plantillas.checklistPlantilla
       });
     }
 
+    [HttpGet]
+    public async Task<IActionResult> OnGetAllExportAsync([FromQuery] FormularioExportModel custom)
+    {
+      var data = await _consultasPlantilla.ListarFormulariosExport(custom);
+
+      return new JsonResult(new
+      {
+        data = data
+      });
+    }
+
     public async Task<IActionResult> OnGetAllEmailsAsync([FromQuery] FormularioModel custom)
     {
       HttpContextDraw.SetModelValues(HttpContext, custom);
@@ -168,6 +179,8 @@ namespace CARO.AUTENTICACION.WEB.Pages.Comercial.Plantillas.checklistPlantilla
 
       mailMessage.To.Add("kojeda@ccfirma.com");
       mailMessage.To.Add("rsaldarriaga@ccfirma.com");
+      mailMessage.To.Add("vescudero@ccfirma.com");
+      //mailMessage.To.Add("ccarbajal@ccfirma.com");
 
       await smtpClient.SendMailAsync(mailMessage);
 
@@ -180,53 +193,230 @@ namespace CARO.AUTENTICACION.WEB.Pages.Comercial.Plantillas.checklistPlantilla
     private string GetEmailBody(FormularioResModel entidad)
     {
       return $@"
-    <!DOCTYPE html>
-    <html lang='es'>
-    <head>
-        <meta charset='UTF-8'>
-        <meta name='viewport' content='width=device-width, initial-scale=1.0'>
-        <title>Solicitud de Servicio</title>
-        <style>
-            body {{ font-family: 'Arial', sans-serif; background-color: #f4f7fc; margin: 0; padding: 0; color: #555; }}
-            .container {{ width: 100%; max-width: 650px; margin: 30px auto; padding: 20px; background-color: #ffffff; border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); }}
-            h2 {{ text-align: center; color: #2c3e50; font-size: 24px; margin-bottom: 20px; border-bottom: 2px solid #e2e2e2; padding-bottom: 10px; }}
-            .section-title {{ font-weight: bold; color: #34495e; margin-right: 5px; }}
-            .details {{ background-color: #ecf0f1; padding: 15px; margin: 15px 0; border-radius: 8px; border: 1px solid #bdc3c7; }}
-            .footer {{ text-align: center; font-size: 14px; color: #7f8c8d; margin-top: 30px; border-top: 1px solid #ecf0f1; padding-top: 20px; }}
-            .email-header {{ padding: 10px; background-color: #ff6c17ff; color: #ffffff; border-radius: 10px 10px 0 0; font-size: 18px; text-align: center; }}
-            .signature {{
-                text-align: center;
-                margin-top: 30px;
-                padding-top: 20px;
-                border-top: 1px solid #bdc3c7;
-            }}
-            .signature img {{
-                max-width: 150px;
-                margin-bottom: 10px;
-            }}
-            .signature p {{
-                font-size: 14px;
-                color: #34495e;
-                margin: 5px 0;
-            }}
-        </style>
-    </head>
-    <body>
-        <div class='container'>
-            <div class='email-header'>
-                <h3>Formulario de Respuesta</h3>
+<!DOCTYPE html>
+<html lang='es'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Formulario de Respuesta</title>
+    <style>
+        * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+        body {{ 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0; 
+            padding: 20px; 
+            color: #575F61; 
+            line-height: 1.6;
+        }}
+        .email-wrapper {{ 
+            width: 100%; 
+            max-width: 600px; 
+            margin: 0 auto; 
+            background-color: #ffffff; 
+            border-radius: 16px; 
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }}
+        .email-header {{ 
+            background: linear-gradient(135deg, #FF6A16 0%, #ff8c42 100%);
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+        }}
+        .email-header::after {{
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            right: 0;
+            height: 20px;
+            background-color: #ffffff;
+            border-radius: 20px 20px 0 0;
+        }}
+        .email-header h2 {{ 
+            color: #ffffff; 
+            font-size: 28px; 
+            font-weight: 600;
+            margin: 0;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }}
+        .email-body {{ 
+            padding: 40px 30px 30px;
+        }}
+        .info-card {{
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-left: 4px solid #FF6A16;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            transition: transform 0.2s ease;
+        }}
+        .info-card:hover {{
+            transform: translateX(5px);
+        }}
+        .info-row {{ 
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #dee2e6;
+        }}
+        .info-row:last-child {{
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }}
+        .info-label {{ 
+            font-weight: 600; 
+            color: #575F61;
+            min-width: 120px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }}
+        .info-value {{ 
+            color: #808080;
+            font-size: 15px;
+            flex: 1;
+            word-break: break-word;
+        }}
+        .info-value a {{
+            color: #FF6A16;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s ease;
+        }}
+        .info-value a:hover {{
+            border-bottom-color: #FF6A16;
+        }}
+        .icon {{
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #FF6A16;
+            border-radius: 50%;
+            margin-right: 8px;
+        }}
+        .cta-button {{
+            display: inline-block;
+            background: linear-gradient(135deg, #FF6A16 0%, #ff8c42 100%);
+            color: #ffffff!important;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            text-align: center;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(255, 106, 22, 0.3);
+            transition: all 0.3s ease;
+        }}
+        .cta-button:hover {{
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 106, 22, 0.4);
+        }}
+        .divider {{
+            height: 1px;
+            background: linear-gradient(to right, transparent, #dee2e6, transparent);
+            margin: 30px 0;
+        }}
+        .footer {{ 
+            text-align: center; 
+            padding: 30px;
+            background-color: #f8f9fa;
+            border-top: 3px solid #FF6A16;
+        }}
+        .footer-logo {{
+            max-width: 180px;
+            margin-bottom: 15px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+        }}
+        .footer-text {{ 
+            font-size: 14px; 
+            color: #808080;
+            margin: 8px 0;
+        }}
+        .footer-link {{
+            color: #FF6A16;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }}
+        .footer-link:hover {{
+            color: #ff8c42;
+        }}
+        .badge {{
+            display: inline-block;
+            background-color: #FF6A16;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }}
+    </style>
+</head>
+<body>
+    <div class='email-wrapper'>
+        <div class='email-header'>
+            <div class='badge'>NUEVA RESPUESTA</div>
+            <h2>📋 Formulario Completado</h2>
+        </div>
+        
+        <div class='email-body'>
+            <p style='color: #575F61; font-size: 16px; margin-bottom: 25px;'>
+                Se ha recibido una nueva respuesta al formulario. A continuación, los detalles:
+            </p>
+            
+            <div class='info-card'>
+                <div class='info-row'>
+                    <span class='info-label'>
+                        <span class='icon'></span>Usuario
+                    </span>
+                    <span class='info-value'>{entidad.NOMBRES}</span>
+                </div>
+                
+                <div class='info-row'>
+                    <span class='info-label'>
+                        <span class='icon'></span>Correo
+                    </span>
+                    <span class='info-value'>
+                        <a href='mailto:{entidad.CORREO}'>{entidad.CORREO}</a>
+                    </span>
+                </div>
+                
+                <div class='info-row'>
+                    <span class='info-label'>
+                        <span class='icon'></span>Formulario
+                    </span>
+                    <span class='info-value'>
+                        <a href='{entidad.ENLACE}' target='_blank'>Ver respuestas completas →</a>
+                    </span>
+                </div>
             </div>
-            <p><span class='section-title'>Usuario:</span> {entidad.NOMBRES}</p>
-            <p><span class='section-title'>Correo:</span> {entidad.CORREO}</p>
-            <p><span class='section-title'>Enlace Formulario:</span> {entidad.ENLACE}</p>
+            
+            <div class='divider'></div>
+            
+            <p style='color: #808080; font-size: 13px; text-align: center; margin: 0;'>
+                Este es un correo automático. Por favor, no responda a este mensaje.
+            </p>
         </div>
-        <div class='signature'>
-            <img src='https://aicompliance.es/wp-content/uploads/2024/06/B6.png' alt='Logo'>
-            <p>Visítanos en <a href='https://ccfirma.com' style='color: #2980b9;'>ccfirma.com</a></p>
+        
+        <div class='footer'>
+            <img src='https://aicompliance.es/wp-content/uploads/2024/06/B6.png' alt='Logo' class='footer-logo'>
+            <p class='footer-text'>
+                Visítanos en <a href='https://ccfirma.com' class='footer-link'>ccfirma.com</a>
+            </p>
+            <p class='footer-text' style='font-size: 12px; margin-top: 15px;'>
+                © 2026 CARO ASOCIADOS - Todos los derechos reservados
+            </p>
         </div>
-    </body>
-    </html>
-    ";
+    </div>
+</body>
+</html>
+";
     }
 
     [HttpPost]

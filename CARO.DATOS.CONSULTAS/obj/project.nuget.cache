@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "+2mlM6fdW+0=",
+  "dgSpecHash": "4Aaop4y0rlY=",
   "success": true,
-  "projectFilePath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.CONSULTAS\\CARO.DATOS.CONSULTAS.csproj",
+  "projectFilePath": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.CONSULTAS\\CARO.DATOS.CONSULTAS.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\LENOVO\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\LENOVO\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
@@ -217,16 +217,19 @@
     "C:\\Users\\LENOVO\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
     "C:\\Users\\LENOVO\\.nuget\\packages\\system.xml.xpath\\4.3.0\\system.xml.xpath.4.3.0.nupkg.sha512",
     "C:\\Users\\LENOVO\\.nuget\\packages\\system.xml.xpath.xdocument\\4.3.0\\system.xml.xpath.xdocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\LENOVO\\.nuget\\packages\\zstdsharp.port\\0.7.1\\zstdsharp.port.0.7.1.nupkg.sha512"
+    "C:\\Users\\LENOVO\\.nuget\\packages\\zstdsharp.port\\0.7.1\\zstdsharp.port.0.7.1.nupkg.sha512",
+    "C:\\Users\\LENOVO\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\8.0.23\\microsoft.windowsdesktop.app.ref.8.0.23.nupkg.sha512",
+    "C:\\Users\\LENOVO\\.nuget\\packages\\microsoft.netcore.app.ref\\8.0.23\\microsoft.netcore.app.ref.8.0.23.nupkg.sha512",
+    "C:\\Users\\LENOVO\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\8.0.23\\microsoft.aspnetcore.app.ref.8.0.23.nupkg.sha512"
   ],
   "logs": [
     {
       "code": "NU1701",
       "level": "Warning",
       "message": "El paquete \"OpenXmlPowerTools 4.5.3.2\" se restauró con \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1\" en lugar de la plataforma de destino del proyecto \"net8.0\". Puede que el paquete no sea totalmente compatible con el proyecto.",
-      "projectPath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.CONSULTAS\\CARO.DATOS.CONSULTAS.csproj",
+      "projectPath": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.CONSULTAS\\CARO.DATOS.CONSULTAS.csproj",
       "warningLevel": 1,
-      "filePath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.CONSULTAS\\CARO.DATOS.CONSULTAS.csproj",
+      "filePath": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.CONSULTAS\\CARO.DATOS.CONSULTAS.csproj",
       "libraryId": "OpenXmlPowerTools",
       "targetGraphs": [
         "net8.0"
@@ -236,9 +239,9 @@
       "code": "NU1701",
       "level": "Warning",
       "message": "El paquete \"Oracle.ManagedDataAccess 21.13.0\" se restauró con \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1\" en lugar de la plataforma de destino del proyecto \"net8.0\". Puede que el paquete no sea totalmente compatible con el proyecto.",
-      "projectPath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.CONSULTAS\\CARO.DATOS.CONSULTAS.csproj",
+      "projectPath": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.CONSULTAS\\CARO.DATOS.CONSULTAS.csproj",
       "warningLevel": 1,
-      "filePath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.CONSULTAS\\CARO.DATOS.CONSULTAS.csproj",
+      "filePath": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.CONSULTAS\\CARO.DATOS.CONSULTAS.csproj",
       "libraryId": "Oracle.ManagedDataAccess",
       "targetGraphs": [
         "net8.0"
@@ -248,9 +251,9 @@
       "code": "NU1701",
       "level": "Warning",
       "message": "El paquete \"System.Management.Automation.dll 10.0.10586\" se restauró con \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1\" en lugar de la plataforma de destino del proyecto \"net8.0\". Puede que el paquete no sea totalmente compatible con el proyecto.",
-      "projectPath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.CONSULTAS\\CARO.DATOS.CONSULTAS.csproj",
+      "projectPath": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.CONSULTAS\\CARO.DATOS.CONSULTAS.csproj",
       "warningLevel": 1,
-      "filePath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.CONSULTAS\\CARO.DATOS.CONSULTAS.csproj",
+      "filePath": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.CONSULTAS\\CARO.DATOS.CONSULTAS.csproj",
       "libraryId": "System.Management.Automation.dll",
       "targetGraphs": [
         "net8.0"

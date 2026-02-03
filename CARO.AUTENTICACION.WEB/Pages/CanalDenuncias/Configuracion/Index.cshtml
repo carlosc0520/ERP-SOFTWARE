@@ -39,53 +39,48 @@
     <script src="~/app/CanalDenuncias/Configuracion/index.js"></script>
 }
 
+<link rel="stylesheet" href="~/vendor/css/pages/app-email.dist.css" />
+<link rel="stylesheet" href="~/css/erp-custom.css" asp-append-version="true" />
 
 @* ************** Content ************** *@
-<h4 class="py-3 breadcrumb-wrapper mb-4">
-    <span class="text-muted fw-light">Configuración /</span> Canal de Denuncias
-</h4>
-
-
-<div class="col-12">
-    <div class="nav-align-top mb-4">
-        <ul class="nav nav-tabs nav-fill" role="tablist">
-            <li class="nav-item">
-                <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
-                        data-bs-target="#navs-tipodenuncia" aria-controls="navs-tipodenuncia" aria-selected="false">
-                    <i class="tf-icons bx bx-user me-1"></i> Tipo Denuncia
-                </button>
-            </li>
-            <li class="nav-item">
-                <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
-                        data-bs-target="#navs-relacionempresa" aria-controls="navs-relacionempresa" aria-selected="false">
-                    <i class="tf-icons bx bx-plus me-1"></i> Relación con Empresa
-                </button>
-            </li>
-            <li class="nav-item">
-                <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
-                        data-bs-target="#navs-receptores" aria-controls="navs-receptores" aria-selected="false">
-                    <i class="tf-icons bx bx-plus me-1"></i> Receptores
-                </button>
-            </li>
-        </ul>
-        <div class="tab-content p-0">
-            <div class="tab-pane fade show active" id="navs-tipodenuncia" role="tabpanel">
-                <div class="table-responsive pb-0">
-                    <table id="tipodenunciaTable" class="mx-1 table border-top">
-                    </table>
-                </div>
+<div class="erp-main-container erp-bg-main">
+    <ul class="erp-tabs" role="tablist" style="overflow-x:unset;">
+        <li>
+            <button type="button" class="erp-tab active" role="tab" data-bs-toggle="tab"
+                    data-bs-target="#navs-tipodenuncia" aria-controls="navs-tipodenuncia" aria-selected="true">
+                <i class="tf-icons bx bx-user me-2"></i> Tipo Denuncia
+            </button>
+        </li>
+        <li>
+            <button type="button" class="erp-tab" role="tab" data-bs-toggle="tab"
+                    data-bs-target="#navs-relacionempresa" aria-controls="navs-relacionempresa" aria-selected="false">
+                <i class="tf-icons bx bx-building me-2"></i> Relación con Empresa
+            </button>
+        </li>
+        <li>
+            <button type="button" class="erp-tab" role="tab" data-bs-toggle="tab"
+                    data-bs-target="#navs-receptores" aria-controls="navs-receptores" aria-selected="false">
+                <i class="tf-icons bx bx-mail-send me-2"></i> Receptores
+            </button>
+        </li>
+    </ul>
+    <div class="tab-content p-0">
+        <div class="tab-pane fade show active" id="navs-tipodenuncia" role="tabpanel">
+            <div class="table-responsive pb-0 px-4">
+                <table id="tipodenunciaTable" class="mx-1 table border-top">
+                </table>
             </div>
-            <div class="p-2 tab-pane fade" id="navs-relacionempresa" role="tabpanel">
-                <div class="table-responsive pb-0">
-                    <table id="relacionempresaTable" class="mx-1 table border-top">
-                    </table>
-                </div>
+        </div>
+        <div class="tab-pane fade" id="navs-relacionempresa" role="tabpanel">
+            <div class="table-responsive pb-0 px-4">
+                <table id="relacionempresaTable" class="mx-1 table border-top">
+                </table>
             </div>
-            <div class="p-2 tab-pane fade" id="navs-receptores" role="tabpanel">
-                <div class="table-responsive pb-0">
-                    <table id="receptoresTable" class="mx-1 table border-top">
-                    </table>
-                </div>
+        </div>
+        <div class="tab-pane fade" id="navs-receptores" role="tabpanel">
+            <div class="table-responsive pb-0 px-4">
+                <table id="receptoresTable" class="mx-1 table border-top">
+                </table>
             </div>
         </div>
     </div>

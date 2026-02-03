@@ -2,6 +2,7 @@
 @model CARO.AUTENTICACION.WEB.Pages.Perfil.forms.IndexModel
 @{
     ViewData["Title"] = "FORMULARIO - ";
+    Layout = "Layouts/_BlankLayout";
 }
 
 
@@ -20,6 +21,7 @@
     <link rel="stylesheet" href="~/vendor/libs/quill/editor.dist.css" />
     <link rel="stylesheet" href="~/vendor/libs/select2/select2.dist.css" />
     <link rel="stylesheet" href="~/vendor/libs/rateyo/rateyo.dist.css" />
+    <link rel="stylesheet" href="~/css/forms-custom-erp.css" />
 }
 
 @section VendorScripts {
@@ -48,87 +50,77 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js" integrity="sha512-2/YdOMV+YNpanLCF5MdQwaoFRVbTmrJ4u4EpqS/USXAQNUDgI5uwYi6J98WVtJKcfe1AbgerygzDFToxAlOGEQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="~/app/Perfil/forms/index.js"></script>
+    <script src="~/app/Perfil/forms/enhancements.js"></script>
 }
 
-<style>
-  #IMG_FORM {
-    width: 100%;
-    max-height: 200px;
-    object-fit: cover;
-    padding: 1rem;
-    border-radius: 1.5rem;
-    overflow: hidden;
-  }
+<div class="spinner-container-modulos" id="spinner-container-modulos">
+  <div class="spinner-modern">
+    <div class="spinner-ring">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <img src="https://ccfirma.com/wp-content/uploads/2026/01/logo-2024-4-1-1.png" alt="Logo" class="spinner-logo">
+  </div>
+  <p class="spinner-text"></p>
+  <p class="spinner-subtext">Por favor espere un momento</p>
+</div>
 
-    .content-footer footer {
-        background-color: #FFF !important;
-    }
+<!-- Progress bar -->
+<div class="form-progress">
+    <div class="form-progress-bar" style="width: 0%"></div>
+</div>
 
-    #CONTAINER_FORMULARIO {
-        max-width: 800px !important;
-        margin: auto;
-    }
-
-    .swal-title-no-margin {
-        margin-bottom: 2px !important; /* o 0 */
-    }
-
-    div:where(.swal2-container) .swal2-html-container {
-        z-index: 1;
-        justify-content: center;
-        margin: .5rem 1.6em 0.3em; /* ← aquí el cambio */
-        padding: 0;
-        overflow: auto;
-        color: inherit;
-        font-size: 1.125em;
-        font-weight: normal;
-        line-height: normal;
-        text-align: center;
-        word-wrap: break-word;
-        word-break: break-word;
-    }
-
-</style>
-
+<!-- Progress indicator flotante -->
+<div class="progress-indicator-compact" id="progress-indicator">
+    <div class="progress-details" id="progress-details">
+        <div class="progress-text">
+            <i class="bi bi-check-circle-fill"></i>
+            <span id="progress-count">0 de 0</span> preguntas completadas
+        </div>
+        <div class="progress-percentage" id="progress-percentage">0%</div>
+    </div>
+    <div class="progress-icon" id="progress-icon-toggle">
+        <i class="bi bi-clipboard-check"></i>
+        <span class="progress-badge" id="progress-percentage-compact">0%</span>
+    </div>
+</div>
 
 <div 
 id="CONTAINER_FORMULARIO"
-class="container-fluid min-vh-100 d-flex flex-column align-items-center py-4" style="background-color: #f5f7fb;">
+class="min-vh-100 d-flex flex-column align-items-center ee py-4">
+    
     <!-- Logo -->
-    <div class="mb-4 text-center">
-        <img src="https://aicompliance.es/wp-content/uploads/2024/06/B6.png" alt="Logo" style="max-height: 80px;">
+    <div class="mb-4 text-center fade-in">
+        <img src="https://aicompliance.es/wp-content/uploads/2024/06/B6.png" alt="Logo" style="max-height: 80px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));">
     </div>
 
     <!-- Card principal -->
-    <div id="DIV_HEADER" class="card shadow-sm mb-4">
+    <div id="DIV_HEADER" class="modern-card fade-in">
         <div id="IMG_SKELETON" class="skeleton skeleton-img"></div>
-
-        <div class="color">
-        </div>
-
         <img src="" id="IMG_FORM" class="card-img-top d-none" alt="Imagen Formulario">
         <div class="card-body">
-            <h3 class="card-title fw-bold" id="NOMBRE_FORM"></h3>
-            <div class="card-text justify text-muted" id="DESCRIPCION_FORM">
-                
-            </div>
+            <h1 class="card-title fw-bold" id="NOMBRE_FORM"></h1>
+            <div class="card-text justify text-muted" id="DESCRIPCION_FORM"></div>
         </div>
     </div>
 
     <!-- Input correo -->
-    <div id="DIV_CORREO" class="card shadow-sm mb-4">
-        <div class="card-body row">
-            <div class="col-md-6 col-12 mb-3">
-               <label for="CORREO" class="form-label">Correo electrónico</label>
-                <br />
-                <span class="text-muted small">Ingresa tu correo para recibir una copia de tus respuestas.</span>
-                <input type="email" id="CORREO" name="CORREO" class="form-control noMayus" required>
+    <div id="DIV_CORREO" class="modern-card fade-in">
+        <div class="row">
+            <div class="col-md-6 col-12 mb-4">
+                <label for="CORREO" class="modern-label">
+                    Correo electrónico <span class="modern-label-required">*</span>
+                </label>
+                <span class="modern-label-subtitle">Ingresa tu correo para recibir una copia de tus respuestas</span>
+                <input type="email" id="CORREO" name="CORREO" class="form-control modern-input noMayus" required placeholder="correo@ccfirma.com">
             </div>
-            <div class="col-md-6 col-12 mb-3">
-                <label for="NOMBRE_USUARIO" class="form-label">Nombre Completo</label>
-                <br />
-                <span class="text-muted small">Ingresa tu nombre completo.</span>
-                <input type="text" id="NOMBRE_USUARIO" name="NOMBRE_USUARIO" class="form-control noMayus">
+            <div class="col-md-6 col-12 mb-4">
+                <label for="NOMBRE_USUARIO" class="modern-label">
+                    Nombre Completo
+                </label>
+                <span class="modern-label-subtitle">Ingresa tu nombre completo</span>
+                <input type="text" id="NOMBRE_USUARIO" name="NOMBRE_USUARIO" class="form-control modern-input noMayus" placeholder="Tu nombre completo">
             </div>
         </div>
     </div>
@@ -139,10 +131,10 @@ class="container-fluid min-vh-100 d-flex flex-column align-items-center py-4" st
     </div>
 
     @* // boton guardar *@
-    <div class="mt-4" id="DIV_BOTON">
+    <div class="mt-4 mb-4 fade-in" id="DIV_BOTON">
         <div class="d-grid d-md-flex justify-content-md-end">
-            <button id="btnGuardar" class="btn btn-primary btn-lg">
-            <i class="bi bi-send-fill me-2"></i> Enviar
+            <button id="btnGuardar" class="btn modern-btn btn-lg">
+                <i class="bi bi-send-fill me-2"></i> Enviar Formulario
             </button>
         </div>
     </div>

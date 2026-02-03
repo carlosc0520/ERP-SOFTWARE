@@ -143,7 +143,21 @@ const executeView = () => {
               }
             },
             columns: [
-              { data: 'rn', title: '' },
+              {
+                data: null,
+                title: '',
+                orderable: false,
+                className: 'text-center',
+                render: function (data, type, row, meta) {
+                  // Mostrar el número de fila y la flecha juntos
+                  return `
+                                        <div style="display:flex;align-items:center;justify-content:center;gap:4px;">
+                                            <button class='btn btn-sm btn-icon auditoria-row' title='Ver auditoría' tabindex="-1"><i class='bx bx-chevron-right'></i></button>
+                                            <span style="min-width:22px;display:inline-block;">${data.rn || meta.row + 1}</span>
+                                        </div>
+                                    `;
+                }
+              },
               {
                 data: null,
                 title: 'Imagen',
@@ -166,8 +180,6 @@ const executeView = () => {
                     </i></span>`;
                 }
               },
-              { data: 'uedcn', title: 'U. Edición' },
-              { data: null, title: 'F. Edición', render: data => func.formatFecha(data.fedcn, 'DD-MM-YYYY HH:mm a') },
               {
                 data: null,
                 title: '',
@@ -377,11 +389,24 @@ const executeView = () => {
               }
             },
             columns: [
-              { data: 'rn', title: '' },
+              {
+                data: null,
+                title: '',
+                orderable: false,
+                className: 'text-center',
+                render: function (data, type, row, meta) {
+                  // Mostrar el número de fila y la flecha juntos
+                  return `
+                                        <div style="display:flex;align-items:center;justify-content:center;gap:4px;">
+                                            <button class='btn btn-sm btn-icon auditoria-row' title='Ver auditoría' tabindex="-1"><i class='bx bx-chevron-right'></i></button>
+                                            <span style="min-width:22px;display:inline-block;">${data.rn || meta.row + 1}</span>
+                                        </div>
+                                    `;
+                }
+              },
               { data: 'nombres', title: 'Inscrito(a)' },
               { data: null, title: 'F. Entrada', render: data => func.formatFecha(data.fingreso, 'DD-MM-YYYY HH:mm a') },
               { data: null, title: 'F. Salida', render: data => func.formatFecha(data.fsalida, 'DD-MM-YYYY HH:mm a') },
-              { data: 'uedcn', title: 'U. Edición' },
             ],
             initComplete: function (settings, json) {
               $(`#${asistenciaTable}_filter`).find('input[type="search"]').off('keyup search input paste change');
@@ -455,7 +480,7 @@ const executeView = () => {
               // BOTON SAVE
               // buttons.unshift({
               //   text: '<i class="bx bx-plus me-0 me-md-2"></i><span class="d-none d-md-inline-block">Off - On</span>',
-              //   className: 'btn btn-label-primary btn-add-new',
+              //   className: 'erp-btn erp-btn-secondary',
               //   action: function (e, dt, node, config) {
               //     asistenciaCrud.eventos.ASISTENCIA();
               //   }
@@ -796,7 +821,21 @@ const executeView = () => {
               }
             },
             columns: [
-              { data: 'rn', title: '' },
+              {
+                data: null,
+                title: '',
+                orderable: false,
+                className: 'text-center',
+                render: function (data, type, row, meta) {
+                  // Mostrar el número de fila y la flecha juntos
+                  return `
+                                        <div style="display:flex;align-items:center;justify-content:center;gap:4px;">
+                                            <button class='btn btn-sm btn-icon auditoria-row' title='Ver auditoría' tabindex="-1"><i class='bx bx-chevron-right'></i></button>
+                                            <span style="min-width:22px;display:inline-block;">${data.rn || meta.row + 1}</span>
+                                        </div>
+                                    `;
+                }
+              },
               { data: 'nombres', title: 'Participante' },
               {
                 data: null,
@@ -807,8 +846,6 @@ const executeView = () => {
                     }></i></span>`;
                 }
               },
-              { data: 'uedcn', title: 'U. Edición' },
-              { data: null, title: 'F. Edición', render: data => func.formatFecha(data.fedcn, 'DD-MM-YYYY HH:mm a') },
               {
                 data: null,
                 title: '',
@@ -847,7 +884,7 @@ const executeView = () => {
               // AGREGAR al inicio PLANTILLA
               buttons.unshift({
                 text: '<i class="bx bx-plus me-0 me-md-2"></i><span class="d-none d-md-inline-block">Agregar</span>',
-                className: 'btn btn-label-primary btn-add-new',
+                className: 'erp-btn erp-btn-secondary',
                 action: function (e, dt, node, config) {
                   $('#modalAddParticipante').modal('show');
                 }
@@ -1603,7 +1640,7 @@ const executeView = () => {
       participantesCrud.globales();
       calendarioCrud.globales();
 
-      var myTabs = document.querySelectorAll('.nav-tabs button');
+      var myTabs = document.querySelectorAll('.erp-tabs button');
       myTabs.forEach(function (tab) {
         tab.addEventListener('click', function () {
           const tabPane = tab.getAttribute('data-bs-target');

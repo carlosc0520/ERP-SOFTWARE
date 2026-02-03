@@ -3,6 +3,7 @@
     public class EntidadAuditoria : IAuditoria
     {
         public int? ID { get; set; } = null;
+        public int? IDEMPRSA { get; set; } = null;
         public string? UCRCN { get; set; } = "";
         public DateTime? FCRCN { get; set; }
         public string? UEDCN { get; set; } = "";

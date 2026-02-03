@@ -44,49 +44,45 @@
     <script src="~/app/Marketing/Asistencia/index.js"></script>
 }
 
+<link rel="stylesheet" href="~/vendor/css/pages/app-email.dist.css" />
+<link rel="stylesheet" href="~/css/erp-custom.css" asp-append-version="true" />
 
 @* ************** Content ************** *@   
-<h4 class="py-3 breadcrumb-wrapper mb-4">
-    <span class="text-muted fw-light">Asistencia /</span> Cursos
-</h4>
-
-
-<div class="col-12">
-    <div class="nav-align-top mb-4">
-        <ul class="nav nav-tabs nav-fill" role="tablist">
-            <li class="nav-item">
-                <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
-                        data-bs-target="#navs-cursos" aria-controls="navs-cursos" aria-selected="false">
-                    <i class="tf-icons bx bx-user me-1"></i> Cursos
-                </button>
-            </li>
-            <li class="nav-item">
-                <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
-                        data-bs-target="#navs-calendario" disabled="true" aria-controls="navs-calendario" aria-selected="false">
-                    <i class="tf-icons bx bx-plus me-1"></i> Calendario
-                </button>
-            </li>
-            <li class="nav-item">
-                <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
-                        data-bs-target="#navs-asistencia" disabled="true" aria-controls="navs-asistencia" aria-selected="false">
-                    <i class="tf-icons bx bx-plus me-1"></i> Registro Horas 
-                </button>
-            </li>
-            <li class="nav-item">
-                <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
-                        data-bs-target="#navs-participantes" disabled="true" aria-controls="navs-participantes" aria-selected="false">
-                    <i class="tf-icons bx bx-plus me-1"></i> Participantes
-                </button>
-            </li>
-        </ul>
-        <div class="tab-content p-0">
-            <div class="tab-pane fade show active" id="navs-cursos" role="tabpanel">
-                <div class="table-responsive pb-0">
-                    <table id="cursosTable" class="mx-1 table border-top">
-                    </table>
-                </div>
+<div class="erp-main-container erp-bg-main">
+    <ul class="erp-tabs" role="tablist" style="overflow-x:unset;">
+        <li>
+            <button type="button" class="erp-tab active" role="tab" data-bs-toggle="tab"
+                    data-bs-target="#navs-cursos" aria-controls="navs-cursos" aria-selected="true">
+                <i class="tf-icons bx bx-book me-2"></i> Cursos
+            </button>
+        </li>
+        <li>
+            <button type="button" class="erp-tab" role="tab" data-bs-toggle="tab"
+                    data-bs-target="#navs-calendario" disabled="true" aria-controls="navs-calendario" aria-selected="false">
+                <i class="tf-icons bx bx-calendar me-2"></i> Calendario
+            </button>
+        </li>
+        <li>
+            <button type="button" class="erp-tab" role="tab" data-bs-toggle="tab"
+                    data-bs-target="#navs-asistencia" disabled="true" aria-controls="navs-asistencia" aria-selected="false">
+                <i class="tf-icons bx bx-time me-2"></i> Registro Horas 
+            </button>
+        </li>
+        <li>
+            <button type="button" class="erp-tab" role="tab" data-bs-toggle="tab"
+                    data-bs-target="#navs-participantes" disabled="true" aria-controls="navs-participantes" aria-selected="false">
+                <i class="tf-icons bx bx-group me-2"></i> Participantes
+            </button>
+        </li>
+    </ul>
+    <div class="tab-content p-0">
+        <div class="tab-pane fade show active" id="navs-cursos" role="tabpanel">
+            <div class="table-responsive pb-0 px-4">
+                <table id="cursosTable" class="mx-1 table border-top">
+                </table>
             </div>
-            <div class="p-2 tab-pane fade" id="navs-calendario" role="tabpanel">
+        </div>
+        <div class="tab-pane fade" id="navs-calendario" role="tabpanel">
                 <div class="table-responsive pb-0">
                     <div id="calendarioTable_title" class="card-header pb-2"></div>
                     <div class="card app-calendar-wrapper">
@@ -170,19 +166,19 @@
                     </div>
                 </div>
             </div> 
-            <div class="p-2 tab-pane fade" id="navs-asistencia" role="tabpanel">
+            <div class="tab-pane fade" id="navs-asistencia" role="tabpanel">
                 <div id="reader" 
                 class="d-none"
                 style="width:300px; height:300px; background-color: lightgray; position: absolute; cursor: move;"></div>
 
-                <div class="table-responsive pb-0">
+                <div class="table-responsive pb-0 px-4">
                     <div id="asistenciaTable_title" class="card-header pb-2"></div>
                     <table id="asistenciaTable" class="mx-1 table border-top">
                     </table>
                 </div>
             </div>
-            <div class="p-2 tab-pane fade" id="navs-participantes" role="tabpanel">
-                <div class="table-responsive pb-0">
+            <div class="tab-pane fade" id="navs-participantes" role="tabpanel">
+                <div class="table-responsive pb-0 px-4">
                     <div id="participantesTable_title" class="card-header pb-2"></div>
                     <table id="participantesTable" class="mx-1 table border-top">
                     </table>

@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CARO.AUTENTICACION.WEB")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6fb5f34d83c8bde2ca3c18d52133ec110e454dfb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+76674215843f025c2f4618a298cdda54c721eded")]
 [assembly: System.Reflection.AssemblyProductAttribute("CARO.AUTENTICACION.WEB")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CARO.AUTENTICACION.WEB")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

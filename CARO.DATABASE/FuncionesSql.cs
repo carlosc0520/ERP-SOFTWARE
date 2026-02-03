@@ -38,6 +38,30 @@ namespace CARO.DATABASE
             }
         }
 
+        public static async Task<List<T>> EjecutarProcedimientoQuery<T>(string? conexionSql, string nombreProcedimiento, DynamicParameters parametros)
+        {
+            using (var conn = new SqlConnection(conexionSql))
+            {
+                try
+                {
+                    conn.Open();
+                    //reader = await conn.ExecuteReaderAsync(nombreProcedimiento, parametros, commandType: CommandType.StoredProcedure);
+                    var enumerable = await conn.QueryAsync<T>(nombreProcedimiento, parametros, commandType: CommandType.StoredProcedure);
+                    return enumerable.ToList();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+                finally
+                {
+                    conn.Close();
+                    SqlConnection.ClearAllPools();
+                }
+            }
+        }
+
+
         public static async Task<T> EjecutarProcedimientoFirst<T>(string? conexionSql, string nombreProcedimiento, DynamicParameters parametros)
         {
             using (var conn = new SqlConnection(conexionSql))
@@ -176,14 +200,15 @@ namespace CARO.DATABASE
                 {
                     conn.Open();
                     await conn.ExecuteAsync(nombreProcedimiento, parametros, commandType: CommandType.StoredProcedure);
-                    
+
                     var vRetorno = parametros.Get<int>("@p_nId");
                     return new RespuestaConsulta()
                     {
                         CodEstado = 1,
                         Retorno = vRetorno,
                         NombreProcedimiento = nombreProcedimiento,
-                        Nombre = "Base de Datos"
+                        Nombre = "Base de Datos",
+                        message = ""
                     };
                 }
                 catch (Exception ex)
@@ -193,6 +218,44 @@ namespace CARO.DATABASE
                         CodEstado = -1,
                         NombreProcedimiento = nombreProcedimiento,
                         Nombre = $"{ex.Message}"
+                    };
+                }
+                finally
+                {
+                    conn.Close();
+                    SqlConnection.ClearAllPools();
+                }
+            }
+        }
+
+        public static async Task<RespuestaConsulta> EjecutarProcedimientoQuery(string conexionSql, string nombreProcedimiento, DynamicParameters parametros = null)
+        {
+            using (var conn = new SqlConnection(conexionSql))
+            {
+                try
+                {
+                    conn.Open();
+                    await conn.ExecuteAsync(nombreProcedimiento, parametros, commandType: CommandType.StoredProcedure);
+
+                    var vRetorno = parametros.Get<int>("@p_nId");
+                    return new RespuestaConsulta()
+                    {
+                        CodEstado = 1,
+                        Retorno = vRetorno,
+                        NombreProcedimiento = nombreProcedimiento,
+                        Nombre = "Base de Datos",
+                        message = parametros.Get<string>("@p_message")
+                    };
+                }
+                catch (Exception ex)
+                {
+                    return new RespuestaConsulta()
+                    {
+                        CodEstado = -1,
+                        NombreProcedimiento = nombreProcedimiento,
+                        Nombre = $"{ex.Message}",
+                        message = parametros.Get<string>("@p_message")
+
                     };
                 }
                 finally
@@ -359,6 +422,6 @@ namespace CARO.DATABASE
             }
         }
 
-       
+
     }
 }

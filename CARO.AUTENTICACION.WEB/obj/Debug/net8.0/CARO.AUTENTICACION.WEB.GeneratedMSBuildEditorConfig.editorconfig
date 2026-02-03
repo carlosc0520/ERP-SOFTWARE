@@ -170,42 +170,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tZXJjaWFsXEdlc3Rpb25cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Proyectos/CARO_ASOCIADOS/ERP-SISTEMA/ERP-SOFTWARE/CARO.AUTENTICACION.WEB/Pages/Comercial/Gestion/_Partials/_ModalAgregarCliente.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tZXJjaWFsXEdlc3Rpb25cX1BhcnRpYWxzXF9Nb2RhbEFncmVnYXJDbGllbnRlLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Proyectos/CARO_ASOCIADOS/ERP-SISTEMA/ERP-SOFTWARE/CARO.AUTENTICACION.WEB/Pages/Comercial/Gestion/_Partials/_ModalAgregarContacto.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tZXJjaWFsXEdlc3Rpb25cX1BhcnRpYWxzXF9Nb2RhbEFncmVnYXJDb250YWN0by5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Proyectos/CARO_ASOCIADOS/ERP-SISTEMA/ERP-SOFTWARE/CARO.AUTENTICACION.WEB/Pages/Comercial/Gestion/_Partials/_ModalAgregarEquipo.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tZXJjaWFsXEdlc3Rpb25cX1BhcnRpYWxzXF9Nb2RhbEFncmVnYXJFcXVpcG8uY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Proyectos/CARO_ASOCIADOS/ERP-SISTEMA/ERP-SOFTWARE/CARO.AUTENTICACION.WEB/Pages/Comercial/Gestion/_Partials/_ModalAgregarHonorario.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tZXJjaWFsXEdlc3Rpb25cX1BhcnRpYWxzXF9Nb2RhbEFncmVnYXJIb25vcmFyaW8uY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Proyectos/CARO_ASOCIADOS/ERP-SISTEMA/ERP-SOFTWARE/CARO.AUTENTICACION.WEB/Pages/Comercial/Gestion/_Partials/_ModalCasoAgregar.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tZXJjaWFsXEdlc3Rpb25cX1BhcnRpYWxzXF9Nb2RhbENhc29BZ3JlZ2FyLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Proyectos/CARO_ASOCIADOS/ERP-SISTEMA/ERP-SOFTWARE/CARO.AUTENTICACION.WEB/Pages/Comercial/Gestion/_Partials/_ModalCasoComentario.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tZXJjaWFsXEdlc3Rpb25cX1BhcnRpYWxzXF9Nb2RhbENhc29Db21lbnRhcmlvLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Proyectos/CARO_ASOCIADOS/ERP-SISTEMA/ERP-SOFTWARE/CARO.AUTENTICACION.WEB/Pages/Comercial/Gestion/_Partials/_ModalCasoEditar.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tZXJjaWFsXEdlc3Rpb25cX1BhcnRpYWxzXF9Nb2RhbENhc29FZGl0YXIuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Proyectos/CARO_ASOCIADOS/ERP-SISTEMA/ERP-SOFTWARE/CARO.AUTENTICACION.WEB/Pages/Comercial/Gestion/_Partials/_ModalEditarCliente.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tZXJjaWFsXEdlc3Rpb25cX1BhcnRpYWxzXF9Nb2RhbEVkaXRhckNsaWVudGUuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Proyectos/CARO_ASOCIADOS/ERP-SISTEMA/ERP-SOFTWARE/CARO.AUTENTICACION.WEB/Pages/Comercial/Gestion/_Partials/_ModalEditarEquipo.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tZXJjaWFsXEdlc3Rpb25cX1BhcnRpYWxzXF9Nb2RhbEVkaXRhckVxdWlwby5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Proyectos/CARO_ASOCIADOS/ERP-SISTEMA/ERP-SOFTWARE/CARO.AUTENTICACION.WEB/Pages/Comercial/LibroReclamaciones/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ29tZXJjaWFsXExpYnJvUmVjbGFtYWNpb25lc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -362,16 +326,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGVnYWxcQWJvZ2Fkb3NcX1BhcnRpYWxzXF9Nb2RhbEFncmVnYXJBYm9nYWRvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Proyectos/CARO_ASOCIADOS/ERP-SISTEMA/ERP-SOFTWARE/CARO.AUTENTICACION.WEB/Pages/Legal/Abogados/_Partials/_ModalAgregarEquipo.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGVnYWxcQWJvZ2Fkb3NcX1BhcnRpYWxzXF9Nb2RhbEFncmVnYXJFcXVpcG8uY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Proyectos/CARO_ASOCIADOS/ERP-SISTEMA/ERP-SOFTWARE/CARO.AUTENTICACION.WEB/Pages/Legal/Abogados/_Partials/_ModalEditarAbogado.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGVnYWxcQWJvZ2Fkb3NcX1BhcnRpYWxzXF9Nb2RhbEVkaXRhckFib2dhZG8uY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Proyectos/CARO_ASOCIADOS/ERP-SISTEMA/ERP-SOFTWARE/CARO.AUTENTICACION.WEB/Pages/Legal/Abogados/_Partials/_ModalEditarEquipo.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTGVnYWxcQWJvZ2Fkb3NcX1BhcnRpYWxzXF9Nb2RhbEVkaXRhckVxdWlwby5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Proyectos/CARO_ASOCIADOS/ERP-SISTEMA/ERP-SOFTWARE/CARO.AUTENTICACION.WEB/Pages/Legal/Documentos/Index.cshtml]

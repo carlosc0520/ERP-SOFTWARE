@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/umd/styles/index.min.css" />
     <link rel="stylesheet" href="~/vendor/libs/flatpickr/flatpickr.dist.css" />
     <link rel="stylesheet" href="~/vendor/libs/fullcalendar/fullcalendar.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/tagify/tagify.dist.css" />
 }
 
 @section VendorScripts {
@@ -22,7 +23,7 @@
     <script src="~/vendor/libs/&#64;form-validation/umd/plugin-bootstrap5/index.min.js"></script>
     <script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
     <script src="~/vendor/libs/fullcalendar/fullcalendar.dist.js"></script>
-
+    <script src="~/vendor/libs/tagify/tagify.dist.js"></script>
 }
 
 
@@ -30,96 +31,138 @@
     <script src="~/app/Legal/Abogados/index.js"></script>
 }
 
+<link rel="stylesheet" href="~/css/erp-custom.css" asp-append-version="true" />
 
 @* ************** Content ************** *@
-<h4 class="py-3 breadcrumb-wrapper mb-4">
-    <span class="text-muted fw-light">Abogados /</span> Listado
-</h4>
-
-
-<div class="col-12">
-    <div class="nav-align-top mb-4">
-        <ul class="nav nav-tabs nav-fill" role="tablist">
-            <li class="nav-item">
-                <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
-                        data-bs-target="#navs-abogados" aria-controls="navs-abogados" aria-selected="false">
-                    <i class="tf-icons bx bx-user me-1"></i> Abogados
-                </button>
-            </li>
-            <li class="nav-item">
-                <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
-                        data-bs-target="#navs-horarios" disabled="true" aria-controls="navs-horarios" aria-selected="false">
-                    <i class="tf-icons bx bx-plus me-1"></i> Horarios
-                </button>
-            </li>
-        </ul>
-        <div class="tab-content p-0">
-            <div class="tab-pane fade show active" id="navs-abogados" role="tabpanel">
-                <div class="table-responsive pb-0">
-                    <table id="abogadosTable" class="mx-1 table border-top">
-                    </table>
-                </div>
+<div class="erp-main-container erp-bg-main">
+    <ul class="erp-tabs" role="tablist" style="overflow-x:unset;">
+        <li>
+            <button type="button" class="erp-tab active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-abogados"
+                aria-controls="navs-abogados" aria-selected="true">
+                <i class="tf-icons bx bx-user me-2"></i> Abogados
+            </button>
+        </li>
+        <li>
+            <button type="button" class="erp-tab" role="tab" data-bs-toggle="tab" data-bs-target="#navs-horarios"
+                disabled="true" aria-controls="navs-horarios" aria-selected="false">
+                <i class="tf-icons bx bx-time me-2"></i> Horarios
+            </button>
+        </li>
+        <li>
+            <button type="button" class="erp-tab" role="tab" data-bs-toggle="tab" data-bs-target="#navs-equipos"
+                aria-controls="navs-equipos" aria-selected="false">
+                <i class="tf-icons bx bx-cog me-2"></i> Equipos
+            </button>
+        </li>
+    </ul>
+    <div class="tab-content p-0">
+        <div class="tab-pane fade show active" id="navs-abogados" role="tabpanel">
+            <div class="table-responsive pb-0 px-4">
+                <table id="abogadosTable" class="mx-1 table border-top">
+                </table>
             </div>
-            <div class="p-2 tab-pane fade" id="navs-horarios" role="tabpanel">
-                <div class="table-responsive pb-0">
-                    <div id="calendarioTable_title" class="card-header"></div>
-                    <div class="card app-calendar-wrapper">
-                        <div class="row g-0">
-                            <!-- Calendar Sidebar -->
-                        
-                            <!-- /Calendar Sidebar -->
-                            <!-- Calendar & Modal -->
-                            <div class="col app-calendar-content">
-                                <div class="card shadow-none border-0">
-                                    <div class="card-body pb-0">
-                                        <!-- FullCalendar -->
-                                        <div id="calendar"></div>
-                                    </div>
-                                </div>
-                                <div class="app-overlay"></div>
-                                <!-- FullCalendar Offcanvas -->
-                                <div class="offcanvas offcanvas-end event-sidebar" tabindex="-1" id="addEventSidebar" aria-labelledby="addEventSidebarLabel">
-                                    <div class="offcanvas-header border-bottom">
-                                        <h6 class="offcanvas-title" id="addEventSidebarLabel">Agregar Fecha</h6>
-                                        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                                    </div>
-                                    <div class="offcanvas-body">
-                                        <form class="pt-0" id="AddCalendar" method="post">
-                                            <div class="mb-3">
-                                                <label class="form-label" for="FCHA">Fecha <span class="text-danger">*</span></label>
-                                                <div class="input-group">
-                                                    <input disabled type="text" id="FCHA" name="FCHA" placeholder="DD-MM-YYYY" class="form-control date-mask dob-picker-format" />
-                                                    <span class="input-group-text">
-                                                        <i class="bi bi-calendar"></i>
-                                                    </span>
-                                                </div>
-                                            </div>
+        </div>
+        <div class="tab-pane fade" id="navs-horarios" role="tabpanel">
+            <div class="table-responsive pb-0 px-4">
+                <div id="calendarioTable_title" class="card-header pb-2 px-0"></div>
+                <div class="card app-calendar-wrapper">
+                    <div class="row g-0">
+                        <!-- Calendar Sidebar -->
 
-                                            <div class="mb-3">
-                                                <label for="flatpickr-time" for="HRAINIT" class="form-label">Hora desde</label>
-                                                <input type="text" id="HRAINIT" name="HRAINIT" class="form-control flatpickr-timeout" placeholder="HH:MM"/>
-                                            </div>
-
-                                            <div class="mb-3">
-                                                <label for="flatpickr-time" for="HRAFN" class="form-label">Hora Hasta</label>
-                                                <input type="text" id="HRAFN" name="HRAFN" class="form-control flatpickr-timeout" placeholder="HH:MM"/>
-                                            </div>
-
-                                            <div class="mb-3 d-flex justify-content-sm-between justify-content-start my-4">
-                                                <div>
-                                                    <button id="btnAddCalendar" class="btn btn-primary me-sm-3 me-1">Guardar</button>
-                                                    <button id="btnDeleteCalendar" class="btn btn-danger me-sm-0 me-1">Eliminar</button>
-                                                </div>
-                                            </div>
-                                        </form>
-
-                                    </div>
+                        <!-- /Calendar Sidebar -->
+                        <!-- Calendar & Modal -->
+                        <div class="col app-calendar-content">
+                            <div class="card shadow-none border-0">
+                                <div class="card-body pb-0">
+                                    <!-- FullCalendar -->
+                                    <div id="calendar"></div>
                                 </div>
                             </div>
-                            <!-- /Calendar & Modal -->
+                            <div class="app-overlay"></div>
+                            <!-- FullCalendar Offcanvas -->
+                            <div class="offcanvas offcanvas-end event-sidebar" tabindex="-1" id="addEventSidebar"
+                                aria-labelledby="addEventSidebarLabel">
+                                <div class="offcanvas-header border-bottom">
+                                    <h6 class="offcanvas-title" id="addEventSidebarLabel">Agregar Fecha</h6>
+                                    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body">
+                                    <form class="pt-0" id="AddCalendar" method="post">
+                                        <div class="mb-3">
+                                            <label class="form-label" for="FCHA">Fecha <span
+                                                    class="text-danger">*</span></label>
+                                            <div class="input-group">
+                                                <input disabled type="text" id="FCHA" name="FCHA"
+                                                    placeholder="DD-MM-YYYY"
+                                                    class="form-control date-mask dob-picker-format" />
+                                                <span class="input-group-text">
+                                                    <i class="bi bi-calendar"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="flatpickr-time" for="HRAINIT" class="form-label">Hora
+                                                desde</label>
+                                            <input type="text" id="HRAINIT" name="HRAINIT"
+                                                class="form-control flatpickr-timeout" placeholder="HH:MM" />
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="flatpickr-time" for="HRAFN" class="form-label">Hora
+                                                Hasta</label>
+                                            <input type="text" id="HRAFN" name="HRAFN"
+                                                class="form-control flatpickr-timeout" placeholder="HH:MM" />
+                                        </div>
+
+                                        <div class="mb-3 d-flex justify-content-sm-between justify-content-start my-4">
+                                            <div>
+                                                <button id="btnAddCalendar"
+                                                    class="btn btn-primary me-sm-3 me-1">Guardar</button>
+                                                <button id="btnDeleteCalendar"
+                                                    class="btn btn-danger me-sm-0 me-1">Eliminar</button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /Calendar & Modal -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="navs-equipos" role="tabpanel">
+            <div class="table-responsive pb-0 px-4">
+                <div class="row gy-3 gx-3 align-items-end erp-filtros" id="navs-equipos-filtros">
+                    <div class="col-12 col-md-4">
+                        <label for="NMBREEQUPO" class="form-label">Nombre del Equipo</label>
+                        <input type="text" id="NMBREEQUPO" name="NMBREEQUPO" class="form-control noMayus"
+                            placeholder="Buscar equipo...">
+                    </div>
+                    <div class="col-12 col-md-8">
+                        <label for="ABOGDOS" class="form-label">Abogado</label>
+                        <input id="ABOGDOS" name="ABOGDOS" class="form-control" placeholder="Buscar abogado..." />
+                    </div>
+                </div>
+                <div class="row mb-4 gx-2 gy-2">
+                    <div class="col-12">
+                        <div class="d-grid d-md-flex flex-md-wrap justify-content-md-end gap-2">
+                            <button id="navs-equipos-filtros-buscar" class="erp-btn erp-btn-primary">
+                                <i class="bx bx-search-alt-2 bx-sm"></i>
+                                Buscar
+                            </button>
+                            <button id="navs-equipos-filtros-agregar" class="erp-btn erp-btn-secondary">
+                                <i class="bx bx-plus bx-sm"></i>
+                                Nuevo
+                            </button>
                         </div>
                     </div>
                 </div>
+                <table id="equiposTable" class="mx-1 table border-top">
+                </table>
             </div>
         </div>
     </div>
@@ -127,4 +170,6 @@
 
 
 @await Html.PartialAsync("./_Partials/_ModalAgregarAbogado")
-@await Html.PartialAsync("./_Partials/_ModalEditarAbogado") 
+@await Html.PartialAsync("./_Partials/_ModalEditarAbogado")
+@await Html.PartialAsync("./_Partials/_ModalAgregarEquipo")
+@await Html.PartialAsync("./_Partials/_ModalEditarEquipo")

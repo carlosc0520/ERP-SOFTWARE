@@ -8,7 +8,9 @@ const executeView = () => {
     const uisApis = {
         API: '/Legal/Abogados/Index?handler',
         PER: '/Usuarios/Personas/Index?handler',
-        GD: '/Seguridad/GrupoDato/Index?handler'
+        GD: '/Seguridad/GrupoDato/Index?handler',
+        EQUIPOS: '/Comercial/Gestion/Index?handler=Equipment',
+        ABOGADOS: '/Legal/Abogados/Index?handler=',
     };
 
     // * VARIABLES
@@ -19,6 +21,14 @@ const executeView = () => {
     let fechaGlobal = null;
     let diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
     let coloresBEBE = ['warning', 'danger', 'success', 'info', 'primary', 'secondary'];
+
+    let IDEMPRSA = null;
+    let SELECTS_LIST = {};
+    let usersList = [];
+
+    let navsEquipos = 'navs-equipos';
+    let equiposTable = 'equiposTable';
+    let CequiposTable = null;
 
     // * TABLAS
     const abogadosCrud = {
@@ -84,7 +94,20 @@ const executeView = () => {
                             }
                         },
                         columns: [
-                            { data: 'rn', title: '' },
+                            {
+                                data: null,
+                                title: '',
+                                orderable: false,
+                                className: 'text-center',
+                                render: function (data, type, row, meta) {
+                                    return `
+                                        <div style="display:flex;align-items:center;justify-content:center;gap:4px;">
+                                            <button class='btn btn-sm btn-icon auditoria-row' title='Ver auditoría' tabindex="-1"><i class='bx bx-chevron-right'></i></button>
+                                            <span style="min-width:22px;display:inline-block;">${data.rn || meta.row + 1}</span>
+                                        </div>
+                                    `;
+                                }
+                            },
                             {
                                 data: null,
                                 title: 'Abogado',
@@ -130,8 +153,6 @@ const executeView = () => {
                                         }></i></span>`;
                                 }
                             },
-                            { data: 'uedcn', title: 'U. Edición' },
-                            { data: null, title: 'F. Edición', render: data => func.formatFecha(data.fedcn, 'DD-MM-YYYY HH:mm a') },
                             {
                                 data: null,
                                 title: '',
@@ -160,7 +181,7 @@ const executeView = () => {
 
                             buttons.unshift({
                                 text: '<i class="bx bx-plus me-0 me-md-2"></i><span class="d-none d-md-inline-block">Agregar</span>',
-                                className: 'btn btn-label-primary btn-add-new',
+                                className: 'erp-btn erp-btn-secondary',
                                 action: function (e, dt, node, config) {
                                     $('#modalAddAbogado').modal('show');
                                 }
@@ -537,7 +558,7 @@ const executeView = () => {
                 });
             },
             DELETE: id => {
-                if(!id) return swalFire.error('No se encontró el identificador del registro');
+                if (!id) return swalFire.error('No se encontró el identificador del registro');
 
                 let formData = new FormData();
                 formData.append('ID', id);
@@ -617,6 +638,289 @@ const executeView = () => {
         }
     };
 
+    const equiposCrud = {
+        init: () => {
+            $(`#${navsEquipos}-filtros input, #${navsEquipos}-filtros select`).val('');
+            equiposCrud.eventos.TABLE();
+        },
+        globales: () => {
+            // * MODALES
+            $("#modalAddEquipo").on('shown.bs.modal', function () {
+                configFormVal("AddEquipo",
+                    equiposCrud.validaciones.INSERT, () => equiposCrud.eventos.INSERT());
+            });
+
+            $("#modalEditEquipo").on('shown.bs.modal', function () {
+                configFormVal('EditEquipo', equiposCrud.validaciones.UPDATE, () => equiposCrud.eventos.UPDATE());
+                func.actualizarForm('EditEquipo', equiposCrud.variables.rowEdit);
+
+                $('#EditEquipo #ABOGDOS')[0].__tagify.removeAllTags();
+                $('#EditEquipo #ABOGDOS')[0].__tagify.addTags(
+                    usersList.filter(u => equiposCrud.variables.rowEdit.abogdos.split(',').includes(u.value.toString()))
+                );
+            });
+
+            // * BOTONES
+            $(`#${navsEquipos}-filtros-buscar`).on('click', () => equiposCrud.eventos.TABLE());
+
+            $(`#${navsEquipos}-filtros-agregar`).on('click', (E) => {
+                $('#modalAddEquipo').modal('show');
+            });
+
+            // * TABLA EQUIPOS - EDITAR
+            $(`#${equiposTable}`).on('click', '.edit-row', function () {
+                let data = $(`#${equiposTable}`).DataTable().row($(this).parents('tr')).data();
+                if (!data.id) return swalFire.error('No se ha podido obtener el identificador del registro');
+                equiposCrud.variables.rowEdit = data;
+                $('#EditEquipo #ABOGDOS')[0].__tagify.removeAllTags();
+                $('#EditEquipo #ABOGDOS')[0].__tagify.addTags(
+                    usersList.filter(u => equiposCrud.variables.rowEdit.abogdos.split(',').includes(u.value.toString()))
+                );
+                $('#modalEditEquipo').modal('show');
+            });
+
+            // * TABLA EQUIPOS - ELIMINAR
+            $(`#${equiposTable}`).on('click', '.delete-row', function () {
+                let data = $(`#${equiposTable}`).DataTable().row($(this).parents('tr')).data();
+                if (!data?.id || data.id <= 0) return swalFire.error('No se ha podido obtener el identificador del registro');
+                swalFire.confirmar('¿Está seguro de cambiar el estado del equipo?', {
+                    1: () => equiposCrud.eventos.DELETE(data.id)
+                });
+            });
+        },
+        variables: {
+            rowEdit: {},
+        },
+        eventos: {
+            TABLE: () => {
+                if (!CequiposTable) {
+                    CequiposTable = $(`#${equiposTable}`).DataTable({
+                        ...configTable(),
+                        ajax: {
+                            url: uisApis.EQUIPOS + 'All',
+                            type: 'GET',
+                            beforeSend: function (xhr) {
+                                xhr.setRequestHeader('Authorization', 'Bearer ' + (localStorage.getItem('accessToken') || null));
+                            },
+                            data: function (d) {
+                                delete d.columns;
+                                d.IDEMPRSA = IDEMPRSA;
+                                d.NMBREEQUPO = $(`#${navsEquipos}-filtros #NMBREEQUPO`).val();
+                                d.ABOGDOS = JSON.parse($(`#${navsEquipos}-filtros #ABOGDOS`).val() || '[]').map(abogado => abogado.value).join(',');
+                                d.CESTDO = func.obtenerCESTDO(equiposTable);
+                            }
+                        },
+                        columns: [
+                            {
+                                data: null,
+                                title: '',
+                                orderable: false,
+                                className: 'text-center',
+                                render: function (data, type, row, meta) {
+                                    return `
+                                        <div style="display:flex;align-items:center;justify-content:center;gap:4px;">
+                                            <button class='btn btn-sm btn-icon auditoria-row' title='Ver auditoría' tabindex="-1"><i class='bx bx-chevron-right'></i></button>
+                                            <span style="min-width:22px;display:inline-block;">${data.rn || meta.row + 1}</span>
+                                        </div>
+                                    `;
+                                }
+                            },
+                            { data: 'nmbreequpo', title: 'Nombre del Equipo' },
+                            {
+                                data: null, title: "Cantidad Abogados",
+                                className: 'text-center',
+                                render: data => data.abogdos ? data.abogdos.split(',').length : 0
+                            },
+                            {
+                                data: null,
+                                title: 'Estado',
+                                className: 'text-center',
+                                render: data => {
+                                    return `<span><i class="fa fa-circle ${data.cestdo == 'A' ? 'text-success' : 'text-danger'}" title=${data.cestdo == 'A' ? 'Activo' : 'Inactivo'}></i></span>`;
+                                }
+                            },
+                            {
+                                data: null,
+                                title: '',
+                                className: 'text-center',
+                                orderable: false,
+                                render: data => {
+                                    let actions = [
+                                        `<button name="EDITAR" class="btn btn-sm btn-icon edit-row" title="Editar"><i class="bx bx-edit"></i></button>`,
+                                        `<button name="ELIMINAR" class="btn btn-sm btn-icon delete-row" title="Eliminar"><i class="bx bx-trash"></i></button>`
+                                    ];
+                                    if (actions.length > 2) {
+                                        return `
+                                            <div class="dropdown d-flex justify-content-center m-0 p-0">
+                                                <button class="btn btn-sm btn-icon dropdown-toggle dropdown-toggle-no-caret" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Acciones">
+                                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                                </button>
+                                                <ul class="dropdown-menu dropdown-menu-end">
+                                                    <li>${actions[0]}</li>
+                                                    <li>${actions[1]}</li>
+                                                </ul>
+                                            </div>
+                                        `;
+                                    } else {
+                                        return `<div class="d-flex justify-content-center m-0 p-0">${actions.join('')}</div>`;
+                                    }
+                                }
+                            }
+                        ],
+                        initComplete: function (settings, json) {
+                            $(`#${equiposTable}_filter`).hide();
+                        },
+                        drawCallback: function (settings) {
+                            $(`#${equiposTable}_filter`).hide();
+                            $(`#${equiposTable}_wrapper > div:first-child`).removeClass('py-4');
+                        },
+                        columnDefs: [],
+                        buttons: (() => {
+                            let buttons = [];
+                            return buttons;
+                        })()
+                    });
+                } else {
+                    CequiposTable.ajax.reload();
+                }
+            },
+            INSERT: () => {
+                let abogdosRaw = $('#AddEquipo #ABOGDOS').val();
+                let abogadosSplit = [];
+                if (abogdosRaw && abogdosRaw.trim() !== '') {
+                    try {
+                        const parsed = JSON.parse(abogdosRaw);
+                        abogadosSplit = Array.isArray(parsed) ? parsed : [];
+                    } catch (e) {
+                        console.warn('ABOGDOS no es JSON válido', e);
+                        abogadosSplit = [];
+                    }
+                }
+                let ABOGDOS = abogadosSplit.map(abogado => abogado.value).filter(Boolean).join(',');
+
+                let formData = new FormData();
+                formData.append('IDEMPRSA', IDEMPRSA);
+                formData.append('NMBREEQUPO', $('#AddEquipo #NMBREEQUPO').val());
+                formData.append('ABOGDOS', ABOGDOS);
+
+                swalFire.cargando(['Espere un momento', 'Estamos guardando el registro.']);
+                $.ajax({
+                    url: uisApis.EQUIPOS + 'Add',
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('XSRF-TOKEN', localStorage.getItem('accessToken'));
+                    },
+                    type: 'POST',
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
+                    data: formData,
+                    success: function (data) {
+                        if (data?.codEstado > 0 && data?.esSatisfactoria) {
+                            swalFire.success(data?.message, '', {
+                                1: () => {
+                                    $('#modalAddEquipo').modal('hide');
+                                    CequiposTable.ajax.reload();
+                                }
+                            });
+                        }
+
+                        if (data?.codEstado <= 0) swalFire.error('Ocurrió un error al procesar la solicitud');
+                    },
+                    error: (jqXHR, textStatus, errorThrown) => swalFire.error('Ocurrió un error al cambiar el estado del registro')
+                });
+            },
+            UPDATE: () => {
+                let abogdosRaw = $('#EditEquipo #ABOGDOS').val();
+                let abogadosSplit = [];
+                if (abogdosRaw && abogdosRaw.trim() !== '') {
+                    try {
+                        const parsed = JSON.parse(abogdosRaw);
+                        abogadosSplit = Array.isArray(parsed) ? parsed : [];
+                    } catch (e) {
+                        console.warn('ABOGDOS no es JSON válido', e);
+                        abogadosSplit = [];
+                    }
+                }
+                let ABOGDOS = abogadosSplit.map(abogado => abogado.value).filter(Boolean).join(',');
+                let formData = new FormData();
+                formData.append('ID', equiposCrud.variables.rowEdit.id);
+                formData.append('NMBREEQUPO', $('#EditEquipo #NMBREEQUPO').val());
+                formData.append('ABOGDOS', ABOGDOS);
+
+                swalFire.cargando(['Espere un momento', 'Estamos actualizando el registro.']);
+                $.ajax({
+                    url: uisApis.EQUIPOS + 'Update',
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('XSRF-TOKEN', localStorage.getItem('accessToken'));
+                    },
+                    type: 'POST',
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
+                    data: formData,
+                    success: function (data) {
+                        if (data?.codEstado > 0 && data?.esSatisfactoria) {
+                            swalFire.success(data?.message, '', {
+                                1: () => {
+                                    $('#modalEditEquipo').modal('hide');
+                                    CequiposTable.ajax.reload();
+                                }
+                            });
+                        }
+                        if (data?.codEstado <= 0) swalFire.error('Ocurrió un error al procesar la solicitud');
+                    },
+                    error: (jqXHR, textStatus, errorThrown) => swalFire.error('Ocurrió un error al cambiar el estado del registro')
+                });
+            },
+            DELETE: id => {
+                let formData = new FormData();
+                formData.append('ID', id);
+                swalFire.cargando(['Espere un momento', 'Estamos cambiando el estado del registro']);
+                $.ajax({
+                    url: uisApis.EQUIPOS + 'Delete',
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader('XSRF-TOKEN', localStorage.getItem('accessToken'));
+                    },
+                    type: 'POST',
+                    dataType: 'json',
+                    contentType: false,
+                    processData: false,
+                    data: formData,
+                    success: function (data) {
+                        if (data?.codEstado > 0 && data?.esSatisfactoria) {
+                            swalFire.success(data?.message, '', {
+                                1: () => $(`#${equiposTable}`).DataTable().ajax.reload()
+                            });
+                        }
+                        if (data?.codEstado <= 0) swalFire.error('Ocurrió un error al procesar la solicitud');
+                    },
+                    error: (jqXHR, textStatus, errorThrown) => swalFire.error('Ocurrió un error al cambiar el estado del registro')
+                });
+            }
+        },
+        formularios: {
+        },
+        validaciones: {
+            INSERT: {
+                NMBREEQUPO: agregarValidaciones({
+                    required: true
+                }),
+                ABOGDOS: agregarValidaciones({
+                    required: true
+                }),
+            },
+            UPDATE: {
+                NMBREEQUPO: agregarValidaciones({
+                    required: true
+                }),
+                ABOGDOS: agregarValidaciones({
+                    required: true
+                }),
+            }
+        }
+    }
+
+
     const globalCrud = {
         init: async () => {
             await globalCrud.eventos.selects2();
@@ -626,46 +930,83 @@ const executeView = () => {
                 const GRUPODATOS = 'GDESPCLDD,GDSCRSLS';
                 const API1 = `${uisApis.PER}=Buscar&CESTDO=A&start=0&length=1000`;
                 const API2 = `${uisApis.GD}=ObtenerAll`;
+                const accessToken = localStorage.getItem('accessToken');
 
-                const response1 = await $.ajax({
-                    url: API1,
-                    beforeSend: (xhr) => xhr.setRequestHeader('XSRF-TOKEN', localStorage.getItem('accessToken')),
-                    type: 'GET',
-                }).catch(err => {
-                    console.error('Error al obtener datos de API1', err);
-                    return null;
-                });
+                // Ejecutar ambas llamadas en paralelo
+                const [response1, response2, abogadosRes] = await Promise.all([
+                    // 1. Personas
+                    $.ajax({
+                        url: API1,
+                        beforeSend: (xhr) => xhr.setRequestHeader('XSRF-TOKEN', accessToken),
+                        type: 'GET',
+                    }).catch(err => {
+                        console.error('Error al obtener datos de personas', err);
+                        return null;
+                    }),
+                    // 2. Grupo Dato
+                    $.ajax({
+                        url: API2,
+                        beforeSend: (xhr) => xhr.setRequestHeader('XSRF-TOKEN', accessToken),
+                        type: 'GET',
+                        data: { GDTOS: GRUPODATOS },
+                    }).catch(err => {
+                        console.error('Error al obtener datos de grupo dato', err);
+                        return null;
+                    }),
+                    // 3. Abogados
+                    $.ajax({
+                        url: `${uisApis.ABOGADOS}Buscar&IDEMPRSA=${IDEMPRSA}&start=0&length=1000&CESTDO=A`,
+                        type: 'GET',
+                        beforeSend: xhr => xhr.setRequestHeader('Authorization', 'Bearer ' + (localStorage.getItem('accessToken') || null))
+                    }).catch(err => {
+                        console.error('Error al obtener datos de abogados', err);
+                        return null;
+                    })
+                ]);
 
-                if (response1?.data) {
-                    let selectores = document.querySelectorAll('#EditAbogado #IDPRSNA, #AddAbogado #IDPRSNA');
-                    selectores.forEach(selector => {
-                        selector.innerHTML = '<option value="">-- Seleccione --</option>';
-                        response1.data.forEach(d => {
-                            selector.innerHTML += `<option value="${d.id}">${d.ncmpto}</option>`;
+                // Poblar selectores de personas (una sola asignación de innerHTML)
+                if (response1?.data?.length) {
+                    const personasOptions = [
+                        '<option value="">-- Seleccione --</option>',
+                        ...response1.data.map(d => `<option value="${d.id}">${d.ncmpto}</option>`)
+                    ].join('');
+
+                    document.querySelectorAll('#EditAbogado #IDPRSNA, #AddAbogado #IDPRSNA')
+                        .forEach(selector => selector.innerHTML = personasOptions);
+                }
+
+                // Poblar selectores de grupo dato (una sola asignación por selector)
+                if (response2?.data?.length) {
+                    const grupoDatoIds = GRUPODATOS.split(',').map(d => d.trim());
+
+                    grupoDatoIds.forEach(gdId => {
+                        const options = response2.data.filter(d => d.gdpdre === gdId);
+
+                        document.querySelectorAll(`#${gdId}`).forEach(selector => {
+                            // Si es select multiple, no incluir "-- Seleccione --"
+                            const isMultiple = selector.hasAttribute('multiple');
+                            const optionsHTML = [
+                                ...(isMultiple ? [] : ['<option value="">-- Seleccione --</option>']),
+                                ...options.map(d => `<option value="${d.vlR1}">${d.dtlle}</option>`)
+                            ].join('');
+
+                            selector.innerHTML = optionsHTML;
                         });
                     });
                 }
 
-                const response2 = await $.ajax({
-                    url: API2,
-                    beforeSend: (xhr) => xhr.setRequestHeader('XSRF-TOKEN', localStorage.getItem('accessToken')),
-                    type: 'GET',
-                    data: { GDTOS: GRUPODATOS },
-                }).catch(err => {
-                    console.error('Error al obtener datos de API2', err);
-                    return null;
-                });
+                // * Procesar Abogados (Tagify)
+                if (abogadosRes?.data) {
+                    SELECTS_LIST['ABOGADOS'] = abogadosRes.data;
+                    usersList = abogadosRes.data.map(abogado => ({
+                        value: abogado.id,
+                        name: abogado.nmbrs,
+                        avatar: abogado.rtafto
+                    }));
 
-                if (response2?.data) {
-                    let arraySelectores = GRUPODATOS.split(',').map(d => "#" + d.trim());
-                    let selectores = document.querySelectorAll(arraySelectores.join(', '));
-
-                    selectores.forEach(selector => {
-                        let options = response2.data.filter(d => d.gdpdre === selector.id);
-                        selector.innerHTML = '<option value="">-- Seleccione --</option>';
-                        options.forEach(d => {
-                            selector.innerHTML += `<option value="${d.vlR1}">${d.dtlle}</option>`;
-                        });
+                    ['#navs-equipos #ABOGDOS', '#modalAddEquipo #ABOGDOS', '#modalEditEquipo #ABOGDOS'].forEach(selector => {
+                        const element = document.querySelector(selector);
+                        if (element) tagsTagify(element, usersList);
                     });
                 }
             }
@@ -675,6 +1016,7 @@ const executeView = () => {
 
     return {
         init: async () => {
+            IDEMPRSA = func.IDEMPRESA();
             await func.limitarCaracteres();
             await func.datepickerListModify();
 
@@ -682,8 +1024,9 @@ const executeView = () => {
             abogadosCrud.init();
             abogadosCrud.globales();
             horariosCrud.globales();
+            equiposCrud.globales();
 
-            var myTabs = document.querySelectorAll('.nav-tabs button');
+            var myTabs = document.querySelectorAll('.erp-tabs button');
             myTabs.forEach(function (tab) {
                 tab.addEventListener('click', function () {
                     const tabPane = tab.getAttribute('data-bs-target');
@@ -694,6 +1037,10 @@ const executeView = () => {
 
                     if (tabPane === '#navs-horarios') {
                         horariosCrud.init();
+                    }
+
+                    if (tabPane === '#navs-equipos') {
+                        equiposCrud.init();
                     }
                 });
             });

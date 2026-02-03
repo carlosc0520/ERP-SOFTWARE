@@ -28,6 +28,11 @@ namespace CARO.AUTENTICACION.WEB.Pages.Seguridad.Marcas
     {
       HttpContextDraw.SetModelValues(HttpContext, custom);
       var marcas = await _consultasMarca.Obtener(custom);
+      custom.ID = int.Parse(HttpContextDraw.User(HttpContext, 5));
+      if (custom.PROPIO == "1")
+      {
+        marcas = marcas.Where(m => m.ID == custom.ID).ToList();
+      }
       var totalRows = marcas?.FirstOrDefault()?.TOTALROWS ?? 0;
 
       return new JsonResult(new

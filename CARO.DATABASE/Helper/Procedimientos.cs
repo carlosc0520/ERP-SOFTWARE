@@ -9,6 +9,7 @@
             public const string GrupoDatoCrud = "SEG.USP_CRUD_MSTB05";
             public const string MarcasCrud = "PER.USP_CRUD_MPTB00";
             public const string LoginCrud = "SEG.USP_CRUD_MSTB01";
+            public const string ResetLogin = "SEG.USP_CRUD_MSTB01_UPDATE";
             public const string ListarUbigeos = "SEG.USP_LMSTB11_ListarUbigeos";
         }
 
@@ -34,10 +35,15 @@
             public const string ProfesoresCrud = "COM.USP_CRUD_MCTB08";
             public const string SponsorsCrud = "COM.USP_CRUD_MCTB09";
             public const string ClienteCrud = "COM.USP_CRUD_MCTB10";
-            public const string SeguimientoCrud = "COM.USP_CRUD_MCTB11";
+            public const string SeguimientoCrud = "COM.USP_CRUD_MCTB11"; 
             public const string FormularioCrud = "COM.USP_CRUD_MCTB12";
             public const string FormularioCrudRespuesta = "COM.USP_CRUD_MCTB13";
-
+            public const string ClienteXCasoCrud = "COM.USP_CRUD_MCTB18";
+            public const string ContactoXClienteXCasoCrud = "COM.USP_CRUD_MCTB23";
+            public const string EquiposXCasoCrud = "COM.USP_CRUD_MCTB19";
+            public const string CasosCrud = "COM.USP_CRUD_MCTB20";
+            public const string CasosHistoryCrud = "COM.USP_CRUD_MCTB24";
+            public const string CasoMasivosCrud = "COM.USP_CRUD_MCTB26";
         }
         #endregion
 

@@ -4,6 +4,7 @@ using FluentFTP.Exceptions;
 using FluentFTP.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.IO.Compression;
 using System.Net;
 using System.Net.Http;
@@ -135,6 +136,45 @@ namespace CARO.CORE
                 if (client.IsConnected) client.Disconnect();
             }
         }
+
+        public async Task<string> UploadFileFindAsync(string ruta, IFormFile archivo)
+        {
+            if (archivo == null || archivo.Length == 0)
+                throw new ArgumentException("El archivo no puede ser nulo o vacío.", nameof(archivo));
+
+            var client = new FtpClient(this.servidor, 21)
+            {
+                Credentials = new NetworkCredential(this.credetencialts, this.password),
+            };
+
+            try
+            {
+                client.Connect();
+
+                if (!client.DirectoryExists(ruta))
+                    client.CreateDirectory(ruta);
+
+                // Nombre único real
+                string nombreArchivo = $"{Guid.NewGuid():N}_{archivo.FileName}";
+                string remoteFilePath = $"{ruta}/{nombreArchivo}";
+
+                using var stream = new MemoryStream();
+                await archivo.CopyToAsync(stream);
+                stream.Position = 0;
+
+                client.UploadStream(stream, remoteFilePath);
+
+                // Retorna EXACTAMENTE lo que se subió
+                return remoteFilePath;
+            }
+            finally
+            {
+                if (client.IsConnected)
+                    client.Disconnect();
+            }
+        }
+
+
 
         public async Task<string> UploadFilesAsync(string ruta, List<IFormFile> archivos, bool gui = true)
         {

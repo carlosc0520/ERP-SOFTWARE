@@ -19,6 +19,7 @@ namespace CARO.DATOS.MODELO.SEG.LOGIN
         public bool? FRZRCMBOCLVE { get; set; } = null;
         public int? INTNTS { get; set; } = null;
         public int? IDROL { get; set; } = null;
+        public string? RTAFTO { get; set; } = null;
     }
     public class SucursalUsuario
     {

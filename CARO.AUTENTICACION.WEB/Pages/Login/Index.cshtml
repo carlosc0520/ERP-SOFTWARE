@@ -10,7 +10,7 @@
 }
 
 @section PageStyles {
-<link rel="stylesheet" href="~/vendor/css/pages/page-auth.dist.css">
+<link rel="stylesheet" href="~/css/login-custom.css">
 }
 
 @section VendorScripts {
@@ -41,15 +41,8 @@
     <!-- Login -->
     <div class="d-flex col-12 col-lg-5 col-xl-4 align-items-center authentication-bg p-sm-5 p-4">
       <div class="w-px-400 mx-auto">
-        <!-- Logo -->
-        <div class="app-brand mb-4">
-          <a href="/" class="app-brand-link gap-2 mb-2"
-            class="app-brand-logo demo" style="cursor: pointer;">
-            <span class="app-brand-text demo h3 mb-0 fw-bold">@TempData.Peek("appName")</span>
-          </a>
-        </div>
         <!-- /Logo -->
-        <h4 class="mb-2">Bienvenido a @TempData.Peek("appName")! 👋</h4>
+        <h4 class="mb-2">Bienvenido👋</h4>
                 <p class="mb-4">
                     Inicia sesión en tu cuenta y comienza la aventura
                 </p>
@@ -75,14 +68,6 @@
             </div>
           </div>
           
-          <div class="mb-3">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="remember-me">
-              <label class="form-check-label" for="remember-me">
-                Recordarme
-              </label>
-            </div>
-          </div>
           <button id="btnformAuthentication" class="btn btn-primary d-grid w-100">
             Iniciar sesión
           </button>

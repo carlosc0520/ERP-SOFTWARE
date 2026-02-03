@@ -155,7 +155,7 @@ const executeView = () => {
 
       // ver usuarios
       $(`#${formularioTable}`).on('click', '.btn-link-formulario', function () {
-        const data = CformularioTable.row($(this).parents('tr')).data();
+        const data = CformularioTable.row($(this).closest('tr')).data();
         if (!data.id) return swalFire.error('No se encontró el formulario seleccionado');
         let url = window.location.origin + `/Perfil/forms/Index?id=${data.id}&formulario=${data.nombre}`;
         window.open(url, '_blank');
@@ -163,10 +163,17 @@ const executeView = () => {
 
       // ver respuestas
       $(`#${formularioTable}`).on('click', '.btn-ver-respuestas', function () {
-        const data = CformularioTable.row($(this).parents('tr')).data();
+        const data = CformularioTable.row($(this).closest('tr')).data();
         if (!data.id) return swalFire.error('No se encontró el formulario seleccionado');
         formularioCrud.variables.rowEdit = data;
         redirect(true, 'navs-respuestas', data.id);
+      });
+
+      // exportar formulario
+      $(`#${formularioTable}`).on('click', '.btn-exportar-row', function () {
+        const data = CformularioTable.row($(this).parents('tr')).data();
+        if (!data.id) return swalFire.error('No se encontró el formulario seleccionado');
+        formularioCrud.eventos.EXPORTAR(data);
       });
     },
     variables: {
@@ -198,12 +205,24 @@ const executeView = () => {
               },
             },
             columns: [
-              { data: 'rn', title: '' },
+              {
+                data: null,
+                title: '',
+                orderable: false,
+                className: 'text-center',
+                render: function (data, type, row, meta) {
+                  // Mostrar el número de fila y la flecha juntos
+                  return `
+                                        <div style="display:flex;align-items:center;justify-content:center;gap:4px;">
+                                            <button class='btn btn-sm btn-icon auditoria-row' title='Ver auditoría' tabindex="-1"><i class='bx bx-chevron-right'></i></button>
+                                            <span style="min-width:22px;display:inline-block;">${data.rn || meta.row + 1}</span>
+                                        </div>
+                                    `;
+                }
+              },
               { data: "nombre", title: "Formulario", },
               { data: null, title: "Fcha. Inicio", width: "20%", class: "text-center", render: data => func.formatFecha(data.finicio, 'DD-MM-YYYY') },
               { data: null, title: "Fcha. Fin", width: "20%", class: "text-center", render: data => func.formatFecha(data.ffin, 'DD-MM-YYYY') },
-              { data: null, title: 'U. Edición', render: data => data.uedcn.split('@')[0] },
-              { data: null, title: 'F. Edición', render: data => func.formatFecha(data.fedcn, 'DD-MM-YYYY HH:mm a') },
               {
                 data: null,
                 title: 'Estado',
@@ -218,13 +237,22 @@ const executeView = () => {
                 title: '',
                 className: 'text-center',
                 render: data => {
-                  return `<div class="d-flex justify-content-center m-0 p-0">
+                  return `<div class="d-flex justify-content-center align-items-center gap-1 m-0 p-0">
                         <button name="EDITAR" class="btn btn-sm btn-icon edit-row-button" title="Editar"><i class="bx bx-edit"></i></button>
-                        <button name="ELIMINAR" class="btn btn-sm btn-icon delete-row-button" title="Eliminar"><i class="bx bx-trash"></i></button>
                         <button name="CONFIGURACION" class="btn btn-sm btn-icon config-row-button" title="Configuración"><i class="bx bx-cog"></i></button>
-                        <button name="IR A LINK" class="btn btn-sm btn-icon btn-link-formulario" title="Ir al formulario"><i class="bx bx-link"></i></button>
-                        <button name="VER RESPUESTAS" class="btn btn-sm btn-icon btn-ver-respuestas" title="Ver respuestas"><i class="bx bx-show"></i></button>
-                        </div>`;
+                        <button name="EXPORTAR" class="btn btn-sm btn-icon  btn-exportar-row" title="Exportar"><i class="bx bx-download"></i></button>
+                        <div class="dropdown">
+                          <button class="btn btn-sm btn-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Más opciones">
+                            <i class="bx bx-dots-vertical-rounded"></i>
+                          </button>
+                          <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item btn-link-formulario" href="javascript:void(0);"><i class="bx bx-link me-2"></i>Ir al formulario</a></li>
+                            <li><a class="dropdown-item btn-ver-respuestas" href="javascript:void(0);"><i class="bx bx-show me-2"></i>Ver respuestas</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger delete-row-button" href="javascript:void(0);"><i class="bx bx-trash me-2"></i>Eliminar</a></li>
+                          </ul>
+                        </div>
+                      </div>`;
                 }
               }
             ],
@@ -241,9 +269,17 @@ const executeView = () => {
             buttons: (() => {
               let buttons = [];
 
+              // buttons.unshift({
+              //   text: '<i class="bx bx-download me-0 me-md-2"></i><span class="d-none d-md-inline-block">Exportar</span>',
+              //   className: 'erp-btn erp-btn-success',
+              //   action: function (e, dt, node, config) {
+              //     swalFire.info('Funcionalidad de exportar en desarrollo');
+              //   }
+              // });
+
               buttons.unshift({
                 text: '<i class="bx bx-plus me-0 me-md-2"></i><span class="d-none d-md-inline-block">Agregar</span>',
-                className: 'btn btn-label-primary btn-add-new',
+                className: 'erp-btn erp-btn-secondary',
                 action: function (e, dt, node, config) {
                   $('#modalAddFormulario').modal('show');
                 }
@@ -371,6 +407,253 @@ const executeView = () => {
           },
           error: (jqXHR, textStatus, errorThrown) => swalFire.error('Ocurrió un error al eliminar el formulario')
         });
+      },
+      EXPORTAR: (data) => {
+        console.log('Exportar formulario:', data);
+        swalFire.cargando(['Espere un momento', 'Estamos preparando el formulario para exportar']);
+        $.ajax({
+          url: uisApis.API + '=AllExport&ID=' + data.id,
+          type: 'GET',
+          beforeSend: function (xhr) {
+            xhr.setRequestHeader('Authorization', 'Bearer ' + (localStorage.getItem('accessToken') || null));
+          },
+          success: function (response) {
+            if(response.data && response.data.length > 0) {
+              formularioCrud.eventos._EXCEL(response.data, data.nombre);
+            }else{
+              swalFire.error('No se encontraron datos para exportar del formulario seleccionado');
+            }
+          },
+          error: (jqXHR, textStatus, errorThrown) => swalFire.error('Ocurrió un error al exportar el formulario')
+        });
+      },
+      _EXCEL: (arrayData, nombreFormulario) => {
+        try {
+          swalFire.cargando(['Generando reporte...', 'Por favor espere mientras se genera el archivo Excel.']);
+
+          const workbook = new ExcelJS.Workbook();
+          const worksheet = workbook.addWorksheet('Respuestas');
+
+          // Obtener preguntas del primer registro (todas las preguntas están en el primer elemento)
+          let preguntas = [];
+          if (arrayData[0] && arrayData[0].preguntas) {
+            preguntas = typeof arrayData[0].preguntas === 'string' 
+              ? JSON.parse(arrayData[0].preguntas) 
+              : arrayData[0].preguntas;
+          }
+
+          console.log('Preguntas:', preguntas);
+          console.log('Total usuarios:', arrayData.length);
+
+          // Agregar título
+          worksheet.mergeCells('B2:' + abecedarioExcel[2 + preguntas.length] + '2');
+          const titleCell = worksheet.getCell('B2');
+          titleCell.value = `REPORTE DE RESPUESTAS - ${nombreFormulario.toUpperCase()}`;
+          titleCell.font = { bold: true, size: 16, color: { argb: 'FFFFFFFF' } };
+          titleCell.fill = {
+            type: 'pattern',
+            pattern: 'solid',
+            fgColor: { argb: 'FFFF6600' } // Naranja
+          };
+          titleCell.alignment = { vertical: 'middle', horizontal: 'center' };
+
+          // Preparar cabeceras: Email, Nombres, y luego cada pregunta
+          const columnas = ['Email', 'Nombres', ...preguntas.map(p => p.DESCP)];
+
+          // Agregar cabeceras de grupo en fila 4
+          // Cabecera "USUARIO" (columnas B y C)
+          worksheet.mergeCells('B4:C4');
+          const usuarioHeaderCell = worksheet.getCell('B4');
+          usuarioHeaderCell.value = 'USUARIOS';
+          usuarioHeaderCell.font = { bold: true, size: 12, color: { argb: 'FFFFFFFF' } };
+          usuarioHeaderCell.fill = {
+            type: 'pattern',
+            pattern: 'solid',
+            fgColor: { argb: 'FFFF6600' }
+          };
+          usuarioHeaderCell.alignment = { vertical: 'middle', horizontal: 'center' };
+          usuarioHeaderCell.border = {
+            top: { style: 'thin' },
+            left: { style: 'thin' },
+            bottom: { style: 'thin' },
+            right: { style: 'thin' }
+          };
+
+          // Cabecera "PREGUNTAS" (desde D hasta la última columna de preguntas)
+          if (preguntas.length > 0) {
+            const ultimaColumnaPreguntas = abecedarioExcel[2 + preguntas.length];
+            worksheet.mergeCells(`D4:${ultimaColumnaPreguntas}4`);
+            const preguntasHeaderCell = worksheet.getCell('D4');
+            preguntasHeaderCell.value = 'PREGUNTAS';
+            preguntasHeaderCell.font = { bold: true, size: 12, color: { argb: 'FFFFFFFF' } };
+            preguntasHeaderCell.fill = {
+              type: 'pattern',
+              pattern: 'solid',
+              fgColor: { argb: 'FFFF6600' }
+            };
+            preguntasHeaderCell.alignment = { vertical: 'middle', horizontal: 'center' };
+            preguntasHeaderCell.border = {
+              top: { style: 'thin' },
+              left: { style: 'thin' },
+              bottom: { style: 'thin' },
+              right: { style: 'thin' }
+            };
+          }
+
+          // Establecer cabeceras con estilo (comenzando en B5)
+          for (let i = 0; i < columnas.length; i++) {
+            const cell = worksheet.getCell(`${abecedarioExcel[i + 1]}5`);
+            cell.value = columnas[i];
+            cell.font = { bold: true, color: { argb: 'FFFFFFFF' } };
+            cell.fill = {
+              type: 'pattern',
+              pattern: 'solid',
+              fgColor: { argb: 'FFFF6600' } // Naranja
+            };
+            cell.alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
+            cell.border = {
+              top: { style: 'thin' },
+              left: { style: 'thin' },
+              bottom: { style: 'thin' },
+              right: { style: 'thin' }
+            };
+          }
+
+          // Procesar cada usuario (fila)
+          let fila = 6;
+          arrayData.forEach((usuario, index) => {
+            // Parsear respuestas del usuario
+            let respuestas = [];
+            if (usuario.respuestas) {
+              respuestas = typeof usuario.respuestas === 'string' 
+                ? JSON.parse(usuario.respuestas) 
+                : usuario.respuestas;
+            }
+
+            console.log(`Usuario ${index + 1} - ${usuario.email}:`, respuestas);
+
+            // Crear un mapa de respuestas por ID de pregunta para acceso rápido
+            const respuestasMap = {};
+            respuestas.forEach(resp => {
+              if (!respuestasMap[resp.IDPRGNTA]) {
+                respuestasMap[resp.IDPRGNTA] = [];
+              }
+              // Buscar el valor de la respuesta en el orden correcto
+              const valorRespuesta = resp.RESPUESTA || resp.DESCP || resp.RSPSTA || resp.IDRSPSTA || '-';
+              respuestasMap[resp.IDPRGNTA].push(valorRespuesta);
+              
+              console.log(`  Pregunta ID ${resp.IDPRGNTA}: ${valorRespuesta}`);
+            });
+
+            // Columna B: Email
+            const cellEmail = worksheet.getCell(`B${fila}`);
+            cellEmail.value = usuario.email || '-';
+            cellEmail.alignment = { vertical: 'top', horizontal: 'left', wrapText: true };
+            cellEmail.border = {
+              top: { style: 'thin' },
+              left: { style: 'thin' },
+              bottom: { style: 'thin' },
+              right: { style: 'thin' }
+            };
+
+            // Columna C: Nombres
+            const cellNombres = worksheet.getCell(`C${fila}`);
+            cellNombres.value = usuario.nombres || '-';
+            cellNombres.alignment = { vertical: 'top', horizontal: 'left', wrapText: true };
+            cellNombres.border = {
+              top: { style: 'thin' },
+              left: { style: 'thin' },
+              bottom: { style: 'thin' },
+              right: { style: 'thin' }
+            };
+
+            // Columnas D en adelante: Respuestas por cada pregunta
+            preguntas.forEach((pregunta, indexPregunta) => {
+              const colIndex = indexPregunta + 3; // +3 porque empezamos en D (después de Email y Nombres)
+              const cell = worksheet.getCell(`${abecedarioExcel[colIndex]}${fila}`);
+              
+              // Buscar la respuesta de este usuario para esta pregunta
+              const respuestasPregunta = respuestasMap[pregunta.ID];
+              let valorRespuesta = '-';
+              
+              if (respuestasPregunta && respuestasPregunta.length > 0) {
+                // Si hay múltiples respuestas (checkboxes), unirlas con comas
+                valorRespuesta = respuestasPregunta.join(', ');
+              }
+
+              cell.value = valorRespuesta;
+              cell.alignment = { vertical: 'top', horizontal: 'left', wrapText: true };
+              cell.border = {
+                top: { style: 'thin' },
+                left: { style: 'thin' },
+                bottom: { style: 'thin' },
+                right: { style: 'thin' }
+              };
+            });
+
+            fila++;
+          });
+
+          // Ajustar anchos de columnas
+          columnas.forEach((columna, index) => {
+            const col = worksheet.getColumn(index + 2); // +2 porque empezamos en B (columna 2)
+            let maxLength = columna.length;
+
+            col.eachCell({ includeEmpty: true }, (cell) => {
+              if (cell.value) {
+                const cellValue = cell.value.toString();
+                const lines = cellValue.split('\n');
+                const maxLineLength = Math.max(...lines.map(line => line.length));
+                if (maxLineLength > maxLength) {
+                  maxLength = maxLineLength;
+                }
+              }
+            });
+
+            // Definir anchos específicos
+            if (index === 0) col.width = 35; // Email
+            else if (index === 1) col.width = 25; // Nombres
+            else col.width = maxLength < 20 ? 20 : (maxLength > 50 ? 50 : maxLength); // Respuestas
+          });
+
+          // Aplicar filas alternas de color (estilo de tabla)
+          const lastRow = fila - 1;
+          for (let i = 6; i <= lastRow; i++) {
+            const isEven = (i - 6) % 2 === 0;
+            const fillColor = isEven ? 'FFF5F5F5' : 'FFFFFFFF'; // Gris claro / Blanco
+            
+            for (let j = 0; j < columnas.length; j++) {
+              const cell = worksheet.getCell(`${abecedarioExcel[j + 1]}${i}`);
+              if (!cell.fill || cell.fill.type !== 'pattern' || cell.fill.fgColor?.argb !== 'FFFF6600') {
+                cell.fill = {
+                  type: 'pattern',
+                  pattern: 'solid',
+                  fgColor: { argb: fillColor }
+                };
+              }
+            }
+          }
+
+          // Generar y descargar el archivo
+          workbook.xlsx.writeBuffer().then(buffer => {
+            const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `Reporte_${nombreFormulario}_${func.formatFecha(new Date(), 'DDMMYYYY_HHmmss')}.xlsx`;
+            a.click();
+            window.URL.revokeObjectURL(url);
+            
+            swalFire.success('Excel generado correctamente', 'El archivo se ha descargado exitosamente');
+          }).catch(error => {
+            console.error('Error al generar Excel:', error);
+            swalFire.error('Error al generar el archivo Excel');
+          });
+
+        } catch (error) {
+          console.error('Error en _EXCEL:', error);
+          swalFire.error('Ocurrió un error al generar el reporte: ' + error.message);
+        }
       }
     },
     formularios: {},
@@ -669,7 +952,21 @@ const executeView = () => {
               }
             },
             columns: [
-              { data: 'rn', title: '' },
+              {
+                data: null,
+                title: '',
+                orderable: false,
+                className: 'text-center',
+                render: function (data, type, row, meta) {
+                  // Mostrar el número de fila y la flecha juntos
+                  return `
+                                        <div style="display:flex;align-items:center;justify-content:center;gap:4px;">
+                                            <button class='btn btn-sm btn-icon auditoria-row' title='Ver auditoría' tabindex="-1"><i class='bx bx-chevron-right'></i></button>
+                                            <span style="min-width:22px;display:inline-block;">${data.rn || meta.row + 1}</span>
+                                        </div>
+                                    `;
+                }
+              },
               { data: "descp", title: "Pregunta", },
               {
                 data: null, title: 'Tipo', render: data => {
@@ -696,8 +993,6 @@ const executeView = () => {
                     }></i></span>`;
                 }
               },
-              { data: null, title: 'U. Edición', render: data => data.uedcn.split('@')[0] },
-              { data: null, title: 'F. Edición', render: data => func.formatFecha(data.fedcn, 'DD-MM-YYYY HH:mm a') },
               {
                 data: null,
                 title: '',
@@ -726,7 +1021,7 @@ const executeView = () => {
               // AGREGAR al inicio PLANTILLA
               buttons.unshift({
                 text: '<i class="bx bx-plus me-0 me-md-2"></i><span class="d-none d-md-inline-block">Agregar</span>',
-                className: 'btn btn-label-primary btn-add-new',
+                className: 'erp-btn erp-btn-secondary',
                 action: function (e, dt, node, config) {
                   $('#modalAddPregunta').modal('show');
                 }
@@ -1035,11 +1330,23 @@ const executeView = () => {
               },
             },
             columns: [
-              { data: 'rn', title: '' },
+              {
+                data: null,
+                title: '',
+                orderable: false,
+                className: 'text-center',
+                render: function (data, type, row, meta) {
+                  // Mostrar el número de fila y la flecha juntos
+                  return `
+                                        <div style="display:flex;align-items:center;justify-content:center;gap:4px;">
+                                            <button class='btn btn-sm btn-icon auditoria-row' title='Ver auditoría' tabindex="-1"><i class='bx bx-chevron-right'></i></button>
+                                            <span style="min-width:22px;display:inline-block;">${data.rn || meta.row + 1}</span>
+                                        </div>
+                                    `;
+                }
+              },
               { data: "nombres", title: "Nombres", },
               { data: "email", title: "Correo", },
-              { data: null, title: 'U. Edición', render: data => data.uedcn.split('@')[0] },
-              { data: null, title: 'F. Edición', render: data => func.formatFecha(data.fedcn, 'DD-MM-YYYY HH:mm a') },
               {
                 data: null,
                 title: 'Estado',
@@ -1075,7 +1382,7 @@ const executeView = () => {
 
               buttons.unshift({
                 text: '<i class="bx bx-plus me-0 me-md-2"></i><span class="d-none d-md-inline-block">Agregar</span>',
-                className: 'btn btn-label-primary btn-add-new',
+                className: 'erp-btn erp-btn-secondary',
                 action: function (e, dt, node, config) {
                   $('#modalAddFormulario').modal('show');
                 }
@@ -1329,7 +1636,7 @@ const executeView = () => {
       respuestasCrud.globales();
       // usuariosCrud.globales();
 
-      var myTabs = document.querySelectorAll('.nav-tabs button');
+      var myTabs = document.querySelectorAll('.erp-tabs button');
       myTabs.forEach(function (tab) {
         tab.addEventListener('click', function () {
           const tabPane = tab.getAttribute('data-bs-target');

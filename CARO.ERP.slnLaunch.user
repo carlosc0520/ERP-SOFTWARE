@@ -1,0 +1,11 @@
+[
+  {
+    "Name": "Nuevo perfil",
+    "Projects": [
+      {
+        "Path": "CARO.AUTENTICACION.WEB\\CARO.AUTENTICACION.WEB.csproj",
+        "Action": "Start"
+      }
+    ]
+  }
+]

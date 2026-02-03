@@ -1,0 +1,152 @@
+<div class="modal fade" id="modalAddCaso" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-simple modal-edit-user">
+        <div class="modal-content p-3 p-md-5">
+            <div class="modal-body">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="text-center mb-4">
+                    <h3>Agregar Caso</h3>
+                </div>
+                <form id="AddCaso" class="row g-3" method="post">
+                    <!-- INFORMACIÓN GENERAL -->
+                    <div class="col-12">
+                        <h5 class="text-primary mb-0">
+                            <i class="bx bx-info-circle me-2"></i>Información General
+                        </h5>
+                        <hr class="mt-2 mb-3">
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label" for="CASO">Caso <span class="text-danger">*</span></label>
+                        <input type="text" id="CASO" name="CASO" class="form-control max-length noMayus"
+                            data-maxlength="400" />
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <label class="form-label" for="IDCLNTE">Cliente</label>
+                        <select id="IDCLNTE" name="IDCLNTE" class="form-control select2"></select>
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <label class="form-label" for="GDAREACSO">Área</label>
+                        <select id="GDAREACSO" name="GDAREACSO" class="form-control select2"></select>
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <label class="form-label" for="ABOGDOS">Abogado</label>
+                        <input id="ABOGDOS" name="ABOGDOS" class="form-control" />
+                    </div>
+
+                    <!-- HONORARIOS -->
+                    <div class="col-12 mt-4">
+                        <h5 class="text-primary mb-0">
+                            <i class="bx bx-money me-2"></i>Honorarios
+                        </h5>
+                        <hr class="mt-2 mb-3">
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label" for="HNRRIO">Descripción de Honorarios</label>
+                        <textarea id="HNRRIO" name="HNRRIO" class="form-control noMayus max-length"
+                            data-maxlength="5000" rows="3"></textarea>
+                    </div>
+
+                    <div class="col-12 col-md-4 col-lg-3">
+                        <label class="form-label" for="HINICIAL">Honorario Inicial</label>
+                        <input type="text" id="HINICIAL" name="HINICIAL" class="form-control solo-decimales" />
+                    </div>
+
+                    <div class="col-12 col-md-4 col-lg-3">
+                        <label class="form-label" for="HEXITO">Honorario de Éxito</label>
+                        <input type="text" id="HEXITO" name="HEXITO" class="form-control solo-decimales" />
+                    </div>
+
+                    <div class="col-12 col-md-4 col-lg-3">
+                        <label class="form-label" for="HUNICO">Honorario Único</label>
+                        <input type="text" id="HUNICO" name="HUNICO" class="form-control solo-decimales" />
+                    </div>
+
+                    <div class="col-12 col-md-4 col-lg-3">
+                        <label class="form-label" for="HAUDIENCIA">Honorario por Audiencia</label>
+                        <input type="text" id="HAUDIENCIA" name="HAUDIENCIA" class="form-control solo-decimales" />
+                    </div>
+
+                    <div class="col-12 col-md-4 col-lg-3">
+                        <label class="form-label" for="HDIA">Honorario por Día de Viaje</label>
+                        <input type="text" id="HDIA" name="HDIA" class="form-control solo-decimales" />
+                    </div>
+
+                    <div class="col-12 col-md-4 col-lg-3">
+                        <label class="form-label" for="HHORA">Honorario por Hora</label>
+                        <input type="text" id="HHORA" name="HHORA" class="form-control solo-decimales" />
+                    </div>
+
+                    <div class="col-12 col-md-4 col-lg-3">
+                        <label class="form-label" for="HMENSUAL">Honorario Mensual</label>
+                        <input type="text" id="HMENSUAL" name="HMENSUAL" class="form-control solo-decimales" />
+                    </div>
+
+                    <div class="col-12 col-md-4 col-lg-3">
+                        <label class="form-label" for="HCERTIFICADOS">Honorarios Certificados</label>
+                        <input type="text" id="HCERTIFICADOS" name="HCERTIFICADOS"
+                            class="form-control solo-decimales" />
+                    </div>
+
+                    <!-- SEGUIMIENTO Y ESTADO -->
+                    <div class="col-12 mt-4">
+                        <h5 class="text-primary mb-0">
+                            <i class="bx bx-chart me-2"></i>Seguimiento y Estado
+                        </h5>
+                        <hr class="mt-2 mb-3">
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label" for="COMNTRIO">Comentarios</label>
+                        <textarea id="COMNTRIO" name="COMNTRIO" class="form-control noMayus max-length"
+                            data-maxlength="5000" rows="3"></textarea>
+                    </div>
+
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <label class="form-label" for="FENVIO">Fecha de Envío</label>
+                        <div class="input-group">
+                            <input  type="text" id="FENVIO" name="FENVIO" placeholder="DD-MM-YYYY"
+                                class="form-control date-mask dob-picker-format" />
+                            <span class="input-group-text">
+                                <i class="bi bi-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <label class="form-label" for="FULTIMOSEG">Fecha Último Seguimiento</label>
+                        <div class="input-group">
+                            <input  type="text" id="FULTIMOSEG" name="FULTIMOSEG"
+                                placeholder="DD-MM-YYYY" class="form-control date-mask dob-picker-format" />
+                            <span class="input-group-text">
+                                <i class="bi bi-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <label class="form-label" for="GDESTDOCSO">Estado Caso</label>
+                        <select id="GDESTDOCSO" name="GDESTDOCSO" class="form-control select2"></select>
+                    </div>
+
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <label class="form-label" for="GDSMFROCSO">Semáforo</label>
+                        <select id="GDSMFROCSO" name="GDSMFROCSO" class="form-control select2"></select>
+                    </div>
+
+                    <div class="col-12 text-center mt-4">
+                        <button id="btnAddCaso" class="btn btn-primary me-sm-3 me-1">Agregar</button>
+                        <button type="button" class="btn btn-label-secondary" data-bs-dismiss="modal"
+                            aria-label="Close">Cancelar</button>
+                    </div>
+
+                    @await Html.PartialAsync("../../../_Partials/_Auditoria.cshtml")
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

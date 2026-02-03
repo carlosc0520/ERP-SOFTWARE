@@ -10,15 +10,9 @@
     @* ! Hide app brand if navbar-full *@
     <div class='app-brand demo @((@ViewData["navbarFull"] != null && Convert.ToBoolean(@ViewData["navbarFull"])) ? "d-xl-none" : "")'>
         <a asp-page="/Inicio/Home" class="app-brand-link">
-            @* <span class="app-brand-logo demo">
-            @await Html.PartialAsync("../_Partials/_Macros")
-            </span> *@
             <span class="app-brand-logo demo">
-            <img src="~/img/favicon/logo.png" width="30" />
+                <img src="https://ccfirma.com/wp-content/uploads/2026/01/logo-2024-4-1-1.png" alt="Logo" />
             </span>
-            @* <span class="app-brand-text demo h3 mb-0 fw-bold">   @TempData.Peek("appName")</span> *@
-            <span class="app-brand-text demo h3 mb-0 fw-bold">   CCFIRMA</span>
-
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
@@ -35,12 +29,19 @@
 
     @* ! Starter Kit menu-items *@
     <ul class="menu-inner py-1">
-    
+        <li class="menu-item" id="menu-loading-spinner">
+            <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 60vh;">
+                <div class="spinner-border text-white" role="status" style="width: 3rem; height: 3rem;">
+                    <span class="visually-hidden">Cargando menú...</span>
+                </div>
+                <div class="mt-3 text-white">Cargando menú...</div>
+            </div>
+        </li>
     </ul>
 
 </aside>
 
-<script>
+@* <script>
     document.addEventListener("DOMContentLoaded", function () {
 
         const generarMenu = (usuario, menu) => {
@@ -50,7 +51,11 @@
             drow_user.innerHTML = usuario?.uedcn;
             drow_role.innerHTML = usuario?.desc;
             
-            const menuContainer = document.querySelector('.menu-inner')
+            const menuContainer = document.querySelector('.menu-inner');
+            
+            // Limpiar el menú (remover spinner)
+            menuContainer.innerHTML = '';
+            
             const homeItem = document.createElement('li');
             homeItem.classList.add('menu-item'); 
             homeItem.innerHTML = `
@@ -63,8 +68,15 @@
 
             const parentItems = {};
 
+            // Ordenar menú principal alfabéticamente por dscrpcn
+            menu.sort((a, b) => a.dscrpcn.localeCompare(b.dscrpcn));
+
             menu.forEach(item => {
                     let submodulos = JSON.parse(item?.submodulo) || [];
+                    
+                    // Ordenar submódulos alfabéticamente por DSCRPCN
+                    submodulos.sort((a, b) => a.DSCRPCN.localeCompare(b.DSCRPCN));
+                    
                     const parentItem = document.createElement('li');
                     parentItem.classList.add('menu-item');
                     parentItem.dataset.idobjto = item.id;
@@ -72,7 +84,7 @@
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                                 <i class="menu-icon tf-icons ${item.icono}"></i>
                                 <div>${item.dscrpcn}</div>
-                            <div class="badge bg-primary rounded-pill ms-auto">
+                            <div class="badge erp-badge-orange rounded-pill ms-auto">
                             ${submodulos.length}
                             </div>
                         </a>
@@ -86,6 +98,7 @@
                         const childItem = document.createElement('li');
                         childItem.classList.add('menu-item');
                         childItem.dataset.ID = submodulo.ID;
+                        childItem.dataset.url = submodulo.URL;
                         childItem.innerHTML = `
                             <a href="${submodulo.URL}" class="menu-link">
                                 <div>${submodulo.DSCRPCN}</div>
@@ -94,38 +107,80 @@
                         parentItems[item.id].appendChild(childItem);
                     });
             });
+
+            // Marcar el ítem activo basado en la URL actual
+            markActiveMenuItem();
         }
 
-        if (localStorage.getItem("menu")) {
-            const menu = JSON.parse(localStorage.getItem("menu"));
-            const usuario = JSON.parse(localStorage.getItem("usuario"));
-            generarMenu(usuario, menu);
-        } else {
-            let token = localStorage.getItem("accessToken");
-            fetch("/Layouts/Sections/Menu/Menu?handler=Obtener", {
-                method: "GET",
-                headers: {
-                    "Authorization": `Bearer ${token}`,
-                    "Content-Type": "application/json"
+        // Función para marcar el menú activo basado en la URL
+        const markActiveMenuItem = () => {
+            const currentPath = window.location.pathname;
+            const menuItems = document.querySelectorAll('.menu-item');
+            
+            // Remover todas las clases active primero
+            menuItems.forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Buscar y marcar el ítem que coincida con la URL
+            menuItems.forEach(item => {
+                const link = item.querySelector('.menu-link');
+                const url = item.dataset.url;
+                
+                // Para Home
+                if (link && link.getAttribute('href') === currentPath) {
+                    item.classList.add('active');
+                }
+                
+                // Para submenús
+                if (url && currentPath.includes(url)) {
+                    item.classList.add('active');
+                    // Marcar el padre como open
+                    const parentItem = item.closest('.menu-sub')?.parentElement;
+                    if (parentItem) {
+                        parentItem.classList.add('open');
+                        parentItem.classList.add('active');
+                    }
+                }
+            });
+        }
+
+        // Siempre cargar el menú desde el API
+        let token = localStorage.getItem("accessToken");
+        fetch("/Layouts/Sections/Menu/Menu?handler=Obtener", {
+            method: "GET",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    console.error('Error en la respuesta del servidor al cargar el menú:', response.statusText);
+                }
+                return response.json();
+            })
+            .then(res => {
+                if (res.data) {
+                    generarMenu(res.usuario, res.data);
                 }
             })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Ocurrio un error en la consulta:', response.status);
-                    }
-                    return response.json();
-                })
-                .then(res => {
-                    if (res.data) {
-                        localStorage.setItem("menu", JSON.stringify(res.data));
-                        localStorage.setItem("usuario", JSON.stringify(res.usuario));
-                        generarMenu(res.usuario, res.data);
-                    }
-                })
-                .catch(error => {
-                    throw new Error('Ocurrio un error en la consulta:', error);
-                });
-        }
+            .catch(error => {
+                console.error('Error al cargar el menú:', error);
+                // Mostrar mensaje de error en el menú
+                const menuContainer = document.querySelector('.menu-inner');
+                menuContainer.innerHTML = `
+                    <li class="menu-item">
+                        <div class="text-center py-5">
+                            <i class="bx bx-error-circle text-danger fs-1"></i>
+                            <div class="mt-2 text-danger">Error al cargar el menú</div>
+                            <button class="btn btn-sm btn-primary mt-3" onclick="location.reload()">
+                                Reintentar
+                            </button>
+                        </div>
+                    </li>
+                `;
+            });
     });
-</script>
+</script> *@
 <!-- / Menu -->

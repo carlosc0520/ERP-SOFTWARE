@@ -1,0 +1,261 @@
+@page
+@model CARO.AUTENTICACION.WEB.Pages.Comercial.Gestion.IndexModel
+@{
+    ViewData["Title"] = "Gestiones";
+}
+
+
+@section VendorStyles {
+    <link rel="stylesheet" href="~/vendor/libs/quill/katex.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/quill/editor.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/datatables-bs5/datatables.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/datatables-buttons-bs5/buttons.bootstrap5.dist.css">
+    <link rel="stylesheet" href="~/vendor/libs/&#64;form-validation/umd/styles/index.min.css" />
+    <link rel="stylesheet" href="~/vendor/libs/flatpickr/flatpickr.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/dropzone/dropzone.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/select2/select2.dist.css" />
+    <link rel="stylesheet" href="~/vendor/libs/tagify/tagify.dist.css" />
+}
+
+@section VendorScripts {
+    <script src="~/vendor/libs/moment/moment.dist.js"></script>
+    <script src="~/vendor/libs/select2/select2.dist.js"></script>
+    <script src="~/vendor/libs/quill/katex.dist.js"></script>
+    <script src="~/vendor/libs/quill/quill.dist.js"></script>
+    <script src="~/vendor/libs/block-ui/block-ui.dist.js"></script>
+    <script src="~/vendor/libs/datatables-bs5/datatables-bootstrap5.dist.js"></script>
+    <script src="~/vendor/libs/cleavejs/cleave.dist.js"></script>
+    <script src="~/vendor/libs/cleavejs/cleave-phone.dist.js"></script>
+    <script src="~/vendor/libs/flatpickr/flatpickr.dist.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/bundle/popular.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-bootstrap5/index.min.js"></script>
+    <script src="~/vendor/libs/&#64;form-validation/umd/plugin-auto-focus/index.min.js"></script>
+    <script src="~/vendor/libs/dropzone/dropzone.dist.js"></script>
+    <script src="~/vendor/libs/jquery-repeater/jquery-repeater.dist.js"></script>
+    <script src="~/vendor/libs/tagify/tagify.dist.js"></script>
+}
+
+@section PageScripts {
+    <script src="~/app/Comercial/Gestion/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/exceljs/dist/exceljs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+}
+
+<link rel="stylesheet" href="~/vendor/css/pages/app-email.dist.css" />
+<link rel="stylesheet" href="~/css/erp-custom.css" asp-append-version="true" />
+
+@* ************** Content ************** *@
+<div class="erp-main-container erp-bg-main">
+    <ul class="erp-tabs" role="tablist" style="overflow-x:unset;">
+        <li>
+            <button type="button" class="erp-tab active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-casos"
+                aria-controls="navs-casos" aria-selected="true">
+                <i class="tf-icons bx bx-briefcase me-2"></i> Casos
+            </button>
+        </li>
+        <li>
+            <button type="button" class="erp-tab" role="tab" data-bs-toggle="tab" data-bs-target="#navs-clientes"
+                aria-controls="navs-clientes" aria-selected="false">
+                <i class="tf-icons bx bx-user me-2"></i> Clientes
+            </button>
+        </li>
+        @* <li>
+            <button type="button" class="erp-tab" role="tab" data-bs-toggle="tab" data-bs-target="#navs-equipos"
+                aria-controls="navs-equipos" aria-selected="false">
+                <i class="tf-icons bx bx-cog me-2"></i> Equipos
+            </button>
+        </li> *@
+    </ul>
+    <div class="tab-content p-0">
+        <div class="tab-pane fade show active" id="navs-casos" role="tabpanel">
+            <div class="table-responsive pb-0 px-4">
+                <div class="row gy-3 gx-3 align-items-end erp-filtros" id="navs-casos-filtros">
+                    <div class="col-12 col-md-3">
+                        <label for="CASO" class="form-label">Caso</label>
+                        <input type="text" id="CASO" name="CASO" class="form-control noMayus"
+                            placeholder="Buscar caso...">
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <label for="IDCLIENTE" class="form-label">Cliente</label>
+                        <select id="IDCLIENTE" name="IDCLIENTE" class="form-control select2"></select>
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <label for="GDAREACSO" class="form-label">Área</label>
+                        <select id="GDAREACSO" name="GDAREACSO" class="form-control select2"></select>
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <label for="GDESTDOPRCSL" class="form-label">Estado Procesal</label>
+                        <select id="GDESTDOPRCSL" name="GDESTDOPRCSL" class="form-control select2"></select>
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <label for="IDEQPO" class="form-label">Equipo</label>
+                        <select id="IDEQPO" name="IDEQPO" class="form-control select2"></select>
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <label class="form-label" for="ABOGDOS">Abogados Compartidos</label>
+                        <input id="ABOGDOS" name="ABOGDOS" class="form-control tagifyList" />
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <label for="GDRSLTDOCSO" class="form-label">Resultado Caso</label>
+                        <select id="GDRSLTDOCSO" name="GDRSLTDOCSO" class="form-control select2"></select>
+                    </div>
+                    <div class="col-12 col-md-3">
+                        <label class="form-label" for="GDACCNSCMRCLS">Acción Comercial </label>
+                        <select id="GDACCNSCMRCLS" name="GDACCNSCMRCLS" class="form-control select2"></select>
+                    </div>
+                </div>
+                <div class="row mb-4 gx-2 gy-2">
+                    <div class="col-12">
+                        <div class="d-grid d-md-flex flex-md-wrap justify-content-md-end gap-2">
+                            <button id="navs-casos-filtros-buscar" class="erp-btn erp-btn-primary">
+                                <i class="bx bx-search-alt-2 bx-sm"></i>
+                                Buscar
+                            </button>
+                            <button id="navs-casos-filtros-limpiar" class="erp-btn erp-btn-outline">
+                                <i class="bx bx-reset bx-sm"></i>
+                                Limpiar
+                            </button>
+                            <button id="navs-casos-filtros-agregar" class="erp-btn erp-btn-secondary">
+                                <i class="bx bx-plus bx-sm"></i>
+                                Nuevo
+                            </button>
+                            <div class="btn-group">
+                                <button type="button" class="erp-btn erp-btn-info dropdown-toggle"
+                                    data-bs-toggle="dropdown" aria-expanded="false" id="navs-casos-filtros-importar">
+                                    <i class="bx bx-upload bx-sm"></i>
+                                    Importar
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a class="dropdown-item" href="javascript:void(0);"
+                                            id="navs-casos-filtros-agregar-masivo">
+                                            <i class="bx bx-upload me-2"></i>
+                                            Masivo
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="~/resources/PLANTILLA_CASOS_TEMP.xlsx"
+                                            id="navs-casos-filtros-descargar-plantilla">
+                                            <i class="bx bx-download me-2"></i>
+                                            Descargar Plantilla
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <button id="navs-casos-filtros-exportar" class="erp-btn erp-btn-success">
+                                <i class="bx bx-export bx-sm"></i>
+                                Exportar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <table id="casosTable" class="mx-1 table border-top">
+                </table>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="navs-clientes" role="tabpanel">
+            <div class="table-responsive pb-0 px-4">
+                <div class="row gy-3 gx-3 align-items-end erp-filtros" id="navs-clientes-filtros">
+                    <div class="col-12 col-md-4">
+                        <label for="RUC" class="form-label">DOI</label>
+                        <input type="text" id="RUC" name="RUC" class="form-control solo-numero max-length"
+                            data-maxlength="12" placeholder="Ingrese DOI...">
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <label for="RZNSCL" class="form-label">Empresa / Cliente</label>
+                        <input type="text" id="RZNSCL" name="RZNSCL" class="form-control noMayus"
+                            placeholder="Buscar por empresa o cliente...">
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <label class="form-label" for="GDTIPOPRSNA">Tipo de Persona </label>
+                        <select id="GDTIPOPRSNA" name="GDTIPOPRSNA" class="form-select select2">
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-4 gx-2 gy-2">
+                    <div class="col-12">
+                        <div class="d-grid d-md-flex flex-md-wrap justify-content-md-end gap-2">
+                            <button id="navs-clientes-filtros-buscar" class="erp-btn erp-btn-primary">
+                                <i class="bx bx-search-alt-2 bx-sm"></i>
+                                Buscar
+                            </button>
+                            <button id="navs-clientes-filtros-agregar" class="erp-btn erp-btn-secondary">
+                                <i class="bx bx-plus bx-sm"></i>
+                                Nuevo
+                            </button>
+                            <div class="btn-group">
+                                <button type="button" class="erp-btn erp-btn-info dropdown-toggle"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bx bx-upload bx-sm"></i>
+                                    Cargar Clientes
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li>
+                                        <a class="dropdown-item" href="javascript:void(0);"
+                                            id="navs-clientes-filtros-agregar-masivo">
+                                            <i class="bx bx-upload me-2"></i>
+                                            Agregar Masivo
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="~/resources/PLANTILLA_PERSONAS_TEMP.xlsx"
+                                            id="navs-clientes-filtros-descargar-plantilla">
+                                            <i class="bx bx-download me-2"></i>
+                                            Descargar Plantilla
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table id="clientesTable" class="mx-1 table border-top">
+                </table>
+            </div>
+        </div>
+        @* <div class="tab-pane fade" id="navs-equipos" role="tabpanel">
+            <div class="table-responsive pb-0 px-4">
+                <div class="row gy-3 gx-3 align-items-end erp-filtros" id="navs-equipos-filtros">
+                    <div class="col-12 col-md-4">
+                        <label for="NMBREEQUPO" class="form-label">Nombre del Equipo</label>
+                        <input type="text" id="NMBREEQUPO" name="NMBREEQUPO" class="form-control noMayus"
+                            placeholder="Buscar equipo...">
+                    </div>
+                    <div class="col-12 col-md-8">
+                        <label for="ABOGDOS" class="form-label">Abogado</label>
+                        <input id="ABOGDOS" name="ABOGDOS" class="form-control" placeholder="Buscar abogado..." />
+                    </div>
+                </div>
+                <div class="row mb-4 gx-2 gy-2">
+                    <div class="col-12">
+                        <div class="d-grid d-md-flex flex-md-wrap justify-content-md-end gap-2">
+                            <button id="navs-equipos-filtros-buscar" class="erp-btn erp-btn-primary">
+                                <i class="bx bx-search-alt-2 bx-sm"></i>
+                                Buscar
+                            </button>
+                            <button id="navs-equipos-filtros-agregar" class="erp-btn erp-btn-secondary">
+                                <i class="bx bx-plus bx-sm"></i>
+                                Nuevo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <table id="equiposTable" class="mx-1 table border-top">
+                </table>
+            </div>
+        </div> *@
+    </div>
+</div>
+</div>
+
+@await Html.PartialAsync("./_Partials/_ModalAgregarCliente")
+@await Html.PartialAsync("./_Partials/_ModalEditarCliente")
+@* @await Html.PartialAsync("./_Partials/_ModalAgregarEquipo")
+@await Html.PartialAsync("./_Partials/_ModalEditarEquipo") *@
+@await Html.PartialAsync("./_Partials/_ModalCasoAgregar")
+@await Html.PartialAsync("./_Partials/_ModalCasoEditar")
+@await Html.PartialAsync("./_Partials/_ModalCasoComentario")
+@await Html.PartialAsync("./_Partials/_ModalAgregarHonorario")
+@await Html.PartialAsync("./_Partials/_ModalAgregarContacto")

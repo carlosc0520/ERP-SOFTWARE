@@ -5,5 +5,7 @@ namespace CARO.DATOS.MODELO.SEG.MARCA
     public class MarcaModel : EntidadAuditoria
     {
         public string? MRCA { get; set; } = null;
+        public string? PROPIO { get; set; } = null;
+
     }
 }

@@ -45,7 +45,7 @@ builder.Services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-//builder.Services.AddScoped<CustomPageFilter>();
+builder.Services.AddControllers(); // ← AGREGAR ESTA LÍNEA
 builder.Services.AddQuartz(q =>
 {
   q.UseMicrosoftDependencyInjectionJobFactory();
@@ -118,6 +118,7 @@ builder.Services.AddTransient<IConsultasModulo, ConsultasModulo>();
 builder.Services.AddTransient<IConsultasMenu, ConsultasMenu>();
 builder.Services.AddTransient<IConsultasGrupoDato, ConsultasGrupoDato>();
 builder.Services.AddTransient<IConsultasMarca, ConsultasMarca>();
+builder.Services.AddScoped<IConsultasLogTareas, ConsultasLogTareas>();
 #endregion SEGURIDAD
 
 #region COMERCIAL
@@ -126,7 +127,8 @@ builder.Services.AddTransient<IConsultasCurso, ConsultasCurso>();
 builder.Services.AddTransient<IConsultasContacto, ConsultasContacto>();
 builder.Services.AddTransient<IConsultasClientes, ConsultasClientes>();
 builder.Services.AddTransient<IConsultasSolicitudes, ConsultasSolicitudes>();
-
+builder.Services.AddTransient<IConsultasCasos, ConsultasCasos>();
+builder.Services.AddTransient<IConsultasCasosMasivos, ConsultasCasosMasivos>();
 #endregion COMERCIAL
 
 #region USUARIOS
@@ -181,7 +183,7 @@ app.UseRouting();
 app.UseCors("MyPolicy");  // Asegúrate de que esta línea esté antes de UseAuthentication y UseAuthorization
 app.UseAuthentication();
 app.UseAuthorization();
-
+app.MapControllers(); // ← AGREGAR ESTA LÍNEA
 app.MapRazorPages();
 
 app.Run();

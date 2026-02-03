@@ -17,6 +17,7 @@ namespace CARO.DATOS.EVENTOS.Comandos.SEG.LOGIN
         public string AccessToken { get; set; }
         public string? AccessRecovery { get; set; } = null;
         public string ErrorMessage { get; set; }
+        public string? imagenPerfil { get; set; } = null;
         public bool CambiarContrasena { get; set; }
     }
 }

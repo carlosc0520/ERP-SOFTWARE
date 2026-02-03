@@ -1,0 +1,322 @@
+﻿using CARO.CONFIG;
+using CARO.DATOS.CONSULTAS.COM;
+using CARO.DATOS.CONSULTAS.SEG;
+using CARO.DATOS.MODELO.COM.GESTION;
+using CARO.DATOS.MODELO.SEG.GRUPODATO;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
+using System.Net;
+using System.Net.Mail;
+
+namespace CARO.AUTENTICACION.WEB.Pages.Seguridad.Task
+{
+  [IgnoreAntiforgeryToken(Order = 1001)]
+  [Route("api/[controller]")]
+  public class TaskExecute : Controller
+  {
+    private readonly IConsultasCasosMasivos _consultasCasosMasivos;
+    private readonly IConsultasCasos _consultasCasos;
+    private readonly IConsultasGrupoDato _consultasGrupoDato;
+
+    // Estilos y estructura reutilizable para correos
+    private const string EMAIL_HEADER = @"
+<!DOCTYPE html>
+<html lang='es'>
+<head>
+    <meta charset='UTF-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>{0}</title>
+</head>
+<body style='margin: 0; padding: 0; font-family: Arial, Helvetica, sans-serif; background-color: #f5f7fa;'>
+    <table width='100%' cellpadding='0' cellspacing='0' border='0' style='background-color: #f5f7fa; padding: 20px 0;'>
+        <tr>
+            <td align='center'>
+                <table width='100%' cellpadding='0' cellspacing='0' border='0' style='max-width: 900px; background-color: #ffffff; border-radius: 8px;'>
+                    <!-- HEADER -->
+                    <tr>
+                        <td style='background-color: #FF6A16; padding: 40px 30px; text-align: center;'>
+                            <table width='100%' cellpadding='0' cellspacing='0' border='0'>
+                                <tr>
+                                    <td style='text-align: center;'>
+                                        <div style='display: inline-block; background-color: #ff8c42; color: #ffffff; padding: 6px 16px; border-radius: 20px; font-size: 12px; font-weight: bold; margin-bottom: 10px;'>
+                                            NOTIFICACIÓN AUTOMÁTICA
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style='text-align: center;'>
+                                        <h2 style='color: #ffffff; font-size: 26px; font-weight: 600; margin: 10px 0 0 0;'>{1}</h2>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <!-- BODY -->
+                    <tr>
+                        <td style='padding: 40px 30px;'>";
+
+    private const string EMAIL_FOOTER = @"
+                            <table width='100%' cellpadding='0' cellspacing='0' border='0' style='margin-top: 30px;'>
+                                <tr>
+                                    <td style='border-top: 1px solid #dee2e6; padding-top: 30px;'>
+                                        <p style='color: #808080; font-size: 13px; text-align: center; margin: 0;'>
+                                            Este es un correo automático. Por favor, no responda a este mensaje.
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <!-- FOOTER -->
+                    <tr>
+                        <td style='background-color: #f8f9fa; padding: 30px; text-align: center; border-top: 3px solid #FF6A16;'>
+                            <table width='100%' cellpadding='0' cellspacing='0' border='0'>
+                                <tr>
+                                    <td style='text-align: center;'>
+                                        <p style='font-size: 14px; color: #808080; margin: 8px 0;'>
+                                            Visítanos en <a href='https://ccfirma.com' style='color: #FF6A16; text-decoration: none; font-weight: 600;'>ccfirma.com</a>
+                                        </p>
+                                        <p style='font-size: 12px; color: #808080; margin: 8px 0;'>
+                                            © 2026 CARO ASOCIADOS - Todos los derechos reservados
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>";
+
+    public TaskExecute(
+         IMediator mediator,
+         IConsultasCasosMasivos consultasCasosMasivos,
+         IConsultasCasos consultasCasos,
+         IConsultasGrupoDato consultasGrupoDato
+       )
+    {
+      _consultasCasosMasivos = consultasCasosMasivos;
+      _consultasCasos = consultasCasos;
+      _consultasGrupoDato = consultasGrupoDato;
+    }
+
+    #region CASOS
+    [HttpGet("CasesTask")]
+    public async Task<IActionResult> OnGetCasesTaskAsync()
+    {
+      try
+      {
+        GrupoDatoModel custom = new GrupoDatoModel();
+        custom.GDTOS = "GDCASESTASK";
+        var resultGD = await _consultasGrupoDato.ObtenerAll(custom);
+
+        // VLR1 = 1, VLR2 = FECHA EJECUCION, VLR3 = CORRREOS DE USUARIOS A NOTIFICAR SEPARADO POR COMAS
+        var resultGD_1 = resultGD.Where(x => x.VLR1 == "1");
+        // ejecutar tareas de enviar correos PENDIENTES DCC
+        if (resultGD_1 != null && resultGD_1.Any())
+        {
+          // validar si VLR2 esta en el dia indicado ... VENDRA DIA|HORA - VIERNES|15:30
+          var fechaEjecucionParts = resultGD_1.FirstOrDefault()?.VLR2?.Split('|');
+          if (fechaEjecucionParts != null && fechaEjecucionParts.Length == 2)
+          {
+            var diaEjecucion = fechaEjecucionParts[0].ToUpper(); // VIERNES
+            var horaEjecucion = fechaEjecucionParts[1]; // 15:30
+
+            // Obtener día actual en español
+            var culturaEspanol = new CultureInfo("es-ES");
+            var diaActual = culturaEspanol.DateTimeFormat.GetDayName(DateTime.Now.DayOfWeek).ToUpper(); // VIERNES
+            var horaActual = DateTime.Now.ToString("HH:mm"); // OBTENER HORA
+
+            if (diaEjecucion == diaActual && horaEjecucion == horaActual)
+            {
+              // Ejecutar la tarea
+              CasosModel casosCustom = new CasosModel();
+              casosCustom.GDACCNSCMRCLS = "3";
+              casosCustom.INIT = 0;
+              casosCustom.ROWS = 1000;
+              casosCustom.IDEMPRSA = 1;
+
+              var casosPendientes = await _consultasCasos.ListarCasos(casosCustom);
+
+              // Enviar correos a los usuarios indicados en VLR3
+              var correosUsuarios = resultGD_1.FirstOrDefault()?.VLR3?.Split(',');
+              if (correosUsuarios != null && correosUsuarios.Length > 0)
+              {
+                // Limpiar espacios en blanco de los correos
+                var correosLimpios = correosUsuarios.Select(c => c.Trim()).Where(c => !string.IsNullOrEmpty(c)).ToArray();
+                
+                // Generar el cuerpo del correo una sola vez
+                string emailBody = GetEmailBodyCasosPendientesDCC(casosPendientes);
+                
+                // Enviar correo a todos los destinatarios
+                await SendEmailAsync(emailBody, correosLimpios, $"Casos Pendientes Honorarios DCC - {casosPendientes.Count} caso(s)");
+              }
+              return new JsonResult(new { EsSatisfactoria = true, message = "Tarea ejecutada correctamente.", casosProcesados = casosPendientes.Count() });
+            }
+            else
+            {
+              return new JsonResult(new { EsSatisfactoria = false, message = "No es el momento de ejecución programado." });
+            }
+          }
+        }
+
+        return new JsonResult(new { EsSatisfactoria = false, message = "No hay tareas programadas para ejecutar." });
+      }
+      catch (Exception ex)
+      {
+        return StatusCode(500, "Error interno del servidor: " + ex.Message);
+      }
+
+    }
+
+    private string GetEmailBodyCasosPendientesDCC(List<CasosModel> casosPendientes)
+    {
+      TimeZoneInfo peruTimeZone = TimeZoneInfo.FindSystemTimeZoneById("SA Pacific Standard Time");
+      DateTime fechaPeruActual = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, peruTimeZone);
+      var fActual = fechaPeruActual.ToString("dd-MM-yyyy hh:mm tt", new CultureInfo("es-PE"));
+
+      // Generar filas de la tabla con los casos
+      string filasTabla = "";
+      foreach (var caso in casosPendientes)
+      {
+        filasTabla += $@"
+                                        <tr>
+                                            <td style='padding: 12px 10px; border-bottom: 1px solid #dee2e6; font-size: 14px; color: #575F61;'>{caso.ID ?? 0}</td>
+                                            <td style='padding: 12px 10px; border-bottom: 1px solid #dee2e6; font-size: 14px; color: #575F61;'>{caso.DIDCLENTE ?? "N/A"}</td>
+                                            <td style='padding: 12px 10px; border-bottom: 1px solid #dee2e6; font-size: 14px; color: #575F61;'>{caso.CASO ?? "N/A"}</td>
+                                            <td style='padding: 12px 10px; border-bottom: 1px solid #dee2e6; font-size: 14px; color: #575F61;'>{caso.DIDEQPO ?? "N/A"}</td>
+                                            <td style='padding: 12px 10px; border-bottom: 1px solid #dee2e6; font-size: 14px; color: #575F61;'>{caso.DGDAREACSO ?? "N/A"}</td>
+                                            <td style='padding: 12px 10px; border-bottom: 1px solid #dee2e6; font-size: 14px; color: #575F61;'>{caso.DGDESTDOPRCSL ?? "N/A"}</td>
+                                        </tr>";
+      }
+
+      // Contenido específico del correo
+      string emailContent = $@"
+                            <table width='100%' cellpadding='0' cellspacing='0' border='0'>
+                                <tr>
+                                    <td>
+                                        <p style='font-size: 16px; color: #575F61; margin: 0 0 15px 0; font-weight: 500;'>
+                                            Estimado Equipo,
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style='background-color: #fff3e0; border-left: 4px solid #FF6A16; padding: 20px; margin: 25px 0; border-radius: 8px;'>
+                                        <p style='font-size: 15px; color: #575F61; line-height: 1.8; margin: 0;'>
+                                            <strong>MOTIVO:</strong> Se han identificado casos que están pendientes de honorarios DCC y requieren atención inmediata.
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style='background-color: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px 20px; margin: 20px 0; border-radius: 8px;'>
+                                        <p style='font-size: 15px; color: #575F61; margin: 0;'>
+                                            <strong>● Total de casos pendientes:</strong> {casosPendientes.Count}
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style='padding: 25px 0 15px 0;'>
+                                        <p style='color: #575F61; font-size: 16px; margin: 0;'>
+                                            A continuación, el detalle completo de los casos:
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table width='100%' cellpadding='0' cellspacing='0' border='0' style='border-collapse: collapse; background-color: #ffffff;'>
+                                            <thead>
+                                                <tr style='background-color: #FF6A16;'>
+                                                    <th style='padding: 15px 10px; text-align: center; font-size: 13px; font-weight: 600; color: #ffffff; border-bottom: 2px solid #ff8c42; width: 50px;'>#</th>
+                                                    <th style='padding: 15px 10px; text-align: left; font-size: 13px; font-weight: 600; color: #ffffff; border-bottom: 2px solid #ff8c42;'>Cliente</th>
+                                                    <th style='padding: 15px 10px; text-align: left; font-size: 13px; font-weight: 600; color: #ffffff; border-bottom: 2px solid #ff8c42;'>Caso</th>
+                                                    <th style='padding: 15px 10px; text-align: left; font-size: 13px; font-weight: 600; color: #ffffff; border-bottom: 2px solid #ff8c42;'>Equipo</th>
+                                                    <th style='padding: 15px 10px; text-align: left; font-size: 13px; font-weight: 600; color: #ffffff; border-bottom: 2px solid #ff8c42;'>Área</th>
+                                                    <th style='padding: 15px 10px; text-align: left; font-size: 13px; font-weight: 600; color: #ffffff; border-bottom: 2px solid #ff8c42;'>Estado Procesal</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {filasTabla}
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style='background-color: #f8f9fa; border-left: 4px solid #FF6A16; padding: 20px; margin: 20px 0; border-radius: 8px;'>
+                                        <table width='100%' cellpadding='0' cellspacing='0' border='0'>
+                                            <tr>
+                                                <td style='padding-bottom: 10px;'>
+                                                    <p style='font-size: 14px; color: #575F61; margin: 0;'>
+                                                        <strong>● Fecha de Notificación:</strong> {fActual}
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style='padding-bottom: 10px;'>
+                                                    <p style='font-size: 14px; color: #575F61; margin: 0;'>
+                                                        <strong>● Acción Requerida:</strong> Revisar y procesar los honorarios pendientes
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <p style='font-size: 14px; color: #575F61; margin: 0;'>
+                                                        <strong>● Estado:</strong> Pendientes Honorarios DCC
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>";
+
+      // Combinar header + contenido + footer
+      string header = string.Format(EMAIL_HEADER, "Casos Pendientes Honorarios DCC", "📋 Casos Pendientes Honorarios DCC");
+      
+      return header + emailContent + EMAIL_FOOTER;
+    }
+    #endregion CASOS
+
+
+    #region PLANTILLAS
+
+    #endregion
+
+    #region CORREOS
+    private async System.Threading.Tasks.Task SendEmailAsync(string body, string[] destinatarios, string asunto)
+    {
+      using var smtpClient = new SmtpClient("smtp.gmail.com", 587)
+      {
+        Credentials = new NetworkCredential(ConfiguracionProyecto.CORREOS_CONTACTO.CORREO, ConfiguracionProyecto.CORREOS_CONTACTO.KEY),
+        EnableSsl = true,
+      };
+
+      using var mailMessage = new MailMessage
+      {
+        From = new MailAddress(ConfiguracionProyecto.CORREOS_CONTACTO.CORREO, "CCFIRMA - GESTIÓN"),
+        Subject = asunto,
+        Body = body,
+        IsBodyHtml = true
+      };
+
+      // Agregar todos los destinatarios
+      foreach (var destinatario in destinatarios)
+      {
+        mailMessage.To.Add(destinatario);
+      }
+
+      await smtpClient.SendMailAsync(mailMessage);
+
+      foreach (var attachment in mailMessage.Attachments)
+      {
+        attachment.Dispose();
+      }
+    }
+    #endregion
+
+  }
+}

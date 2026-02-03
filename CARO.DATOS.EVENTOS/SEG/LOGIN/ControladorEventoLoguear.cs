@@ -42,6 +42,7 @@ namespace CARO.DATOS.EVENTOS.SEG.LOGIN
                 {
                     await GenerateToken(usuario.Entidad, result);
                     result.Succeeded = true;
+                    result.imagenPerfil = ConfiguracionProyecto.DISK + usuario.Entidad.RTAFTO;
                 }
                 else
                 {

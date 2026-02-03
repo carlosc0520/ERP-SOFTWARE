@@ -45,6 +45,9 @@
     <link rel="stylesheet" href="~/vendor/css/pages/app-email.dist.css" />
 }
 
+<link rel="stylesheet" href="~/css/erp-custom.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/contactos-custom-erp.css" asp-append-version="true" />
+
 <style>
     .quill-editor { height: 150px; }
     .preview-body img { max-width: 100%; border-radius: 10px; }
@@ -89,46 +92,40 @@
 
 
 @* ************** Content ************** *@
-<h4 class="py-3 breadcrumb-wrapper mb-4">
-  <span class="text-muted fw-light">Contactos /</span> Listado
-</h4>
-
-
-<div class="col-12">
-    <div class="nav-align-top mb-4"> 
-        <ul class="nav nav-tabs nav-fill" role="tablist">
-            <li class="nav-item">
-                <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
-                        data-bs-target="#navs-add-contacto" aria-controls="navs-add-contacto" aria-selected="false">
-                    <i class="tf-icons bx bx-plus me-1"></i> Contactos
-                </button>
-            </li>
-            <li class="nav-item"> 
-                <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
-                        data-bs-target="#navs-email-send" aria-controls="navs-email-send" aria-selected="false">
-                    <i class="tf-icons bx bx-user me-1"></i> Emails
-                </button>
-            </li>  
-            <li class="nav-item"> 
-                <button type="button" class="nav-link" role="tab" data-bs-toggle="tab"
-                        data-bs-target="#navs-email" aria-controls="navs-email" aria-selected="false">
-                    <i class="tf-icons bx bx-envelope me-1"></i> Enviar Mailing
-                </button>
-            </li>  
-        </ul> 
-        <div class="tab-content p-0"> 
-            <div class="p-2 tab-pane fade show active" id="navs-add-contacto" role="tabpanel">
+<div class="erp-main-container erp-bg-main">
+    <ul class="erp-tabs" role="tablist" style="overflow-x:unset;">
+        <li>
+            <button type="button" class="erp-tab active" role="tab" data-bs-toggle="tab"
+                    data-bs-target="#navs-add-contacto" aria-controls="navs-add-contacto" aria-selected="true">
+                <i class="tf-icons bx bx-user me-2"></i> Contactos
+            </button>
+        </li>
+        <li>
+            <button type="button" class="erp-tab" role="tab" data-bs-toggle="tab"
+                    data-bs-target="#navs-email-send" aria-controls="navs-email-send" aria-selected="false">
+                <i class="tf-icons bx bx-mail-send me-2"></i> Emails
+            </button>
+        </li>  
+        <li>
+            <button type="button" class="erp-tab" role="tab" data-bs-toggle="tab"
+                    data-bs-target="#navs-email" aria-controls="navs-email" aria-selected="false">
+                <i class="tf-icons bx bx-envelope me-2"></i> Enviar Mailing
+            </button>
+        </li>  
+    </ul> 
+    <div class="tab-content p-0"> 
+            <div class="tab-pane fade show active" id="navs-add-contacto" role="tabpanel">
                 <div class="py-4" id="inner-html">
                 </div>
-                <div class="table-responsive pb-0">
+                <div class="table-responsive pb-0 px-4">
                     <table id="contactosTable" class="mx-1 table border-top">
                     </table>
                 </div>
             </div>
-            <div class="p-2 tab-pane fade" id="navs-email-send" role="tabpanel">
+            <div class="tab-pane fade" id="navs-email-send" role="tabpanel">
                 <div class="py-4" id="inner-html">
                 </div>
-                <div class="table-responsive pb-0">
+                <div class="table-responsive pb-0 px-4">
                     <table id="emailsTable" class="mx-1 table border-top">
                     </table>
                 </div>

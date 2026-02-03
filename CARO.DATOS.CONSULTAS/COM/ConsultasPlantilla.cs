@@ -12,6 +12,7 @@ namespace CARO.DATOS.CONSULTAS.COM
     {
         Task<List<PlantillaModel>> Listar(PlantillaModel custom); 
         Task<List<FormularioModel>> ListarFormularios(FormularioModel custom);
+        Task<List<FormularioExportModel>> ListarFormulariosExport(FormularioExportModel custom);
         Task<List<FormularioModel>> ListarFormulariosEmails(FormularioModel custom);
         Task<List<PreguntaModel>> ListarPreguntas(PreguntaModel custom);
         Task<FormularioModel> ListarForm(FormularioModel custom);
@@ -68,6 +69,29 @@ namespace CARO.DATOS.CONSULTAS.COM
             var conexionSql = _configuration.GetConnectionString("DefaultConnection");
             return await FuncionesSql.EjecutarProcedimiento<FormularioModel>(conexionSql, Procedimientos.COMERCIAL.FormularioCrud, parametros);
         }
+
+        public async Task<List<FormularioExportModel>> ListarFormulariosExport(FormularioExportModel custom)
+        {
+            var parametros = new DynamicParameters();
+            var json = JsonSerializer.Serialize(new
+            {
+                DESC = custom.DESC,
+                CESTDO = custom.CESTDO,
+                INIT = custom.INIT,
+                ROWS = custom.ROWS,
+                IDEMPRSA = custom.IDEMPRSA,
+                IDFORM = custom.ID
+            }).ToUpper();
+
+            parametros.Add("@p_cData", json);
+            parametros.Add("@p_cUser", null);
+            parametros.Add("@p_nTipo", 5);
+            parametros.Add("@p_nId", custom.ID ?? 0);
+
+            var conexionSql = _configuration.GetConnectionString("DefaultConnection");
+            return await FuncionesSql.EjecutarProcedimiento<FormularioExportModel>(conexionSql, Procedimientos.COMERCIAL.FormularioCrudRespuesta, parametros);
+        }
+
         public async Task<List<FormularioModel>> ListarFormulariosEmails(FormularioModel custom)
         {
             var parametros = new DynamicParameters();
