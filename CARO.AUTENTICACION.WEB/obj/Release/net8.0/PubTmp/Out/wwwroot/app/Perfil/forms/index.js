@@ -20,7 +20,106 @@ const executeView = () => {
         init: () => { },
         globales: () => { },
         variables: {
-            formulario: {}
+            formulario: {},
+            totalPreguntas: 0
+        },
+        setSpinnerText: (text, subtext = 'Por favor espere un momento') => {
+            $('.spinner-text').text(text);
+            if (subtext) {
+                $('.spinner-subtext').text(subtext);
+            }
+        },
+        updateProgress: () => {
+
+            // Buscar tanto question-card como td con data-pregunta-id (para modo lista)
+            let preguntas = $('#preguntas-container .question-card');
+            let isTableFormat = false;
+
+            // Si no hay question-card, buscar en formato tabla
+            if (preguntas.length === 0) {
+                preguntas = $('#preguntas-container td[data-pregunta-id]');
+                isTableFormat = true;
+            }
+
+            const totalPreguntas = preguntas.length;
+
+            let preguntasRespondidas = 0;
+
+            preguntas.each(function (index) {
+                const questionElement = $(this);
+                const preguntaId = questionElement.data('pregunta-id');
+
+                // En formato tabla, los inputs están en el siguiente td (hermano)
+                const searchScope = isTableFormat ? questionElement.closest('tr') : questionElement;
+
+                // Verificar si la pregunta tiene respuesta
+                let tieneRespuesta = false;
+
+                // Radio buttons
+                const radioChecked = searchScope.find('input[type="radio"]:checked');
+                if (radioChecked.length > 0) {
+                    tieneRespuesta = true;
+                }
+                // Checkboxes
+                else if (searchScope.find('input[type="checkbox"]:checked').length > 0) {
+                    tieneRespuesta = true;
+                }
+                // Textarea
+                else if (searchScope.find('textarea').val()?.trim()) {
+                    tieneRespuesta = true;
+                }
+                // Star rating - buscar el input hidden específico con el ID de la pregunta
+                else if (searchScope.find('.star-rating-container').length > 0 || searchScope.find('[id^="star-rating_"]').length > 0) {
+                    // Buscar el input hidden con el ID específico de la pregunta
+                    const ratingInput = $(`#pregunta_${preguntaId}_valor`);
+                    const ratingValue = ratingInput.val();
+                    if (ratingValue && parseFloat(ratingValue) > 0) {
+                        tieneRespuesta = true;
+                    }
+                }
+                // Select
+                else if (searchScope.find('select').val()) {
+                    tieneRespuesta = true;
+                }
+                // Input text
+                else if (searchScope.find('input[type="text"]').val()?.trim()) {
+                    tieneRespuesta = true;
+                }
+
+                if (tieneRespuesta) {
+                    preguntasRespondidas++;
+                    if (isTableFormat) {
+                        questionElement.closest('tr').addClass('answered');
+                    } else {
+                        questionElement.addClass('answered');
+                    }
+                } else {
+                    if (isTableFormat) {
+                        questionElement.closest('tr').removeClass('answered');
+                    } else {
+                        questionElement.removeClass('answered');
+                    }
+                }
+            });
+
+            const porcentaje = totalPreguntas > 0 ? Math.round((preguntasRespondidas / totalPreguntas) * 100) : 0;
+
+            // Actualizar barra de progreso
+            $('.form-progress-bar').css('width', porcentaje + '%');
+            $('#progress-count').text(`${preguntasRespondidas} de ${totalPreguntas}`);
+            $('#progress-percentage').text(porcentaje + '%');
+            $('#progress-percentage-compact').text(porcentaje + '%');
+
+            // Agregar clase de completado si está al 100%
+            if (porcentaje === 100) {
+                $('.form-progress').addClass('complete');
+                $('.progress-percentage').css('background', '#22c55e');
+                $('#progress-indicator').addClass('complete');
+            } else {
+                $('.form-progress').removeClass('complete');
+                $('.progress-percentage').css('background', 'var(--erp-primary)');
+                $('#progress-indicator').removeClass('complete');
+            }
         },
         eventos: {
             preview: (ID, SENDMAIL) => {
@@ -29,7 +128,8 @@ const executeView = () => {
                     return;
                 }
 
-                swalFire.cargando('Cargando datos...');
+                $('#spinner-container-modulos').removeClass('d-none');
+                formularioCrud.setSpinnerText('Cargando vista previa...', 'Obteniendo tus respuestas');
                 let aleatorio = Math.floor(Math.random() * 1000) + "APIDENTIFICADOR";
                 $.ajax({
                     url: `${uisApis.API}=AllResp&IDFORM=${ID}&EMAIL=${SENDMAIL}`,
@@ -61,11 +161,24 @@ const executeView = () => {
                             $("#btnGuardar").prop("disabled", true);
                             $("#btnGuardar").addClass("d-none");
 
+                            console.log('Renderizando preguntas en modo preview, GDTYPEP:', dataForm);
                             if (dataForm.gdtpogr == "1") {
                                 formularioCrud.eventos.renderizarPreguntasListaPreview(dataForm.preguntas);
                             } else {
                                 formularioCrud.eventos.renderizarPreguntasView(dataForm.preguntas);
                             }
+
+                            // En preview, forzar progreso al 100%
+                            setTimeout(() => {
+                                const totalPreguntas = dataForm.preguntas.length;
+                                $('.form-progress-bar').css('width', '100%');
+                                $('#progress-count').text(`${totalPreguntas} de ${totalPreguntas}`);
+                                $('#progress-percentage').text('100%');
+                                $('#progress-percentage-compact').text('100%');
+                                $('.form-progress').addClass('complete');
+                                $('.progress-percentage').css('background', '#22c55e');
+                                $('#progress-indicator').addClass('complete');
+                            }, 300);
                         } else {
                             swalFire.error('No se encontró el formulario seleccionado');
                         }
@@ -74,7 +187,7 @@ const executeView = () => {
                         swalFire.error('Error al obtener los datos del formulario: ' + error);
                     },
                     complete: function () {
-                        swalFire.cerrar();
+                        $('#spinner-container-modulos').addClass('d-none');
                     }
                 });
             },
@@ -97,42 +210,44 @@ const executeView = () => {
                 **/
                 let RSPSTA = "";
                 preguntas.forEach((pregunta, index) => {
-                    let preguntaHtml = `<div class="card mb-3" data-pregunta-id="${pregunta.ID}" 
+                    let preguntaHtml = `<div class="question-card fade-in" data-pregunta-id="${pregunta.ID}" 
                     data-index="${index + 1}">
-                        <div class="card-body">
-                            <p class="card-title" style="font-weight: semi-bold!important;">
-                                ${index + 1}. ${pregunta.DESCP} ${pregunta.REQUIREDP ? '<span class="text-danger">*</span>' : ''}
-                            </p>
-                            <div class="mt-3">`;
+                        <div class="question-title">
+                            <span class="question-number">${index + 1}</span>
+                            ${pregunta.DESCP} ${pregunta.REQUIREDP ? '<span class="modern-label-required">*</span>' : ''}
+                        </div>
+                        <div class="mt-3">`;
                     switch (pregunta.GDTYPEP) {
                         case 'V': // Verdadero o Falso
                             let ISVERFLSO = pregunta.RESPUESTAS?.[0].ISVERFLSO || '';
                             preguntaHtml += `
-                                <div class="form-check">
-                                    <input disabled 
-                                    ${ISVERFLSO == true ? 'checked' : ''}
-                                    class="form-check-input" type="radio" name="pregunta_${pregunta.ID}" id="pregunta_${pregunta.ID}_true" value="true">
-                                    <label class="form-check-label" for="pregunta_${pregunta.ID}_true">Verdadero</label>
-                                </div>
-                                <div class="form-check">
-                                    <input disabled
-                                    ${ISVERFLSO == false ? 'checked' : ''}
-                                    class="form-check-input" type="radio" name="pregunta_${pregunta.ID}" id="pregunta_${pregunta.ID}_false" value="false">
-                                    <label class="form-check-label" for="pregunta_${pregunta.ID}_false">Falso</label>
+                                <div class="modern-radio-group">
+                                    <div class="modern-radio-option">
+                                        <input disabled 
+                                        ${ISVERFLSO == true ? 'checked' : ''}
+                                        class="form-check-input" type="radio" name="pregunta_${pregunta.ID}" id="pregunta_${pregunta.ID}_true" value="true">
+                                        <label class="form-check-label" for="pregunta_${pregunta.ID}_true">Sí</label>
+                                    </div>
+                                    <div class="modern-radio-option">
+                                        <input disabled
+                                        ${ISVERFLSO == false ? 'checked' : ''}
+                                        class="form-check-input" type="radio" name="pregunta_${pregunta.ID}" id="pregunta_${pregunta.ID}_false" value="false">
+                                        <label class="form-check-label" for="pregunta_${pregunta.ID}_false">No</label>
+                                    </div>
                                 </div>`;
                             break;
                         case 'E': // Respuesta corta
                             let ESCALA = pregunta.RESPUESTAS?.[0].ESCALA || '';
-                            preguntaHtml += `<div class="star-rating_${pregunta.ID}" id="star-rating_${pregunta.ID}"></div>`;
+                            preguntaHtml += `<div class="star-rating-container"><div class="star-rating_${pregunta.ID}" id="star-rating_${pregunta.ID}"></div></div>`;
                             setTimeout(() => {
                                 $(`.star-rating_${pregunta.ID}`).rateYo({
                                     rating: ESCALA,
                                     fullStar: true,
                                     numStars: 5,
                                     readOnly: true,
-                                    starWidth: "30px",
-                                    normalFill: "#A0A0A0",
-                                    ratedFill: "#F39C12",
+                                    starWidth: "35px",
+                                    normalFill: "#dadce0",
+                                    ratedFill: "#FF6A16",
                                 }).on("rateyo.set", function (e, data) {
                                     $(`#pregunta_${pregunta.ID}_valor`).val(ESCALA);
                                 });
@@ -144,18 +259,18 @@ const executeView = () => {
                             break;
                         case 'I': // Respuesta larga
                             RSPSTA = pregunta.RESPUESTAS?.[0].RSPSTA || '';
-                            preguntaHtml += `<input type="text" disabled class="form-control" name="pregunta_${index}" placeholder="Escribe tu respuesta aquí..." value="${RSPSTA}">`;
+                            preguntaHtml += `<input type="text" disabled class="form-control modern-input noMayus" name="pregunta_${index}" placeholder="Tu respuesta..." value="${RSPSTA}">`;
                             break;
                         case 'T': // Fecha y hora
                             RSPSTA = pregunta.RESPUESTAS?.[0].RSPSTA || '';
-                            preguntaHtml += `<textarea class="form-control" disabled name="pregunta_${index}" rows="3" placeholder="Escribe tu respuesta aquí...">${RSPSTA}</textarea>`;
+                            preguntaHtml += `<textarea class="form-control modern-textarea noMayus" disabled name="pregunta_${index}" rows="3" placeholder="Tu respuesta...">${RSPSTA}</textarea>`;
                             break;
                         case 'S': // Selección desplegable
                             let IDRSPSTA = pregunta.RESPUESTAS?.[0].IDRSPSTA || 0;
                             if (pregunta.ALTERNATIVAS && pregunta.ALTERNATIVAS.length > 0) {
                                 preguntaHtml += `<select disabled 
-                                class="form-select" name="pregunta_${pregunta.ID}">
-                                    <option value="" selected>-- Seleccione --</option>`;
+                                class="form-select modern-select" name="pregunta_${pregunta.ID}">
+                                    <option value="" selected>-- Selecciona una opción --</option>`;
                                 pregunta.ALTERNATIVAS.forEach((opcion) => {
                                     preguntaHtml += `<option 
                                     ${opcion.ID === IDRSPSTA ? 'selected' : ''}
@@ -172,7 +287,7 @@ const executeView = () => {
                                 let IDRSPSTA = pregunta.RESPUESTAS?.[0].IDRSPSTA || 0;
                                 pregunta.ALTERNATIVAS.forEach((opcion, optIndex) => {
                                     preguntaHtml += `
-                                        <div class="form-check mt-2">
+                                        <div class="form-check modern-radio">
                                             <input ${opcion.ID === IDRSPSTA ? 'checked' : ''} 
                                             disabled class="form-check-input" type="radio" name="pregunta_${pregunta.ID}" id="pregunta_${pregunta.ID}_option_${optIndex}" value="${opcion.ID}">
                                             <label class="form-check-label" for="pregunta_${pregunta.ID}_option_${optIndex}">${opcion.DESCP}</label>
@@ -189,7 +304,7 @@ const executeView = () => {
                             if (pregunta.ALTERNATIVAS && pregunta.ALTERNATIVAS.length > 0) {
                                 pregunta.ALTERNATIVAS.forEach((opcion, optIndex) => {
                                     preguntaHtml += `
-                                        <div class="form-check mt-2">
+                                        <div class="form-check modern-checkbox">
                                             <input class="form-check-input" 
                                             ${IDRESPS.includes(opcion.ID) ? 'checked' : ''}
                                             disabled type="checkbox" name="pregunta_${pregunta.ID}[]" id="pregunta_${pregunta.ID}_option_${optIndex}" value="${opcion.ID}">
@@ -206,12 +321,16 @@ const executeView = () => {
                             break;
                     }
                     preguntaHtml += `</div>
-                        </div>
                     </div>`;
 
                     contenedor.append(preguntaHtml);
 
                 });
+
+                // Calcular progreso inicial
+                setTimeout(() => {
+                    formularioCrud.updateProgress();
+                }, 200);
             },
             renderizarPreguntasListaPreview: (preguntas) => {
                 const contenedor = $('#preguntas-container');
@@ -238,11 +357,11 @@ const executeView = () => {
                             tablaHtml += `
                                 <div class="TIPO_DIV_${pregunta.GDTYPEP}">
                                     <div class="form-check">
-                                        <input class="form-check-input" disabled type="radio" name="pregunta_${pregunta.ID}" id="pregunta_${pregunta.ID}_option_1" value="1" ${ISVERFLSO === '1' ? 'checked' : ''}>
+                                        <input class="form-check-input" disabled type="radio" name="pregunta_${pregunta.ID}" id="pregunta_${pregunta.ID}_option_1" value="1" ${ISVERFLSO ? 'checked' : ''}>
                                         <label class="form-check-label" for="pregunta_${pregunta.ID}_option_1">Verdadero</label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" disabled type="radio" name="pregunta_${pregunta.ID}" id="pregunta_${pregunta.ID}_option_2" value="2" ${ISVERFLSO === '2' ? 'checked' : ''}>
+                                        <input class="form-check-input" disabled type="radio" name="pregunta_${pregunta.ID}" id="pregunta_${pregunta.ID}_option_2" value="2" ${!ISVERFLSO ? 'checked' : ''}>
                                         <label class="form-check-label" for="pregunta_${pregunta.ID}_option_2">Falso</label>
                                     </div>
                                 </div>`;
@@ -260,11 +379,11 @@ const executeView = () => {
                             break;
                         case 'I':
                             RSPSTA = pregunta.RESPUESTAS?.[0]?.RSPSTA || '';
-                            tablaHtml += `<input type="text" class="form-control" disabled name="pregunta_${index}" placeholder="Escribe tu respuesta aquí..." value="${RSPSTA}">`;
+                            tablaHtml += `<input type="text" class="form-control noMayus" disabled name="pregunta_${index}" placeholder="Escribe tu respuesta aquí..." value="${RSPSTA}">`;
                             break;
                         case 'T':
                             RSPSTA = pregunta.RESPUESTAS?.[0]?.RSPSTA || '';
-                            tablaHtml += `<textarea class="form-control" disabled name="pregunta_${index}" rows="3" placeholder="Escribe tu respuesta aquí...">${RSPSTA}</textarea>`;
+                            tablaHtml += `<textarea class="form-control noMayus" disabled name="pregunta_${index}" rows="3" placeholder="Escribe tu respuesta aquí...">${RSPSTA}</textarea>`;
                             break;
                         case 'S':
                             let IDRSPSTA = pregunta.RESPUESTAS?.[0]?.IDRSPSTA || 0;
@@ -272,7 +391,7 @@ const executeView = () => {
                                 tablaHtml += `<select disabled class="form-control" name="pregunta_${index}">`;
                                 tablaHtml += `<option value="">--Seleccione--</option>`;
                                 pregunta.ALTERNATIVAS.forEach(opcion => {
-                                    tablaHtml += `<option value="${opcion.ID}" ${opcion.ID === IDRSPSTA ? 'selected' : ''}>${opcion.NOMBRE}</option>`;
+                                    tablaHtml += `<option value="${opcion.ID}" ${opcion.ID === IDRSPSTA ? 'selected' : ''}>${opcion.DESCP}</option>`;
                                 });
                                 tablaHtml += `</select>`;
                             }
@@ -327,7 +446,8 @@ const executeView = () => {
 
 
             obtener: (ID) => {
-                swalFire.cargando('Cargando datos...');
+                $('#spinner-container-modulos').removeClass('d-none');
+                formularioCrud.setSpinnerText('Cargando formulario...', 'Preparando las preguntas');
                 let aleatorio = Math.floor(Math.random() * 1000) + "APIDENTIFICADOR";
                 $.ajax({
                     url: `${uisApis.API}=Form&ID=${ID}&id=${ID}`,
@@ -365,7 +485,7 @@ const executeView = () => {
                         swalFire.error('Error al obtener los datos del formulario: ' + error);
                     },
                     complete: function () {
-                        swalFire.cerrar();
+                        $('#spinner-container-modulos').addClass('d-none');
                     }
                 });
             },
@@ -387,34 +507,36 @@ const executeView = () => {
                 C -> PUEDE TENER VARIAS ALTERNATIVAS
                 **/
                 preguntas.forEach((pregunta, index) => {
-                    let preguntaHtml = `<div class="card mb-3" data-pregunta-id="${pregunta.ID}" 
-                    data-index="${index + 1}">
-                        <div class="card-body">
-                            <p class="card-title" style="font-weight: semi-bold!important;">
-                                ${index + 1}. ${pregunta.DESCP} ${pregunta.REQUIREDP ? '<span class="text-danger">*</span>' : ''}
-                            </p>
-                            <div class="mt-3">`;
+                    let preguntaHtml = `<div class="question-card fade-in" data-pregunta-id="${pregunta.ID}" 
+                    data-index="${index + 1}" style="animation-delay: ${index * 0.05}s;">
+                        <div class="question-title">
+                            <span class="question-number">${index + 1}</span>
+                            ${pregunta.DESCP} ${pregunta.REQUIREDP ? '<span class="modern-label-required">*</span>' : ''}
+                        </div>
+                        <div class="mt-3">`;
                     switch (pregunta.GDTYPEP) {
                         case 'V': // Verdadero o Falso
                             preguntaHtml += `
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="pregunta_${pregunta.ID}" id="pregunta_${pregunta.ID}_true" value="true">
-                                    <label class="form-check-label" for="pregunta_${pregunta.ID}_true">Verdadero</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="pregunta_${pregunta.ID}" id="pregunta_${pregunta.ID}_false" value="false">
-                                    <label class="form-check-label" for="pregunta_${pregunta.ID}_false">Falso</label>
+                                <div class="modern-radio-group">
+                                    <div class="modern-radio-option">
+                                        <input class="form-check-input" type="radio" name="pregunta_${pregunta.ID}" id="pregunta_${pregunta.ID}_true" value="true">
+                                        <label class="form-check-label" for="pregunta_${pregunta.ID}_true">Sí</label>
+                                    </div>
+                                    <div class="modern-radio-option">
+                                        <input class="form-check-input" type="radio" name="pregunta_${pregunta.ID}" id="pregunta_${pregunta.ID}_false" value="false">
+                                        <label class="form-check-label" for="pregunta_${pregunta.ID}_false">No</label>
+                                    </div>
                                 </div>`;
                             break;
                         case 'E': // Respuesta estrellas    
-                            preguntaHtml += `<div class="star-rating_${pregunta.ID}" id="star-rating_${pregunta.ID}"></div>`;
+                            preguntaHtml += `<div class="star-rating-container"><div class="star-rating_${pregunta.ID}" id="star-rating_${pregunta.ID}"></div></div>`;
                             setTimeout(() => {
                                 $(`.star-rating_${pregunta.ID}`).rateYo({
                                     rating: 0,
                                     fullStar: true,
-                                    starWidth: "30px",
-                                    normalFill: "#A0A0A0",
-                                    ratedFill: "#F39C12",
+                                    starWidth: "35px",
+                                    normalFill: "#dadce0",
+                                    ratedFill: "#FF6A16",
                                 }).on("rateyo.set", function (e, data) {
                                     $(`#pregunta_${pregunta.ID}_valor`).val(data.rating);
                                 });
@@ -425,16 +547,16 @@ const executeView = () => {
                             }, 100);
                             break;
                         case 'I': // Respuesta Corta
-                            preguntaHtml += `<input type="text" class="form-control" name="pregunta_${index}" placeholder="Escribe tu respuesta aquí...">`;
+                            preguntaHtml += `<input type="text" class="form-control modern-input noMayus" name="pregunta_${index}" placeholder="Tu respuesta...">`;
                             break;
                         case 'T': // Respuesta Larga
-                            preguntaHtml += `<textarea class="form-control" name="pregunta_${index}" rows="3" placeholder="Escribe tu respuesta aquí..."></textarea>`;
+                            preguntaHtml += `<textarea class="form-control modern-textarea noMayus" name="pregunta_${index}" rows="3" placeholder="Tu respuesta..."></textarea>`;
                             break;
                         case 'S': // Selección desplegable
                             // select con opciones, agrega al comeinza --Seleccione--
                             if (pregunta.ALTERNATIVAS && pregunta.ALTERNATIVAS.length > 0) {
-                                preguntaHtml += `<select class="form-select" name="pregunta_${pregunta.ID}">
-                                    <option value="" selected>-- Seleccione --</option>`;
+                                preguntaHtml += `<select class="form-select modern-select" name="pregunta_${pregunta.ID}">
+                                    <option value="" selected>-- Selecciona una opción --</option>`;
                                 pregunta.ALTERNATIVAS.forEach((opcion) => {
                                     preguntaHtml += `<option value="${opcion.ID}">${opcion.DESCP}</option>`;
                                 });
@@ -448,7 +570,7 @@ const executeView = () => {
                             if (pregunta.ALTERNATIVAS && pregunta.ALTERNATIVAS.length > 0) {
                                 pregunta.ALTERNATIVAS.forEach((opcion, optIndex) => {
                                     preguntaHtml += `
-                                        <div class="form-check mt-2">
+                                        <div class="form-check modern-radio">
                                             <input class="form-check-input" type="radio" name="pregunta_${pregunta.ID}" id="pregunta_${pregunta.ID}_option_${optIndex}" value="${opcion.ID}">
                                             <label class="form-check-label" for="pregunta_${pregunta.ID}_option_${optIndex}">${opcion.DESCP}</label>
                                         </div>`;
@@ -463,7 +585,7 @@ const executeView = () => {
                             if (pregunta.ALTERNATIVAS && pregunta.ALTERNATIVAS.length > 0) {
                                 pregunta.ALTERNATIVAS.forEach((opcion, optIndex) => {
                                     preguntaHtml += `
-                                        <div class="form-check mt-2">
+                                        <div class="form-check modern-checkbox">
                                             <input class="form-check-input" type="checkbox" name="pregunta_${pregunta.ID}[]" id="pregunta_${pregunta.ID}_option_${optIndex}" value="${opcion.ID}">
                                             <label class="form-check-label" for="pregunta_${pregunta.ID}_option_${optIndex}">${opcion.DESCP}</label>
                                         </div>`;
@@ -478,12 +600,16 @@ const executeView = () => {
                             break;
                     }
                     preguntaHtml += `</div>
-                        </div>
                     </div>`;
 
                     contenedor.append(preguntaHtml);
 
                 });
+
+                // Calcular progreso inicial
+                setTimeout(() => {
+                    formularioCrud.updateProgress();
+                }, 200);
             },
             renderizarPreguntasLista: (preguntas) => {
                 const contenedor = $('#preguntas-container');
@@ -534,10 +660,10 @@ const executeView = () => {
                             });
                             break;
                         case 'I': // Respuesta Corta
-                            tablaHtml += `<input type="text" class="form-control" name="pregunta_${index}" placeholder="Escribe tu respuesta aquí...">`;
+                            tablaHtml += `<input type="text" class="form-control noMayus" name="pregunta_${index}" placeholder="Escribe tu respuesta aquí...">`;
                             break;
                         case 'T': // Respuesta Larga
-                            tablaHtml += `<textarea class="form-control" name="pregunta_${index}" rows="3" placeholder="Escribe tu respuesta aquí..."></textarea>`;
+                            tablaHtml += `<textarea class="form-control noMayus" name="pregunta_${index}" rows="3" placeholder="Escribe tu respuesta aquí..."></textarea>`;
                             break;
                         case 'S': // Selección desplegable
                             if (pregunta.ALTERNATIVAS && pregunta.ALTERNATIVAS.length > 0) {
@@ -590,8 +716,53 @@ const executeView = () => {
 
                 tablaHtml += `</tbody></table>`;
                 contenedor.append(tablaHtml);
+
+                // Calcular progreso inicial
+                setTimeout(() => {
+                    formularioCrud.updateProgress();
+                }, 200);
             },
 
+            attachProgressListeners: () => {
+
+                // Remover listeners anteriores para evitar duplicados
+                $(document).off('change', '#preguntas-container input[type="radio"]');
+                $(document).off('change', '#preguntas-container input[type="checkbox"]');
+                $(document).off('input', '#preguntas-container textarea');
+                $(document).off('change', '#preguntas-container select');
+                $(document).off('input', '#preguntas-container input[type="text"]');
+
+                // Event listeners para radio buttons
+                $(document).on('change', '#preguntas-container input[type="radio"]', function () {
+                    formularioCrud.updateProgress();
+                });
+
+                // Event listeners para checkboxes
+                $(document).on('change', '#preguntas-container input[type="checkbox"]', function () {
+                    formularioCrud.updateProgress();
+                });
+
+                // Event listeners para textarea
+                $(document).on('input', '#preguntas-container textarea', function () {
+                    formularioCrud.updateProgress();
+                });
+
+                // Event listeners para select
+                $(document).on('change', '#preguntas-container select', function () {
+                    formularioCrud.updateProgress();
+                });
+
+                // Event listeners para input text
+                $(document).on('input', '#preguntas-container input[type="text"]', function () {
+                    formularioCrud.updateProgress();
+                });
+
+                // Event listeners para star rating (rateYo)
+                $(document).on('rateyo.set', function () {
+                    setTimeout(() => formularioCrud.updateProgress(), 100);
+                });
+
+            },
             guardarRespuestas: () => {
                 if (!$("#CORREO").val().trim()) {
                     swalFire.errorMensaje('El campo correo es obligatorio.');
@@ -617,27 +788,30 @@ const executeView = () => {
                         let isRequired = $(this).find('td:first .text-danger').length > 0;
                         let respuesta = null;
 
-                        let preguntaElem = $(this).find('input, select, textarea, .star-rating_' + dataPreguntaId);
-                        if (preguntaElem.length > 0) {
-                            if (preguntaElem.is('select')) {
-                                respuesta = preguntaElem.val();
-                            } else if (preguntaElem.is('textarea')) {
-                                respuesta = preguntaElem.val().trim();
-                            } else if (preguntaElem.is(`.star-rating_${dataPreguntaId}`)) {
-                                respuesta = $(`#pregunta_${dataPreguntaId}_valor`).val();
-                            } else if (preguntaElem.is('input[type="radio"]')) {
-                                respuesta = $(this).find('input[type="radio"]:checked').val() || null;
-                            } else if (preguntaElem.is('input[type="checkbox"]')) {
-                                respuesta = [];
-                                $(this).find('input[type="checkbox"]:checked').each(function () {
-                                    respuesta.push($(this).val());
-                                });
-                            } else {
-                                respuesta = preguntaElem.val().trim();
-                            }
+                        // Buscar elementos en toda la fila (tr), no solo en la primera celda
+                        let rowElement = $(this);
+
+                        // Verificar tipo de pregunta y capturar respuesta
+                        if (rowElement.find('input[type="radio"]').length > 0) {
+                            respuesta = rowElement.find('input[type="radio"]:checked').val() || null;
+                        } else if (rowElement.find('input[type="checkbox"]').length > 0) {
+                            respuesta = [];
+                            rowElement.find('input[type="checkbox"]:checked').each(function () {
+                                respuesta.push($(this).val());
+                            });
+                        } else if (rowElement.find('select').length > 0) {
+                            respuesta = rowElement.find('select').val();
+                        } else if (rowElement.find('textarea').length > 0) {
+                            respuesta = rowElement.find('textarea').val()?.trim();
+                        } else if (rowElement.find('.star-rating_' + dataPreguntaId).length > 0) {
+                            respuesta = $(`#pregunta_${dataPreguntaId}_valor`).val();
+                        } else if (rowElement.find('input[type="text"]').length > 0) {
+                            respuesta = rowElement.find('input[type="text"]').val()?.trim();
                         }
+
                         if (isRequired) {
                             if (respuesta === null || (Array.isArray(respuesta) && respuesta.length === 0) || respuesta === '') {
+                                console.warn(`  - ⚠️ Pregunta requerida sin respuesta!`);
                                 swalFire.errorMensaje(`La pregunta <strong>"${dataIndex}.-  ${preguntaText}"</strong> es obligatoria.`);
                                 valid = false;
                                 return false;
@@ -651,38 +825,35 @@ const executeView = () => {
                     });
 
                 } else {
-                    $('#preguntas-container .card').each(function () {
-                        let preguntaId = $(this).find('.card-title').text().split('. ')[0];
+                    $('#preguntas-container .question-card').each(function () {
                         let dataPreguntaId = $(this).data('pregunta-id');
                         let dataIndex = $(this).data('index');
-                        if (preguntaId) preguntaId = preguntaId.trim();
-                        let preguntaText = $(this).find('.card-title').text().replace(preguntaId + '. ', '').replace(' *', '').trim();
-                        let isRequired = $(this).find('.card-title .text-danger').length > 0;
+                        let preguntaText = $(this).find('.question-title').text().split(`${dataIndex}`)[1]?.replace('*', '').trim();
+                        let isRequired = $(this).find('.question-title .modern-label-required').length > 0;
                         let respuesta = null;
+                        let cardElement = $(this);
 
-                        let preguntaElem = $(this).find('input, select, textarea, .star-rating_' + dataPreguntaId);
-                        if (preguntaElem.length > 0) {
-                            if (preguntaElem.is('select')) {
-                                respuesta = preguntaElem.val();
-                            } else if (preguntaElem.is('textarea')) {
-                                respuesta = preguntaElem.val().trim();
-                            } else if (preguntaElem.is(`.star-rating_${dataPreguntaId}`)) {
-                                respuesta = $(`#pregunta_${dataPreguntaId}_valor`).val();
-                            }
-                            else if (preguntaElem.is('input[type="radio"]')) {
-                                respuesta = $(this).find('input[type="radio"]:checked').val() || null;
-                            } else if (preguntaElem.is('input[type="checkbox"]')) {
-                                respuesta = [];
-                                $(this).find('input[type="checkbox"]:checked').each(function () {
-                                    respuesta.push($(this).val());
-                                });
-                            } else {
-                                respuesta = preguntaElem.val().trim();
-                            }
+                        // Verificar tipo de pregunta y capturar respuesta
+                        if (cardElement.find('input[type="radio"]').length > 0) {
+                            respuesta = cardElement.find('input[type="radio"]:checked').val() || null;
+                        } else if (cardElement.find('input[type="checkbox"]').length > 0) {
+                            respuesta = [];
+                            cardElement.find('input[type="checkbox"]:checked').each(function () {
+                                respuesta.push($(this).val());
+                            });
+                        } else if (cardElement.find('select').length > 0) {
+                            respuesta = cardElement.find('select').val();
+                        } else if (cardElement.find('textarea').length > 0) {
+                            respuesta = cardElement.find('textarea').val()?.trim();
+                        } else if (cardElement.find('.star-rating_' + dataPreguntaId).length > 0) {
+                            respuesta = $(`#pregunta_${dataPreguntaId}_valor`).val();
+                        } else if (cardElement.find('input[type="text"]').length > 0) {
+                            respuesta = cardElement.find('input[type="text"]').val()?.trim();
                         }
 
                         if (isRequired) {
                             if (respuesta === null || (Array.isArray(respuesta) && respuesta.length === 0) || respuesta === '') {
+                                console.warn(`  - ⚠️ Pregunta requerida sin respuesta!`);
                                 swalFire.errorMensaje(`La pregunta <strong>"${dataIndex}.-  ${preguntaText}"</strong> es obligatoria.`);
                                 valid = false;
                                 return false;
@@ -698,6 +869,7 @@ const executeView = () => {
 
 
                 if (!valid) return;
+
 
                 // formularioCrud.eventos.descargarPDF();
 
@@ -740,7 +912,8 @@ const executeView = () => {
                 formData.append("CESTDO", 'A');
 
 
-                swalFire.cargando(['Enviando sus respuestas...', 'Esto puede tardar unos segundos. Por favor, no cierre esta ventana.']);
+                $('#spinner-container-modulos').removeClass('d-none');
+                formularioCrud.setSpinnerText('Guardando respuestas...', 'Enviando tu formulario');
                 $.ajax({
                     url: uisApis.API + '=AddRespuestas',
                     beforeSend: function (xhr) {
@@ -752,17 +925,9 @@ const executeView = () => {
                     processData: false,
                     data: formData,
                     success: function (data) {
+                        $('#spinner-container-modulos').addClass('d-none');
                         if (data?.codEstado > 0) {
-                            // swalFire.success(
-                            //     'Su checklist fue enviado correctamente',
-                            //     'Nuestro equipo comercial se estará comunicando con usted en breve.',
-                            //     {
-                            //         1: () => {
-                            //             window.location.href = `/Perfil/Forms/index?preview=true&id=${ID}&sendmail=${correo}`;
-                            //         }
-                            //     }
-                            // );
-
+                            // cerrar spinner
                             swalFire.success(
                                 'Su checklist fue enviado correctamente',
                                 'Nuestro equipo comercial se estará comunicando con usted en breve.',
@@ -775,7 +940,10 @@ const executeView = () => {
                         }
 
 
-                        if (data?.codEstado <= 0) swalFire.error(data.mensaje);
+                        if (data?.codEstado <= 0) {
+                            $("#btnGuardar").css("display", "block");
+                            swalFire.error(data.mensaje);
+                        }
                     },
                     error: (jqXHR, textStatus, errorThrown) => swalFire.error('Ocurrió un error al actualizar sus respuestas')
                 });
@@ -825,6 +993,22 @@ const executeView = () => {
             const ID = urlParams.get('id');
             const PREVIEW = urlParams.get('preview');
             const SENDMAIL = urlParams.get('sendmail');
+
+            // Inicializar listeners de progreso UNA SOLA VEZ
+            formularioCrud.eventos.attachProgressListeners();
+
+            // Toggle para el indicador de progreso
+            $(document).on('click', '#progress-icon-toggle', function () {
+                $('#progress-indicator').toggleClass('expanded');
+            });
+
+            // Cerrar detalles al hacer click fuera
+            $(document).on('click', function (e) {
+                if (!$(e.target).closest('#progress-indicator').length) {
+                    $('#progress-indicator').removeClass('expanded');
+                }
+            });
+
             if (ID && PREVIEW != "true") {
                 formularioCrud.eventos.obtener(ID);
 

@@ -79,7 +79,22 @@ const executeView = () => {
                             }
                         },
                         columns: [
-                            { data: 'rn', title: '' },
+
+                            {
+                                data: null,
+                                title: '',
+                                orderable: false,
+                                className: 'text-center',
+                                render: function (data, type, row, meta) {
+                                    // Mostrar el número de fila y la flecha juntos
+                                    return `
+                                        <div style="display:flex;align-items:center;justify-content:center;gap:4px;">
+                                            <button class='btn btn-sm btn-icon auditoria-row' title='Ver auditoría' tabindex="-1"><i class='bx bx-chevron-right'></i></button>
+                                            <span style="min-width:22px;display:inline-block;">${data.rn || meta.row + 1}</span>
+                                        </div>
+                                    `;
+                                }
+                            },
                             {
                                 data: null,
                                 title: 'Descripción',
@@ -101,8 +116,6 @@ const executeView = () => {
                                         }></i></span>`;
                                 }
                             },
-                            { data: 'uedcn', title: 'U. Edición' },
-                            { data: null, title: 'F. Edición', render: data => func.formatFecha(data.fedcn, 'DD-MM-YYYY HH:mm a') },
                             {
                                 data: null,
                                 title: '',
@@ -132,7 +145,7 @@ const executeView = () => {
 
                             buttons.unshift({
                                 text: '<i class="bx bx-plus me-0 me-md-2"></i><span class="d-none d-md-inline-block">Agregar</span>',
-                                className: 'btn btn-label-primary btn-add-new',
+                                className: 'erp-btn erp-btn-secondary',
                                 action: function (e, dt, node, config) {
                                     $('#modalAddTipoDenuncia').modal('show');
                                 }
@@ -317,7 +330,21 @@ const executeView = () => {
                             }
                         },
                         columns: [
-                            { data: 'rn', title: '' },
+                            {
+                                data: null,
+                                title: '',
+                                orderable: false,
+                                className: 'text-center',
+                                render: function (data, type, row, meta) {
+                                    // Mostrar el número de fila y la flecha juntos
+                                    return `
+                                        <div style="display:flex;align-items:center;justify-content:center;gap:4px;">
+                                            <button class='btn btn-sm btn-icon auditoria-row' title='Ver auditoría' tabindex="-1"><i class='bx bx-chevron-right'></i></button>
+                                            <span style="min-width:22px;display:inline-block;">${data.rn || meta.row + 1}</span>
+                                        </div>
+                                    `;
+                                }
+                            },
                             {
                                 data: null,
                                 title: 'Descripción',
@@ -339,8 +366,6 @@ const executeView = () => {
                                         }></i></span>`;
                                 }
                             },
-                            { data: 'uedcn', title: 'U. Edición' },
-                            { data: null, title: 'F. Edición', render: data => func.formatFecha(data.fedcn, 'DD-MM-YYYY HH:mm a') },
                             {
                                 data: null,
                                 title: '',
@@ -370,7 +395,7 @@ const executeView = () => {
 
                             buttons.unshift({
                                 text: '<i class="bx bx-plus me-0 me-md-2"></i><span class="d-none d-md-inline-block">Agregar</span>',
-                                className: 'btn btn-label-primary btn-add-new',
+                                className: 'erp-btn erp-btn-secondary',
                                 action: function (e, dt, node, config) {
                                     $('#modalAddRelacionEmpresa').modal('show');
                                 }
@@ -616,7 +641,21 @@ const executeView = () => {
                             }
                         },
                         columns: [
-                            { data: 'rn', title: '' },
+                            {
+                                data: null,
+                                title: '',
+                                orderable: false,
+                                className: 'text-center',
+                                render: function (data, type, row, meta) {
+                                    // Mostrar el número de fila y la flecha juntos
+                                    return `
+                                        <div style="display:flex;align-items:center;justify-content:center;gap:4px;">
+                                            <button class='btn btn-sm btn-icon auditoria-row' title='Ver auditoría' tabindex="-1"><i class='bx bx-chevron-right'></i></button>
+                                            <span style="min-width:22px;display:inline-block;">${data.rn || meta.row + 1}</span>
+                                        </div>
+                                    `;
+                                }
+                            },
                             {
                                 data: null,
                                 title: 'Persona',
@@ -661,8 +700,6 @@ const executeView = () => {
                                         }></i></span>`;
                                 }
                             },
-                            { data: 'uedcn', title: 'U. Edición' },
-                            { data: null, title: 'F. Edición', render: data => func.formatFecha(data.fedcn, 'DD-MM-YYYY HH:mm a') },
                             {
                                 data: null,
                                 title: '',
@@ -692,7 +729,7 @@ const executeView = () => {
 
                             buttons.unshift({
                                 text: '<i class="bx bx-plus me-0 me-md-2"></i><span class="d-none d-md-inline-block">Agregar</span>',
-                                className: 'btn btn-label-primary btn-add-new',
+                                className: 'erp-btn erp-btn-secondary',
                                 action: function (e, dt, node, config) {
                                     $('#modalAddReceptor').modal('show');
                                 }
@@ -822,7 +859,21 @@ const executeView = () => {
                             }
                         },
                         columns: [
-                            { data: 'rn', title: '' },
+                            {
+                data: null,
+                title: '',
+                orderable: false,
+                className: 'text-center',
+                render: function (data, type, row, meta) {
+                  // Mostrar el número de fila y la flecha juntos
+                  return `
+                                        <div style="display:flex;align-items:center;justify-content:center;gap:4px;">
+                                            <button class='btn btn-sm btn-icon auditoria-row' title='Ver auditoría' tabindex="-1"><i class='bx bx-chevron-right'></i></button>
+                                            <span style="min-width:22px;display:inline-block;">${data.rn || meta.row + 1}</span>
+                                        </div>
+                                    `;
+                }
+              },
                             {
                                 data: null,
                                 title: 'Persona',
@@ -984,7 +1035,7 @@ const executeView = () => {
             relacionEmpresaCrud.globales();
             receptoresCrud.globales();
 
-            var myTabs = document.querySelectorAll('.nav-tabs button');
+            var myTabs = document.querySelectorAll('.erp-tabs button');
             myTabs.forEach(function (tab) {
                 tab.addEventListener('click', function () {
                     const tabPane = tab.getAttribute('data-bs-target');

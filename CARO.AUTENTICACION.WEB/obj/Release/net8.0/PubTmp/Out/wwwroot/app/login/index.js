@@ -38,6 +38,7 @@ const executeView = () => {
               swalFire.success('Éxito', 'Autenticación exitosa', {
                 1: () => {
                   localStorage.setItem('accessToken', data.accessToken);
+                  localStorage.setItem('imagenPerfil', data.imagenPerfil || '');
                   window.location.href = '/Modulos?accessToken=' + data.accessToken;
                 }
               });

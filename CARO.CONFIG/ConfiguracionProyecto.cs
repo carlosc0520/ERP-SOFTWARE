@@ -16,6 +16,7 @@ namespace CARO.CONFIG
         public const string HOST = "https://localhost:7001/";
         public const string DISKFILE = "file:///C:/";
         public const string HOST_PROD = "https://caroasociados.pe/";
+        public const string LOGO_FIRMA = "https://ccfirma.com/wp-content/uploads/2026/01/B6.png";
 
         //public const string DISK = "h:\\root\\home\\devcar0520-001\\www\\";
         //public const string HOST = "http://devcar0520-001-site11.etempurl.com/";

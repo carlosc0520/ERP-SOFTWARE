@@ -1,3 +1,13 @@
+const abecedarioExcel = [
+  'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+  'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z',
+  'AA', 'AB', 'AC', 'AD', 'AE', 'AF', 'AG', 'AH', 'AI', 'AJ', 'AK', 'AL', 'AM',
+  'AN', 'AO', 'AP', 'AQ', 'AR', 'AS', 'AT', 'AU', 'AV', 'AW', 'AX', 'AY', 'AZ',
+  'BA', 'BB', 'BC', 'BD', 'BE', 'BF', 'BG', 'BH', 'BI', 'BJ', 'BK', 'BL', 'BM',
+  'BN', 'BO', 'BP', 'BQ', 'BR', 'BS', 'BT', 'BU', 'BV', 'BW', 'BX', 'BY', 'BZ'
+]
+
+
 const pathFileImg = "https://resourcesasociados.caroasociados.pe/";
 
 const Authorization = () => {
@@ -101,19 +111,77 @@ let GDESTDO_G = [
 ]
 
 const swalFire = {
+    /**
+     * Muestra un swal de información con opción de botón de acción adicional.
+     * @param {string} title Título del swal
+     * @param {string} html Contenido HTML
+     * @param {object} eventos Callbacks al cerrar
+     * @param {object} actionBtn { text: string, onClick: function }
+     */
+    information: (title = '', html = '', eventos = {}, actionBtn = null) => {
+      // Agregar estilos personalizados para el ancho si no existen
+      if (!document.getElementById('swal-info-width-style')) {
+        const style = document.createElement('style');
+        style.id = 'swal-info-width-style';
+        style.innerHTML = `
+          @media (min-width: 768px) {
+            .swal2-popup.swal2-info-width {
+              width: 900px !important;
+              max-width: 95vw;
+            }
+          }
+          .swal2-action-btn-custom { margin-bottom: 12px; display: flex; justify-content: flex-end; }
+        `;
+        document.head.appendChild(style);
+      }
+      let htmlFinal = html;
+      if (actionBtn && actionBtn.text) {
+        htmlFinal = `<div class='swal2-action-btn-custom'><button id='swal2-action-btn' class='btn btn-success'>${actionBtn.text}</button></div>` + html;
+      }
+      Swal.fire({
+        icon: 'info',
+        title: title,
+        html: htmlFinal,
+        showConfirmButton: true,
+        confirmButtonText: 'Entendido',
+        buttonsStyling: false,
+        customClass: {
+          popup: 'rounded-4 shadow-lg swal2-info-width',
+          title: 'fw-bold fs-4 mb-3 text-center',
+          htmlContainer: 'text-center',
+          confirmButton: 'btn btn-info px-4 py-2 fw-semibold'
+        },
+        didOpen: () => {
+          if (actionBtn && typeof actionBtn.onClick === 'function') {
+            const btn = document.getElementById('swal2-action-btn');
+            if (btn) btn.onclick = actionBtn.onClick;
+          }
+        }
+      }).then(result => {
+        for (const key in eventos) {
+          if (Object.hasOwnProperty.call(eventos, key)) {
+            eventos[key]();
+          }
+        }
+      });
+    },
   cargando: (mensaje = [], isClose = true) => {
     Swal.fire({
       title: 'Cargando...',
       html: `
-      ${mensaje.length > 1 ? mjsArraySwal(mensaje) : '<p class="text-lg">Espere un momento por favor.</p>'}
-      <div class="spinner-container">
-        <div class="spinner-border text-primary" role="status">
+      ${mensaje.length > 1 ? mjsArraySwal(mensaje) : '<p class="text-lg fw-medium">Espere un momento por favor.</p>'}
+      <div class="spinner-container my-4">
+        <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
           <span class="sr-only"></span>
         </div>
       </div>`,
       buttonsStyling: false,
       showConfirmButton: false,
-      allowOutsideClick: isClose
+      allowOutsideClick: isClose,
+      customClass: {
+        popup: 'rounded-4 shadow-lg',
+        title: 'text-primary fw-bold fs-4 mb-3 text-center'
+      }
     });
   },
   success: (title, mensaje = '', eventos = {}, textmsj = '') => {
@@ -123,10 +191,12 @@ const swalFire = {
       icon: 'success',
       confirmButtonText: 'Ok',
       confirmButton: false,
+      buttonsStyling: false,
       customClass: {
-        confirmButton: 'btn btn-success',
-        // a title quitarle margin-bottom
-        title: 'swal-title-no-margin'
+        popup: 'rounded-4 shadow-lg',
+        title: 'fw-bold fs-4 mb-2 text-center',
+        htmlContainer: 'fs-6 text-center',
+        confirmButton: 'btn btn-success px-4 py-2 fw-semibold'
       }
     }).then(result => {
       for (const key in eventos) {
@@ -140,7 +210,14 @@ const swalFire = {
     Swal.fire({
       icon: 'error',
       title: mensaje,
-      showConfirmButton: true
+      showConfirmButton: true,
+      confirmButtonText: 'Entendido',
+      buttonsStyling: false,
+      customClass: {
+        popup: 'rounded-4 shadow-lg',
+        title: 'fw-bold fs-4 mb-2 text-center',
+        confirmButton: 'btn btn-danger px-4 py-2 fw-semibold'
+      }
     }).then(result => {
       for (const key in eventos) {
         if (Object.hasOwnProperty.call(eventos, key)) {
@@ -152,12 +229,16 @@ const swalFire = {
   errorMensaje: (mensaje = '') => {
     Swal.fire({
       icon: 'error',
-      title: '',
-      html: `<p class="">${mensaje}<br></p>`,
+      title: 'Error',
+      html: `<p class="fs-6 mb-0">${mensaje}</p>`,
       showConfirmButton: true,
       confirmButtonText: 'Ok',
+      buttonsStyling: false,
       customClass: {
-        confirmButton: 'btn btn-success'
+        popup: 'rounded-4 shadow-lg',
+        title: 'fw-bold fs-4 mb-3 text-center',
+        htmlContainer: 'text-center',
+        confirmButton: 'btn btn-danger px-4 py-2 fw-semibold'
       }
     });
   },
@@ -166,32 +247,49 @@ const swalFire = {
       icon: 'warning',
       title: title,
       html: mensajeHtml,
-      showConfirmButton: true
+      showConfirmButton: true,
+      confirmButtonText: 'Entendido',
+      buttonsStyling: false,
+      customClass: {
+        popup: 'rounded-4 shadow-lg',
+        title: 'fw-bold fs-4 mb-3 text-center',
+        htmlContainer: 'fs-6 text-center',
+        confirmButton: 'btn btn-warning px-4 py-2 fw-semibold'
+      }
     });
   },
   cerrar: () => Swal.close(),
   cancelar: mensaje => {
     Swal.fire({
       title: 'Cancelado',
-      html: `<p>¡No se ha eliminado!</p>`,
+      html: `<p class="fs-6 mb-0">¡No se ha eliminado!</p>`,
       icon: 'error',
       confirmButtonText: 'Ok',
+      buttonsStyling: false,
       customClass: {
-        confirmButton: 'btn btn-success'
+        popup: 'rounded-4 shadow-lg',
+        title: 'fw-bold fs-4 mb-3 text-center',
+        confirmButton: 'btn btn-secondary px-4 py-2 fw-semibold'
       }
     });
   },
   delete: (mensaje, eventos) => {
     Swal.fire({
-      title: '',
-      html: `<p class="">${mensaje}<br></p>`,
+      title: '¿Está seguro?',
+      html: `<p class="fs-6 mb-0">${mensaje}</p>`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Eliminar',
       cancelButtonText: 'Cancelar',
+      buttonsStyling: false,
+      reverseButtons: false,
       customClass: {
-        confirmButton: 'btn btn-primary',
-        cancelButton: 'btn btn-secondary'
+        popup: 'rounded-4 shadow-lg',
+        title: 'fw-bold fs-4 mb-3',
+        htmlContainer: 'text-center',
+        confirmButton: 'btn btn-danger px-4 py-2 fw-semibold',
+        cancelButton: 'btn btn-secondary px-4 py-2 fw-semibold',
+        actions: 'd-flex gap-3 justify-content-center mt-4'
       }
     }).then(result => {
       if (result.isConfirmed) {
@@ -207,15 +305,21 @@ const swalFire = {
   },
   confirmar: (mensaje, eventos = {}) => {
     Swal.fire({
-      title: '',
-      html: `<p class="">${mensaje}<br></p>`,
+      title: '¿Confirmar acción?',
+      html: `<p class="fs-6 mb-0">${mensaje}</p>`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Aceptar',
       cancelButtonText: 'Cancelar',
+      buttonsStyling: false,
+      reverseButtons: false,
       customClass: {
-        confirmButton: 'btn btn-primary',
-        cancelButton: 'btn btn-secondary'
+        popup: 'rounded-4 shadow-lg',
+        title: 'fw-bold fs-4 mb-3',
+        htmlContainer: 'text-center',
+        confirmButton: 'btn btn-primary px-4 py-2 fw-semibold',
+        cancelButton: 'btn btn-secondary px-4 py-2 fw-semibold',
+        actions: 'd-flex gap-3 justify-content-center mt-4'
       }
     }).then(result => {
       if (result.isConfirmed) {
@@ -226,26 +330,30 @@ const swalFire = {
         }
       }
     });
-    info: (mensaje = '') => {
-      Swal.fire({
-        icon: 'info',
-        title: mensaje,
-        showConfirmButton: true
-      });
-    };
   },
   coolToAction: (title, eventos = {}) => {
     Swal.fire({
       title,
-      // poner textarea
       input: 'textarea',
       inputAttributes: {
-        autocapitalize: "off"
+        autocapitalize: "off",
+        placeholder: "Ingrese su comentario...",
+        style: "min-height: 100px; font-size: 14px;"
       },
       showCancelButton: true,
       confirmButtonText: "Confirmar",
       cancelButtonText: "Cancelar",
       showLoaderOnConfirm: true,
+      buttonsStyling: false,
+      reverseButtons: true,
+      customClass: {
+        popup: 'rounded-4 shadow-lg',
+        title: 'fw-bold fs-4 mb-3 text-center',
+        input: 'form-control',
+        confirmButton: 'btn btn-primary px-4 py-2 fw-semibold me-2',
+        cancelButton: 'btn btn-secondary px-4 py-2 fw-semibold',
+        actions: 'gap-2'
+      },
       preConfirm: async () => {
         const value = Swal.getInput().value;
         if (!value) {
@@ -262,6 +370,22 @@ const swalFire = {
       allowOutsideClick: () => !Swal.isLoading()
     }).then((result) => {
       if (result.isConfirmed) { }
+    });
+  },
+  info: (mensaje = '', titulo = 'Información') => {
+    Swal.fire({
+      icon: 'info',
+      title: titulo,
+      html: `<p class="fs-6 mb-0">${mensaje}</p>`,
+      showConfirmButton: true,
+      confirmButtonText: 'Entendido',
+      buttonsStyling: false,
+      customClass: {
+        popup: 'rounded-4 shadow-lg',
+        title: 'fw-bold fs-4 mb-3 text-center',
+        htmlContainer: 'text-center',
+        confirmButton: 'btn btn-info px-4 py-2 fw-semibold'
+      }
     });
   }
 };
@@ -409,6 +533,13 @@ const agregarValidaciones = (valid = {}) => {
     validators = {
       ...validators,
       greaterThan: { value: valid.numberMin, message: `El campo debe ser mayor a ${valid.numberMin}` }
+    };
+  }
+
+  if (valid?.exactCaracters) {
+    validators = {
+      ...validators,
+      stringLength: { min: valid.exactCaracters, max: valid.exactCaracters, message: `El campo debe tener ${valid.exactCaracters} caracteres` }
     };
   }
 
@@ -795,11 +926,11 @@ const func = {
     if (!bandera) {
       $(`#${formId} .select2`).select2({
         placeholder: 'Seleccione',
-        dropdownParent: $(`#${formId}`)
+        dropdownParent: $(`#${formId}`),
+        allowClear: true
       });
     }
     else {
-      console.log("deleting")
       $(`#${formId} .select2`).select2({
         placeholder: 'Seleccione',
         allowClear: true,
@@ -853,6 +984,73 @@ const func = {
 
     // Mantener el input fijo en tamaño
     $('.select2').on('select2:opening select2:closing', function () {
+      const $searchfield = $(this).parent().find('.select2-search__field');
+      $searchfield.css('width', '100%');
+    });
+  },
+  select2Multiples: () => {
+    // Destruir instancias previas
+    $('.select2Multiple').each(function () {
+      if ($(this).data('select2')) {
+        $(this).select2('destroy');
+      }
+    });
+
+    // Inicializar nuevamente cada select2Multiple
+    $('.select2Multiple').each(function () {
+      const $this = $(this);
+      const $parent = $this.closest('.modal').length ? $this.closest('.modal') : $('body');
+
+      $this.select2({
+        multiple: true,
+        placeholder: 'Seleccione',
+        allowClear: true,
+        width: '100%',
+        dropdownParent: $parent,
+        minimumResultsForSearch: 0, // mostrar siempre el buscador
+        templateResult: function (data) {
+          if (!data.id) return data.text;
+
+          // Obtener la URL del avatar desde el atributo data-avatar del option
+          const $option = $(data.element);
+          const avatarUrl = $option.data('avatar');
+
+          // Si hay avatar, mostrar con imagen
+          if (avatarUrl) {
+            return $(`
+              <div class="d-flex align-items-center">
+                <img src="${avatarUrl}" 
+                     class="rounded-circle me-2" 
+                     style="width: 32px; height: 32px; object-fit: cover;" 
+                     onerror="this.style.display='none'">
+                <span>${data.text}</span>
+              </div>
+            `);
+          }
+
+          // Sin avatar, solo texto
+          return $(`<span>${data.text}</span>`);
+        },
+        templateSelection: function (data, container) {
+          // obtener todos los seleccionados del select actual
+          const selected = $(container.element).closest('select').select2('data');
+          if (selected.length === 0) return 'Seleccione';
+
+          // si hay más de 2 seleccionados, mostrar "+N más"
+          if (selected.length > 2) {
+            const visible = selected.slice(0, 2).map(s => s.text).join(', ');
+            const extra = selected.length - 2;
+            return `${visible} (+${extra} más)`;
+          }
+
+          // si hay 2 o menos, mostrarlos normalmente
+          return selected.map(s => s.text).join(', ');
+        }
+      });
+    });
+
+    // Mantener el input fijo en tamaño
+    $('.select2Multiple').on('select2:opening select2:closing', function () {
       const $searchfield = $(this).parent().find('.select2-search__field');
       $searchfield.css('width', '100%');
     });
@@ -1197,7 +1395,11 @@ const fullToolbar = [
 
 const redirect = (isView = false, selector = '', valor) => {
   try {
-    const button = document.querySelector(`.nav-tabs button[data-bs-target="#${selector}"]`);
+    let button = document.querySelector(`.nav-tabs button[data-bs-target="#${selector}"]`);
+    // si button es null o vacio
+    if (!button) {
+      button = document.querySelector(`.erp-tabs button[data-bs-target="#${selector}"]`);
+    }
     if (isView && valor) {
       button.removeAttribute('disabled');
       button.click();
@@ -1261,6 +1463,12 @@ function agregarArchivoADropzoneFile(rutaArchivo, dropzoneInstance, formRef) {
 }
 
 const tagsTagify = (referencia, datos) => {
+  // Si ya existe una instancia de Tagify en este elemento, actualizar su whitelist
+  if (referencia.__tagify) {
+    referencia.__tagify.whitelist = datos;
+    return referencia.__tagify;
+  }
+
   function tagTemplate(tagData) {
     return `
     <tag title="${tagData.title || tagData.email}"
@@ -1340,6 +1548,8 @@ const tagsTagify = (referencia, datos) => {
   function onEditStart({ detail: { tag, data } }) {
     TagifyUserList.setTagTextNode(tag, `${data.name} <${data.email}>`);
   }
+  
+  return TagifyUserList;
 };
 
 let base64toBlob = async (base64, type) => {
@@ -1414,3 +1624,93 @@ const numeroATexto = (numero) => {
   return resultado.trim();
 };
 
+$(document).off('click.auditoria-row').on('click.auditoria-row', '.auditoria-row', function (e) {
+  e.preventDefault();
+  var table = $(this).closest('table').DataTable();
+  var tr = $(this).closest('tr');
+  var row = table.row(tr);
+  if (row.child.isShown()) {
+    row.child.hide();
+    tr.removeClass('shown');
+  } else {
+    var data = row.data();
+    // Diseño moderno para auditoría con iconos y mejor presentación
+    var auditoriaHtml = `
+      <div class="p-3 bg-light rounded-3 shadow-sm" style="animation: fadeInUp 0.3s ease;">
+        <div class="d-flex align-items-center mb-3 pb-2 border-bottom">
+          <i class="bx bx-info-circle fs-4 text-primary me-2"></i>
+          <h6 class="mb-0 fw-bold text-primary">Información de Auditoría</h6>
+        </div>
+        <div class="row g-3">
+          <div class="col-12 col-md-6">
+            <div class="d-flex align-items-start p-2 bg-white rounded-2 border border-light">
+              <div class="me-3">
+                <div class="bg-primary bg-opacity-10 rounded-circle p-2" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                  <i class="bx bx-user-plus text-primary fs-5"></i>
+                </div>
+              </div>
+              <div class="flex-grow-1">
+                <small class="text-muted d-block mb-1 fw-semibold">Usuario Creación</small>
+                <span class="fw-bold text-dark">${data.ucrcn || '-'}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="d-flex align-items-start p-2 bg-white rounded-2 border border-light">
+              <div class="me-3">
+                <div class="bg-success bg-opacity-10 rounded-circle p-2" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                  <i class="bx bx-calendar-plus text-success fs-5"></i>
+                </div>
+              </div>
+              <div class="flex-grow-1">
+                <small class="text-muted d-block mb-1 fw-semibold">Fecha Creación</small>
+                <span class="fw-bold text-dark">${func.formatFecha(data.fcrcn, 'DD-MM-YYYY HH:mm') || '-'}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="d-flex align-items-start p-2 bg-white rounded-2 border border-light">
+              <div class="me-3">
+                <div class="bg-warning bg-opacity-10 rounded-circle p-2" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                  <i class="bx bx-edit text-warning fs-5"></i>
+                </div>
+              </div>
+              <div class="flex-grow-1">
+                <small class="text-muted d-block mb-1 fw-semibold">Usuario Edición</small>
+                <span class="fw-bold text-dark">${data.uedcn || '-'}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="d-flex align-items-start p-2 bg-white rounded-2 border border-light">
+              <div class="me-3">
+                <div class="bg-info bg-opacity-10 rounded-circle p-2" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                  <i class="bx bx-calendar-edit text-info fs-5"></i>
+                </div>
+              </div>
+              <div class="flex-grow-1">
+                <small class="text-muted d-block mb-1 fw-semibold">Fecha Edición</small>
+                <span class="fw-bold text-dark">${func.formatFecha(data.fedcn, 'DD-MM-YYYY HH:mm') || '-'}</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="d-flex align-items-start p-2 bg-white rounded-2 border border-light">
+              <div class="me-3">
+                <div class="bg-secondary bg-opacity-10 rounded-circle p-2" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">
+                  <i class="bx bx-time text-secondary fs-5"></i>
+                </div>
+              </div>
+              <div class="flex-grow-1">
+                <small class="text-muted d-block mb-1 fw-semibold">Fecha Estado</small>
+                <span class="fw-bold text-dark">${func.formatFecha(data.festdo, 'DD-MM-YYYY HH:mm') || '-'}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+    row.child(auditoriaHtml).show();
+    tr.addClass('shown');
+  }
+});

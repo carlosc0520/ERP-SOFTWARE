@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CARO.DATABASE")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6caa2bb66f7259a1ceeecca5cab9d0b015d06ea9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6fb5f34d83c8bde2ca3c18d52133ec110e454dfb")]
 [assembly: System.Reflection.AssemblyProductAttribute("CARO.DATABASE")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CARO.DATABASE")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

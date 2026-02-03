@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.AUTENTICACION.WEB\\CARO.AUTENTICACION.WEB.csproj": {}
+    "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.AUTENTICACION.WEB\\CARO.AUTENTICACION.WEB.csproj": {}
   },
   "projects": {
-    "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.AUTENTICACION.WEB\\CARO.AUTENTICACION.WEB.csproj": {
+    "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.AUTENTICACION.WEB\\CARO.AUTENTICACION.WEB.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.AUTENTICACION.WEB\\CARO.AUTENTICACION.WEB.csproj",
+        "projectUniqueName": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.AUTENTICACION.WEB\\CARO.AUTENTICACION.WEB.csproj",
         "projectName": "CARO.AUTENTICACION.WEB",
-        "projectPath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.AUTENTICACION.WEB\\CARO.AUTENTICACION.WEB.csproj",
+        "projectPath": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.AUTENTICACION.WEB\\CARO.AUTENTICACION.WEB.csproj",
         "packagesPath": "C:\\Users\\LENOVO\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.AUTENTICACION.WEB\\obj\\",
+        "outputPath": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.AUTENTICACION.WEB\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -32,14 +32,14 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CORE\\CARO.CORE.csproj": {
-                "projectPath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CORE\\CARO.CORE.csproj"
+              "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CORE\\CARO.CORE.csproj": {
+                "projectPath": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CORE\\CARO.CORE.csproj"
               },
-              "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.CONSULTAS\\CARO.DATOS.CONSULTAS.csproj": {
-                "projectPath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.CONSULTAS\\CARO.DATOS.CONSULTAS.csproj"
+              "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.CONSULTAS\\CARO.DATOS.CONSULTAS.csproj": {
+                "projectPath": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.CONSULTAS\\CARO.DATOS.CONSULTAS.csproj"
               },
-              "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.EVENTOS\\CARO.DATOS.EVENTOS.csproj": {
-                "projectPath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.EVENTOS\\CARO.DATOS.EVENTOS.csproj"
+              "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.EVENTOS\\CARO.DATOS.EVENTOS.csproj": {
+                "projectPath": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.EVENTOS\\CARO.DATOS.EVENTOS.csproj"
               }
             }
           }
@@ -54,7 +54,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -168,6 +168,24 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.23, 8.0.23]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[8.0.23, 8.0.23]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.23, 8.0.23]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[8.0.23, 8.0.23]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -176,18 +194,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CONFIG\\CARO.CONFIG.csproj": {
+    "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CONFIG\\CARO.CONFIG.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CONFIG\\CARO.CONFIG.csproj",
+        "projectUniqueName": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CONFIG\\CARO.CONFIG.csproj",
         "projectName": "CARO.CONFIG",
-        "projectPath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CONFIG\\CARO.CONFIG.csproj",
+        "projectPath": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CONFIG\\CARO.CONFIG.csproj",
         "packagesPath": "C:\\Users\\LENOVO\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CONFIG\\obj\\",
+        "outputPath": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CONFIG\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -220,7 +238,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -236,23 +254,37 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.23, 8.0.23]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.23, 8.0.23]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[8.0.23, 8.0.23]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CORE\\CARO.CORE.csproj": {
+    "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CORE\\CARO.CORE.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CORE\\CARO.CORE.csproj",
+        "projectUniqueName": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CORE\\CARO.CORE.csproj",
         "projectName": "CARO.CORE",
-        "projectPath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CORE\\CARO.CORE.csproj",
+        "projectPath": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CORE\\CARO.CORE.csproj",
         "packagesPath": "C:\\Users\\LENOVO\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CORE\\obj\\",
+        "outputPath": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CORE\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -273,8 +305,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CONFIG\\CARO.CONFIG.csproj": {
-                "projectPath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CONFIG\\CARO.CONFIG.csproj"
+              "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CONFIG\\CARO.CONFIG.csproj": {
+                "projectPath": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CONFIG\\CARO.CONFIG.csproj"
               }
             }
           }
@@ -289,7 +321,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -367,23 +399,37 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.23, 8.0.23]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.23, 8.0.23]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[8.0.23, 8.0.23]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATABASE\\CARO.DATABASE.csproj": {
+    "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATABASE\\CARO.DATABASE.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATABASE\\CARO.DATABASE.csproj",
+        "projectUniqueName": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATABASE\\CARO.DATABASE.csproj",
         "projectName": "CARO.DATABASE",
-        "projectPath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATABASE\\CARO.DATABASE.csproj",
+        "projectPath": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATABASE\\CARO.DATABASE.csproj",
         "packagesPath": "C:\\Users\\LENOVO\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATABASE\\obj\\",
+        "outputPath": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATABASE\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -404,8 +450,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CORE\\CARO.CORE.csproj": {
-                "projectPath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CORE\\CARO.CORE.csproj"
+              "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CORE\\CARO.CORE.csproj": {
+                "projectPath": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CORE\\CARO.CORE.csproj"
               }
             }
           }
@@ -420,7 +466,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -482,23 +528,37 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.23, 8.0.23]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.23, 8.0.23]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[8.0.23, 8.0.23]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.CONSULTAS\\CARO.DATOS.CONSULTAS.csproj": {
+    "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.CONSULTAS\\CARO.DATOS.CONSULTAS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.CONSULTAS\\CARO.DATOS.CONSULTAS.csproj",
+        "projectUniqueName": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.CONSULTAS\\CARO.DATOS.CONSULTAS.csproj",
         "projectName": "CARO.DATOS.CONSULTAS",
-        "projectPath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.CONSULTAS\\CARO.DATOS.CONSULTAS.csproj",
+        "projectPath": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.CONSULTAS\\CARO.DATOS.CONSULTAS.csproj",
         "packagesPath": "C:\\Users\\LENOVO\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.CONSULTAS\\obj\\",
+        "outputPath": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.CONSULTAS\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -519,14 +579,14 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CORE\\CARO.CORE.csproj": {
-                "projectPath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CORE\\CARO.CORE.csproj"
+              "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CORE\\CARO.CORE.csproj": {
+                "projectPath": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CORE\\CARO.CORE.csproj"
               },
-              "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATABASE\\CARO.DATABASE.csproj": {
-                "projectPath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATABASE\\CARO.DATABASE.csproj"
+              "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATABASE\\CARO.DATABASE.csproj": {
+                "projectPath": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATABASE\\CARO.DATABASE.csproj"
               },
-              "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj": {
-                "projectPath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj"
+              "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj": {
+                "projectPath": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj"
               }
             }
           }
@@ -541,7 +601,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -557,23 +617,37 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.23, 8.0.23]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.23, 8.0.23]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[8.0.23, 8.0.23]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.EVENTOS\\CARO.DATOS.EVENTOS.csproj": {
+    "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.EVENTOS\\CARO.DATOS.EVENTOS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.EVENTOS\\CARO.DATOS.EVENTOS.csproj",
+        "projectUniqueName": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.EVENTOS\\CARO.DATOS.EVENTOS.csproj",
         "projectName": "CARO.DATOS.EVENTOS",
-        "projectPath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.EVENTOS\\CARO.DATOS.EVENTOS.csproj",
+        "projectPath": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.EVENTOS\\CARO.DATOS.EVENTOS.csproj",
         "packagesPath": "C:\\Users\\LENOVO\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.EVENTOS\\obj\\",
+        "outputPath": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.EVENTOS\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -594,14 +668,14 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CORE\\CARO.CORE.csproj": {
-                "projectPath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CORE\\CARO.CORE.csproj"
+              "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CORE\\CARO.CORE.csproj": {
+                "projectPath": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CORE\\CARO.CORE.csproj"
               },
-              "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATABASE\\CARO.DATABASE.csproj": {
-                "projectPath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATABASE\\CARO.DATABASE.csproj"
+              "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATABASE\\CARO.DATABASE.csproj": {
+                "projectPath": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATABASE\\CARO.DATABASE.csproj"
               },
-              "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj": {
-                "projectPath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj"
+              "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj": {
+                "projectPath": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj"
               }
             }
           }
@@ -616,7 +690,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -642,23 +716,37 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.23, 8.0.23]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.23, 8.0.23]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[8.0.23, 8.0.23]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj": {
+    "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj",
+        "projectUniqueName": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj",
         "projectName": "CARO.DATOS.MODELO",
-        "projectPath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj",
+        "projectPath": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.MODELO\\CARO.DATOS.MODELO.csproj",
         "packagesPath": "C:\\Users\\LENOVO\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.MODELO\\obj\\",
+        "outputPath": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.DATOS.MODELO\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -679,11 +767,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CORE\\CARO.CORE.csproj": {
-                "projectPath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CORE\\CARO.CORE.csproj"
+              "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CORE\\CARO.CORE.csproj": {
+                "projectPath": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.CORE\\CARO.CORE.csproj"
               },
-              "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.ENTIDAD\\CARO.ENTIDAD.csproj": {
-                "projectPath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.ENTIDAD\\CARO.ENTIDAD.csproj"
+              "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.ENTIDAD\\CARO.ENTIDAD.csproj": {
+                "projectPath": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.ENTIDAD\\CARO.ENTIDAD.csproj"
               }
             }
           }
@@ -698,7 +786,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -714,23 +802,37 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.23, 8.0.23]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.23, 8.0.23]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[8.0.23, 8.0.23]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.ENTIDAD\\CARO.ENTIDAD.csproj": {
+    "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.ENTIDAD\\CARO.ENTIDAD.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.ENTIDAD\\CARO.ENTIDAD.csproj",
+        "projectUniqueName": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.ENTIDAD\\CARO.ENTIDAD.csproj",
         "projectName": "CARO.ENTIDAD",
-        "projectPath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.ENTIDAD\\CARO.ENTIDAD.csproj",
+        "projectPath": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.ENTIDAD\\CARO.ENTIDAD.csproj",
         "packagesPath": "C:\\Users\\LENOVO\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\LENOVO\\Documents\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.ENTIDAD\\obj\\",
+        "outputPath": "C:\\Proyectos\\CARO_ASOCIADOS\\ERP-SISTEMA\\ERP-SOFTWARE\\CARO.ENTIDAD\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -763,7 +865,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.300"
+        "SdkAnalysisLevel": "10.0.100"
       },
       "frameworks": {
         "net8.0": {
@@ -779,12 +881,26 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[8.0.23, 8.0.23]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Ref",
+              "version": "[8.0.23, 8.0.23]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Ref",
+              "version": "[8.0.23, 8.0.23]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.305/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

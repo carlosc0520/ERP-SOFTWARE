@@ -1,0 +1,836 @@
+/* =====================================================
+   CONTACTOS - DISEÑADOR DE CORREOS (ERP CUSTOM)
+   ===================================================== */
+
+/* =====================================================
+   MULTIPLE SELECT - ESTILOS PERSONALIZADOS
+   ===================================================== */
+
+/* Contenedor principal del multiple-select */
+#formPlantilla1 .ms-parent {
+    width: 100% !important;
+    border: none !important;
+}
+
+/* Botón principal del select */
+#formPlantilla1 .ms-choice {
+    border: 2px solid #e9ecef !important;
+    border-radius: 8px !important;
+    padding: 10px 14px !important;
+    background: #ffffff !important;
+    height: auto !important;
+    min-height: 42px !important;
+    display: flex !important;
+    align-items: center !important;
+    transition: all 0.3s ease !important;
+    box-shadow: none !important;
+}
+
+#formPlantilla1 .ms-choice:hover {
+    border-color: #ff8c42 !important;
+    background-color: #fff !important;
+}
+
+#formPlantilla1 .ms-choice.active,
+#formPlantilla1 .ms-choice:focus {
+    border-color: #FF6A16 !important;
+    box-shadow: 0 0 0 0.2rem rgba(255, 106, 22, 0.15) !important;
+    background-color: #fff !important;
+}
+
+/* Texto del placeholder */
+#formPlantilla1 .ms-choice > span {
+    color: #495057 !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    gap: 4px !important;
+}
+
+#formPlantilla1 .ms-choice > span.placeholder {
+    color: #6c757d !important;
+    font-style: italic !important;
+}
+
+/* Flecha del select */
+#formPlantilla1 .ms-choice > div {
+    position: absolute !important;
+    right: 12px !important;
+    top: 50% !important;
+    transform: translateY(-50%) !important;
+    border: none !important;
+}
+
+#formPlantilla1 .ms-choice > div::after {
+    content: '\e92e' !important;
+    font-family: 'boxicons' !important;
+    font-size: 20px !important;
+    color: #6c757d !important;
+    transition: all 0.3s ease !important;
+}
+
+#formPlantilla1 .ms-choice.active > div::after {
+    transform: rotate(180deg) !important;
+    color: #FF6A16 !important;
+}
+
+/* Dropdown del multiple-select */
+#formPlantilla1 .ms-drop {
+    border: 2px solid #dee2e6 !important;
+    border-radius: 8px !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+    margin-top: 4px !important;
+    background-color: #ffffff !important;
+    z-index: 1050 !important;
+    overflow: hidden !important;
+}
+
+/* Barra de búsqueda en el dropdown */
+#formPlantilla1 .ms-search {
+    padding: 12px !important;
+    border-bottom: 2px solid #e9ecef !important;
+    background-color: #f8f9fa !important;
+}
+
+#formPlantilla1 .ms-search input {
+    border: 2px solid #dee2e6 !important;
+    border-radius: 6px !important;
+    padding: 8px 12px 8px 36px !important;
+    font-size: 14px !important;
+    width: 100% !important;
+    transition: all 0.3s ease !important;
+    background-color: #ffffff !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%236c757d' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: 10px center !important;
+    background-size: 16px !important;
+}
+
+#formPlantilla1 .ms-search input::placeholder {
+    color: #9ca3af !important;
+}
+
+#formPlantilla1 .ms-search input:focus {
+    border-color: #FF6A16 !important;
+    box-shadow: 0 0 0 0.15rem rgba(255, 106, 22, 0.15) !important;
+    outline: none !important;
+    background-color: #ffffff !important;
+}
+
+/* Botones de seleccionar/deseleccionar todos */
+#formPlantilla1 .ms-select-all {
+    padding: 10px 12px !important;
+    border-bottom: 2px solid #e9ecef !important;
+    background-color: #ffffff !important;
+}
+
+#formPlantilla1 .ms-select-all label {
+    color: #2c3e50 !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    margin: 0 !important;
+    transition: color 0.2s ease !important;
+}
+
+#formPlantilla1 .ms-select-all label:hover {
+    color: #FF6A16 !important;
+}
+
+#formPlantilla1 .ms-select-all input[type="checkbox"] {
+    width: 18px !important;
+    height: 18px !important;
+    cursor: pointer !important;
+    accent-color: #FF6A16 !important;
+}
+
+/* Lista de opciones */
+#formPlantilla1 .ms-drop ul {
+    max-height: 280px !important;
+    overflow-y: auto !important;
+    padding: 8px !important;
+    margin: 0 !important;
+    background-color: #ffffff !important;
+}
+
+#formPlantilla1 .ms-drop ul::-webkit-scrollbar {
+    width: 8px !important;
+}
+
+#formPlantilla1 .ms-drop ul::-webkit-scrollbar-track {
+    background: #f8f9fa !important;
+    border-radius: 10px !important;
+    margin: 4px !important;
+}
+
+#formPlantilla1 .ms-drop ul::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #FF6A16 0%, #ff8c42 100%) !important;
+    border-radius: 10px !important;
+    border: 2px solid #f8f9fa !important;
+}
+
+#formPlantilla1 .ms-drop ul::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #e65100 0%, #f57c00 100%) !important;
+}
+
+/* Grupos de opciones (optgroup) */
+#formPlantilla1 .ms-drop .group {
+    padding: 10px 12px 6px 12px !important;
+    font-weight: 700 !important;
+    font-size: 12px !important;
+    color: #2c3e50 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.8px !important;
+    background-color: #f8f9fa !important;
+    border-left: 4px solid #FF6A16 !important;
+    border-radius: 4px !important;
+    margin: 8px 0 4px 0 !important;
+}
+
+#formPlantilla1 .ms-drop .group:first-child {
+    margin-top: 0 !important;
+}
+
+/* Items individuales */
+#formPlantilla1 .ms-drop li {
+    padding: 0 !important;
+    margin: 1px 0 !important;
+    list-style: none !important;
+}
+
+#formPlantilla1 .ms-drop li label {
+    display: flex !important;
+    align-items: center !important;
+    padding: 10px 12px 10px 28px !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    border-radius: 6px !important;
+    color: #495057 !important;
+    font-size: 14px !important;
+    gap: 10px !important;
+    margin: 0 !important;
+    background-color: transparent !important;
+    position: relative !important;
+}
+
+#formPlantilla1 .ms-drop li label:hover {
+    background-color: #f8f9fa !important;
+    color: #2c3e50 !important;
+    padding-left: 32px !important;
+}
+
+#formPlantilla1 .ms-drop li label:hover::before {
+    height: 100% !important;
+}
+
+#formPlantilla1 .ms-drop li.selected label {
+    font-weight: 600 !important;
+    padding-left: 32px !important;
+}
+
+#formPlantilla1 .ms-drop li.selected label::before {
+    height: 100% !important;
+}
+   
+
+#formPlantilla1 .ms-drop li.hide {
+    display: none !important;
+}
+
+/* Checkboxes */
+#formPlantilla1 .ms-drop input[type="checkbox"] {
+    width: 18px !important;
+    height: 18px !important;
+    cursor: pointer !important;
+    accent-color: #FF6A16 !important;
+    border-radius: 4px !important;
+}
+
+/* Tags de items seleccionados */
+#formPlantilla1 .ms-choice > span [data-val] {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    background: linear-gradient(135deg, #FF6A16 0%, #ff8c42 100%) !important;
+    color: #ffffff !important;
+    padding: 4px 10px !important;
+    border-radius: 16px !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    margin: 2px !important;
+    transition: all 0.2s ease !important;
+    box-shadow: 0 2px 4px rgba(255, 106, 22, 0.2) !important;
+}
+
+#formPlantilla1 .ms-choice > span [data-val]:hover {
+    background: linear-gradient(135deg, #e65100 0%, #f57c00 100%) !important;
+    transform: scale(1.05) !important;
+    box-shadow: 0 3px 6px rgba(255, 106, 22, 0.3) !important;
+}
+
+#formPlantilla1 .ms-choice > span [data-val] .ms-close {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 16px !important;
+    height: 16px !important;
+    background-color: rgba(255, 255, 255, 0.3) !important;
+    border-radius: 50% !important;
+    font-size: 12px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+}
+
+#formPlantilla1 .ms-choice > span [data-val] .ms-close:hover {
+    background-color: rgba(255, 255, 255, 0.5) !important;
+    transform: rotate(90deg) !important;
+}
+
+/* Estado disabled */
+#formPlantilla1 .ms-parent.disabled .ms-choice {
+    background-color: #e9ecef !important;
+    cursor: not-allowed !important;
+    opacity: 0.7 !important;
+}
+
+/* Animaciones */
+@keyframes fadeInDropdown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#formPlantilla1 .ms-drop {
+    animation: fadeInDropdown 0.2s ease !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    #formPlantilla1 .ms-choice {
+        padding: 8px 12px !important;
+        min-height: 38px !important;
+    }
+    
+    #formPlantilla1 .ms-drop {
+        max-width: 100% !important;
+    }
+    
+    #formPlantilla1 .ms-choice > span [data-val] {
+        font-size: 12px !important;
+        padding: 3px 8px !important;
+    }
+}
+
+/* =====================================================
+   FIN MULTIPLE SELECT
+   ===================================================== */
+
+/* Contenedor principal del diseñador */
+#formPlantilla1 {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.3s ease;
+}
+
+#formPlantilla1:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+/* Etiquetas de formulario */
+#formPlantilla1 .form-label {
+    color: #2c3e50;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+#formPlantilla1 .form-label .text-danger {
+    color: #FF6A16;
+}
+
+/* Inputs y selects */
+#formPlantilla1 .form-control,
+#formPlantilla1 .form-select {
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    background-color: #ffffff;
+}
+
+#formPlantilla1 .form-control:focus,
+#formPlantilla1 .form-select:focus {
+    border-color: #FF6A16;
+    box-shadow: 0 0 0 0.2rem rgba(255, 106, 22, 0.15);
+    background-color: #fff;
+}
+
+#formPlantilla1 .form-control:hover,
+#formPlantilla1 .form-select:hover {
+    border-color: #ff8c42;
+}
+
+/* Alert de información */
+.alert-info-preview {
+    background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+    border: 1px solid #ffcc80;
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 20px;
+}
+
+.alert-info-preview strong {
+    color: #e65100;
+    font-size: 15px;
+}
+
+.alert-info-preview ul {
+    margin: 8px 0 0 0;
+    padding-left: 20px;
+}
+
+.alert-info-preview li {
+    color: #5d4037;
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+.alert-info-preview code {
+    background-color: #fff;
+    border: 1px solid #ffb74d;
+    color: #d84315;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+}
+
+/* Quill Editor Container */
+.quill-container {
+    border-radius: 10px !important;
+    overflow: hidden !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.3s ease;
+}
+
+.quill-container:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.ql-toolbar.ql-snow {
+    background-color: #f8f9fa;
+    border: 2px solid #e9ecef !important;
+    border-bottom: 1px solid #dee2e6 !important;
+}
+
+.ql-container.ql-snow {
+    border: 2px solid #e9ecef !important;
+    border-top: none !important;
+}
+
+/* Checkbox personalizado */
+#formPlantilla1 .form-check-input {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #dee2e6;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#formPlantilla1 .form-check-input:checked {
+    background-color: #FF6A16;
+    border-color: #FF6A16;
+}
+
+#formPlantilla1 .form-check-label {
+    margin-left: 8px;
+    cursor: pointer;
+    color: #495057;
+}
+
+/* Botones principales */
+#formPlantilla1 .btn-primary {
+    background: linear-gradient(135deg, #FF6A16 0%, #ff8c42 100%) !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 10px 20px !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 2px 8px rgba(255, 106, 22, 0.3) !important;
+    color: #ffffff !important;
+}
+
+#formPlantilla1 .btn-primary:hover {
+    background: linear-gradient(135deg, #e65100 0%, #f57c00 100%) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(255, 106, 22, 0.4) !important;
+    color: #ffffff !important;
+    border-color: transparent !important;
+}
+
+#formPlantilla1 .btn-primary:focus,
+#formPlantilla1 .btn-primary:active {
+    background: linear-gradient(135deg, #d84315 0%, #e65100 100%) !important;
+    color: #ffffff !important;
+    border-color: transparent !important;
+    box-shadow: 0 0 0 0.2rem rgba(255, 106, 22, 0.25) !important;
+}
+
+#formPlantilla1 .btn-outline-danger {
+    border: 2px solid #dc3545 !important;
+    color: #dc3545 !important;
+    background-color: transparent !important;
+    border-radius: 8px !important;
+    padding: 10px 20px !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    transition: all 0.3s ease !important;
+}
+
+#formPlantilla1 .btn-outline-danger:hover {
+    background-color: #dc3545 !important;
+    color: #fff !important;
+    border-color: #dc3545 !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.4) !important;
+}
+
+#formPlantilla1 .btn-outline-danger:focus,
+#formPlantilla1 .btn-outline-danger:active {
+    background-color: #c82333 !important;
+    color: #fff !important;
+    border-color: #c82333 !important;
+    box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25) !important;
+}
+
+#formPlantilla1 .btn-outline-secondary {
+    border: 2px solid #6c757d;
+    color: #6c757d;
+    border-radius: 8px;
+    padding: 10px 16px;
+    transition: all 0.3s ease;
+}
+
+#formPlantilla1 .btn-outline-secondary:hover {
+    background-color: #6c757d;
+    color: #fff;
+    transform: scale(1.05);
+}
+
+#formPlantilla1 .btn-outline-primary {
+    border: 2px solid #FF6A16;
+    color: #FF6A16;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+#formPlantilla1 .btn-outline-primary:hover {
+    background-color: #FF6A16;
+    color: #fff;
+    border-color: #FF6A16;
+    transform: translateY(-1px);
+    box-shadow: 0 3px 10px rgba(255, 106, 22, 0.3);
+}
+
+/* Contenedor de items dinámicos */
+#itemsContainer {
+    margin-top: 16px;
+}
+
+.itemElemento {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 16px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.itemElemento:hover {
+    border-color: #FF6A16;
+    box-shadow: 0 4px 12px rgba(255, 106, 22, 0.15);
+    transform: translateY(-2px);
+}
+
+.itemElemento .btn-sm {
+    padding: 6px 12px;
+    font-size: 13px;
+    border-radius: 6px;
+}
+
+.itemElemento .btnToggleCollapse {
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    color: #495057;
+    transition: all 0.2s ease;
+}
+
+.itemElemento .btnToggleCollapse:hover {
+    background-color: #FF6A16;
+    border-color: #FF6A16;
+    color: #fff;
+}
+
+.itemElemento .btnEliminarItem {
+    background-color: #dc3545;
+    border: none;
+    color: #fff;
+    transition: all 0.2s ease;
+}
+
+.itemElemento .btnEliminarItem:hover {
+    background-color: #c82333;
+    transform: scale(1.08);
+    box-shadow: 0 2px 8px rgba(220, 53, 69, 0.4);
+}
+
+.itemElemento .fw-semibold {
+    color: #2c3e50;
+    font-size: 14px;
+}
+
+/* Imagen item en fila */
+.imagen-item {
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 12px;
+    transition: all 0.3s ease;
+}
+
+.imagen-item:hover {
+    border-color: #ff8c42;
+    box-shadow: 0 2px 8px rgba(255, 140, 66, 0.15);
+}
+
+.imagen-item .btnEliminarImagenFila {
+    background-color: #dc3545;
+    border: none;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.imagen-item .btnEliminarImagenFila:hover {
+    background-color: #c82333;
+    transform: scale(1.1);
+}
+
+.imagen-item .form-control-sm {
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 13px;
+}
+
+.imagen-item .form-control-sm:focus {
+    border-color: #FF6A16;
+    box-shadow: 0 0 0 0.15rem rgba(255, 106, 22, 0.15);
+}
+
+/* Botón agregar imagen en fila */
+.btnAgregarImagenFila {
+    background-color: #fff;
+    border: 2px dashed #FF6A16;
+    color: #FF6A16;
+    border-radius: 8px;
+    padding: 10px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btnAgregarImagenFila:hover {
+    background-color: #FF6A16;
+    color: #fff;
+    border-style: solid;
+    transform: scale(1.02);
+}
+
+/* Campo de fecha programada */
+#programarEnvioContainer {
+    background-color: #f8f9fa;
+    border: 2px dashed #dee2e6;
+    border-radius: 10px;
+    padding: 16px;
+    transition: all 0.3s ease;
+}
+
+#programarEnvioContainer:hover {
+    border-color: #FF6A16;
+    background-color: #fff5f0;
+}
+
+#programarEnvioContainer .form-label {
+    color: #495057;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+#programarEnvioContainer .form-text {
+    color: #6c757d;
+    font-size: 12px;
+    font-style: italic;
+}
+
+#fechaProgramada {
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    padding: 10px 14px;
+}
+
+#fechaProgramada:focus {
+    border-color: #FF6A16;
+    box-shadow: 0 0 0 0.2rem rgba(255, 106, 22, 0.15);
+}
+
+/* Preview Container */
+#previewContainer {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 24px;
+    min-height: 400px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+}
+
+#previewContainer:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+#previewContainer .text-muted {
+    color: #6c757d;
+    font-size: 14px;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+/* Botón de recargar contactos */
+#btnReloadContactos {
+    padding: 10px 16px;
+    border: 2px solid #6c757d;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+#btnReloadContactos:hover {
+    background-color: #FF6A16;
+    border-color: #FF6A16;
+    color: #fff;
+    transform: rotate(180deg);
+}
+
+/* Animación de entrada para items */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.itemElemento {
+    animation: fadeInUp 0.3s ease;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    #formPlantilla1 {
+        padding: 16px;
+    }
+    
+    #formPlantilla1 .btn-primary,
+    #formPlantilla1 .btn-outline-danger,
+    #formPlantilla1 .btn-outline-primary {
+        width: 100%;
+        margin-bottom: 8px;
+    }
+    
+    .itemElemento {
+        padding: 12px;
+    }
+    
+    #previewContainer {
+        margin-top: 20px;
+    }
+}
+
+/* Mejoras adicionales para el diseñador */
+.d-flex.gap-2 {
+    gap: 12px;
+}
+
+.imagenes-fila-container {
+    max-height: 500px;
+    overflow-y: auto;
+    padding-right: 8px;
+}
+
+.imagenes-fila-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.imagenes-fila-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.imagenes-fila-container::-webkit-scrollbar-thumb {
+    background: #FF6A16;
+    border-radius: 10px;
+}
+
+.imagenes-fila-container::-webkit-scrollbar-thumb:hover {
+    background: #e65100;
+}
+
+/* Título del diseñador */
+.container.py-4 h3 {
+    color: #2c3e50;
+    font-weight: 700;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 3px solid #FF6A16;
+    display: inline-block;
+}
+
+/* Iconos en botones */
+#formPlantilla1 .btn i {
+    margin-right: 6px;
+}
+
+#btnAddImagen:hover,
+#btnAddImagen:focus,
+#btnAddImagen:active {
+    color: #fff !important;
+    background-color: #FF6A16 !important;
+    border: 1px solid #FF6A16 !important;
+}
+
